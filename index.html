@@ -1,0 +1,426 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>روية - ابتكار التطبيقات الشخصية</title>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/crypto-js/4.1.1/crypto-js.min.js"></script>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        body {
+            background: linear-gradient(120deg, #1a1a2e, #16213e);
+            color: #fff;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        :root {
+            --primary-color: #00d4ff;
+            --secondary-color: #16213e;
+        }
+
+        .style-dark {
+            --primary-color: #ff4444;
+            --secondary-color: #0a0a0a;
+        }
+
+        .style-light {
+            --primary-color: #00cc00;
+            --secondary-color: #f0f0f0;
+            color: #000;
+        }
+
+        header {
+            background: rgba(0, 0, 0, 0.8);
+            padding: 20px;
+            position: fixed;
+            width: 100%;
+            top: 0;
+            z-index: 1000;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        header .logo {
+            font-size: 2em;
+            font-weight: bold;
+            color: var(--primary-color);
+            animation: glow 2s infinite;
+        }
+
+        @keyframes glow {
+            0% { text-shadow: 0 0 10px var(--primary-color); }
+            50% { text-shadow: 0 0 20px var(--primary-color); }
+            100% { text-shadow: 0 0 10px var(--primary-color); }
+        }
+
+        nav ul {
+            display: flex;
+            list-style: none;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #fff;
+            text-decoration: none;
+            padding: 10px;
+            transition: all 0.3s;
+        }
+
+        nav ul li a:hover {
+            color: var(--primary-color);
+            transform: scale(1.1);
+        }
+
+        .sidebar {
+            position: fixed;
+            right: 0;
+            top: 100px;
+            width: 60px;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding-top: 20px;
+            transition: width 0.3s;
+        }
+
+        .sidebar:hover {
+            width: 200px;
+        }
+
+        .sidebar a {
+            display: block;
+            color: #fff;
+            padding: 15px;
+            text-decoration: none;
+            transition: all 0.3s;
+        }
+
+        .sidebar a:hover {
+            background: var(--primary-color);
+            padding-right: 25px;
+        }
+
+        .hero {
+            height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            animation: fadeIn 2s;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; }
+            to { opacity: 1; }
+        }
+
+        .hero h1 {
+            font-size: 3em;
+            margin-bottom: 20px;
+        }
+
+        .social-icons {
+            position: fixed;
+            bottom: 20px;
+            right: 20px;
+            display: flex;
+            gap: 15px;
+        }
+
+        .social-icons a {
+            color: #fff;
+            font-size: 1.5em;
+            transition: all 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: var(--primary-color);
+            transform: rotate(360deg);
+        }
+
+        section {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section h2 {
+            text-align: center;
+            margin-bottom: 40px;
+            color: var(--primary-color);
+        }
+
+        form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            max-width: 500px;
+            margin: 0 auto;
+        }
+
+        input, textarea, select {
+            padding: 10px;
+            border: none;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.1);
+            color: #fff;
+        }
+
+        button {
+            padding: 10px;
+            background: var(--primary-color);
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: all 0.3s;
+        }
+
+        button:hover {
+            background: #00aaff;
+            transform: scale(1.05);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: var(--primary-color);
+            text-decoration: none;
+            cursor: pointer;
+        }
+
+        .admin-panel {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.95);
+            padding: 20px;
+            z-index: 2000;
+            overflow-y: auto;
+        }
+
+        .admin-panel.active {
+            display: block;
+        }
+
+        @media (max-width: 768px) {
+            header { flex-direction: column; padding: 10px; }
+            nav ul { flex-direction: column; text-align: center; }
+            .sidebar { display: none; }
+            .hero h1 { font-size: 2em; }
+        }
+    </style>
+</head>
+<body>
+    <header id="header">
+        <div class="logo">روية</div>
+        <nav>
+            <ul id="navLinks">
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#about">من نحن</a></li>
+                <li><a href="#faq">أسئلة وأجوبة</a></li>
+                <li><a href="#contact">راسلنا</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="sidebar">
+        <a href="#home">الرئيسية</a>
+        <a href="#about">من نحن</a>
+        <a href="#faq">الأسئلة</a>
+        <a href="#contact">تواصل</a>
+    </div>
+
+    <section id="home" class="hero">
+        <div>
+            <h1>روية - ابتكار تطبيقاتك الشخصية</h1>
+            <p>رؤيتنا: تحويل أفكارك إلى واقع رقمي بإبداع لا حدود له.</p>
+        </div>
+    </section>
+
+    <section id="about">
+        <h2>من نحن</h2>
+        <p>نحن فريق "روية"، متخصصون في تصميم وتطوير تطبيقات مبتكرة.</p>
+    </section>
+
+    <section id="faq">
+        <h2>أسئلة وأجوبة</h2>
+        <div>
+            <p><strong>ما الذي يميز روية؟</strong> إبداعنا وتخصيصنا لكل مشروع.</p>
+        </div>
+    </section>
+
+    <section id="contact">
+        <h2>راسلنا</h2>
+        <form id="contactForm">
+            <input type="text" placeholder="الاسم" required>
+            <input type="email" placeholder="البريد الإلكتروني" required>
+            <textarea placeholder="رسالتك" rows="5" required></textarea>
+            <button type="submit">إرسال</button>
+        </form>
+    </section>
+
+    <div class="social-icons" id="socialIcons">
+        <a href="#" id="twitterLink">X</a>
+        <a href="#" id="instagramLink">I</a>
+        <a href="#" id="facebookLink">F</a>
+    </div>
+
+    <footer id="footer">
+        <p id="footerText">© 2025 روية - جميع الحقوق محفوظة | <a id="cpLink">cp</a></p>
+    </footer>
+
+    <div class="admin-panel" id="adminPanel">
+        <h2>لوحة التحكم</h2>
+        <form id="loginForm">
+            <input type="text" id="username" placeholder="اسم المستخدم" required>
+            <input type="password" id="password" placeholder="كلمة المرور" required>
+            <button type="submit">تسجيل الدخول</button>
+        </form>
+        <div id="adminControls" style="display: none;">
+            <h3>تعديل الهيدر</h3>
+            <input type="text" id="headerText" placeholder="نص الهيدر">
+            <h3>تعديل الفوتر</h3>
+            <input type="text" id="footerTextInput" placeholder="نص الفوتر">
+            <h3>روابط التواصل الاجتماعي</h3>
+            <input type="text" id="twitter" placeholder="رابط تويتر">
+            <input type="text" id="instagram" placeholder="رابط إنستغرام">
+            <input type="text" id="facebook" placeholder="رابط فيسبوك">
+            <h3>إضافة صفحة جديدة</h3>
+            <input type="text" id="pageTitle" placeholder="عنوان الصفحة">
+            <textarea id="pageContent" placeholder="محتوى الصفحة"></textarea>
+            <button onclick="addPage()">إضافة الصفحة</button>
+            <h3>تغيير الاستايل</h3>
+            <select id="styleSelect" onchange="changeStyle()">
+                <option value="default">الافتراضي</option>
+                <option value="dark">داكن</option>
+                <option value="light">فاتح</option>
+            </select>
+            <button onclick="logout()">تسجيل الخروج</button>
+        </div>
+    </div>
+
+    <script>
+        const adminUsername = "admin";
+        const adminPassword = "123mnS123$$$";
+        const secretKey = "MySecretKey123"; // مفتاح تشفير بسيط
+        const adminPanel = document.getElementById('adminPanel');
+        const loginForm = document.getElementById('loginForm');
+        const adminControls = document.getElementById('adminControls');
+
+        // فتح لوحة التحكم عند النقر على "cp"
+        document.getElementById('cpLink').addEventListener('click', function(e) {
+            e.preventDefault();
+            adminPanel.className = 'admin-panel active';
+        });
+
+        // تسجيل الدخول مع تشفير
+        loginForm.addEventListener('submit', function(e) {
+            e.preventDefault();
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+
+            // تشفير كلمة المرور المدخلة
+            const encryptedPassword = CryptoJS.AES.encrypt(password, secretKey).toString();
+            const decryptedPassword = CryptoJS.AES.decrypt(encryptedPassword, secretKey).toString(CryptoJS.enc.Utf8);
+
+            if (username === adminUsername && decryptedPassword === adminPassword) {
+                loginForm.style.display = 'none';
+                adminControls.style.display = 'block';
+                loadSettings();
+            } else {
+                alert('اسم المستخدم أو كلمة المرور غير صحيحة!');
+            }
+        });
+
+        // تحميل الإعدادات
+        function loadSettings() {
+            const settings = JSON.parse(localStorage.getItem('siteSettings')) || {};
+            document.getElementById('headerText').value = settings.headerText || 'روية';
+            document.getElementById('footerTextInput').value = settings.footerText || '© 2025 روية - جميع الحقوق محفوظة';
+            document.getElementById('twitter').value = settings.twitter || '#';
+            document.getElementById('instagram').value = settings.instagram || '#';
+            document.getElementById('facebook').value = settings.facebook || '#';
+            document.getElementById('styleSelect').value = settings.style || 'default';
+            applySettings(settings);
+        }
+
+        // تطبيق الإعدادات
+        function applySettings(settings) {
+            document.querySelector('.logo').textContent = settings.headerText || 'روية';
+            document.getElementById('footerText').innerHTML = `${settings.footerText || '© 2025 روية - جميع الحقوق محفوظة'} | <a id="cpLink">cp</a>`;
+            document.getElementById('twitterLink').href = settings.twitter || '#';
+            document.getElementById('instagramLink').href = settings.instagram || '#';
+            document.getElementById('facebookLink').href = settings.facebook || '#';
+            document.body.className = settings.style || '';
+            document.getElementById('cpLink').addEventListener('click', function(e) {
+                e.preventDefault();
+                adminPanel.className = 'admin-panel active';
+            });
+        }
+
+        // حفظ الإعدادات
+        adminControls.addEventListener('change', saveSettings);
+        function saveSettings() {
+            const settings = {
+                headerText: document.getElementById('headerText').value,
+                footerText: document.getElementById('footerTextInput').value,
+                twitter: document.getElementById('twitter').value,
+                instagram: document.getElementById('instagram').value,
+                facebook: document.getElementById('facebook').value,
+                style: document.getElementById('styleSelect').value
+            };
+            localStorage.setItem('siteSettings', JSON.stringify(settings));
+            applySettings(settings);
+        }
+
+        // إضافة صفحة جديدة
+        function addPage() {
+            const title = document.getElementById('pageTitle').value;
+            const content = document.getElementById('pageContent').value;
+            if (title && content) {
+                const newSection = document.createElement('section');
+                newSection.id = title.toLowerCase().replace(/\s/g, '-');
+                newSection.innerHTML = `<h2>${title}</h2><p>${content}</p>`;
+                document.body.insertBefore(newSection, document.getElementById('footer'));
+                const navLink = document.createElement('li');
+                navLink.innerHTML = `<a href="#${newSection.id}">${title}</a>`;
+                document.getElementById('navLinks').appendChild(navLink);
+                document.getElementById('pageTitle').value = '';
+                document.getElementById('pageContent').value = '';
+            }
+        }
+
+        // تغيير الاستايل
+        function changeStyle() {
+            saveSettings();
+        }
+
+        // تسجيل الخروج
+        function logout() {
+            adminPanel.className = 'admin-panel';
+            loginForm.style.display = 'block';
+            adminControls.style.display = 'none';
+        }
+
+        // تحميل الإعدادات عند تحميل الصفحة
+        loadSettings();
+    </script>
+</body>
+</html>
