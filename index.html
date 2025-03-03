@@ -3,8 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روية - مستقبل التطبيقات المبتكرة</title>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r134/three.min.js"></script>
+    <title>روية - ابتكار التطبيقات الذكية</title>
     <style>
         * {
             margin: 0;
@@ -14,354 +13,235 @@
         }
 
         body {
-            background: #0d0d2b;
-            color: #fff;
-            overflow: hidden;
-            position: relative;
+            background-color: #FFFFFF;
+            color: #1E3A8A;
+            line-height: 1.6;
         }
 
-        /* خلفية WebGL */
-        #webgl-background {
+        /* شريط التنقل */
+        nav {
             position: fixed;
             top: 0;
-            left: 0;
             width: 100%;
-            height: 100%;
-            z-index: -1;
+            background-color: #1E3A8A;
+            padding: 15px 20px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            z-index: 1000;
+        }
+
+        nav .logo {
+            color: #FFFFFF;
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+        }
+
+        nav ul li {
+            margin-left: 20px;
+        }
+
+        nav ul li a {
+            color: #FFFFFF;
+            text-decoration: none;
+            font-size: 16px;
+        }
+
+        nav ul li a:hover {
+            color: #F97316;
         }
 
         /* الهيدر */
         header {
-            background: rgba(10, 10, 20, 0.85);
-            backdrop-filter: blur(10px);
-            padding: 20px 50px;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.6);
-        }
-
-        .logo-container {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-        }
-
-        .logo-img {
-            width: 60px;
-            height: 60px;
-            background: url('https://via.placeholder.com/60?text=روية') no-repeat center;
-            background-size: cover;
-            border-radius: 50%;
-            animation: pulseLogo 2s infinite;
-        }
-
-        @keyframes pulseLogo {
-            0% { box-shadow: 0 0 10px #00eaff; }
-            50% { box-shadow: 0 0 20px #00eaff, 0 0 30px #ff007a; }
-            100% { box-shadow: 0 0 10px #00eaff; }
-        }
-
-        header .logo-text {
-            font-size: 2.5em;
-            font-weight: 900;
-            color: #00eaff;
-            text-transform: uppercase;
-            letter-spacing: 3px;
-            animation: neonGlow 1.5s infinite alternate;
-        }
-
-        @keyframes neonGlow {
-            0% { text-shadow: 0 0 10px #00eaff, 0 0 20px #00eaff; }
-            100% { text-shadow: 0 0 20px #00eaff, 0 0 40px #ff007a; }
-        }
-
-        nav ul {
-            display: flex;
-            list-style: none;
-        }
-
-        nav ul li a {
-            color: #fff;
-            text-decoration: none;
-            padding: 15px 25px;
-            font-size: 1.2em;
-            font-weight: 600;
-            transition: all 0.4s ease;
-            position: relative;
-            border-radius: 10px;
-        }
-
-        nav ul li a:hover {
-            color: #ff007a;
-            background: rgba(255, 255, 255, 0.1);
-            transform: scale(1.05);
-        }
-
-        /* حاوية العرض */
-        .preview-container {
-            position: relative;
             height: 100vh;
+            background: url('https://via.placeholder.com/1920x1080') no-repeat center/cover;
             display: flex;
-            align-items: center;
             justify-content: center;
-            overflow: hidden;
-        }
-
-        .content-wrapper {
+            align-items: center;
             text-align: center;
-            z-index: 10;
-            padding: 40px;
-            background: rgba(10, 10, 20, 0.9);
-            border-radius: 20px;
-            backdrop-filter: blur(15px);
-            box-shadow: 0 10px 40px rgba(0, 0, 0, 0.5);
-            max-width: 800px;
-            transform: scale(0.9);
-            transition: transform 0.5s ease;
+            color: #FFFFFF;
+            padding: 20px;
         }
 
-        .content-wrapper.active {
-            transform: scale(1);
-        }
-
-        .content-wrapper h1 {
-            font-size: 3.5em;
-            color: #00eaff;
+        header h1 {
+            font-size: 48px;
             margin-bottom: 20px;
-            text-shadow: 0 0 20px #00eaff;
         }
 
-        .content-wrapper p {
-            font-size: 1.4em;
-            color: #ddd;
+        header p {
+            font-size: 20px;
             margin-bottom: 30px;
         }
 
-        .content-buttons {
-            display: flex;
-            gap: 20px;
-            justify-content: center;
+        header .btn {
+            background-color: #F97316;
+            color: #FFFFFF;
+            padding: 10px 20px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
         }
 
-        .content-button {
-            padding: 15px 30px;
-            background: #ff007a;
-            border: none;
-            border-radius: 10px;
-            color: #fff;
-            font-size: 1.2em;
-            font-weight: bold;
-            cursor: pointer;
-            transition: all 0.4s ease;
+        header .btn:hover {
+            background-color: #1E3A8A;
         }
 
-        .content-button:hover {
-            background: #00eaff;
-            transform: scale(1.1);
-            box-shadow: 0 0 20px #00eaff;
-        }
-
-        .content-button.secondary {
-            background: #ffd700;
-            color: #000;
-        }
-
-        .content-button.secondary:hover {
-            background: #ff007a;
-            color: #fff;
-        }
-
-        /* الصورة الجانبية */
-        .side-image {
-            position: absolute;
-            top: 50%;
-            right: 30px;
-            width: 400px;
-            height: 500px;
-            background-size: cover;
-            background-position: center;
-            border-radius: 20px;
-            box-shadow: 0 0 30px rgba(0, 0, 0, 0.6);
-            transform: translateY(-50%) rotateY(15deg);
-            opacity: 0;
-            transition: all 0.6s ease;
-            z-index: 5;
-        }
-
-        .side-image.active {
-            opacity: 1;
-            transform: translateY(-50%) rotateY(0deg);
-        }
-
-        /* الفوتر */
-        footer {
-            background: rgba(10, 10, 20, 0.9);
-            padding: 40px 20px;
+        /* الأقسام */
+        section {
+            padding: 60px 20px;
             text-align: center;
-            position: fixed;
-            bottom: 0;
+        }
+
+        section h2 {
+            font-size: 36px;
+            margin-bottom: 40px;
+            color: #1E3A8A;
+        }
+
+        /* نبذة عنا */
+        #about img {
             width: 100%;
-            z-index: 1000;
-            backdrop-filter: blur(10px);
+            max-width: 400px;
+            margin-bottom: 20px;
         }
 
-        footer p {
-            font-size: 1.2em;
-            color: #ddd;
+        /* التطبيقات */
+        #apps .app-container {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            flex-wrap: wrap;
         }
 
-        .footer-logo {
-            width: 100px;
-            height: 100px;
-            background: url('https://via.placeholder.com/100?text=روية') no-repeat center;
-            background-size: contain;
-            margin: 20px auto;
-            animation: rotateLogo 10s infinite linear;
+        #apps .app {
+            background-color: #F9FAFB;
+            padding: 20px;
+            border-radius: 10px;
+            width: 300px;
+            text-align: center;
         }
 
-        @keyframes rotateLogo {
-            0% { transform: rotate(0deg); }
-            100% { transform: rotate(360deg); }
+        #apps .app img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 5px;
         }
 
-        /* التصميم المتجاوب */
+        #apps .app h3 {
+            margin: 15px 0;
+            color: #1E3A8A;
+        }
+
+        #apps .app .btn {
+            background-color: #F97316;
+            color: #FFFFFF;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        #apps .app .btn:hover {
+            background-color: #1E3A8A;
+        }
+
+        /* التذييل */
+        footer {
+            background-color: #1E3A8A;
+            color: #FFFFFF;
+            padding: 20px;
+            text-align: center;
+        }
+
+        footer a {
+            color: #F97316;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+
+        footer a:hover {
+            text-decoration: underline;
+        }
+
+        /* التجاوب */
         @media (max-width: 768px) {
-            header { flex-direction: column; padding: 15px; }
-            nav ul { flex-direction: column; margin-top: 20px; }
-            nav ul li a { padding: 12px; }
-            .content-wrapper { padding: 20px; max-width: 90%; }
-            .side-image { width: 250px; height: 300px; right: 10px; }
-            .content-wrapper h1 { font-size: 2.5em; }
-            .content-wrapper p { font-size: 1.1em; }
+            header h1 {
+                font-size: 32px;
+            }
+
+            header p {
+                font-size: 16px;
+            }
+
+            nav ul {
+                display: none;
+            }
         }
     </style>
 </head>
 <body>
-    <div id="webgl-background"></div>
+    <!-- شريط التنقل -->
+    <nav>
+        <div class="logo">روية</div>
+        <ul>
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#about">من نحن</a></li>
+            <li><a href="#apps">التطبيقات</a></li>
+            <li><a href="#contact">اتصل بنا</a></li>
+        </ul>
+    </nav>
 
-    <header id="header">
-        <div class="logo-container">
-            <div class="logo-img"></div>
-            <div class="logo-text">روية</div>
+    <!-- الهيدر -->
+    <header id="home">
+        <div>
+            <h1>روية - ابتكار التطبيقات الذكية</h1>
+            <p>نحول أفكارك إلى تطبيقات متطورة تعمل على الآيفون والأندرويد بأعلى معايير الجودة والإبداع.</p>
+            <a href="#apps" class="btn">اكتشف تطبيقاتنا</a>
         </div>
-        <nav>
-            <ul id="navLinks">
-                <li><a href="#home" data-image="https://via.placeholder.com/400x500?text=تطبيقات">الرئيسية</a></li>
-                <li><a href="#about" data-image="https://via.placeholder.com/400x500?text=فريق">من نحن</a></li>
-                <li><a href="#services" data-image="https://via.placeholder.com/400x500?text=خدمات">خدماتنا</a></li>
-                <li><a href="#contact" data-image="https://via.placeholder.com/400x500?text=رسالة">راسلنا</a></li>
-            </ul>
-        </nav>
     </header>
 
-    <div class="preview-container">
-        <div class="content-wrapper" id="home">
-            <h1>روية - مستقبل التطبيقات</h1>
-            <p>نحول أفكارك إلى تطبيقات مبتكرة تجمع بين الجمال والأداء العالي باستخدام أحدث التقنيات.</p>
-            <div class="content-buttons">
-                <button class="content-button">اكتشف المزيد</button>
-                <button class="content-button secondary">تواصل معنا</button>
+    <!-- نبذة عنا -->
+    <section id="about">
+        <h2>من نحن</h2>
+        <img src="https://via.placeholder.com/400" alt="فريق روية">
+        <p>نحن شركة روية، متخصصون في تطوير تطبيقات مبتكرة تلبي احتياجاتك اليومية وتعزز تجربة المستخدم.</p>
+    </section>
+
+    <!-- التطبيقات المميزة -->
+    <section id="apps">
+        <h2>تطبيقاتنا</h2>
+        <div class="app-container">
+            <div class="app">
+                <img src="https://via.placeholder.com/300x200" alt="روية للإنتاجية">
+                <h3>روية للإنتاجية</h3>
+                <p>نظم وقتك وحقق أهدافك بسهولة.</p>
+                <a href="#" class="btn">تحميل الآن</a>
+            </div>
+            <div class="app">
+                <img src="https://via.placeholder.com/300x200" alt="روية للتواصل">
+                <h3>روية للتواصل</h3>
+                <p>ابقَ على اتصال بأمان وراحة.</p>
+                <a href="#" class="btn">تحميل الآن</a>
+            </div>
+            <div class="app">
+                <img src="https://via.placeholder.com/300x200" alt="روية للترفيه">
+                <h3>روية للترفيه</h3>
+                <p>استمتع بألعابنا ومحتوى ممتع.</p>
+                <a href="#" class="btn">تحميل الآن</a>
             </div>
         </div>
+    </section>
 
-        <div class="content-wrapper" id="about">
-            <h1>من نحن</h1>
-            <p>فريق روية يضم نخبة من المبدعين الذين يسعون لتقديم حلول رقمية ثورية تلبي احتياجات العصر.</p>
-            <div class="content-buttons">
-                <button class="content-button">تعرف على فريقنا</button>
-                <button class="content-button secondary">رؤيتنا</button>
-            </div>
-        </div>
-
-        <div class="content-wrapper" id="services">
-            <h1>خدماتنا</h1>
-            <p>نقدم تطوير تطبيقات، تصميم مواقع، وحلول ذكاء اصطناعي بأسلوب مبتكر وجودة لا تضاهى.</p>
-            <div class="content-buttons">
-                <button class="content-button">استعرض خدماتنا</button>
-                <button class="content-button secondary">اطلب عرضًا</button>
-            </div>
-        </div>
-
-        <div class="content-wrapper" id="contact">
-            <h1>راسلنا</h1>
-            <p>تواصل معنا الآن لتحويل فكرتك إلى واقع رقمي مذهل. نحن هنا لدعمك!</p>
-            <div class="content-buttons">
-                <button class="content-button">أرسل رسالة</button>
-                <button class="content-button secondary">اتصل بنا</button>
-            </div>
-        </div>
-
-        <div class="side-image" id="sideImage"></div>
-    </div>
-
-    <footer id="footer">
-        <p id="footerText">© 2025 روية - جميع الحقوق محفوظة</p>
-        <div class="footer-logo"></div>
+    <!-- التذييل -->
+    <footer id="contact">
+        <p>© 2025 شركة روية. جميع الحقوق محفوظة.</p>
+        <p><a href="#about">من نحن</a> | <a href="#apps">التطبيقات</a> | <a href="#contact">اتصل بنا</a></p>
+        <p>البريد: info@rawya.com | الهاتف: +966 123 456 789</p>
     </footer>
-
-    <script>
-        // WebGL خلفية ثلاثية الأبعاد
-        const scene = new THREE.Scene();
-        const camera = new THREE.PerspectiveCamera(75, window.innerWidth / window.innerHeight, 0.1, 1000);
-        const renderer = new THREE.WebGLRenderer({ alpha: true });
-        renderer.setSize(window.innerWidth, window.innerHeight);
-        document.getElementById('webgl-background').appendChild(renderer.domElement);
-
-        const geometry = new THREE.TorusKnotGeometry(10, 3, 100, 16);
-        const material = new THREE.MeshBasicMaterial({ color: 0x00eaff, wireframe: true });
-        const torusKnot = new THREE.Mesh(geometry, material);
-        scene.add(torusKnot);
-
-        camera.position.z = 30;
-
-        function animate() {
-            requestAnimationFrame(animate);
-            torusKnot.rotation.x += 0.01;
-            torusKnot.rotation.y += 0.01;
-            torusKnot.position.z = Math.sin(Date.now() * 0.001) * 5;
-            renderer.render(scene, camera);
-        }
-        animate();
-
-        window.addEventListener('resize', () => {
-            renderer.setSize(window.innerWidth, window.innerHeight);
-            camera.aspect = window.innerWidth / window.innerHeight;
-            camera.updateProjectionMatrix();
-        });
-
-        // إدارة الصفحات والصورة الجانبية
-        const sideImage = document.getElementById('sideImage');
-        let navLinks = document.querySelectorAll('nav ul li a');
-        const contentWrappers = document.querySelectorAll('.content-wrapper');
-
-        function showPage(id, imageUrl) {
-            contentWrappers.forEach(wrapper => {
-                wrapper.classList.remove('active');
-            });
-            const activeWrapper = document.getElementById(id);
-            if (activeWrapper) {
-                activeWrapper.classList.add('active');
-            }
-            sideImage.style.backgroundImage = `url(${imageUrl})`;
-            sideImage.classList.add('active');
-        }
-
-        navLinks.forEach(link => {
-            link.addEventListener('click', function(e) {
-                e.preventDefault();
-                const pageId = this.getAttribute('href').substring(1);
-                const imageUrl = this.getAttribute('data-image');
-                showPage(pageId, imageUrl);
-            });
-        });
-
-        // تحميل الصفحة الرئيسية افتراضيًا
-        showPage('home', navLinks[0].getAttribute('data-image'));
-    </script>
 </body>
 </html>
