@@ -154,19 +154,25 @@
             color: #feffff;
             text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
         }
-        .about, .services, .contact, .team, .testimonials {
+        .about, .services, .contact, .team, .testimonials, .hosting {
             background: rgba(255, 255, 255, 0.05);
         }
         .projects {
             background: rgba(23, 37, 42, 0.2);
         }
-        .project-gallery, .testimonials-grid, .services-grid {
+        .project-gallery, .testimonials-grid, .services-grid, .hosting-grid {
             display: flex;
             justify-content: center;
             gap: 30px;
             flex-wrap: wrap;
+            animation: slide 20s infinite linear;
         }
-        .project-card, .testimonial-card, .service-card {
+        @keyframes slide {
+            0% { transform: translateX(0); }
+            50% { transform: translateX(-100px); }
+            100% { transform: translateX(0); }
+        }
+        .project-card, .testimonial-card, .service-card, .hosting-card {
             background: rgba(255, 255, 255, 0.1);
             padding: 25px;
             width: 300px;
@@ -174,11 +180,11 @@
             box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
             transition: transform 0.3s, background 0.3s;
         }
-        .project-card:hover, .testimonial-card:hover, .service-card:hover {
+        .project-card:hover, .testimonial-card:hover, .service-card:hover, .hosting-card:hover {
             transform: scale(1.05);
             background: rgba(255, 255, 255, 0.2);
         }
-        .service-card i {
+        .service-card i, .hosting-card i {
             font-size: 2.5rem;
             color: #48c9b0;
             margin-bottom: 15px;
@@ -205,7 +211,7 @@
             max-width: 600px;
             margin: 30px auto;
         }
-        .contact-form input, .contact-form textarea {
+        .contact-form input, .contact-form textarea, .contact-form select {
             width: 100%;
             padding: 15px;
             margin: 15px 0;
@@ -254,7 +260,7 @@
             .hero h1 {
                 font-size: 2.5rem;
             }
-            .project-card, .team-member, .testimonial-card, .service-card {
+            .project-card, .team-member, .testimonial-card, .service-card, .hosting-card {
                 width: 100%;
                 max-width: 320px;
             }
@@ -283,6 +289,7 @@
         <a href="blog.html" data-ar="المدونة" data-en="Blog">المدونة</a>
         <a href="#team" data-ar="فريق العمل" data-en="Team">فريق العمل</a>
         <a href="#testimonials" data-ar="آراء العملاء" data-en="Testimonials">آراء العملاء</a>
+        <a href="#hosting" data-ar="الاستضافة" data-en="Hosting">الاستضافة</a>
         <a href="#contact" data-ar="تواصل معي" data-en="Contact Me">تواصل معي</a>
         <div class="language-toggle" onclick="toggleLanguage()">
             <i class="fas fa-globe"></i>
@@ -397,13 +404,61 @@
         </div>
     </div>
 
+    <!-- قسم الاستضافة -->
+    <div class="section hosting" id="hosting">
+        <h2 data-ar="الاستضافة" data-en="Hosting">الاستضافة</h2>
+        <h3 data-ar="استضافة مشتركة" data-en="Shared Hosting">استضافة مشتركة</h3>
+        <div class="hosting-grid">
+            <div class="hosting-card">
+                <i class="fas fa-server"></i>
+                <h3 data-ar="الخطة الأساسية" data-en="Basic Plan">الخطة الأساسية</h3>
+                <p data-ar="10 جيجا مساحة، 1 دومين" data-en="10GB Space, 1 Domain">10 جيجا مساحة، 1 دومين</p>
+            </div>
+            <div class="hosting-card">
+                <i class="fas fa-server"></i>
+                <h3 data-ar="الخطة المتوسطة" data-en="Standard Plan">الخطة المتوسطة</h3>
+                <p data-ar="50 جيجا مساحة، 3 دومينات" data-en="50GB Space, 3 Domains">50 جيجا مساحة، 3 دومينات</p>
+            </div>
+            <div class="hosting-card">
+                <i class="fas fa-server"></i>
+                <h3 data-ar="الخطة المتقدمة" data-en="Advanced Plan">الخطة المتقدمة</h3>
+                <p data-ar="100 جيجا مساحة، 5 دومينات" data-en="100GB Space, 5 Domains">100 جيجا مساحة، 5 دومينات</p>
+            </div>
+        </div>
+        <h3 data-ar="استضافة VPS" data-en="VPS Hosting">استضافة VPS</h3>
+        <div class="hosting-grid">
+            <div class="hosting-card">
+                <i class="fas fa-cloud"></i>
+                <h3 data-ar="VPS 1" data-en="VPS 1">VPS 1</h3>
+                <p data-ar="2 CPU، 4 جيجا رام" data-en="2 CPU, 4GB RAM">2 CPU، 4 جيجا رام</p>
+            </div>
+            <div class="hosting-card">
+                <i class="fas fa-cloud"></i>
+                <h3 data-ar="VPS 2" data-en="VPS 2">VPS 2</h3>
+                <p data-ar="4 CPU، 8 جيجا رام" data-en="4 CPU, 8GB RAM">4 CPU، 8 جيجا رام</p>
+            </div>
+            <div class="hosting-card">
+                <i class="fas fa-cloud"></i>
+                <h3 data-ar="VPS 3" data-en="VPS 3">VPS 3</h3>
+                <p data-ar="8 CPU، 16 جيجا رام" data-en="8 CPU, 16GB RAM">8 CPU، 16 جيجا رام</p>
+            </div>
+        </div>
+    </div>
+
     <!-- قسم التواصل -->
     <div class="section contact" id="contact">
         <h2 data-ar="تواصل معي" data-en="Contact Me">تواصل معي</h2>
-        <form class="contact-form">
-            <input type="text" placeholder="الاسم" data-en-placeholder="Name" required>
-            <input type="email" placeholder="البريد الإلكتروني" data-en-placeholder="Email" required>
-            <textarea placeholder="رسالتك" data-en-placeholder="Your Message" rows="5" required></textarea>
+        <form class="contact-form" action="send_email.php" method="POST">
+            <input type="text" name="name" placeholder="الاسم" data-en-placeholder="Name" required>
+            <input type="email" name="email" placeholder="البريد الإلكتروني" data-en-placeholder="Email" required>
+            <select name="request" required>
+                <option value="" disabled selected data-ar="اختر نوع الطلب" data-en="Select Request Type">اختر نوع الطلب</option>
+                <option value="service" data-ar="طلب خدمة" data-en="Service Request">طلب خدمة</option>
+                <option value="inquiry" data-ar="استفسار" data-en="Inquiry">استفسار</option>
+                <option value="suggestion" data-ar="اقتراح" data-en="Suggestion">اقتراح</option>
+                <option value="support" data-ar="طلب دعم" data-en="Support Request">طلب دعم</option>
+            </select>
+            <textarea name="message" placeholder="رسالتك" data-en-placeholder="Your Message" rows="5" required></textarea>
             <button type="submit"><i class="fas fa-paper-plane"></i> <span data-ar="إرسال" data-en="Send">إرسال</span></button>
         </form>
         <div class="social-links">
@@ -459,7 +514,7 @@
                     const p = item.querySelector('p');
                     p.style.opacity = '1';
                     p.style.height = 'auto';
-                    const text = p.getAttribute('data-ar');
+                    const text = document.body.getAttribute('lang') === 'ar' ? p.getAttribute('data-ar') : p.getAttribute('data-en');
                     p.textContent = '';
                     let i = 0;
                     const typeEffect = setInterval(() => {
@@ -483,6 +538,8 @@
                 const text = elem.getAttribute(`data-${lang}`);
                 if (elem.tagName === 'INPUT' || elem.tagName === 'TEXTAREA') {
                     elem.placeholder = elem.getAttribute(`data-${lang}-placeholder`) || text;
+                } else if (elem.tagName === 'OPTION') {
+                    elem.textContent = text;
                 } else {
                     elem.textContent = text;
                 }
@@ -495,8 +552,8 @@
                 sidebar.style.boxShadow = '5px 0 15px rgba(0, 0, 0, 0.5)';
                 closeBtn.style.left = 'auto';
                 closeBtn.style.right = '20px';
-                languageToggle.style.right = 'auto';
-                languageToggle.style.left = '30px';
+                document.querySelector('.language-toggle').style.right = 'auto';
+                document.querySelector('.language-toggle').style.left = '30px';
                 menuToggle.style.right = 'auto';
                 menuToggle.style.left = '20px';
             } else {
@@ -506,8 +563,8 @@
                 sidebar.style.boxShadow = '-5px 0 15px rgba(0, 0, 0, 0.5)';
                 closeBtn.style.left = '20px';
                 closeBtn.style.right = 'auto';
-                languageToggle.style.right = '30px';
-                languageToggle.style.left = 'auto';
+                document.querySelector('.language-toggle').style.right = '30px';
+                document.querySelector('.language-toggle').style.left = 'auto';
                 menuToggle.style.right = '20px';
                 menuToggle.style.left = 'auto';
             }
@@ -529,7 +586,7 @@
             });
         });
 
-        gsap.utils.toArray(".project-card, .team-member, .testimonial-card, .service-card").forEach(item => {
+        gsap.utils.toArray(".project-card, .team-member, .testimonial-card, .service-card, .hosting-card").forEach(item => {
             gsap.from(item, {
                 scrollTrigger: { trigger: item, start: "top 90%" },
                 opacity: 0,
