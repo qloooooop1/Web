@@ -3,8 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روية - تطبيقاتنا الخاصة</title>
-    <!-- Font Awesome للأيقونات -->
+    <title>روية - تطوير التطبيقات الذكية</title>
+    <!-- إضافة Font Awesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
     <style>
         * {
@@ -16,7 +16,7 @@
 
         body {
             background-color: #FFFFFF;
-            color: #1A2A44;
+            color: #333333;
             line-height: 1.6;
             overflow-x: hidden;
         }
@@ -26,8 +26,8 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background-color: #1A2A44;
-            padding: 20px;
+            background-color: #000000;
+            padding: 15px 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
@@ -36,7 +36,7 @@
 
         nav .logo {
             color: #FFFFFF;
-            font-size: 28px;
+            font-size: 24px;
             font-weight: bold;
         }
 
@@ -56,58 +56,62 @@
         }
 
         nav ul li a:hover {
-            color: #D4AF37;
+            color: #00C4CC;
         }
 
         /* الهيدر */
         header {
-            height: 120vh; /* تكبير الهيدر */
-            background-color: #F7F7F7;
+            height: 100vh;
+            background-color: #F5F5F5;
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
-            padding: 40px;
-            position: relative;
-        }
-
-        header .logo-icon {
-            position: absolute;
-            top: 150px;
-            font-size: 80px;
-            color: #D4AF37;
-            animation: pulse 2s infinite;
+            padding: 20px;
         }
 
         header .content {
-            max-width: 900px;
-            margin-top: 100px;
+            max-width: 800px;
         }
 
         header h1 {
-            font-size: 60px;
-            color: #1A2A44;
-            margin-bottom: 25px;
+            font-size: 48px;
+            color: #000000;
+            margin-bottom: 20px;
             animation: slideInFromTop 1s ease-in-out;
         }
 
         header p {
-            font-size: 22px;
+            font-size: 20px;
             color: #666666;
             margin-bottom: 30px;
             animation: slideInFromBottom 1s ease-in-out;
         }
 
+        header .btn {
+            background-color: #00C4CC;
+            color: #FFFFFF;
+            padding: 12px 25px;
+            text-decoration: none;
+            border-radius: 5px;
+            font-size: 18px;
+            animation: slideInFromLeft 1s ease-in-out;
+        }
+
+        header .btn:hover {
+            background-color: #000000;
+        }
+
         /* الأقسام */
         section {
-            padding: 100px 20px;
+            padding: 80px 20px;
             text-align: center;
         }
 
         section h2 {
-            font-size: 40px;
-            color: #1A2A44;
-            margin-bottom: 50px;
+            font-size: 36px;
+            color: #000000;
+            margin-bottom: 40px;
             animation: slideInFromTop 1s ease-in-out;
         }
 
@@ -117,7 +121,7 @@
             justify-content: space-around;
             align-items: center;
             flex-wrap: wrap;
-            gap: 30px;
+            gap: 20px;
         }
 
         #about .text {
@@ -128,54 +132,65 @@
 
         #about .icons {
             display: flex;
-            gap: 40px;
+            gap: 30px;
             animation: slideInFromLeft 1s ease-in-out;
         }
 
         #about .icons i {
-            font-size: 50px;
-            color: #D4AF37;
+            font-size: 40px;
+            color: #00C4CC;
         }
 
         /* التطبيقات */
         #apps .app-container {
             display: flex;
             justify-content: center;
-            gap: 50px;
+            gap: 40px;
             flex-wrap: wrap;
         }
 
         #apps .app {
             background-color: #FFFFFF;
-            padding: 30px;
-            border: 2px solid #D4AF37;
-            border-radius: 15px;
-            width: 320px;
+            padding: 20px;
+            border: 1px solid #EEEEEE;
+            border-radius: 10px;
+            width: 300px;
             text-align: center;
             animation: slideInFromBottom 1s ease-in-out;
         }
 
         #apps .app i {
-            font-size: 60px;
-            color: #D4AF37;
+            font-size: 50px;
+            color: #00C4CC;
             margin-bottom: 20px;
         }
 
         #apps .app h3 {
-            margin: 20px 0;
-            color: #1A2A44;
-            font-size: 24px;
+            margin: 15px 0;
+            color: #000000;
         }
 
-        /* الإحصائيات */
+        #apps .app .btn {
+            background-color: #00C4CC;
+            color: #FFFFFF;
+            padding: 10px 15px;
+            text-decoration: none;
+            border-radius: 5px;
+        }
+
+        #apps .app .btn:hover {
+            background-color: #000000;
+        }
+
+        /* النسب المئوية */
         #stats {
-            background-color: #F7F7F7;
+            background-color: #F5F5F5;
         }
 
         #stats .stats-container {
             display: flex;
             justify-content: center;
-            gap: 60px;
+            gap: 50px;
             flex-wrap: wrap;
         }
 
@@ -185,21 +200,21 @@
         }
 
         #stats .circle {
-            width: 140px;
-            height: 140px;
-            border: 12px solid #D4AF37;
+            width: 120px;
+            height: 120px;
+            border: 10px solid #00C4CC;
             border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-size: 28px;
-            color: #1A2A44;
+            font-size: 24px;
+            color: #000000;
             margin: 0 auto 20px;
         }
 
         /* تواصل معنا */
         #contact form {
-            max-width: 700px;
+            max-width: 600px;
             margin: 0 auto;
             text-align: right;
             animation: slideInFromRight 1s ease-in-out;
@@ -207,36 +222,35 @@
 
         #contact input, #contact textarea {
             width: 100%;
-            padding: 12px;
-            margin-bottom: 25px;
-            border: 1px solid #D4AF37;
+            padding: 10px;
+            margin-bottom: 20px;
+            border: 1px solid #DDDDDD;
             border-radius: 5px;
         }
 
         #contact button {
-            background-color: #D4AF37;
+            background-color: #00C4CC;
             color: #FFFFFF;
-            padding: 15px 30px;
+            padding: 12px 25px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            font-size: 18px;
         }
 
         #contact button:hover {
-            background-color: #1A2A44;
+            background-color: #000000;
         }
 
         /* التذييل */
         footer {
-            background-color: #1A2A44;
+            background-color: #000000;
             color: #FFFFFF;
-            padding: 50px 20px;
+            padding: 40px 20px;
             text-align: center;
         }
 
         footer a {
-            color: #D4AF37;
+            color: #00C4CC;
             text-decoration: none;
             margin: 0 15px;
         }
@@ -246,9 +260,8 @@
         }
 
         footer i {
-            font-size: 24px;
-            margin: 0 12px;
-            color: #D4AF37;
+            font-size: 20px;
+            margin: 0 10px;
         }
 
         /* التأثيرات */
@@ -272,17 +285,10 @@
             to { transform: translateX(0); opacity: 1; }
         }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
-
         /* التجاوب */
         @media (max-width: 768px) {
-            header { height: 80vh; }
-            header h1 { font-size: 40px; }
-            header p { font-size: 18px; }
+            header h1 { font-size: 32px; }
+            header p { font-size: 16px; }
             nav ul { display: none; }
             #about .about-content { flex-direction: column; }
         }
@@ -295,7 +301,7 @@
         <ul>
             <li><a href="#home">الرئيسية</a></li>
             <li><a href="#about">من نحن</a></li>
-            <li><a href="#apps">تطبيقاتنا</a></li>
+            <li><a href="#apps">التطبيقات</a></li>
             <li><a href="#stats">إحصائيات</a></li>
             <li><a href="#contact">تواصل معنا</a></li>
         </ul>
@@ -303,10 +309,10 @@
 
     <!-- الهيدر -->
     <header id="home">
-        <i class="fas fa-mobile-alt logo-icon"></i>
         <div class="content">
-            <h1>روية - تطبيقاتنا الخاصة</h1>
-            <p>نصنع تطبيقاتنا الخاصة لتلبية احتياجاتك اليومية بأفكار مبتكرة وجودة عالية على الآيفون والأندرويد.</p>
+            <h1>روية - تطوير التطبيقات الذكية</h1>
+            <p>نحول أفكارك إلى تطبيقات مبتكرة تعمل على الآيفون والأندرويد بأعلى معايير الجودة والإبداع.</p>
+            <a href="#apps" class="btn">اكتشف تطبيقاتنا</a>
         </div>
     </header>
 
@@ -315,35 +321,38 @@
         <h2>من نحن</h2>
         <div class="about-content">
             <div class="text">
-                <p>نحن شركة روية، متخصصون في إنتاج تطبيقاتنا الخاصة التي تهدف إلى تحسين حياة المستخدمين. نعمل على تصميم وتطوير حلول تقنية مبتكرة تعكس رؤيتنا في تقديم تجربة استثنائية. فريقنا يجمع بين الإبداع والخبرة لإنتاج تطبيقات ذكية تترك أثرًا إيجابيًا في السوق.</p>
-                <p>رؤيتنا هي أن نكون علامة مميزة في عالم التطبيقات، ومهمتنا هي إنتاج منتجات تقنية مبتكرة تسهل الحياة وتثري تجربة المستخدم.</p>
+                <p>نحن شركة روية، رائدة في مجال تطوير تطبيقات الهواتف الذكية. تأسست الشركة برؤية واضحة لتقديم حلول تقنية مبتكرة تلبي احتياجات الأفراد والشركات على حد سواء. فريقنا يضم نخبة من المطورين والمصممين الذين يعملون بجد لتحويل الأفكار إلى واقع ملموس من خلال تطبيقات سهلة الاستخدام، آمنة، وذات أداء عالٍ.</p>
+                <p>رؤيتنا هي أن نكون الخيار الأول في المنطقة لتطوير التطبيقات، ومهمتنا هي تقديم تجربة مستخدم استثنائية تدعم الابتكار والتطور التكنولوجي.</p>
             </div>
             <div class="icons">
                 <i class="fas fa-mobile-alt"></i>
-                <i class="fas fa-brain"></i>
-                <i class="fas fa-users"></i>
+                <i class="fas fa-code"></i>
+                <i class="fas fa-lightbulb"></i>
             </div>
         </div>
     </section>
 
     <!-- التطبيقات -->
     <section id="apps">
-        <h2>تطبيقاتنا الخاصة</h2>
+        <h2>تطبيقاتنا المميزة</h2>
         <div class="app-container">
             <div class="app">
                 <i class="fas fa-tasks"></i>
                 <h3>روية للإنتاجية</h3>
-                <p>تطبيقنا الخاص لتنظيم الوقت وإدارة المهام بذكاء.</p>
+                <p>نظم وقتك وحقق أهدافك بسهولة من خلال أدوات ذكية.</p>
+                <a href="#" class="btn">تحميل الآن</a>
             </div>
             <div class="app">
                 <i class="fas fa-comments"></i>
                 <h3>روية للتواصل</h3>
-                <p>تطبيقنا المميز للتواصل الآمن والسريع.</p>
+                <p>ابقَ على اتصال بأمان وراحة مع تقنيات متطورة.</p>
+                <a href="#" class="btn">تحميل الآن</a>
             </div>
             <div class="app">
                 <i class="fas fa-gamepad"></i>
                 <h3>روية للترفيه</h3>
-                <p>تطبيقنا الفريد لتقديم تجربة ترفيهية ممتعة.</p>
+                <p>استمتع بألعاب ومحتوى ترفيهي مبتكر.</p>
+                <a href="#" class="btn">تحميل الآن</a>
             </div>
         </div>
     </section>
@@ -353,16 +362,16 @@
         <h2>إحصائياتنا</h2>
         <div class="stats-container">
             <div class="stat">
-                <div class="circle">90%</div>
-                <p>معدل الإنتاجية</p>
-            </div>
-            <div class="stat">
-                <div class="circle">85%</div>
-                <p>تغطية السوق</p>
-            </div>
-            <div class="stat">
                 <div class="circle">95%</div>
-                <p>رضا المستخدمين</p>
+                <p>نجاح تطوير التطبيقات</p>
+            </div>
+            <div class="stat">
+                <div class="circle">80%</div>
+                <p>رضا العملاء</p>
+            </div>
+            <div class="stat">
+                <div class="circle">70%</div>
+                <p>التوسع في السوق</p>
             </div>
         </div>
     </section>
@@ -373,7 +382,7 @@
         <form>
             <input type="text" placeholder="الاسم" required>
             <input type="email" placeholder="البريد الإلكتروني" required>
-            <textarea placeholder="رسالتك" rows="6" required></textarea>
+            <textarea placeholder="رسالتك" rows="5" required></textarea>
             <button type="submit">إرسال</button>
         </form>
     </section>
@@ -381,7 +390,7 @@
     <!-- التذييل -->
     <footer>
         <p>© 2025 شركة روية. جميع الحقوق محفوظة.</p>
-        <p><a href="#about">من نحن</a> | <a href="#apps">تطبيقاتنا</a> | <a href="#contact">تواصل معنا</a></p>
+        <p><a href="#about">من نحن</a> | <a href="#apps">التطبيقات</a> | <a href="#contact">تواصل معنا</a></p>
         <p>
             <i class="fab fa-twitter"></i>
             <i class="fab fa-linkedin"></i>
@@ -389,5 +398,18 @@
         </p>
         <p>البريد: info@rawya.com | الهاتف: +966 123 456 789</p>
     </footer>
+
+    <!-- JavaScript بسيط لتعزيز التأثيرات -->
+    <script>
+        // يمكن إضافة المزيد من التفاعلية هنا إذا لزم الأمر
+        window.addEventListener('scroll', () => {
+            document.querySelectorAll('section').forEach(section => {
+                const rect = section.getBoundingClientRect();
+                if (rect.top < window.innerHeight - 100) {
+                    section.style.opacity = '1';
+                }
+            });
+        });
+    </script>
 </body>
 </html>
