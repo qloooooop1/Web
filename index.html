@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <meta name="description" content="موقع عبدالله - مطور ويب محترف يقدم حلول تقنية مبتكرة">
-    <meta name="keywords" content="مطور ويب, عبدالله, تطوير مواقع, تصميم ويب">
+    <meta name="keywords" content="مطور ويب, عبدالله, تطوير مواقع, تصميم ويب, برمجة">
     <title>عبدالله - مطور ويب</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -75,40 +75,47 @@
             margin-bottom: 20px;
             color: #00aaff;
         }
-        .about, .contact, .team, .clients, .blog {
+        .about, .contact, .team, .clients, .blog, .testimonials {
             background: #252525;
         }
         .projects {
             background: #1f1f1f;
         }
-        .project-gallery {
+        .project-gallery, .testimonials-grid {
             display: flex;
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
         }
-        .project-card {
+        .project-card, .testimonial-card {
             background: #333;
             padding: 20px;
             width: 250px;
             border-radius: 10px;
             transition: transform 0.3s;
         }
-        .project-card:hover {
+        .project-card:hover, .testimonial-card:hover {
             transform: scale(1.05);
         }
-        .team-grid, .clients-grid {
+        .team-grid {
             display: flex;
             justify-content: center;
             gap: 20px;
             flex-wrap: wrap;
         }
-        .team-member, .client {
+        .team-member {
             background: #333;
             padding: 20px;
             width: 200px;
             border-radius: 10px;
             opacity: 0;
+        }
+        .blog-post {
+            max-width: 800px;
+            margin: 20px auto;
+            background: #333;
+            padding: 20px;
+            border-radius: 10px;
         }
         .contact-form {
             max-width: 500px;
@@ -145,7 +152,7 @@
         <a href="#projects">المشاريع</a>
         <a href="#blog">المدونة</a>
         <a href="#team">فريق العمل</a>
-        <a href="#clients">وراء العملاء</a>
+        <a href="#testimonials">آراء العملاء</a>
         <a href="#contact">تواصل معي</a>
     </div>
 
@@ -167,20 +174,38 @@
         <h2>المشاريع</h2>
         <div class="project-gallery">
             <div class="project-card">
-                <h3>مشروع 1</h3>
-                <p>تصميم موقع تجاري</p>
+                <i class="fas fa-shopping-cart fa-2x"></i>
+                <h3>متجر إلكتروني</h3>
+                <p>تصميم وتطوير متجر إلكتروني متكامل لشركة تجارية.</p>
             </div>
             <div class="project-card">
-                <h3>مشروع 2</h3>
-                <p>تطبيق ويب تفاعلي</p>
+                <i class="fas fa-blog fa-2x"></i>
+                <h3>مدونة تقنية</h3>
+                <p>موقع مدونة تفاعلي مع نظام إدارة محتوى.</p>
+            </div>
+            <div class="project-card">
+                <i class="fas fa-tools fa-2x"></i>
+                <h3>تطبيق إدارة مهام (قريبًا)</h3>
+                <p>جاري العمل على تطبيق لإدارة المهام اليومية.</p>
             </div>
         </div>
     </div>
 
     <!-- قسم المدونة -->
     <div class="section blog" id="blog">
-        <h2>المدونة</h2>
-        <p>مقالة قادمة: "كيف تبدأ كمطور ويب في 2025"</p>
+        <h2>المدونة - دروس البرمجة</h2>
+        <div class="blog-post">
+            <h3><i class="fas fa-code"></i> كيف تبدأ تعلم HTML في 2025</h3>
+            <p>HTML هو أساس تطوير الويب. ابدأ بفهم العناصر الأساسية مثل &lt;div&gt; و&lt;p&gt;، ثم انتقل إلى السمات مثل id وclass. استخدم أدوات مثل VS Code للتدرب.</p>
+        </div>
+        <div class="blog-post">
+            <h3><i class="fas fa-paint-brush"></i> أساسيات CSS للمبتدئين</h3>
+            <p>CSS تتحكم في تنسيق صفحاتك. تعلم كيفية استخدام الألوان (مثل #00aaff)، وFlexbox للتنظيم، وانتقالات (Transitions) للتفاعل.</p>
+        </div>
+        <div class="blog-post">
+            <h3><i class="fas fa-laptop-code"></i> مقدمة في JavaScript</h3>
+            <p>JavaScript تضيف التفاعلية. ابدأ بالمتغيرات (let, const)، ثم الدوال، وأخيرًا تعلم DOM للتعامل مع العناصر.</p>
+        </div>
     </div>
 
     <!-- قسم فريق العمل -->
@@ -188,25 +213,46 @@
         <h2>فريق العمل</h2>
         <div class="team-grid">
             <div class="team-member">
-                <i class="fas fa-user fa-2x"></i>
-                <h3>أحمد</h3>
-                <p>مصمم واجهات</p>
+                <i class="fas fa-user-tie fa-2x"></i>
+                <h3>عبدالله</h3>
+                <p>قائد الفريق ومطور ويب</p>
             </div>
             <div class="team-member">
                 <i class="fas fa-user fa-2x"></i>
-                <h3>سارة</h3>
-                <p>مبرمجة خلفية</p>
+                <h3>ليلى</h3>
+                <p>مصممة واجهات وتجربة مستخدم</p>
+            </div>
+            <div class="team-member">
+                <i class="fas fa-user fa-2x"></i>
+                <h3>ياسر</h3>
+                <p>مطور خلفية</p>
+            </div>
+            <div class="team-member">
+                <i class="fas fa-user fa-2x"></i>
+                <h3>نورا</h3>
+                <p>مديرة مشاريع</p>
             </div>
         </div>
     </div>
 
-    <!-- قسم وراء العملاء -->
-    <div class="section clients" id="clients">
-        <h2>وراء العملاء</h2>
-        <div class="clients-grid">
-            <div class="client">
-                <h3>شركة المستقبل</h3>
-                <p>مشروع تطبيق ويب</p>
+    <!-- قسم آراء العملاء -->
+    <div class="section testimonials" id="testimonials">
+        <h2>آراء العملاء</h2>
+        <div class="testimonials-grid">
+            <div class="testimonial-card">
+                <i class="fas fa-star fa-2x" style="color: #ffd700;"></i>
+                <h3>محمد - شركة التقنية</h3>
+                <p>"عبدالله قدم لنا موقعًا مذهلاً بسرعة وجودة عالية."</p>
+            </div>
+            <div class="testimonial-card">
+                <i class="fas fa-star fa-2x" style="color: #ffd700;"></i>
+                <h3>فاطمة - متجر أونلاين</h3>
+                <p>"تصميم رائع ودعم مستمر، شكرًا للفريق!"</p>
+            </div>
+            <div class="testimonial-card">
+                <i class="fas fa-star fa-2x" style="color: #ffd700;"></i>
+                <h3>علي - مشروع شخصي</h3>
+                <p>"تجربة مميزة، أنصح الجميع بالتعامل معهم."</p>
             </div>
         </div>
     </div>
@@ -218,7 +264,7 @@
             <input type="text" placeholder="الاسم" required>
             <input type="email" placeholder="البريد الإلكتروني" required>
             <textarea placeholder="رسالتك" rows="5" required></textarea>
-            <button type="submit">إرسال</button>
+            <button type="submit"><i class="fas fa-paper-plane"></i> إرسال</button>
         </form>
     </div>
 
@@ -263,7 +309,7 @@
             });
         });
 
-        gsap.utils.toArray(".project-card, .team-member, .client").forEach(item => {
+        gsap.utils.toArray(".project-card, .team-member, .testimonial-card").forEach(item => {
             gsap.from(item, {
                 scrollTrigger: { trigger: item, start: "top 90%" },
                 opacity: 0,
