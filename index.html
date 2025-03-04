@@ -15,8 +15,8 @@
             font-family: 'Poppins', sans-serif;
         }
         body {
-            background: linear-gradient(135deg, #1e1e2f, #3a1c71);
-            color: #f1ebeb;
+            background: linear-gradient(135deg, #0f2027, #203a43, #2c5364);
+            color: #ffffff;
             direction: rtl;
             scroll-behavior: smooth;
             line-height: 1.6;
@@ -30,18 +30,17 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.1;
+            background: url('https://www.transparenttextures.com/patterns/dark-mosaic.png');
+            opacity: 0.05;
             z-index: -1;
         }
-        /* القائمة الجانبية */
         .sidebar {
             position: fixed;
             top: 0;
             right: 0;
             width: 280px;
             height: 100%;
-            background: #2a0944;
+            background: #17252a;
             padding: 30px;
             transition: transform 0.4s ease;
             z-index: 1000;
@@ -57,30 +56,30 @@
             display: flex;
             align-items: center;
             font-size: 2rem;
-            color: #ffd700;
+            color: #feffff;
             margin-bottom: 50px;
         }
         .sidebar .logo i {
             margin-left: 15px;
-            color: #ff6f61;
+            color: #48c9b0;
         }
         .sidebar a {
             display: block;
-            color: #f1ebeb;
+            color: #feffff;
             text-decoration: none;
             margin: 25px 0;
             font-size: 1.3rem;
             transition: color 0.3s;
         }
         .sidebar a:hover {
-            color: #ffd700;
+            color: #48c9b0;
         }
         .sidebar .close-btn {
             position: absolute;
             top: 20px;
             left: 20px;
             font-size: 1.8rem;
-            color: #f1ebeb;
+            color: #feffff;
             cursor: pointer;
         }
         .menu-toggle {
@@ -88,7 +87,7 @@
             top: 20px;
             right: 20px;
             font-size: 2.5rem;
-            color: #ffd700;
+            color: #48c9b0;
             cursor: pointer;
             z-index: 1100;
         }
@@ -96,7 +95,7 @@
             position: absolute;
             bottom: 20px;
             right: 30px;
-            color: #ffd700;
+            color: #48c9b0;
             font-size: 1.5rem;
             cursor: pointer;
         }
@@ -112,7 +111,7 @@
         .hero h1 {
             font-size: 4rem;
             font-weight: 800;
-            color: #ffd700;
+            color: #feffff;
             text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
         }
         .faq {
@@ -131,15 +130,19 @@
             background: rgba(255, 255, 255, 0.2);
         }
         .faq-item h3 {
-            color: #ff6f61;
+            color: #48c9b0;
             margin-bottom: 10px;
         }
         .faq-item p {
-            display: none;
-            color: #f1ebeb;
+            color: #feffff;
+            opacity: 0;
+            height: 0;
+            overflow: hidden;
+            transition: opacity 0.3s, height 0.3s;
         }
         .faq-item.active p {
-            display: block;
+            opacity: 1;
+            height: auto;
         }
         .section {
             padding: 80px 20px;
@@ -148,14 +151,14 @@
         .section h2 {
             font-size: 3rem;
             margin-bottom: 30px;
-            color: #ffd700;
+            color: #feffff;
             text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
         }
         .about, .services, .contact, .team, .testimonials {
             background: rgba(255, 255, 255, 0.05);
         }
         .projects {
-            background: rgba(42, 9, 68, 0.2);
+            background: rgba(23, 37, 42, 0.2);
         }
         .project-gallery, .testimonials-grid, .services-grid {
             display: flex;
@@ -177,7 +180,7 @@
         }
         .service-card i {
             font-size: 2.5rem;
-            color: #ff6f61;
+            color: #48c9b0;
             margin-bottom: 15px;
         }
         .team-grid {
@@ -195,7 +198,7 @@
         }
         .team-member i {
             font-size: 2rem;
-            color: #ffd700;
+            color: #feffff;
             margin-bottom: 15px;
         }
         .contact-form {
@@ -211,7 +214,7 @@
             background: rgba(255, 255, 255, 0.8);
         }
         .contact-form button {
-            background: #ff6f61;
+            background: #48c9b0;
             color: #fff;
             padding: 15px 30px;
             border: none;
@@ -220,7 +223,7 @@
             transition: background 0.3s;
         }
         .contact-form button:hover {
-            background: #e65b50;
+            background: #3da698;
         }
         .social-links {
             margin-top: 30px;
@@ -229,17 +232,17 @@
             gap: 30px;
         }
         .social-links a {
-            color: #ffd700;
+            color: #feffff;
             font-size: 2rem;
             transition: color 0.3s, transform 0.3s;
         }
         .social-links a:hover {
-            color: #ff6f61;
+            color: #48c9b0;
             transform: scale(1.2);
         }
         footer {
-            background: #2a0944;
-            color: #f1ebeb;
+            background: #17252a;
+            color: #feffff;
             padding: 30px;
             text-align: center;
             box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
@@ -265,22 +268,22 @@
     </div>
 
     <!-- القائمة الجانبية -->
-    <div class="sidebar closed">
+    <div class="sidebar closed" data-lang="ar">
         <div class="logo">
             <i class="fas fa-laptop-code"></i>
-            <span>مطور ويب</span>
+            <span data-ar="مطور ويب" data-en="Web Developer">مطور ويب</span>
         </div>
         <div class="close-btn">
             <i class="fas fa-times"></i>
         </div>
-        <a href="#home">الرئيسية</a>
-        <a href="#about">من نحن</a>
-        <a href="#services">الخدمات</a>
-        <a href="#projects">المشاريع</a>
-        <a href="blog.html">المدونة</a>
-        <a href="#team">فريق العمل</a>
-        <a href="#testimonials">آراء العملاء</a>
-        <a href="#contact">تواصل معي</a>
+        <a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+        <a href="#about" data-ar="من نحن" data-en="About Us">من نحن</a>
+        <a href="#services" data-ar="الخدمات" data-en="Services">الخدمات</a>
+        <a href="#projects" data-ar="المشاريع" data-en="Projects">المشاريع</a>
+        <a href="blog.html" data-ar="المدونة" data-en="Blog">المدونة</a>
+        <a href="#team" data-ar="فريق العمل" data-en="Team">فريق العمل</a>
+        <a href="#testimonials" data-ar="آراء العملاء" data-en="Testimonials">آراء العملاء</a>
+        <a href="#contact" data-ar="تواصل معي" data-en="Contact Me">تواصل معي</a>
         <div class="language-toggle" onclick="toggleLanguage()">
             <i class="fas fa-globe"></i>
         </div>
@@ -288,120 +291,120 @@
 
     <!-- الجزء الافتتاحي -->
     <div class="hero" id="home">
-        <h1>مطور ويب محترف</h1>
+        <h1 data-ar="مطور ويب محترف" data-en="Professional Web Developer">مطور ويب محترف</h1>
         <div class="faq">
             <div class="faq-item">
-                <h3>ما الذي يجعلنا مميزين؟</h3>
-                <p>نستخدم أحدث التقنيات لتقديم حلول ويب مبتكرة تلبي احتياجاتك بدقة.</p>
+                <h3 data-ar="ما الذي يجعلنا مميزين؟" data-en="What makes us unique?">ما الذي يجعلنا مميزين؟</h3>
+                <p data-ar="نستخدم أحدث التقنيات لتقديم حلول ويب مبتكرة تلبي احتياجاتك بدقة." data-en="We use the latest technologies to deliver innovative web solutions tailored to your needs.">نستخدم أحدث التقنيات لتقديم حلول ويب مبتكرة تلبي احتياجاتك بدقة.</p>
             </div>
             <div class="faq-item">
-                <h3>كيف نضمن جودة المشاريع؟</h3>
-                <p>فريقنا يتبع معايير صارمة مع اختبارات دقيقة لضمان الأداء العالي.</p>
+                <h3 data-ar="كيف نضمن جودة المشاريع؟" data-en="How do we ensure project quality?">كيف نضمن جودة المشاريع؟</h3>
+                <p data-ar="فريقنا يتبع معايير صارمة مع اختبارات دقيقة لضمان الأداء العالي." data-en="Our team follows strict standards with thorough testing to ensure high performance.">فريقنا يتبع معايير صارمة مع اختبارات دقيقة لضمان الأداء العالي.</p>
             </div>
             <div class="faq-item">
-                <h3>ما هي خطوات العمل معنا؟</h3>
-                <p>نبدأ بتحليل فكرتك، ثم التصميم، التطوير، وأخيرًا الإطلاق.</p>
+                <h3 data-ar="ما هي خطوات العمل معنا؟" data-en="What are the steps to work with us?">ما هي خطوات العمل معنا؟</h3>
+                <p data-ar="نبدأ بتحليل فكرتك، ثم التصميم، التطوير، وأخيرًا الإطلاق." data-en="We start by analyzing your idea, then design, develop, and finally launch.">نبدأ بتحليل فكرتك، ثم التصميم، التطوير، وأخيرًا الإطلاق.</p>
             </div>
         </div>
     </div>
 
     <!-- قسم من نحن -->
     <div class="section about" id="about">
-        <h2>من نحن</h2>
-        <p>نحن فريق من خبراء تطوير الويب، نهدف إلى تقديم تجارب رقمية استثنائية تجمع بين الإبداع والتقنية.</p>
+        <h2 data-ar="من نحن" data-en="About Us">من نحن</h2>
+        <p data-ar="نحن فريق من خبراء تطوير الويب، نهدف إلى تقديم تجارب رقمية استثنائية تجمع بين الإبداع والتقنية." data-en="We are a team of web development experts aiming to deliver exceptional digital experiences blending creativity and technology.">نحن فريق من خبراء تطوير الويب، نهدف إلى تقديم تجارب رقمية استثنائية تجمع بين الإبداع والتقنية.</p>
     </div>
 
     <!-- قسم الخدمات -->
     <div class="section services" id="services">
-        <h2>خدماتنا</h2>
+        <h2 data-ar="خدماتنا" data-en="Our Services">خدماتنا</h2>
         <div class="services-grid">
             <div class="service-card">
                 <i class="fas fa-desktop"></i>
-                <h3>تصميم مواقع</h3>
-                <p>تصميمات تفاعلية متجاوبة تلائم كل الأجهزة.</p>
+                <h3 data-ar="تصميم مواقع" data-en="Website Design">تصميم مواقع</h3>
+                <p data-ar="تصميمات تفاعلية متجاوبة تلائم كل الأجهزة." data-en="Interactive, responsive designs for all devices.">تصميمات تفاعلية متجاوبة تلائم كل الأجهزة.</p>
             </div>
             <div class="service-card">
                 <i class="fas fa-code-branch"></i>
-                <h3>تطوير تطبيقات</h3>
-                <p>تطبيقات ويب متقدمة بأداء عالٍ.</p>
+                <h3 data-ar="تطوير تطبيقات" data-en="App Development">تطوير تطبيقات</h3>
+                <p data-ar="تطبيقات ويب متقدمة بأداء عالٍ." data-en="Advanced web applications with high performance.">تطبيقات ويب متقدمة بأداء عالٍ.</p>
             </div>
             <div class="service-card">
                 <i class="fas fa-search"></i>
-                <h3>تحسين SEO</h3>
-                <p>رفع ترتيب موقعك في محركات البحث.</p>
+                <h3 data-ar="تحسين SEO" data-en="SEO Optimization">تحسين SEO</h3>
+                <p data-ar="رفع ترتيب موقعك في محركات البحث." data-en="Boost your site's ranking on search engines.">رفع ترتيب موقعك في محركات البحث.</p>
             </div>
         </div>
     </div>
 
     <!-- قسم المشاريع -->
     <div class="section projects" id="projects">
-        <h2>المشاريع</h2>
+        <h2 data-ar="المشاريع" data-en="Projects">المشاريع</h2>
         <div class="project-gallery">
             <div class="project-card">
-                <i class="fas fa-shopping-cart fa-2x" style="color: #ff6f61;"></i>
-                <h3>متجر إلكتروني</h3>
-                <p>متجر متكامل بتقنيات حديثة.</p>
+                <i class="fas fa-shopping-cart fa-2x" style="color: #48c9b0;"></i>
+                <h3 data-ar="متجر إلكتروني" data-en="E-Commerce Store">متجر إلكتروني</h3>
+                <p data-ar="متجر متكامل بتقنيات حديثة." data-en="A fully integrated store with modern tech.">متجر متكامل بتقنيات حديثة.</p>
             </div>
             <div class="project-card">
-                <i class="fas fa-blog fa-2x" style="color: #ff6f61;"></i>
-                <h3>مدونة تقنية</h3>
-                <p>مدونة احترافية مع إدارة محتوى.</p>
+                <i class="fas fa-blog fa-2x" style="color: #48c9b0;"></i>
+                <h3 data-ar="مدونة تقنية" data-en="Tech Blog">مدونة تقنية</h3>
+                <p data-ar="مدونة احترافية مع إدارة محتوى." data-en="Professional blog with content management.">مدونة احترافية مع إدارة محتوى.</p>
             </div>
             <div class="project-card">
-                <i class="fas fa-tools fa-2x" style="color: #ff6f61;"></i>
-                <h3>تطبيق إدارة (قريبًا)</h3>
-                <p>جاري العمل على تطبيق متطور.</p>
+                <i class="fas fa-tools fa-2x" style="color: #48c9b0;"></i>
+                <h3 data-ar="تطبيق إدارة (قريبًا)" data-en="Management App (Soon)">تطبيق إدارة (قريبًا)</h3>
+                <p data-ar="جاري العمل على تطبيق متطور." data-en="In progress: an advanced management app.">جاري العمل على تطبيق متطور.</p>
             </div>
         </div>
     </div>
 
     <!-- قسم فريق العمل -->
     <div class="section team" id="team">
-        <h2>فريق العمل</h2>
+        <h2 data-ar="فريق العمل" data-en="Our Team">فريق العمل</h2>
         <div class="team-grid">
             <div class="team-member">
                 <i class="fas fa-code"></i>
-                <h3>أحمد</h3>
-                <p>مطور واجهات</p>
+                <h3 data-ar="أحمد" data-en="Ahmed">أحمد</h3>
+                <p data-ar="مطور واجهات" data-en="Frontend Developer">مطور واجهات</p>
             </div>
             <div class="team-member">
                 <i class="fas fa-server"></i>
-                <h3>ليلى</h3>
-                <p>مطورة خلفية</p>
+                <h3 data-ar="ليلى" data-en="Layla">ليلى</h3>
+                <p data-ar="مطورة خلفية" data-en="Backend Developer">مطورة خلفية</p>
             </div>
             <div class="team-member">
                 <i class="fas fa-paint-brush"></i>
-                <h3>ياسر</h3>
-                <p>مصمم واجهات</p>
+                <h3 data-ar="ياسر" data-en="Yasser">ياسر</h3>
+                <p data-ar="مصمم واجهات" data-en="UI Designer">مصمم واجهات</p>
             </div>
         </div>
     </div>
 
     <!-- قسم آراء العملاء -->
     <div class="section testimonials" id="testimonials">
-        <h2>آراء العملاء</h2>
+        <h2 data-ar="آراء العملاء" data-en="Testimonials">آراء العملاء</h2>
         <div class="testimonials-grid">
             <div class="testimonial-card">
-                <i class="fas fa-star fa-2x" style="color: #ffd700;"></i>
-                <h3>محمد</h3>
-                <p>"تجربة مذهلة، احترافية عالية."</p>
+                <i class="fas fa-star fa-2x" style="color: #feffff;"></i>
+                <h3 data-ar="محمد" data-en="Mohammed">محمد</h3>
+                <p data-ar="تجربة مذهلة، احترافية عالية." data-en="Amazing experience, highly professional.">تجربة مذهلة، احترافية عالية.</p>
             </div>
             <div class="testimonial-card">
-                <i class="fas fa-star fa-2x" style="color: #ffd700;"></i>
-                <h3>فاطمة</h3>
-                <p>"تصميم رائع وسرعة في التنفيذ."</p>
+                <i class="fas fa-star fa-2x" style="color: #feffff;"></i>
+                <h3 data-ar="فاطمة" data-en="Fatima">فاطمة</h3>
+                <p data-ar="تصميم رائع وسرعة في التنفيذ." data-en="Great design and fast execution.">تصميم رائع وسرعة في التنفيذ.</p>
             </div>
         </div>
     </div>
 
     <!-- قسم التواصل -->
     <div class="section contact" id="contact">
-        <h2>تواصل معي</h2>
+        <h2 data-ar="تواصل معي" data-en="Contact Me">تواصل معي</h2>
         <form class="contact-form">
-            <input type="text" placeholder="الاسم" required>
-            <input type="email" placeholder="البريد الإلكتروني" required>
-            <textarea placeholder="رسالتك" rows="5" required></textarea>
-            <button type="submit"><i class="fas fa-paper-plane"></i> إرسال</button>
+            <input type="text" placeholder="الاسم" data-en-placeholder="Name" required>
+            <input type="email" placeholder="البريد الإلكتروني" data-en-placeholder="Email" required>
+            <textarea placeholder="رسالتك" data-en-placeholder="Your Message" rows="5" required></textarea>
+            <button type="submit"><i class="fas fa-paper-plane"></i> <span data-ar="إرسال" data-en="Send">إرسال</span></button>
         </form>
         <div class="social-links">
             <a href="#"><i class="fab fa-twitter"></i></a>
@@ -413,7 +416,7 @@
 
     <!-- تذييل الصفحة -->
     <footer>
-        <p>جميع الحقوق محفوظة © 2025</p>
+        <p data-ar="جميع الحقوق محفوظة © 2025" data-en="All Rights Reserved © 2025">جميع الحقوق محفوظة © 2025</p>
     </footer>
 
     <!-- مكتبات خارجية وجافا سكريبت -->
@@ -440,24 +443,73 @@
             }
         });
 
-        // تفاعل الأسئلة والأجوبة
+        // تفاعل الأسئلة والأجوبة مع تأثير الكتابة
         const faqItems = document.querySelectorAll('.faq-item');
         faqItems.forEach(item => {
             item.addEventListener('click', () => {
-                item.classList.toggle('active');
+                const isActive = item.classList.contains('active');
+                faqItems.forEach(i => {
+                    i.classList.remove('active');
+                    const p = i.querySelector('p');
+                    p.style.opacity = '0';
+                    p.style.height = '0';
+                });
+                if (!isActive) {
+                    item.classList.add('active');
+                    const p = item.querySelector('p');
+                    p.style.opacity = '1';
+                    p.style.height = 'auto';
+                    const text = p.getAttribute('data-ar');
+                    p.textContent = '';
+                    let i = 0;
+                    const typeEffect = setInterval(() => {
+                        if (i < text.length) {
+                            p.textContent += text.charAt(i);
+                            i++;
+                        } else {
+                            clearInterval(typeEffect);
+                        }
+                    }, 50);
+                }
             });
         });
 
-        // تغيير اللغة (محاكاة بسيطة)
+        // تغيير اللغة
         function toggleLanguage() {
             const body = document.body;
-            if (body.getAttribute('lang') === 'ar') {
-                body.setAttribute('lang', 'en');
-                document.querySelector('.hero h1').textContent = 'Professional Web Developer';
-                // يمكن إضافة المزيد من التغييرات لاحقًا
+            const lang = body.getAttribute('lang') === 'ar' ? 'en' : 'ar';
+            body.setAttribute('lang', lang);
+            document.querySelectorAll('[data-ar]').forEach(elem => {
+                const text = elem.getAttribute(`data-${lang}`);
+                if (elem.tagName === 'INPUT' || elem.tagName === 'TEXTAREA') {
+                    elem.placeholder = elem.getAttribute(`data-${lang}-placeholder`) || text;
+                } else {
+                    elem.textContent = text;
+                }
+            });
+            sidebar.setAttribute('data-lang', lang);
+            if (lang === 'en') {
+                body.style.direction = 'ltr';
+                sidebar.style.right = 'auto';
+                sidebar.style.left = '0';
+                sidebar.style.boxShadow = '5px 0 15px rgba(0, 0, 0, 0.5)';
+                closeBtn.style.left = 'auto';
+                closeBtn.style.right = '20px';
+                languageToggle.style.right = 'auto';
+                languageToggle.style.left = '30px';
+                menuToggle.style.right = 'auto';
+                menuToggle.style.left = '20px';
             } else {
-                body.setAttribute('lang', 'ar');
-                document.querySelector('.hero h1').textContent = 'مطور ويب محترف';
+                body.style.direction = 'rtl';
+                sidebar.style.right = '0';
+                sidebar.style.left = 'auto';
+                sidebar.style.boxShadow = '-5px 0 15px rgba(0, 0, 0, 0.5)';
+                closeBtn.style.left = '20px';
+                closeBtn.style.right = 'auto';
+                languageToggle.style.right = '30px';
+                languageToggle.style.left = 'auto';
+                menuToggle.style.right = '20px';
+                menuToggle.style.left = 'auto';
             }
         }
 
