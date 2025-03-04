@@ -3,266 +3,201 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روية | مطور تطبيقات ويب</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0-beta3/css/all.min.css">
+    <title>روية - تصميم وتطوير</title>
     <style>
-        /* التصميم العام */
         body {
-            font-family: 'Tajawal', sans-serif;
-            background-color: #f0f4f8;
-            color: #333;
+            font-family: Arial, sans-serif;
             margin: 0;
             padding: 0;
-            text-align: right;
             line-height: 1.6;
+            color: #333;
         }
-
-        header {
-            background: linear-gradient(135deg, #2c3e50, #34495e);
-            color: #ecf0f1;
-            padding: 40px 20px;
+        .language-switcher {
+            position: fixed;
+            top: 10px;
+            left: 10px;
+            z-index: 1000;
+        }
+        .language-switcher button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            cursor: pointer;
+        }
+        .language-switcher button:hover {
+            background-color: #0056b3;
+        }
+        .hero {
             text-align: center;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+            padding: 100px 20px;
+            background-color: #f9f9f9;
         }
-
-        header h1 {
-            margin: 0;
-            font-size: 2.5rem;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        header h2 {
-            margin: 10px 0 0;
-            font-size: 1.5rem;
-            color: #1abc9c;
-        }
-
-        nav ul {
-            list-style: none;
-            padding: 0;
-            margin: 20px 0 0;
-            display: flex;
-            justify-content: center;
-            gap: 20px;
-        }
-
-        nav ul li {
-            display: inline;
-        }
-
-        nav ul li a {
-            color: #ecf0f1;
-            text-decoration: none;
-            font-size: 1.2rem;
-            transition: color 0.3s ease;
-        }
-
-        nav ul li a:hover {
-            color: #1abc9c;
-        }
-
-        section {
-            padding: 60px 20px;
-            max-width: 800px;
-            margin: 0 auto;
-        }
-
-        section h1 {
-            font-size: 2rem;
-            color: #2c3e50;
+        .hero h1 {
+            font-size: 2.5em;
             margin-bottom: 20px;
-            animation: slideIn 1s ease-in-out;
         }
-
-        section p {
-            font-size: 1.1rem;
-            color: #555;
+        .hero p {
+            font-size: 1.2em;
+            color: #666;
         }
-
-        .services, .workflow {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
+        .hero img {
+            max-width: 150px;
             margin-top: 20px;
         }
-
-        .service, .workflow-item {
-            background: #fff;
-            padding: 20px;
-            border-radius: 8px;
-            box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-            flex: 1 1 calc(33.333% - 40px);
-            transition: transform 0.3s ease;
-        }
-
-        .service:hover, .workflow-item:hover {
-            transform: translateY(-5px);
-        }
-
-        .service h3, .workflow-item h3 {
-            color: #2c3e50;
-            font-size: 1.5rem;
-            margin-bottom: 10px;
-        }
-
-        footer {
-            background: #2c3e50;
-            color: #ecf0f1;
+        .services, .portfolio, .testimonials, .contact {
+            padding: 50px 20px;
             text-align: center;
-            padding: 20px 0;
-            margin-top: 40px;
         }
-
-        footer p {
-            margin: 0;
-            font-size: 1rem;
+        .services h2, .portfolio h2, .testimonials h2, .contact h2 {
+            font-size: 2em;
+            margin-bottom: 30px;
         }
-
-        /* تأثيرات CSS */
-        @keyframes fadeIn {
-            from { opacity: 0; }
-            to { opacity: 1; }
+        .service-grid, .portfolio-grid {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 30px;
         }
-
-        @keyframes slideIn {
-            from { transform: translateX(-100%); }
-            to { transform: translateX(0); }
+        .service-item, .portfolio-item {
+            max-width: 300px;
+            text-align: center;
         }
-
-        /* ألوان هادئة */
-        :root {
-            --primary-color: #1abc9c;
-            --secondary-color: #2c3e50;
-            --background-color: #f0f4f8;
-            --text-color: #333;
+        .service-item img, .portfolio-item img {
+            max-width: 100%;
+        }
+        .testimonials blockquote {
+            font-style: italic;
+            color: #555;
+            margin: 20px auto;
+            max-width: 600px;
+        }
+        .contact form {
+            max-width: 500px;
+            margin: 0 auto;
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+        .contact input, .contact textarea {
+            padding: 10px;
+            font-size: 1em;
+            border: 1px solid #ddd;
+            border-radius: 5px;
+        }
+        .contact button {
+            padding: 10px;
+            background-color: #007bff;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+        }
+        .contact button:hover {
+            background-color: #0056b3;
+        }
+        /* دعم RTL للغة العربية */
+        html[lang="ar"] {
+            direction: rtl;
+        }
+        @media (max-width: 768px) {
+            .service-grid, .portfolio-grid {
+                flex-direction: column;
+                align-items: center;
+            }
         }
     </style>
 </head>
 <body>
-    <header>
-        <h1>روية</h1>
-        <h2>مطور تطبيقات ويب</h2>
-        <nav>
-            <ul>
-                <li><a href="#about">نبذة عني</a></li>
-                <li><a href="#services">خدماتي</a></li>
-                <li><a href="#workflow">أعمالي</a></li>
-                <li><a href="#contact">التواصل</a></li>
-            </ul>
-        </nav>
+    <!-- زر تغيير اللغة -->
+    <div class="language-switcher">
+        <button onclick="switchLanguage('ar')">العربية</button>
+        <button onclick="switchLanguage('en')">English</button>
+    </div>
+
+    <!-- القسم الرئيسي -->
+    <header class="hero">
+        <h1 data-en="Hi, I’m Rawya. I create brands and websites." data-ar="مرحبًا، أنا روية. أصمم العلامات التجارية والمواقع الإلكترونية."></h1>
+        <p data-en="I’m a designer and developer based in Vancouver, Canada." data-ar="أنا مصممة ومطورة مقيمة في فانكوفر، كندا."></p>
+        <img src="https://mattfarley.ca/img/mf-avatar.svg" alt="Avatar">
     </header>
 
-    <section id="about">
-        <h1>نبذة عني</h1>
-        <p>أنا مطور تطبيقات ويب مبتكر، متخصص في إنشاء تطبيقات ويب حديثة وسريعة. لدي خبرة في تطوير بوتات تليجرام مثل بوتات حماية القروبات وبوتات تحليل أسعار الأسهم العالمية. أعمل دائمًا على تقديم حلول تقنية مبتكرة تلبي احتياجات العملاء.</p>
-    </section>
-
-    <section id="services">
-        <h1>خدماتي</h1>
-        <div class="services">
-            <div class="service">
-                <h3>تطوير واجهات المستخدم</h3>
-                <p>تصميم واجهات مستخدم جذابة وسهلة الاستخدام لتطبيقات الويب.</p>
+    <!-- قسم الخدمات -->
+    <section class="services">
+        <h2 data-en="What I Do" data-ar="ما أقدمه"></h2>
+        <div class="service-grid">
+            <div class="service-item">
+                <img src="https://mattfarley.ca/img/icons/branding-icon.svg" alt="Branding Icon">
+                <h3 data-en="Branding" data-ar="تصميم العلامات التجارية"></h3>
+                <p data-en="Distinct brand identities that resonate with your audience and position you for success." data-ar="هويات تجارية مميزة تترك أثرًا لدى جمهورك وتضعك في موقع النجاح."></p>
             </div>
-            <div class="service">
-                <h3>تطوير بوتات تليجرام</h3>
-                <p>إنشاء بوتات ذكية لتلبية احتياجات العملاء، مثل بوتات حماية القروبات.</p>
+            <div class="service-item">
+                <img src="https://mattfarley.ca/img/icons/web-design-icon.svg" alt="Web Design Icon">
+                <h3 data-en="Web Design" data-ar="تصميم المواقع"></h3>
+                <p data-en="Beautiful websites that provide meaningful experiences and deliver results." data-ar="مواقع إلكترونية جميلة توفر تجارب ذات معنى وتحقق نتائج."></p>
             </div>
-            <div class="service">
-                <h3>تحليل البيانات</h3>
-                <p>تقديم حلول تحليلية لأسعار الأسهم العالمية باستخدام بوتات مخصصة.</p>
-            </div>
-        </div>
-    </section>
-
-    <section id="workflow">
-        <h1>أعمالي</h1>
-        <div class="workflow">
-            <div class="workflow-item">
-                <h3>بوت حماية القروبات</h3>
-                <p>بوت تليجرام متخصص في حماية القروبات من الرسائل المزعجة والمخالفة.</p>
-            </div>
-            <div class="workflow-item">
-                <h3>بوت تحليل الأسهم</h3>
-                <p>بوت يقوم بتحليل أسعار الأسهم العالمية وتقديم تقارير مفصلة.</p>
-            </div>
-            <div class="workflow-item">
-                <h3>تطبيقات ويب مخصصة</h3>
-                <p>تصميم وتطوير تطبيقات ويب مخصصة وفقًا لاحتياجات العملاء.</p>
+            <div class="service-item">
+                <img src="https://mattfarley.ca/img/icons/web-dev-icon.svg" alt="Web Development Icon">
+                <h3 data-en="Web Development" data-ar="تطوير المواقع"></h3>
+                <p data-en="Fast, secure, and reliable websites built with the best tools and practices." data-ar="مواقع سريعة وآمنة وموثوقة تم بناؤها بأفضل الأدوات والممارسات."></p>
             </div>
         </div>
     </section>
 
-    <section id="contact">
-        <h1>التواصل</h1>
-        <div class="social-links">
-            <a href="mailto:your-email@example.com"><i class="fas fa-envelope"></i> البريد الإلكتروني</a>
-            <a href="https://wa.me/your-phone-number"><i class="fab fa-whatsapp"></i> واتساب</a>
-            <a href="https://t.me/your-telegram"><i class="fab fa-telegram"></i> تليجرام</a>
+    <!-- قسم الأعمال -->
+    <section class="portfolio">
+        <h2 data-en="Recent Work" data-ar="أعمالي الأخيرة"></h2>
+        <div class="portfolio-grid">
+            <div class="portfolio-item">
+                <img src="https://mattfarley.ca/img/projects/project-1.jpg" alt="Project 1">
+                <h3 data-en="Good Kind" data-ar="جود كايند"></h3>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://mattfarley.ca/img/projects/project-2.jpg" alt="Project 2">
+                <h3 data-en="Traverse" data-ar="ترافيرس"></h3>
+            </div>
+            <div class="portfolio-item">
+                <img src="https://mattfarley.ca/img/projects/project-3.jpg" alt="Project 3">
+                <h3 data-en="Landkit" data-ar="لاندكيت"></h3>
+            </div>
         </div>
     </section>
 
-    <footer>
-        <p>© 2023 روية. جميع الحقوق محفوظة.</p>
-    </footer>
+    <!-- قسم الشهادات -->
+    <section class="testimonials">
+        <h2 data-en="Kind Words" data-ar="كلمات طيبة"></h2>
+        <blockquote data-en="“Matt transformed our brand and built us a website that our customers love. Couldn’t recommend him more!”" data-ar="“حولت روية علامتنا التجارية وبنت لنا موقعًا يعشقه عملاؤنا. لا يمكنني أن أوصي بها أكثر!”"></blockquote>
+        <p data-en="— John Doe, CEO of Good Kind" data-ar="— جون دو، الرئيس التنفيذي لجود كايند"></p>
+        <!-- يمكنك إضافة المزيد من الشهادات هنا -->
+    </section>
+
+    <!-- نموذج الاتصال -->
+    <section class="contact">
+        <h2 data-en="Get in Touch" data-ar="تواصلي معي"></h2>
+        <form>
+            <input type="text" placeholder="الاسم" data-en-placeholder="Name" data-ar-placeholder="الاسم">
+            <input type="email" placeholder="البريد الإلكتروني" data-en-placeholder="Email" data-ar-placeholder="البريد الإلكتروني">
+            <textarea placeholder="رسالتك" data-en-placeholder="Your Message" data-ar-placeholder="رسالتك"></textarea>
+            <button type="submit" data-en="Send Message" data-ar="إرسال الرسالة"></button>
+        </form>
+    </section>
 
     <script>
-        // تبديل اللغة بين العربية والإنجليزية
-        const translations = {
-            ar: {
-                about: "نبذة عني",
-                services: "خدماتي",
-                workflow: "أعمالي",
-                contact: "التواصل",
-                email: "البريد الإلكتروني",
-                whatsapp: "واتساب",
-                telegram: "تليجرام",
-                rights: "جميع الحقوق محفوظة."
-            },
-            en: {
-                about: "About Me",
-                services: "Services",
-                workflow: "Workflow",
-                contact: "Contact",
-                email: "Email",
-                whatsapp: "WhatsApp",
-                telegram: "Telegram",
-                rights: "All rights reserved."
-            }
-        };
-
-        let currentLang = 'ar';
-
-        function toggleLanguage() {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            updateContent();
+        function switchLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelectorAll('[data-ar],[data-en]').forEach(element => {
+                const text = lang === 'ar' ? element.getAttribute('data-ar') : element.getAttribute('data-en');
+                element.textContent = text;
+            });
+            document.querySelectorAll('input, textarea').forEach(element => {
+                const placeholder = lang === 'ar' ? element.getAttribute('data-ar-placeholder') : element.getAttribute('data-en-placeholder');
+                if (placeholder) element.placeholder = placeholder;
+            });
         }
 
-        function updateContent() {
-            document.querySelector('html').setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
-            document.querySelector('html').setAttribute('lang', currentLang);
-            document.querySelector('#about h1').textContent = translations[currentLang].about;
-            document.querySelector('#services h1').textContent = translations[currentLang].services;
-            document.querySelector('#workflow h1').textContent = translations[currentLang].workflow;
-            document.querySelector('#contact h1').textContent = translations[currentLang].contact;
-            document.querySelector('footer p').textContent = `© 2023 روية. ${translations[currentLang].rights}`;
-        }
-
-        document.addEventListener('DOMContentLoaded', () => {
-            const langToggle = document.createElement('button');
-            langToggle.textContent = currentLang === 'ar' ? 'English' : 'العربية';
-            langToggle.style.position = 'fixed';
-            langToggle.style.top = '20px';
-            langToggle.style.right = '20px';
-            langToggle.style.padding = '10px 20px';
-            langToggle.style.backgroundColor = '#1abc9c';
-            langToggle.style.color = '#fff';
-            langToggle.style.border = 'none';
-            langToggle.style.borderRadius = '5px';
-            langToggle.style.cursor = 'pointer';
-            langToggle.addEventListener('click', toggleLanguage);
-            document.body.appendChild(langToggle);
-        });
+        // تعيين اللغة العربية كافتراضية
+        switchLanguage('ar');
     </script>
 </body>
 </html>
