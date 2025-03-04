@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر الأناقة العصرية</title>
+    <title>متجر الأناقة الفاخرة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
@@ -14,20 +14,19 @@
         }
 
         body {
-            background: #f5f7fa;
-            color: #2c3e50;
+            background: #f8fafc;
+            color: #1e293b;
             line-height: 1.6;
             overflow-x: hidden;
-            transition: all 0.3s ease;
         }
 
         /* الشريط العلوي */
         .top-bar {
-            background: linear-gradient(90deg, #f1c40f, #e67e22);
+            background: linear-gradient(90deg, #fbbf24, #f59e0b);
             color: #fff;
             text-align: center;
             padding: 12px;
-            font-size: 1.2em;
+            font-size: 1.1em;
             position: fixed;
             width: 100%;
             top: 0;
@@ -36,7 +35,7 @@
 
         /* الهيدر */
         header {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
             color: white;
             padding: 20px;
             position: fixed;
@@ -54,95 +53,174 @@
             letter-spacing: 1px;
         }
 
+        nav {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+
         nav a {
             color: white;
             text-decoration: none;
-            margin: 0 15px;
             font-size: 1.1em;
-            transition: color 0.3s;
+            padding: 8px 15px;
+            border-radius: 20px;
+            transition: background 0.3s;
         }
 
         nav a:hover {
-            color: #f1c40f;
+            background: #fbbf24;
         }
 
-        #lang-toggle {
-            background: #f1c40f;
-            padding: 5px 15px;
+        #lang-toggle, #cart-toggle {
+            background: #fbbf24;
+            padding: 8px 15px;
             border-radius: 20px;
             cursor: pointer;
+            font-size: 1em;
         }
 
         /* القائمة الجانبية */
         .sidebar {
             position: fixed;
-            top: 100px;
-            right: -250px;
-            width: 250px;
+            top: 0;
+            right: -350px;
+            width: 350px;
             height: 100%;
             background: #fff;
-            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
             padding: 20px;
-            transition: right 0.3s ease;
+            transition: right 0.4s ease;
             z-index: 1002;
+            overflow-y: auto;
         }
 
         .sidebar.active {
             right: 0;
         }
 
+        .sidebar .close-btn {
+            font-size: 1.5em;
+            color: #1e293b;
+            cursor: pointer;
+            text-align: left;
+            margin-bottom: 20px;
+        }
+
         .sidebar a, .sidebar p {
             display: block;
-            color: #2c3e50;
+            color: #1e293b;
             text-decoration: none;
             margin: 15px 0;
             font-size: 1.1em;
+            padding: 10px;
+            border-radius: 10px;
+            transition: background 0.3s;
         }
 
         .sidebar a:hover {
-            color: #3498db;
+            background: #e2e8f0;
         }
 
-        #menu-toggle {
-            font-size: 1.5em;
+        .login-form {
+            display: none;
+            flex-direction: column;
+            gap: 15px;
+            margin-top: 20px;
+        }
+
+        .login-form.active {
+            display: flex;
+        }
+
+        .login-form input {
+            padding: 10px;
+            border: 1px solid #d1d5db;
+            border-radius: 5px;
+            font-size: 1em;
+        }
+
+        .login-form button {
+            padding: 10px;
+            background: #3b82f6;
+            color: white;
+            border: none;
+            border-radius: 5px;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .login-form button:hover {
+            background: #1e3a8a;
+        }
+
+        .cart-items {
+            margin-top: 20px;
+        }
+
+        .cart-item {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            padding: 10px;
+            border-bottom: 1px solid #e2e8f0;
         }
 
         /* السلايدات والمنتجات */
         .main {
             margin-top: 120px;
-            padding: 20px;
+            padding: 30px;
         }
 
         .section {
-            margin-bottom: 60px;
+            margin-bottom: 80px;
         }
 
         .section-title {
-            font-size: 2.2em;
-            color: #2c3e50;
+            font-size: 2.5em;
+            color: #1e293b;
             text-align: center;
-            margin-bottom: 20px;
+            margin-bottom: 30px;
+            position: relative;
+        }
+
+        .section-title::after {
+            content: '';
+            width: 60px;
+            height: 4px;
+            background: #fbbf24;
+            position: absolute;
+            bottom: -10px;
+            right: 50%;
+            transform: translateX(50%);
         }
 
         .slider {
-            position: relative;
             width: 100%;
-            height: 400px;
+            height: 450px;
             overflow: hidden;
+            position: relative;
+            border-radius: 15px;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
         }
 
         .slides {
             display: flex;
             width: 300%;
             height: 100%;
-            transition: transform 0.5s ease;
+            animation: slide 15s infinite;
+        }
+
+        @keyframes slide {
+            0%, 33% { transform: translateX(0); }
+            33%, 66% { transform: translateX(-33.33%); }
+            66%, 100% { transform: translateX(-66.66%); }
         }
 
         .slide {
             width: 33.33%;
             height: 100%;
-            background: #ddd;
+            background: #e2e8f0;
             display: flex;
             align-items: center;
             justify-content: center;
@@ -150,167 +228,169 @@
         }
 
         .slide i {
-            font-size: 4em;
-            color: #3498db;
+            font-size: 5em;
+            color: #3b82f6;
         }
 
         .product-slider {
             display: flex;
             overflow-x: auto;
-            gap: 20px;
+            gap: 25px;
             padding: 20px 0;
             scroll-behavior: smooth;
         }
 
         .product-slider::-webkit-scrollbar {
-            display: none;
+            height: 8px;
+        }
+
+        .product-slider::-webkit-scrollbar-thumb {
+            background: #3b82f6;
+            border-radius: 10px;
         }
 
         .product-card {
-            flex: 0 0 auto;
-            width: 280px;
+            flex: 0 0 300px;
             background: white;
             border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
             padding: 20px;
             text-align: center;
             transition: transform 0.3s;
         }
 
         .product-card:hover {
-            transform: scale(1.05);
+            transform: translateY(-10px);
         }
 
         .product-placeholder {
-            height: 200px;
+            height: 220px;
             display: flex;
             align-items: center;
             justify-content: center;
-            background: #ecf0f1;
-            border: 2px dashed #3498db;
+            background: #f1f5f9;
+            border: 2px dashed #3b82f6;
             margin-bottom: 15px;
-        }
-
-        .price {
-            margin: 10px 0;
+            border-radius: 10px;
         }
 
         .price .old {
             text-decoration: line-through;
-            color: #7f8c8d;
+            color: #6b7280;
             margin-left: 10px;
         }
 
         .price .new {
-            color: #e74c3c;
+            color: #ef4444;
             font-weight: bold;
         }
 
         .loyalty {
-            color: #f1c40f;
+            color: #fbbf24;
             font-size: 0.9em;
+            margin: 10px 0;
         }
 
         .btn {
-            padding: 10px 20px;
-            background: #3498db;
+            padding: 12px 25px;
+            background: #3b82f6;
             color: white;
             text-decoration: none;
-            border-radius: 25px;
+            border-radius: 30px;
             transition: background 0.3s;
+            display: inline-block;
         }
 
         .btn:hover {
-            background: #2c3e50;
+            background: #1e3a8a;
         }
 
-        /* صفحات إضافية */
-        .page {
-            display: none;
-            padding: 40px 20px;
-        }
-
-        .page.active {
-            display: block;
-        }
-
-        .social-icons a {
-            color: #2c3e50;
-            font-size: 1.5em;
-            margin: 0 10px;
-            transition: color 0.3s;
-        }
-
-        .social-icons a:hover {
-            color: #3498db;
-        }
-
-        /* مخطط تتبع الطلب */
-        .order-tracker {
+        /* صفحة من نحن */
+        .team {
             display: flex;
-            justify-content: space-between;
-            align-items: center;
-            margin: 20px 0;
-            padding: 20px;
-            background: #fff;
-            border-radius: 10px;
-            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+            flex-wrap: wrap;
+            gap: 20px;
+            justify-content: center;
+            margin-top: 30px;
         }
 
-        .tracker-step {
+        .team-member {
             text-align: center;
-            flex: 1;
+            width: 200px;
         }
 
-        .tracker-step i {
-            font-size: 1.5em;
-            color: #3498db;
+        .team-member i {
+            font-size: 3em;
+            color: #3b82f6;
+            margin-bottom: 10px;
         }
 
-        .tracker-step.active i {
-            color: #f1c40f;
+        /* آراء العملاء */
+        .reviews {
+            margin-top: 40px;
+        }
+
+        .review-card {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
+            margin-bottom: 20px;
         }
 
         /* الفوتر */
         footer {
-            background: linear-gradient(135deg, #2c3e50, #3498db);
+            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
             color: white;
+            padding: 40px 20px;
             text-align: center;
-            padding: 20px;
+        }
+
+        .social-icons a {
+            color: white;
+            font-size: 1.8em;
+            margin: 0 15px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #fbbf24;
         }
 
         /* التجاوب */
         @media (max-width: 768px) {
             .slider { height: 300px; }
-            .product-card { width: 220px; }
+            .product-card { flex: 0 0 250px; }
+            .sidebar { width: 300px; }
         }
     </style>
 </head>
 <body lang="ar">
-    <div class="top-bar" data-ar="تخفيضات تصل إلى 50% الآن!" data-en="Discounts up to 50% now!">تخفيضات تصل إلى 50% الآن!</div>
+    <div class="top-bar" data-ar="خصم 50% لفترة محدودة!" data-en="50% discount for a limited time!">خصم 50% لفترة محدودة!</div>
 
     <header>
-        <h1 data-ar="متجر الأناقة العصرية" data-en="Modern Elegance Store">متجر الأناقة العصرية</h1>
+        <h1 data-ar="متجر الأناقة الفاخرة" data-en="Luxury Elegance Store">متجر الأناقة الفاخرة</h1>
         <nav>
             <a href="#" data-page="home" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
             <a href="#" data-page="products" data-ar="المنتجات" data-en="Products">المنتجات</a>
             <a href="#" data-page="about" data-ar="من نحن" data-en="About">من نحن</a>
-            <a href="#" data-page="contact" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
+            <a href="#" data-page="contact" data-ar="تواصل" data-en="Contact">تواصل</a>
             <span id="lang-toggle">EN</span>
-            <i class="fas fa-bars" id="menu-toggle"></i>
+            <span id="cart-toggle"><i class="fas fa-shopping-cart"></i></span>
         </nav>
     </header>
 
     <div class="sidebar">
-        <a href="#" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</a>
+        <i class="fas fa-times close-btn"></i>
+        <a href="#" id="login-btn" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</a>
+        <form class="login-form">
+            <input type="text" placeholder="البريد الإلكتروني" data-ar-placeholder="البريد الإلكتروني" data-en-placeholder="Email">
+            <input type="password" placeholder="كلمة المرور" data-ar-placeholder="كلمة المرور" data-en-placeholder="Password">
+            <button type="submit" data-ar="دخول" data-en="Login">دخول</button>
+        </form>
         <a href="#" data-ar="طلباتي" data-en="My Orders">طلباتي</a>
-        <p data-ar="نظام الولاء: 150 نقطة" data-en="Loyalty: 150 points">نظام الولاء: 150 نقطة</p>
-        <div class="order-tracker">
-            <div class="tracker-step active"><i class="fas fa-shopping-cart"></i><p>في السلة</p></div>
-            <div class="tracker-step"><i class="fas fa-credit-card"></i><p>الدفع</p></div>
-            <div class="tracker-step"><i class="fas fa-box"></i><p>التحضير</p></div>
-            <div class="tracker-step"><i class="fas fa-truck"></i><p>تم الشحن</p></div>
-        </div>
+        <p data-ar="نظام الولاء: 200 نقطة" data-en="Loyalty: 200 points">نظام الولاء: 200 نقطة</p>
+        <div class="cart-items" id="cart-items"></div>
     </div>
 
     <div class="main">
@@ -318,55 +398,105 @@
         <section class="page active" data-page="home">
             <div class="section">
                 <h2 class="section-title" data-ar="وصل حديثًا" data-en="New Arrivals">وصل حديثًا</h2>
-                <div class="slider" data-slider="new">
+                <div class="slider">
                     <div class="slides">
                         <div class="slide"><i class="fas fa-camera"></i></div>
                         <div class="slide"><i class="fas fa-camera"></i></div>
                         <div class="slide"><i class="fas fa-camera"></i></div>
                     </div>
                 </div>
-                <div class="product-slider" data-slider="new-products">
+                <div class="product-slider">
                     <div class="product-card">
                         <div class="product-placeholder"><i class="fas fa-vest"></i></div>
                         <h3 data-ar="عباية فاخرة" data-en="Luxury Abaya">عباية فاخرة</h3>
-                        <div class="price"><span class="old">200 ر.س</span> <span class="new">150 ر.س</span></div>
-                        <p class="loyalty" data-ar="+10 نقاط" data-en="+10 points">+10 نقاط</p>
-                        <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+                        <div class="price"><span class="old">250 ر.س</span> <span class="new">200 ر.س</span></div>
+                        <p class="loyalty" data-ar="+15 نقاط" data-en="+15 points">+15 نقاط</p>
+                        <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
                     </div>
                     <div class="product-card">
                         <div class="product-placeholder"><i class="fas fa-tshirt"></i></div>
-                        <h3 data-ar="عباية كلاسيكية" data-en="Classic Abaya">عباية كلاسيكية</h3>
-                        <div class="price"><span class="old">180 ر.س</span> <span class="new">130 ر.س</span></div>
-                        <p class="loyalty" data-ar="+8 نقاط" data-en="+8 points">+8 نقاط</p>
-                        <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+                        <h3 data-ar="عباية كلاسيك" data-en="Classic Abaya">عباية كلاسيك</h3>
+                        <div class="price"><span class="old">180 ر.س</span> <span class="new">140 ر.س</span></div>
+                        <p class="loyalty" data-ar="+10 نقاط" data-en="+10 points">+10 نقاط</p>
+                        <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-placeholder"><i class="fas fa-robe"></i></div>
+                        <h3 data-ar="عباية عصرية" data-en="Modern Abaya">عباية عصرية</h3>
+                        <div class="price"><span class="old">200 ر.س</span> <span class="new">160 ر.س</span></div>
+                        <p class="loyalty" data-ar="+12 نقاط" data-en="+12 points">+12 نقاط</p>
+                        <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
                     </div>
                 </div>
             </div>
 
             <div class="section">
                 <h2 class="section-title" data-ar="الأكثر مبيعًا" data-en="Best Sellers">الأكثر مبيعًا</h2>
-                <div class="slider" data-slider="best">
+                <div class="slider">
                     <div class="slides">
                         <div class="slide"><i class="fas fa-camera"></i></div>
                         <div class="slide"><i class="fas fa-camera"></i></div>
                         <div class="slide"><i class="fas fa-camera"></i></div>
                     </div>
                 </div>
-                <div class="product-slider" data-slider="best-products">
+                <div class="product-slider">
                     <div class="product-card">
                         <div class="product-placeholder"><i class="fas fa-vest-patches"></i></div>
                         <h3 data-ar="عباية مطرزة" data-en="Embroidered Abaya">عباية مطرزة</h3>
-                        <div class="price"><span class="old">250 ر.س</span> <span class="new">200 ر.س</span></div>
-                        <p class="loyalty" data-ar="+15 نقاط" data-en="+15 points">+15 نقاط</p>
-                        <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+                        <div class="price"><span class="old">300 ر.س</span> <span class="new">240 ر.س</span></div>
+                        <p class="loyalty" data-ar="+20 نقاط" data-en="+20 points">+20 نقاط</p>
+                        <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
                     </div>
                     <div class="product-card">
                         <div class="product-placeholder"><i class="fas fa-coat"></i></div>
                         <h3 data-ar="عباية شتوية" data-en="Winter Abaya">عباية شتوية</h3>
-                        <div class="price"><span class="old">300 ر.س</span> <span class="new">240 ر.س</span></div>
-                        <p class="loyalty" data-ar="+20 نقاط" data-en="+20 points">+20 نقاط</p>
-                        <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+                        <div class="price"><span class="old">350 ر.س</span> <span class="new">280 ر.س</span></div>
+                        <p class="loyalty" data-ar="+25 نقاط" data-en="+25 points">+25 نقاط</p>
+                        <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
                     </div>
+                    <div class="product-card">
+                        <div class="product-placeholder"><i class="fas fa-shirt"></i></div>
+                        <h3 data-ar="عباية بسيطة" data-en="Simple Abaya">عباية بسيطة</h3>
+                        <div class="price"><span class="old">150 ر.س</span> <span class="new">120 ر.س</span></div>
+                        <p class="loyalty" data-ar="+8 نقاط" data-en="+8 points">+8 نقاط</p>
+                        <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+                    </div>
+                </div>
+            </div>
+
+            <div class="section">
+                <h2 class="section-title" data-ar="آراء العملاء" data-en="Customer Reviews">آراء العملاء</h2>
+                <div class="reviews">
+                    <div class="review-card">
+                        <p data-ar="منتجات رائعة وجودة عالية!" data-en="Amazing products and high quality!">منتجات رائعة وجودة عالية!</p>
+                        <p>- ليلى أحمد</p>
+                    </div>
+                    <div class="review-card">
+                        <p data-ar="تجربة تسوق ممتعة وسهلة." data-en="A fun and easy shopping experience.">تجربة تسوق ممتعة وسهلة.</p>
+                        <p>- سارة محمد</p>
+                    </div>
+                </div>
+            </div>
+        </section>
+
+        <!-- صفحة المنتجات -->
+        <section class="page" data-page="products">
+            <h2 class="section-title" data-ar="جميع المنتجات" data-en="All Products">جميع المنتجات</h2>
+            <div class="product-slider">
+                <!-- يمكن إضافة المزيد من المنتجات هنا -->
+                <div class="product-card">
+                    <div class="product-placeholder"><i class="fas fa-vest"></i></div>
+                    <h3 data-ar="عباية فاخرة" data-en="Luxury Abaya">عباية فاخرة</h3>
+                    <div class="price"><span class="old">250 ر.س</span> <span class="new">200 ر.س</span></div>
+                    <p class="loyalty" data-ar="+15 نقاط" data-en="+15 points">+15 نقاط</p>
+                    <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+                </div>
+                <div class="product-card">
+                    <div class="product-placeholder"><i class="fas fa-coat"></i></div>
+                    <h3 data-ar="عباية شتوية" data-en="Winter Abaya">عباية شتوية</h3>
+                    <div class="price"><span class="old">350 ر.س</span> <span class="new">280 ر.س</span></div>
+                    <p class="loyalty" data-ar="+25 نقاط" data-en="+25 points">+25 نقاط</p>
+                    <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
                 </div>
             </div>
         </section>
@@ -374,48 +504,99 @@
         <!-- صفحة من نحن -->
         <section class="page" data-page="about">
             <h2 class="section-title" data-ar="من نحن" data-en="About Us">من نحن</h2>
-            <p data-ar="نحن متجر الأناقة العصرية، نسعى لتقديم أفضل المنتجات بأسلوب عصري وجودة عالية." 
-               data-en="We are Modern Elegance Store, striving to offer the best products with a modern style and high quality.">
-                نحن متجر الأناقة العصرية، نسعى لتقديم أفضل المنتجات بأسلوب عصري وجودة عالية.
+            <p data-ar="نحن متجر الأناقة الفاخرة، نهدف إلى تقديم أفضل المنتجات بجودة عالية وأسلوب عصري." 
+               data-en="We are Luxury Elegance Store, aiming to provide the best products with high quality and modern style.">
+                نحن متجر الأناقة الفاخرة، نهدف إلى تقديم أفضل المنتجات بجودة عالية وأسلوب عصري.
             </p>
+            <h2 class="section-title" data-ar="رؤيتنا" data-en="Our Vision">رؤيتنا</h2>
+            <p data-ar="أن نكون الخيار الأول للأناقة والجودة في المنطقة." 
+               data-en="To be the top choice for elegance and quality in the region.">
+                أن نكون الخيار الأول للأناقة والجودة في المنطقة.
+            </p>
+            <h2 class="section-title" data-ar="فريق العمل" data-en="Our Team">فريق العمل</h2>
+            <div class="team">
+                <div class="team-member">
+                    <i class="fas fa-user-tie"></i>
+                    <p data-ar="أحمد خالد - المدير" data-en="Ahmed Khaled - Manager">أحمد خالد - المدير</p>
+                </div>
+                <div class="team-member">
+                    <i class="fas fa-user"></i>
+                    <p data-ar="نورا سعيد - المصممة" data-en="Noura Saeed - Designer">نورا سعيد - المصممة</p>
+                </div>
+                <div class="team-member">
+                    <i class="fas fa-user-check"></i>
+                    <p data-ar="خالد عمر - خدمة العملاء" data-en="Khaled Omar - Customer Service">خالد عمر - خدمة العملاء</p>
+                </div>
+            </div>
         </section>
 
-        <!-- صفحة تواصل معنا -->
+        <!-- صفحة التواصل -->
         <section class="page" data-page="contact">
             <h2 class="section-title" data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</h2>
-            <p data-ar="راسلنا عبر البريد: info@elegance.com" data-en="Email us at: info@elegance.com">راسلنا عبر البريد: info@elegance.com</p>
-            <div class="social-icons">
-                <a href="#"><i class="fab fa-facebook"></i></a>
-                <a href="#"><i class="fab fa-instagram"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fab fa-whatsapp"></i></a>
-            </div>
+            <p data-ar="راسلنا على: info@luxuryelegance.com" data-en="Email us at: info@luxuryelegance.com">راسلنا على: info@luxuryelegance.com</p>
+            <p data-ar="اتصل بنا: 1234-567-890" data-en="Call us: 1234-567-890">اتصل بنا: 1234-567-890</p>
         </section>
     </div>
 
     <footer>
-        <p data-ar="جميع الحقوق محفوظة © 2025 متجر الأناقة العصرية" data-en="All Rights Reserved © 2025 Modern Elegance Store">
-            جميع الحقوق محفوظة © 2025 متجر الأناقة العصرية
+        <p data-ar="جميع الحقوق محفوظة © 2025 متجر الأناقة الفاخرة" data-en="All Rights Reserved © 2025 Luxury Elegance Store">
+            جميع الحقوق محفوظة © 2025 متجر الأناقة الفاخرة
         </p>
+        <div class="social-icons">
+            <a href="#"><i class="fab fa-facebook"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-whatsapp"></i></a>
+        </div>
     </footer>
 
     <script>
         // فتح/إغلاق القائمة الجانبية
-        const menuToggle = document.getElementById('menu-toggle');
+        const cartToggle = document.getElementById('cart-toggle');
         const sidebar = document.querySelector('.sidebar');
-        menuToggle.addEventListener('click', () => sidebar.classList.toggle('active'));
+        const closeBtn = document.querySelector('.close-btn');
+        cartToggle.addEventListener('click', () => sidebar.classList.add('active'));
+        closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
 
-        // التحكم بالسلايدات التلقائية
-        const sliders = document.querySelectorAll('.slider');
-        sliders.forEach(slider => {
-            const slides = slider.querySelector('.slides');
-            let current = 0;
-            const total = 3;
+        // فتح فورم تسجيل الدخول
+        const loginBtn = document.getElementById('login-btn');
+        const loginForm = document.querySelector('.login-form');
+        loginBtn.addEventListener('click', (e) => {
+            e.preventDefault();
+            loginForm.classList.toggle('active');
+        });
 
-            setInterval(() => {
-                current = (current + 1) % total;
-                slides.style.transform = `translateX(-${current * 33.33}%)`;
-            }, 5000);
+        // إضافة المنتج للسلة بحركة
+        const cartItems = document.getElementById('cart-items');
+        document.querySelectorAll('.add-to-cart').forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                const card = btn.closest('.product-card');
+                const name = card.querySelector('h3').textContent;
+                const price = card.querySelector('.new').textContent;
+
+                const item = document.createElement('div');
+                item.classList.add('cart-item');
+                item.innerHTML = `<i class="fas fa-tshirt"></i> ${name} - ${price}`;
+                cartItems.appendChild(item);
+
+                const clone = card.cloneNode(true);
+                clone.style.position = 'absolute';
+                clone.style.top = `${card.getBoundingClientRect().top}px`;
+                clone.style.left = `${card.getBoundingClientRect().left}px`;
+                document.body.appendChild(clone);
+
+                setTimeout(() => {
+                    clone.style.transition = 'all 0.5s ease';
+                    clone.style.top = `${cartToggle.getBoundingClientRect().top}px`;
+                    clone.style.left = `${cartToggle.getBoundingClientRect().left}px`;
+                    clone.style.transform = 'scale(0.1)';
+                    clone.style.opacity = '0';
+                }, 10);
+
+                setTimeout(() => clone.remove(), 500);
+                sidebar.classList.add('active');
+            });
         });
 
         // تغيير الصفحات
@@ -438,6 +619,9 @@
 
             document.querySelectorAll('[data-ar]').forEach(elem => {
                 elem.textContent = elem.getAttribute(`data-${newLang}`);
+            });
+            document.querySelectorAll('input[data-ar-placeholder]').forEach(input => {
+                input.placeholder = input.getAttribute(`data-${newLang}-placeholder`);
             });
         });
     </script>
