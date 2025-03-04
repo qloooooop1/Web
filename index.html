@@ -205,5 +205,64 @@
     <footer>
         <p>© 2023 روية. جميع الحقوق محفوظة.</p>
     </footer>
+
+    <script>
+        // تبديل اللغة بين العربية والإنجليزية
+        const translations = {
+            ar: {
+                about: "نبذة عني",
+                services: "خدماتي",
+                workflow: "أعمالي",
+                contact: "التواصل",
+                email: "البريد الإلكتروني",
+                whatsapp: "واتساب",
+                telegram: "تليجرام",
+                rights: "جميع الحقوق محفوظة."
+            },
+            en: {
+                about: "About Me",
+                services: "Services",
+                workflow: "Workflow",
+                contact: "Contact",
+                email: "Email",
+                whatsapp: "WhatsApp",
+                telegram: "Telegram",
+                rights: "All rights reserved."
+            }
+        };
+
+        let currentLang = 'ar';
+
+        function toggleLanguage() {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            updateContent();
+        }
+
+        function updateContent() {
+            document.querySelector('html').setAttribute('dir', currentLang === 'ar' ? 'rtl' : 'ltr');
+            document.querySelector('html').setAttribute('lang', currentLang);
+            document.querySelector('#about h1').textContent = translations[currentLang].about;
+            document.querySelector('#services h1').textContent = translations[currentLang].services;
+            document.querySelector('#workflow h1').textContent = translations[currentLang].workflow;
+            document.querySelector('#contact h1').textContent = translations[currentLang].contact;
+            document.querySelector('footer p').textContent = `© 2023 روية. ${translations[currentLang].rights}`;
+        }
+
+        document.addEventListener('DOMContentLoaded', () => {
+            const langToggle = document.createElement('button');
+            langToggle.textContent = currentLang === 'ar' ? 'English' : 'العربية';
+            langToggle.style.position = 'fixed';
+            langToggle.style.top = '20px';
+            langToggle.style.right = '20px';
+            langToggle.style.padding = '10px 20px';
+            langToggle.style.backgroundColor = '#1abc9c';
+            langToggle.style.color = '#fff';
+            langToggle.style.border = 'none';
+            langToggle.style.borderRadius = '5px';
+            langToggle.style.cursor = 'pointer';
+            langToggle.addEventListener('click', toggleLanguage);
+            document.body.appendChild(langToggle);
+        });
+    </script>
 </body>
 </html>
