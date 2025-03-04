@@ -3,621 +3,286 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="موقع مطور ويب محترف - حلول تقنية استثنائية">
-    <meta name="keywords" content="تطوير ويب, تصميم مواقع, برمجة احترافية">
-    <title>مطور ويب محترف</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <title>رمضان 🌙</title>
+    <!-- إضافة Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Poppins', sans-serif;
-        }
         body {
-            background: linear-gradient(135deg, #1a1a2e, #16213e, #0f3460);
-            color: #e0e0e0;
+            font-family: 'Tajawal', sans-serif;
+            text-align: center;
+            background-color: #f0f8ff;
             direction: rtl;
-            scroll-behavior: smooth;
-            line-height: 1.6;
-            overflow-x: hidden;
             position: relative;
-        }
-        body::before {
-            content: '';
-            position: absolute;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: url('https://www.transparenttextures.com/patterns/stardust.png');
-            opacity: 0.1;
-            z-index: -1;
-        }
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: 0;
-            width: 280px;
-            height: 100%;
-            background: #0a0a23;
-            padding: 30px;
-            transition: transform 0.4s ease;
-            z-index: 1000;
-            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
-        }
-        .sidebar.open {
-            transform: translateX(0);
-        }
-        .sidebar.closed {
-            transform: translateX(100%);
-        }
-        .sidebar .logo {
-            display: flex;
-            align-items: center;
-            font-size: 2rem;
-            color: #e94560;
-            margin-bottom: 50px;
-        }
-        .sidebar .logo i {
-            margin-left: 15px;
-            color: #54d2d2;
-        }
-        .sidebar a {
-            display: block;
-            color: #e0e0e0;
-            text-decoration: none;
-            margin: 25px 0;
-            font-size: 1.3rem;
-            transition: color 0.3s;
-        }
-        .sidebar a:hover {
-            color: #54d2d2;
-        }
-        .sidebar .close-btn {
-            position: absolute;
-            top: 20px;
-            left: 20px;
-            font-size: 1.8rem;
-            color: #e0e0e0;
-            cursor: pointer;
-        }
-        .menu-toggle {
-            position: fixed;
-            top: 20px;
-            right: 20px;
-            font-size: 2.5rem;
-            color: #54d2d2;
-            cursor: pointer;
-            z-index: 1100;
-        }
-        .language-toggle {
-            position: absolute;
-            bottom: 20px;
-            right: 30px;
-            color: #54d2d2;
-            font-size: 1.5rem;
-            cursor: pointer;
-        }
-        .hero {
-            height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            position: relative;
-        }
-        .hero h1 {
-            font-size: 4rem;
-            font-weight: 800;
-            color: #e94560;
-            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
-        }
-        .faq {
-            max-width: 900px;
-            margin: 30px auto;
-        }
-        .faq-item {
-            background: rgba(255, 255, 255, 0.05);
-            margin: 15px 0;
-            padding: 20px;
-            border-radius: 12px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-        .faq-item:hover {
-            background: rgba(255, 255, 255, 0.1);
-        }
-        .faq-item h3 {
-            color: #54d2d2;
-            margin-bottom: 10px;
-        }
-        .faq-item p {
-            color: #e0e0e0;
-            opacity: 0;
-            height: 0;
             overflow: hidden;
-            transition: opacity 0.3s, height 0.3s;
         }
-        .faq-item.active p {
-            opacity: 1;
-            height: auto;
+        #countdown {
+            font-size: 2em;
+            color: #2e8b57;
+            margin-top: 20px;
         }
-        .section {
-            padding: 80px 20px;
-            text-align: center;
-        }
-        .section h2 {
-            font-size: 3rem;
-            margin-bottom: 30px;
-            color: #e94560;
-            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
-        }
-        .about, .services, .contact, .team, .testimonials, .hosting {
-            background: rgba(255, 255, 255, 0.03);
-        }
-        .projects {
-            background: rgba(10, 10, 35, 0.2);
-        }
-        .project-gallery, .testimonials-grid, .services-grid, .hosting-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-            animation: slide 20s infinite linear;
-        }
-        @keyframes slide {
-            0% { transform: translateX(0); }
-            50% { transform: translateX(-100px); }
-            100% { transform: translateX(0); }
-        }
-        .project-card, .testimonial-card, .service-card, .hosting-card {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            width: 300px;
-            border-radius: 15px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-            transition: transform 0.3s, background 0.3s;
-        }
-        .project-card:hover, .testimonial-card:hover, .service-card:hover, .hosting-card:hover {
-            transform: scale(1.05);
-            background: rgba(255, 255, 255, 0.1);
-        }
-        .service-card i, .hosting-card i {
-            font-size: 2.5rem;
-            color: #54d2d2;
-            margin-bottom: 15px;
-        }
-        .team-grid {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            flex-wrap: wrap;
-        }
-        .team-member {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 25px;
-            width: 250px;
-            border-radius: 15px;
-            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
-        }
-        .team-member i {
-            font-size: 2rem;
-            color: #e94560;
-            margin-bottom: 15px;
-        }
-        .contact-form {
-            max-width: 600px;
-            margin: 30px auto;
-        }
-        .contact-form input, .contact-form textarea, .contact-form select {
-            width: 100%;
+        #prayer {
+            font-size: 1.5em;
+            margin: 20px;
             padding: 15px;
-            margin: 15px 0;
-            border: none;
-            border-radius: 8px;
-            background: rgba(255, 255, 255, 0.7);
-        }
-        .contact-form button {
-            background: #54d2d2;
-            color: #fff;
-            padding: 15px 30px;
-            border: none;
-            border-radius: 8px;
+            background-color: #fff;
+            border-radius: 10px;
             cursor: pointer;
-            transition: background 0.3s;
         }
-        .contact-form button:hover {
-            background: #46b2b2;
+        #prayer:hover {
+            background-color: #e0ffff;
         }
-        .social-links {
-            margin-top: 30px;
-            display: flex;
-            justify-content: center;
-            gap: 30px;
+        #shareBtn, .gameBtn {
+            padding: 10px 20px;
+            background-color: #32cd32;
+            color: white;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            margin: 5px;
         }
-        .social-links a {
-            color: #e94560;
-            font-size: 2rem;
-            transition: color 0.3s, transform 0.3s;
+        #points {
+            font-size: 1.2em;
+            color: #ff8c00;
         }
-        .social-links a:hover {
-            color: #54d2d2;
-            transform: scale(1.2);
+        #leaderboard {
+            margin: 20px;
+            padding: 15px;
+            background-color: #fff;
+            border-radius: 10px;
+            max-width: 300px;
+            display: inline-block;
         }
-        footer {
-            background: #0a0a23;
-            color: #e0e0e0;
-            padding: 30px;
-            text-align: center;
-            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
+        #leaderboard h3 {
+            margin: 0;
+            color: #2e8b57;
         }
-        @media (max-width: 768px) {
-            .sidebar {
-                width: 220px;
-            }
-            .hero h1 {
-                font-size: 2.5rem;
-            }
-            .project-card, .team-member, .testimonial-card, .service-card, .hosting-card {
-                width: 100%;
-                max-width: 320px;
-            }
+        #leaderboard ul {
+            list-style: none;
+            padding: 0;
+        }
+        #leaderboard li {
+            padding: 5px;
+            font-size: 1.1em;
+        }
+        #eid {
+            display: none;
+            font-size: 3em;
+            color: #ff4500;
+        }
+        .star {
+            position: absolute;
+            font-size: 2em;
+            cursor: pointer;
+            transition: all 0.2s;
+        }
+        #gameArea {
+            margin: 20px;
+            padding: 20px;
+            background-color: #fff;
+            border-radius: 10px;
+            display: none;
         }
     </style>
 </head>
 <body>
-    <!-- زر فتح القائمة -->
-    <div class="menu-toggle">
-        <i class="fas fa-bars"></i>
+    <h1>رمضان <i class="fas fa-moon"></i></h1>
+    <input type="text" id="userName" placeholder="أدخل اسمك لتبدأ" style="margin-bottom: 10px;">
+    <div id="countdown"></div>
+    <div id="points">نجومك: 0 <i class="fas fa-star"></i></div>
+    <div id="prayer" onclick="changePrayer()">اضغط لعرض دعاء اليوم <i class="fas fa-pray"></i></div>
+    <button id="shareBtn" style="display: none;" onclick="sharePrayer()">شارك دعاء اليوم <i class="fas fa-share-alt"></i></button>
+    <div id="globalStats">انضم 0 شخص إلى تحدي رمضان</div>
+    <div>
+        <button class="gameBtn" onclick="startStarGame()">اجمع النجوم <i class="fas fa-star"></i></button>
+        <button class="gameBtn" onclick="startGuessGame()">خمن السورة <i class="fas fa-book-open"></i></button>
+        <button class="gameBtn" onclick="startQuizGame()">مسابقة رمضانية <i class="fas fa-question-circle"></i></button>
     </div>
-
-    <!-- القائمة الجانبية -->
-    <div class="sidebar closed" data-lang="ar">
-        <div class="logo">
-            <i class="fas fa-laptop-code"></i>
-            <span data-ar="مطور ويب" data-en="Web Developer">مطور ويب</span>
-        </div>
-        <div class="close-btn">
-            <i class="fas fa-times"></i>
-        </div>
-        <a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
-        <a href="#about" data-ar="من نحن" data-en="About Us">من نحن</a>
-        <a href="#services" data-ar="الخدمات" data-en="Services">الخدمات</a>
-        <a href="#projects" data-ar="المشاريع" data-en="Projects">المشاريع</a>
-        <a href="blog.html" data-ar="المدونة" data-en="Blog">المدونة</a>
-        <a href="#team" data-ar="فريق العمل" data-en="Team">فريق العمل</a>
-        <a href="#testimonials" data-ar="آراء العملاء" data-en="Testimonials">آراء العملاء</a>
-        <a href="#hosting" data-ar="الاستضافة" data-en="Hosting">الاستضافة</a>
-        <a href="#contact" data-ar="تواصل معي" data-en="Contact Me">تواصل معي</a>
-        <div class="language-toggle" onclick="toggleLanguage()">
-            <i class="fas fa-globe"></i>
-        </div>
+    <div id="gameArea"></div>
+    <div id="leaderboard">
+        <h3><i class="fas fa-trophy"></i> الأكثر جمعًا للنجوم</h3>
+        <ul id="leaderList"></ul>
     </div>
+    <div id="eid">عيد فطر مبارك <i class="fas fa-fireworks"></i></div>
 
-    <!-- الجزء الافتتاحي -->
-    <div class="hero" id="home">
-        <h1 data-ar="مطور ويب محترف" data-en="Professional Web Developer">مطور ويب محترف</h1>
-        <div class="faq">
-            <div class="faq-item">
-                <h3 data-ar="ما الذي يجعلنا مميزين؟" data-en="What makes us unique?">ما الذي يجعلنا مميزين؟</h3>
-                <p data-ar="نستخدم أحدث التقنيات لتقديم حلول ويب مبتكرة تلبي احتياجاتك بدقة." data-en="We use the latest technologies to deliver innovative web solutions tailored to your needs.">نستخدم أحدث التقنيات لتقديم حلول ويب مبتكرة تلبي احتياجاتك بدقة.</p>
-            </div>
-            <div class="faq-item">
-                <h3 data-ar="كيف نضمن جودة المشاريع؟" data-en="How do we ensure project quality?">كيف نضمن جودة المشاريع؟</h3>
-                <p data-ar="فريقنا يتبع معايير صارمة مع اختبارات دقيقة لضمان الأداء العالي." data-en="Our team follows strict standards with thorough testing to ensure high performance.">فريقنا يتبع معايير صارمة مع اختبارات دقيقة لضمان الأداء العالي.</p>
-            </div>
-            <div class="faq-item">
-                <h3 data-ar="ما هي خطوات العمل معنا؟" data-en="What are the steps to work with us?">ما هي خطوات العمل معنا؟</h3>
-                <p data-ar="نبدأ بتحليل فكرتك، ثم التصميم، التطوير، وأخيرًا الإطلاق." data-en="We start by analyzing your idea, then design, develop, and finally launch.">نبدأ بتحليل فكرتك، ثم التصميم، التطوير، وأخيرًا الإطلاق.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم من نحن -->
-    <div class="section about" id="about">
-        <h2 data-ar="من نحن" data-en="About Us">من نحن</h2>
-        <p data-ar="نحن فريق من خبراء تطوير الويب، نهدف إلى تقديم تجارب رقمية استثنائية تجمع بين الإبداع والتقنية." data-en="We are a team of web development experts aiming to deliver exceptional digital experiences blending creativity and technology.">نحن فريق من خبراء تطوير الويب، نهدف إلى تقديم تجارب رقمية استثنائية تجمع بين الإبداع والتقنية.</p>
-    </div>
-
-    <!-- قسم الخدمات -->
-    <div class="section services" id="services">
-        <h2 data-ar="خدماتنا" data-en="Our Services">خدماتنا</h2>
-        <div class="services-grid">
-            <div class="service-card">
-                <i class="fas fa-desktop"></i>
-                <h3 data-ar="تصميم مواقع" data-en="Website Design">تصميم مواقع</h3>
-                <p data-ar="تصميمات تفاعلية متجاوبة تلائم كل الأجهزة." data-en="Interactive, responsive designs for all devices.">تصميمات تفاعلية متجاوبة تلائم كل الأجهزة.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-code-branch"></i>
-                <h3 data-ar="تطوير تطبيقات" data-en="App Development">تطوير تطبيقات</h3>
-                <p data-ar="تطبيقات ويب متقدمة بأداء عالٍ." data-en="Advanced web applications with high performance.">تطبيقات ويب متقدمة بأداء عالٍ.</p>
-            </div>
-            <div class="service-card">
-                <i class="fas fa-search"></i>
-                <h3 data-ar="تحسين SEO" data-en="SEO Optimization">تحسين SEO</h3>
-                <p data-ar="رفع ترتيب موقعك في محركات البحث." data-en="Boost your site's ranking on search engines.">رفع ترتيب موقعك في محركات البحث.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم المشاريع -->
-    <div class="section projects" id="projects">
-        <h2 data-ar="المشاريع" data-en="Projects">المشاريع</h2>
-        <div class="project-gallery">
-            <div class="project-card">
-                <i class="fas fa-shopping-cart fa-2x" style="color: #54d2d2;"></i>
-                <h3 data-ar="متجر إلكتروني" data-en="E-Commerce Store">متجر إلكتروني</h3>
-                <p data-ar="متجر متكامل بتقنيات حديثة." data-en="A fully integrated store with modern tech.">متجر متكامل بتقنيات حديثة.</p>
-            </div>
-            <div class="project-card">
-                <i class="fas fa-blog fa-2x" style="color: #54d2d2;"></i>
-                <h3 data-ar="مدونة تقنية" data-en="Tech Blog">مدونة تقنية</h3>
-                <p data-ar="مدونة احترافية مع إدارة محتوى." data-en="Professional blog with content management.">مدونة احترافية مع إدارة محتوى.</p>
-            </div>
-            <div class="project-card">
-                <i class="fas fa-tools fa-2x" style="color: #54d2d2;"></i>
-                <h3 data-ar="تطبيق إدارة (قريبًا)" data-en="Management App (Soon)">تطبيق إدارة (قريبًا)</h3>
-                <p data-ar="جاري العمل على تطبيق متطور." data-en="In progress: an advanced management app.">جاري العمل على تطبيق متطور.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم فريق العمل -->
-    <div class="section team" id="team">
-        <h2 data-ar="فريق العمل" data-en="Our Team">فريق العمل</h2>
-        <div class="team-grid">
-            <div class="team-member">
-                <i class="fas fa-code"></i>
-                <h3 data-ar="أحمد" data-en="Ahmed">أحمد</h3>
-                <p data-ar="مطور واجهات" data-en="Frontend Developer">مطور واجهات</p>
-            </div>
-            <div class="team-member">
-                <i class="fas fa-server"></i>
-                <h3 data-ar="ليلى" data-en="Layla">ليلى</h3>
-                <p data-ar="مطورة خلفية" data-en="Backend Developer">مطورة خلفية</p>
-            </div>
-            <div class="team-member">
-                <i class="fas fa-paint-brush"></i>
-                <h3 data-ar="ياسر" data-en="Yasser">ياسر</h3>
-                <p data-ar="مصمم واجهات" data-en="UI Designer">مصمم واجهات</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم آراء العملاء -->
-    <div class="section testimonials" id="testimonials">
-        <h2 data-ar="آراء العملاء" data-en="Testimonials">آراء العملاء</h2>
-        <div class="testimonials-grid">
-            <div class="testimonial-card">
-                <i class="fas fa-star fa-2x" style="color: #e94560;"></i>
-                <h3 data-ar="محمد" data-en="Mohammed">محمد</h3>
-                <p data-ar="تجربة مذهلة، احترافية عالية." data-en="Amazing experience, highly professional.">تجربة مذهلة، احترافية عالية.</p>
-            </div>
-            <div class="testimonial-card">
-                <i class="fas fa-star fa-2x" style="color: #e94560;"></i>
-                <h3 data-ar="فاطمة" data-en="Fatima">فاطمة</h3>
-                <p data-ar="تصميم رائع وسرعة في التنفيذ." data-en="Great design and fast execution.">تصميم رائع وسرعة في التنفيذ.</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم الاستضافة -->
-    <div class="section hosting" id="hosting">
-        <h2 data-ar="الاستضافة" data-en="Hosting">الاستضافة</h2>
-        <h3 data-ar="استضافة مشتركة" data-en="Shared Hosting">استضافة مشتركة</h3>
-        <div class="hosting-grid">
-            <div class="hosting-card">
-                <i class="fas fa-server"></i>
-                <h3 data-ar="الخطة الأساسية" data-en="Basic Plan">الخطة الأساسية</h3>
-                <p data-ar="10 جيجا مساحة، 1 دومين" data-en="10GB Space, 1 Domain">10 جيجا مساحة، 1 دومين</p>
-            </div>
-            <div class="hosting-card">
-                <i class="fas fa-server"></i>
-                <h3 data-ar="الخطة المتوسطة" data-en="Standard Plan">الخطة المتوسطة</h3>
-                <p data-ar="50 جيجا مساحة، 3 دومينات" data-en="50GB Space, 3 Domains">50 جيجا مساحة، 3 دومينات</p>
-            </div>
-            <div class="hosting-card">
-                <i class="fas fa-server"></i>
-                <h3 data-ar="الخطة المتقدمة" data-en="Advanced Plan">الخطة المتقدمة</h3>
-                <p data-ar="100 جيجا مساحة، 5 دومينات" data-en="100GB Space, 5 Domains">100 جيجا مساحة، 5 دومينات</p>
-            </div>
-        </div>
-        <h3 data-ar="استضافة VPS" data-en="VPS Hosting">استضافة VPS</h3>
-        <div class="hosting-grid">
-            <div class="hosting-card">
-                <i class="fas fa-cloud"></i>
-                <h3 data-ar="VPS 1" data-en="VPS 1">VPS 1</h3>
-                <p data-ar="2 CPU، 4 جيجا رام" data-en="2 CPU, 4GB RAM">2 CPU، 4 جيجا رام</p>
-            </div>
-            <div class="hosting-card">
-                <i class="fas fa-cloud"></i>
-                <h3 data-ar="VPS 2" data-en="VPS 2">VPS 2</h3>
-                <p data-ar="4 CPU، 8 جيجا رام" data-en="4 CPU, 8GB RAM">4 CPU، 8 جيجا رام</p>
-            </div>
-            <div class="hosting-card">
-                <i class="fas fa-cloud"></i>
-                <h3 data-ar="VPS 3" data-en="VPS 3">VPS 3</h3>
-                <p data-ar="8 CPU، 16 جيجا رام" data-en="8 CPU, 16GB RAM">8 CPU، 16 جيجا رام</p>
-            </div>
-        </div>
-    </div>
-
-    <!-- قسم التواصل -->
-    <div class="section contact" id="contact">
-        <h2 data-ar="تواصل معي" data-en="Contact Me">تواصل معي</h2>
-        <form class="contact-form" id="contactForm">
-            <input type="text" name="name" placeholder="الاسم" data-en-placeholder="Name" required>
-            <input type="email" name="email" placeholder="البريد الإلكتروني" data-en-placeholder="Email" required>
-            <select name="request" required>
-                <option value="" disabled selected data-ar="اختر نوع الطلب" data-en="Select Request Type">اختر نوع الطلب</option>
-                <option value="service" data-ar="طلب خدمة" data-en="Service Request">طلب خدمة</option>
-                <option value="inquiry" data-ar="استفسار" data-en="Inquiry">استفسار</option>
-                <option value="suggestion" data-ar="اقتراح" data-en="Suggestion">اقتراح</option>
-                <option value="support" data-ar="طلب دعم" data-en="Support Request">طلب دعم</option>
-            </select>
-            <textarea name="message" placeholder="رسالتك" data-en-placeholder="Your Message" rows="5" required></textarea>
-            <button type="submit"><i class="fas fa-paper-plane"></i> <span data-ar="إرسال" data-en="Send">إرسال</span></button>
-        </form>
-        <div class="social-links">
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-linkedin-in"></i></a>
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-        </div>
-    </div>
-
-    <!-- تذييل الصفحة -->
-    <footer>
-        <p data-ar="جميع الحقوق محفوظة © 2025" data-en="All Rights Reserved © 2025">جميع الحقوق محفوظة © 2025</p>
-    </footer>
-
-    <!-- مكتبات خارجية وجافا سكريبت -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
-    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        // تهيئة EmailJS
-        emailjs.init("YOUR_USER_ID"); // استبدل "YOUR_USER_ID" بمعرفك من EmailJS
+        const ramadanStart = new Date('March 1, 2025 00:00:00').getTime();
+        const prayers = [
+            "اللهم بلغنا رمضان لا فاقدين ولا مفقودين 🌙",
+            "اللهم إنك عفو تحب العفو فاعف عنا 🤲",
+            "اللهم اجعل صيامي فيه صيام الصائمين وقيامي فيه قيام القائمين 🕋",
+            "اللهم تقبل منا صالح الأعمال في رمضان ⭐"
+        ];
+        const surahs = [
+            { text: "قُلْ هُوَ اللَّهُ أَحَدٌ", name: "سورة الإخلاص", options: ["الفاتحة", "الإخلاص", "الناس"] },
+            { text: "تَبَّتْ يَدَا أَبِي لَهَبٍ", name: "سورة المسد", options: ["المسد", "الفلق", "الكوثر"] }
+        ];
+        const quizQuestions = [
+            { question: "ما هو أول يوم يبدأ فيه الصيام؟", answer: "الفجر", options: ["الظهر", "الفجر", "المغرب"] },
+            { question: "ما اسم الليلة التي تُعتبر خير من ألف شهر؟", answer: "ليلة القدر", options: ["ليلة النصف", "ليلة القدر", "ليلة العيد"] }
+        ];
+        let prayerIndex = 0;
+        let points = 0;
+        let userName = "";
+        let globalUsers = Math.floor(Math.random() * 1000);
+        let leaderboard = [
+            { name: "أحمد", points: 25 },
+            { name: "فاطمة", points: 20 },
+            { name: "محمد", points: 15 },
+            { name: "زينب", points: 10 },
+            { name: "عمر", points: 5 }
+        ];
 
-        // فتح وإغلاق القائمة الجانبية
-        const menuToggle = document.querySelector('.menu-toggle');
-        const sidebar = document.querySelector('.sidebar');
-        const closeBtn = document.querySelector('.close-btn');
-        
-        menuToggle.addEventListener('click', () => {
-            sidebar.classList.toggle('open');
-            sidebar.classList.toggle('closed');
-        });
-        closeBtn.addEventListener('click', () => {
-            sidebar.classList.remove('open');
-            sidebar.classList.add('closed');
-        });
-        document.addEventListener('click', (e) => {
-            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('open')) {
-                sidebar.classList.remove('open');
-                sidebar.classList.add('closed');
-            }
-        });
+        // العداد
+        function updateCountdown() {
+            const now = new Date().getTime();
+            const distance = ramadanStart - now;
+            userName = document.getElementById("userName").value || "زائر";
 
-        // تفاعل الأسئلة والأجوبة مع تأثير الكتابة
-        const faqItems = document.querySelectorAll('.faq-item');
-        faqItems.forEach(item => {
-            item.addEventListener('click', () => {
-                const isActive = item.classList.contains('active');
-                faqItems.forEach(i => {
-                    i.classList.remove('active');
-                    const p = i.querySelector('p');
-                    p.style.opacity = '0';
-                    p.style.height = '0';
-                });
-                if (!isActive) {
-                    item.classList.add('active');
-                    const p = item.querySelector('p');
-                    p.style.opacity = '1';
-                    p.style.height = 'auto';
-                    const text = document.body.getAttribute('lang') === 'ar' ? p.getAttribute('data-ar') : p.getAttribute('data-en');
-                    p.textContent = '';
-                    let i = 0;
-                    const typeEffect = setInterval(() => {
-                        if (i < text.length) {
-                            p.textContent += text.charAt(i);
-                            i++;
-                        } else {
-                            clearInterval(typeEffect);
-                        }
-                    }, 50);
-                }
-            });
-        });
-
-        // إرسال البريد عبر EmailJS
-        document.getElementById('contactForm').addEventListener('submit', function(event) {
-            event.preventDefault();
-            const form = this;
-            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", {
-                name: form.name.value,
-                email: form.email.value,
-                request: form.request.value,
-                message: form.message.value
-            })
-            .then(() => {
-                alert(document.body.getAttribute('lang') === 'ar' ? 'تم إرسال الرسالة بنجاح!' : 'Message sent successfully!');
-                form.reset();
-            }, (error) => {
-                alert(document.body.getAttribute('lang') === 'ar' ? 'فشل في إرسال الرسالة، حاول مرة أخرى.' : 'Failed to send message, try again.');
-                console.log('FAILED...', error);
-            });
-        });
-
-        // تغيير اللغة
-        function toggleLanguage() {
-            const body = document.body;
-            const lang = body.getAttribute('lang') === 'ar' ? 'en' : 'ar';
-            body.setAttribute('lang', lang);
-            document.querySelectorAll('[data-ar]').forEach(elem => {
-                const text = elem.getAttribute(`data-${lang}`);
-                if (elem.tagName === 'INPUT' || elem.tagName === 'TEXTAREA') {
-                    elem.placeholder = elem.getAttribute(`data-${lang}-placeholder`) || text;
-                } else if (elem.tagName === 'OPTION') {
-                    elem.textContent = text;
+            if (distance <= 0) {
+                const daysInRamadan = Math.floor((now - ramadanStart) / (1000 * 60 * 60 * 24));
+                if (daysInRamadan < 30) {
+                    document.getElementById("countdown").innerHTML = `${userName}، رمضان مبارك! اليوم ${daysInRamadan + 1} من رمضان <i class="fas fa-star"></i>`;
                 } else {
-                    elem.textContent = text;
+                    document.getElementById("countdown").style.display = "none";
+                    document.getElementById("prayer").style.display = "none";
+                    document.getElementById("shareBtn").style.display = "none";
+                    document.getElementById("eid").style.display = "block";
+                    startFireworks();
                 }
-            });
-            sidebar.setAttribute('data-lang', lang);
-            if (lang === 'en') {
-                body.style.direction = 'ltr';
-                sidebar.style.right = 'auto';
-                sidebar.style.left = '0';
-                sidebar.style.boxShadow = '5px 0 15px rgba(0, 0, 0, 0.5)';
-                closeBtn.style.left = 'auto';
-                closeBtn.style.right = '20px';
-                document.querySelector('.language-toggle').style.right = 'auto';
-                document.querySelector('.language-toggle').style.left = '30px';
-                menuToggle.style.right = 'auto';
-                menuToggle.style.left = '20px';
             } else {
-                body.style.direction = 'rtl';
-                sidebar.style.right = '0';
-                sidebar.style.left = 'auto';
-                sidebar.style.boxShadow = '-5px 0 15px rgba(0, 0, 0, 0.5)';
-                closeBtn.style.left = '20px';
-                closeBtn.style.right = 'auto';
-                document.querySelector('.language-toggle').style.right = '30px';
-                document.querySelector('.language-toggle').style.left = 'auto';
-                menuToggle.style.right = '20px';
-                menuToggle.style.left = 'auto';
+                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
+                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
+                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
+                document.getElementById("countdown").innerHTML = 
+                    `${userName}، باقي ${days} أيام ${hours} ساعات ${minutes} دقائق ${seconds} ثوانٍ حتى رمضان <i class="fas fa-moon"></i>`;
+            }
+            updateLeaderboard();
+        }
+
+        // تغيير الدعاء
+        function changePrayer() {
+            prayerIndex = (prayerIndex + 1) % prayers.length;
+            points++;
+            document.getElementById("prayer").innerHTML = `دعاء اليوم ${prayerIndex + 1}: ${prayers[prayerIndex]}`;
+            document.getElementById("points").innerHTML = `نجومك: ${points} <i class="fas fa-star"></i>`;
+            document.getElementById("shareBtn").style.display = "block";
+            document.getElementById("globalStats").innerHTML = `انضم ${globalUsers + points} شخص إلى تحدي رمضان`;
+            updateLeaderboard();
+            if (points === prayers.length) {
+                alert(`${userName}، أكملت التحدي! أنت بطل رمضان <i class="fas fa-trophy"></i>`);
             }
         }
 
-        // تأثيرات GSAP
-        gsap.registerPlugin(ScrollTrigger);
+        // مشاركة الدعاء
+        function sharePrayer() {
+            const text = `دعاء اليوم من رمضان: ${prayers[prayerIndex]} 🌙 انضم إلى تحدي رمضان: ${window.location.href}`;
+            const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
+            window.open(whatsappUrl, '_blank');
+        }
 
-        gsap.from(".hero h1", { opacity: 0, y: 50, duration: 1.5, ease: "power3.out" });
-        gsap.from(".faq-item", { opacity: 0, y: 30, duration: 1, stagger: 0.2, delay: 0.5 });
+        // تحديث لوحة الصدارة
+        function updateLeaderboard() {
+            let userEntry = { name: userName, points: points };
+            let updated = false;
+            for (let i = 0; i < leaderboard.length; i++) {
+                if (leaderboard[i].points < points && !updated) {
+                    leaderboard.splice(i, 0, userEntry);
+                    updated = true;
+                }
+            }
+            if (!updated && leaderboard.length < 5) leaderboard.push(userEntry);
+            leaderboard = leaderboard.slice(0, 5).sort((a, b) => b.points - a.points);
 
-        gsap.utils.toArray(".section").forEach(section => {
-            gsap.from(section, {
-                scrollTrigger: { trigger: section, start: "top 80%" },
-                opacity: 0,
-                y: 50,
-                duration: 1,
-                ease: "power2.out"
+            let list = "";
+            leaderboard.forEach((entry, index) => {
+                list += `<li>${index + 1}. ${entry.name}: ${entry.points} <i class="fas fa-star"></i></li>`;
             });
-        });
+            document.getElementById("leaderList").innerHTML = list;
+        }
 
-        gsap.utils.toArray(".project-card, .team-member, .testimonial-card, .service-card, .hosting-card").forEach(item => {
-            gsap.from(item, {
-                scrollTrigger: { trigger: item, start: "top 90%" },
-                opacity: 0,
-                scale: 0.8,
-                duration: 0.8,
-                ease: "back.out(1.7)"
+        // لعبة اجمع النجوم
+        function startStarGame() {
+            document.getElementById("gameArea").style.display = "block";
+            document.getElementById("gameArea").innerHTML = "انقر على النجوم لجمعها!";
+            for (let i = 0; i < 5; i++) {
+                const star = document.createElement("div");
+                star.className = "star";
+                star.innerHTML = '<i class="fas fa-star"></i>';
+                star.style.left = Math.random() * 90 + "%";
+                star.style.top = Math.random() * 90 + "%";
+                star.onclick = () => {
+                    points++;
+                    document.getElementById("points").innerHTML = `نجومك: ${points} <i class="fas fa-star"></i>`;
+                    star.remove();
+                    updateLeaderboard();
+                };
+                document.body.appendChild(star);
+                setTimeout(() => star.remove(), 5000);
+            }
+            setTimeout(() => document.getElementById("gameArea").style.display = "none", 6000);
+        }
+
+        // لعبة خمن السورة
+        function startGuessGame() {
+            document.getElementById("gameArea").style.display = "block";
+            const surah = surahs[Math.floor(Math.random() * surahs.length)];
+            let html = `<p>خمن السورة: "${surah.text}"</p>`;
+            surah.options.forEach(option => {
+                html += `<button onclick="checkGuess('${option}', '${surah.name}')">${option}</button>`;
             });
-        });
+            document.getElementById("gameArea").innerHTML = html;
+        }
+        function checkGuess(selected, correct) {
+            if (selected === correct) {
+                points++;
+                document.getElementById("points").innerHTML = `نجومك: ${points} <i class="fas fa-star"></i>`;
+                document.getElementById("gameArea").innerHTML = "إجابة صحيحة! <i class="fas fa-check-circle"></i>";
+                updateLeaderboard();
+            } else {
+                document.getElementById("gameArea").innerHTML = `خطأ! الإجابة الصحيحة: ${correct}`;
+            }
+            setTimeout(() => document.getElementById("gameArea").style.display = "none", 2000);
+        }
+
+        // لعبة مسابقة رمضانية
+        function startQuizGame() {
+            document.getElementById("gameArea").style.display = "block";
+            const quiz = quizQuestions[Math.floor(Math.random() * quizQuestions.length)];
+            let html = `<p>${quiz.question}</p>`;
+            quiz.options.forEach(option => {
+                html += `<button onclick="checkQuiz('${option}', '${quiz.answer}')">${option}</button>`;
+            });
+            document.getElementById("gameArea").innerHTML = html;
+        }
+        function checkQuiz(selected, correct) {
+            if (selected === correct) {
+                points++;
+                document.getElementById("points").innerHTML = `نجومك: ${points} <i class="fas fa-star"></i>`;
+                document.getElementById("gameArea").innerHTML = "إجابة صحيحة! <i class="fas fa-check-circle"></i>";
+                updateLeaderboard();
+            } else {
+                document.getElementById("gameArea").innerHTML = `خطأ! الإجابة الصحيحة: ${correct}`;
+            }
+            setTimeout(() => document.getElementById("gameArea").style.display = "none", 2000);
+        }
+
+        // الألعاب النارية
+        function startFireworks() {
+            document.body.style.backgroundColor = "#ffe4b5";
+            for (let i = 0; i < 20; i++) {
+                const star = document.createElement("div");
+                star.className = "star";
+                star.innerHTML = '<i class="fas fa-fireworks"></i>';
+                star.style.left = Math.random() * 90 + "%";
+                star.style.top = Math.random() * 90 + "%";
+                document.body.appendChild(star);
+                setTimeout(() => star.remove(), 2000);
+            }
+        }
+
+        setInterval(updateCountdown, 1000);
+        setInterval(updateLeaderboard, 10000); // تحديث دوري كل 10 ثوانٍ
     </script>
 </body>
 </html>
