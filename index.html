@@ -5,382 +5,26 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>متجر الأناقة الفاخرة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Arial', sans-serif;
-        }
-
-        body {
-            background: #f8fafc;
-            color: #1e293b;
-            line-height: 1.6;
-            overflow-x: hidden;
-        }
-
-        /* الشريط العلوي */
-        .top-bar {
-            background: linear-gradient(90deg, #fbbf24, #f59e0b);
-            color: #fff;
-            text-align: center;
-            padding: 12px;
-            font-size: 1.1em;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1001;
-        }
-
-        /* الهيدر */
-        header {
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-            color: white;
-            padding: 20px;
-            position: fixed;
-            width: 100%;
-            top: 44px;
-            z-index: 1000;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        header h1 {
-            font-size: 2em;
-            letter-spacing: 1px;
-        }
-
-        nav {
-            display: flex;
-            align-items: center;
-            gap: 20px;
-        }
-
-        nav a {
-            color: white;
-            text-decoration: none;
-            font-size: 1.1em;
-            padding: 8px 15px;
-            border-radius: 20px;
-            transition: background 0.3s;
-        }
-
-        nav a:hover {
-            background: #fbbf24;
-        }
-
-        #lang-toggle, #cart-toggle {
-            background: #fbbf24;
-            padding: 8px 15px;
-            border-radius: 20px;
-            cursor: pointer;
-            font-size: 1em;
-        }
-
-        /* القائمة الجانبية */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: -350px;
-            width: 350px;
-            height: 100%;
-            background: #fff;
-            box-shadow: -2px 0 15px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            transition: right 0.4s ease;
-            z-index: 1002;
-            overflow-y: auto;
-        }
-
-        .sidebar.active {
-            right: 0;
-        }
-
-        .sidebar .close-btn {
-            font-size: 1.5em;
-            color: #1e293b;
-            cursor: pointer;
-            text-align: left;
-            margin-bottom: 20px;
-        }
-
-        .sidebar a, .sidebar p {
-            display: block;
-            color: #1e293b;
-            text-decoration: none;
-            margin: 15px 0;
-            font-size: 1.1em;
-            padding: 10px;
-            border-radius: 10px;
-            transition: background 0.3s;
-        }
-
-        .sidebar a:hover {
-            background: #e2e8f0;
-        }
-
-        .login-form {
-            display: none;
-            flex-direction: column;
-            gap: 15px;
-            margin-top: 20px;
-        }
-
-        .login-form.active {
-            display: flex;
-        }
-
-        .login-form input {
-            padding: 10px;
-            border: 1px solid #d1d5db;
-            border-radius: 5px;
-            font-size: 1em;
-        }
-
-        .login-form button {
-            padding: 10px;
-            background: #3b82f6;
-            color: white;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .login-form button:hover {
-            background: #1e3a8a;
-        }
-
-        .cart-items {
-            margin-top: 20px;
-        }
-
-        .cart-item {
-            display: flex;
-            align-items: center;
-            gap: 15px;
-            padding: 10px;
-            border-bottom: 1px solid #e2e8f0;
-        }
-
-        /* السلايدات والمنتجات */
-        .main {
-            margin-top: 120px;
-            padding: 30px;
-        }
-
-        .section {
-            margin-bottom: 80px;
-        }
-
-        .section-title {
-            font-size: 2.5em;
-            color: #1e293b;
-            text-align: center;
-            margin-bottom: 30px;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            width: 60px;
-            height: 4px;
-            background: #fbbf24;
-            position: absolute;
-            bottom: -10px;
-            right: 50%;
-            transform: translateX(50%);
-        }
-
-        .slider {
-            width: 100%;
-            height: 450px;
-            overflow: hidden;
-            position: relative;
-            border-radius: 15px;
-            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.1);
-        }
-
-        .slides {
-            display: flex;
-            width: 300%;
-            height: 100%;
-            animation: slide 15s infinite;
-        }
-
-        @keyframes slide {
-            0%, 33% { transform: translateX(0); }
-            33%, 66% { transform: translateX(-33.33%); }
-            66%, 100% { transform: translateX(-66.66%); }
-        }
-
-        .slide {
-            width: 33.33%;
-            height: 100%;
-            background: #e2e8f0;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-        }
-
-        .slide i {
-            font-size: 5em;
-            color: #3b82f6;
-        }
-
-        .product-slider {
-            display: flex;
-            overflow-x: auto;
-            gap: 25px;
-            padding: 20px 0;
-            scroll-behavior: smooth;
-        }
-
-        .product-slider::-webkit-scrollbar {
-            height: 8px;
-        }
-
-        .product-slider::-webkit-scrollbar-thumb {
-            background: #3b82f6;
-            border-radius: 10px;
-        }
-
-        .product-card {
-            flex: 0 0 300px;
-            background: white;
-            border-radius: 15px;
-            box-shadow: 0 5px 20px rgba(0, 0, 0, 0.1);
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-
-        .product-card:hover {
-            transform: translateY(-10px);
-        }
-
-        .product-placeholder {
-            height: 220px;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            background: #f1f5f9;
-            border: 2px dashed #3b82f6;
-            margin-bottom: 15px;
-            border-radius: 10px;
-        }
-
-        .price .old {
-            text-decoration: line-through;
-            color: #6b7280;
-            margin-left: 10px;
-        }
-
-        .price .new {
-            color: #ef4444;
-            font-weight: bold;
-        }
-
-        .loyalty {
-            color: #fbbf24;
-            font-size: 0.9em;
-            margin: 10px 0;
-        }
-
-        .btn {
-            padding: 12px 25px;
-            background: #3b82f6;
-            color: white;
-            text-decoration: none;
-            border-radius: 30px;
-            transition: background 0.3s;
-            display: inline-block;
-        }
-
-        .btn:hover {
-            background: #1e3a8a;
-        }
-
-        /* صفحة من نحن */
-        .team {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 20px;
-            justify-content: center;
-            margin-top: 30px;
-        }
-
-        .team-member {
-            text-align: center;
-            width: 200px;
-        }
-
-        .team-member i {
-            font-size: 3em;
-            color: #3b82f6;
-            margin-bottom: 10px;
-        }
-
-        /* آراء العملاء */
-        .reviews {
-            margin-top: 40px;
-        }
-
-        .review-card {
-            background: white;
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            margin-bottom: 20px;
-        }
-
-        /* الفوتر */
-        footer {
-            background: linear-gradient(135deg, #1e3a8a, #3b82f6);
-            color: white;
-            padding: 40px 20px;
-            text-align: center;
-        }
-
-        .social-icons a {
-            color: white;
-            font-size: 1.8em;
-            margin: 0 15px;
-            transition: color 0.3s;
-        }
-
-        .social-icons a:hover {
-            color: #fbbf24;
-        }
-
-        /* التجاوب */
-        @media (max-width: 768px) {
-            .slider { height: 300px; }
-            .product-card { flex: 0 0 250px; }
-            .sidebar { width: 300px; }
-        }
-    </style>
+    <link rel="stylesheet" href="style.css">
 </head>
 <body lang="ar">
     <div class="top-bar" data-ar="خصم 50% لفترة محدودة!" data-en="50% discount for a limited time!">خصم 50% لفترة محدودة!</div>
 
     <header>
-        <h1 data-ar="متجر الأناقة الفاخرة" data-en="Luxury Elegance Store">متجر الأناقة الفاخرة</h1>
-        <nav>
-            <a href="#" data-page="home" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
-            <a href="#" data-page="products" data-ar="المنتجات" data-en="Products">المنتجات</a>
-            <a href="#" data-page="about" data-ar="من نحن" data-en="About">من نحن</a>
-            <a href="#" data-page="contact" data-ar="تواصل" data-en="Contact">تواصل</a>
-            <span id="lang-toggle">EN</span>
-            <span id="cart-toggle"><i class="fas fa-shopping-cart"></i></span>
-        </nav>
+        <div class="container">
+            <h1 data-ar="متجر الأناقة الفاخرة" data-en="Luxury Elegance Store">متجر الأناقة الفاخرة</h1>
+            <nav>
+                <a href="#" data-page="home" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+                <a href="#" data-page="products" data-ar="المنتجات" data-en="Products">المنتجات</a>
+                <a href="#" data-page="about" data-ar="من نحن" data-en="About">من نحن</a>
+                <a href="#" data-page="contact" data-ar="تواصل" data-en="Contact">تواصل</a>
+                <span id="lang-toggle">EN</span>
+                <span id="cart-toggle"><i class="fas fa-shopping-cart"></i></span>
+            </nav>
+        </div>
     </header>
 
-    <div class="sidebar">
+    <aside class="sidebar">
         <i class="fas fa-times close-btn"></i>
         <a href="#" id="login-btn" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</a>
         <form class="login-form">
@@ -391,9 +35,9 @@
         <a href="#" data-ar="طلباتي" data-en="My Orders">طلباتي</a>
         <p data-ar="نظام الولاء: 200 نقطة" data-en="Loyalty: 200 points">نظام الولاء: 200 نقطة</p>
         <div class="cart-items" id="cart-items"></div>
-    </div>
+    </aside>
 
-    <div class="main">
+    <main>
         <!-- الصفحة الرئيسية -->
         <section class="page active" data-page="home">
             <div class="section">
@@ -536,7 +180,7 @@
             <p data-ar="راسلنا على: info@luxuryelegance.com" data-en="Email us at: info@luxuryelegance.com">راسلنا على: info@luxuryelegance.com</p>
             <p data-ar="اتصل بنا: 1234-567-890" data-en="Call us: 1234-567-890">اتصل بنا: 1234-567-890</p>
         </section>
-    </div>
+    </main>
 
     <footer>
         <p data-ar="جميع الحقوق محفوظة © 2025 متجر الأناقة الفاخرة" data-en="All Rights Reserved © 2025 Luxury Elegance Store">
@@ -550,80 +194,6 @@
         </div>
     </footer>
 
-    <script>
-        // فتح/إغلاق القائمة الجانبية
-        const cartToggle = document.getElementById('cart-toggle');
-        const sidebar = document.querySelector('.sidebar');
-        const closeBtn = document.querySelector('.close-btn');
-        cartToggle.addEventListener('click', () => sidebar.classList.add('active'));
-        closeBtn.addEventListener('click', () => sidebar.classList.remove('active'));
-
-        // فتح فورم تسجيل الدخول
-        const loginBtn = document.getElementById('login-btn');
-        const loginForm = document.querySelector('.login-form');
-        loginBtn.addEventListener('click', (e) => {
-            e.preventDefault();
-            loginForm.classList.toggle('active');
-        });
-
-        // إضافة المنتج للسلة بحركة
-        const cartItems = document.getElementById('cart-items');
-        document.querySelectorAll('.add-to-cart').forEach(btn => {
-            btn.addEventListener('click', (e) => {
-                e.preventDefault();
-                const card = btn.closest('.product-card');
-                const name = card.querySelector('h3').textContent;
-                const price = card.querySelector('.new').textContent;
-
-                const item = document.createElement('div');
-                item.classList.add('cart-item');
-                item.innerHTML = `<i class="fas fa-tshirt"></i> ${name} - ${price}`;
-                cartItems.appendChild(item);
-
-                const clone = card.cloneNode(true);
-                clone.style.position = 'absolute';
-                clone.style.top = `${card.getBoundingClientRect().top}px`;
-                clone.style.left = `${card.getBoundingClientRect().left}px`;
-                document.body.appendChild(clone);
-
-                setTimeout(() => {
-                    clone.style.transition = 'all 0.5s ease';
-                    clone.style.top = `${cartToggle.getBoundingClientRect().top}px`;
-                    clone.style.left = `${cartToggle.getBoundingClientRect().left}px`;
-                    clone.style.transform = 'scale(0.1)';
-                    clone.style.opacity = '0';
-                }, 10);
-
-                setTimeout(() => clone.remove(), 500);
-                sidebar.classList.add('active');
-            });
-        });
-
-        // تغيير الصفحات
-        document.querySelectorAll('nav a[data-page]').forEach(link => {
-            link.addEventListener('click', (e) => {
-                e.preventDefault();
-                document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
-                document.querySelector(`.page[data-page="${link.dataset.page}"]`).classList.add('active');
-            });
-        });
-
-        // تغيير اللغة
-        const langToggle = document.getElementById('lang-toggle');
-        langToggle.addEventListener('click', () => {
-            const body = document.body;
-            const currentLang = body.getAttribute('lang');
-            const newLang = currentLang === 'ar' ? 'en' : 'ar';
-            body.setAttribute('lang', newLang);
-            langToggle.textContent = newLang === 'ar' ? 'EN' : 'AR';
-
-            document.querySelectorAll('[data-ar]').forEach(elem => {
-                elem.textContent = elem.getAttribute(`data-${newLang}`);
-            });
-            document.querySelectorAll('input[data-ar-placeholder]').forEach(input => {
-                input.placeholder = input.getAttribute(`data-${newLang}-placeholder`);
-            });
-        });
-    </script>
+    <script src="script.js"></script>
 </body>
 </html>
