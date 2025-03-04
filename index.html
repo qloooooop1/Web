@@ -4,19 +4,20 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>نبذة مميزة</title>
-    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Chiller&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Special+Elite&display=swap" rel="stylesheet">
     <style>
         body {
             margin: 0;
             padding: 0;
-            height: 100vh;
+            min-height: 100vh;
             display: flex;
             justify-content: center;
             align-items: center;
-            background: linear-gradient(135deg, #1a1a1a, #2b2b2b, #0a1a2a);
-            overflow: hidden;
+            background: #1a1a1a;
+            overflow-x: hidden;
             direction: rtl;
             font-family: 'Raleway', sans-serif;
+            position: relative;
         }
 
         .container {
@@ -28,6 +29,7 @@
             box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             border-radius: 10px;
             animation: glow 5s infinite alternate;
+            margin-bottom: 100px;
         }
 
         @keyframes glow {
@@ -36,16 +38,14 @@
         }
 
         .title {
-            font-family: 'Chiller', cursive;
-            font-size: 60px;
-            color: rgba(255, 255, 255, 0.8);
+            font-family: 'Special Elite', cursive; /* خط Awesome وواضح */
+            font-size: 48px;
+            color: #ffffff;
             position: absolute;
-            top: -50px;
+            top: -40px;
             left: 50%;
             transform: translateX(-50%);
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            opacity: 0.7;
-            mix-blend-mode: overlay;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.5);
         }
 
         .bio {
@@ -57,15 +57,31 @@
             text-shadow: 0 0 5px rgba(0, 0, 0, 0.5);
         }
 
-        .contact {
-            font-size: 14px;
-            color: rgba(255, 255, 255, 0.7);
+        .social-links {
             margin-top: 20px;
         }
 
-        .contact::before {
-            content: "🔊 ";
-            font-size: 16px;
+        .social-links a {
+            color: rgba(255, 255, 255, 0.7);
+            font-size: 24px;
+            margin: 0 10px;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        .social-links a:hover {
+            color: #ffffff;
+        }
+
+        .footer {
+            position: absolute;
+            bottom: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.8);
+            color: #ffffff;
+            text-align: center;
+            padding: 10px 0;
+            font-size: 14px;
         }
 
         .stars {
@@ -90,16 +106,24 @@
 </head>
 <body>
     <div class="container">
-        <h1 class="title">Mystic Persona</h1>
+        <h1 class="title">Creative Soul</h1>
         <p class="bio">
             شخصية شغوفة تنسج الأحلام في عالم التصاميم، حيث تتلاعب بالألوان والخطوط لخلق تجارب بصرية ساحرة. 
             هاوٍ لتطوير تطبيقات الويب والمواقع، يمزج بين الإبداع والتقنية ليحول الأفكار إلى واقع رقمي يتنفس الحياة.
         </p>
-        <p class="contact">للتواصل: Echo@MysticWeb.dev</p>
+        <div class="social-links">
+            <a href="#" title="Twitter">&#x1F426;</a> <!-- رمز تويتر -->
+            <a href="#" title="Instagram">&#x1F4F7;</a> <!-- رمز إنستغرام -->
+            <a href="#" title="LinkedIn">&#x1F464;</a> <!-- رمز لينكدإن -->
+            <a href="#" title="GitHub">&#x1F431;</a> <!-- رمز جيت هب -->
+        </div>
         <div class="stars"></div>
         <div class="stars"></div>
         <div class="stars"></div>
         <div class="stars"></div>
+    </div>
+    <div class="footer">
+        البريد: info@creativeweb.dev | الهاتف: +123-456-7890
     </div>
 </body>
 </html>
