@@ -254,7 +254,7 @@
     </div>
 
     <script>
-        let globalCounter = 750432109;
+        let globalCounter = 0;
         let userCounter = 0;
         const target = 1000000000;
 
@@ -339,7 +339,7 @@
         loadUserData();
         updateGlobalCounter();
         updateRamadanCountdown();
-        setInterval(updateRamadanCountdown, 1000 * 60 * 60);
+        setInterval(updateRamadanCountdown, 500 * 60 * 60);
     </script>
 </body>
 </html>
