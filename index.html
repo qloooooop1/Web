@@ -3,406 +3,194 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>سبحان الله مليار</title>
+    <title>موقعي الشخصي</title>
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;700&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
     <style>
         body {
-            font-family: 'Cairo', sans-serif;
-            background: linear-gradient(135deg, #1e3c72, #2a5298);
+            background-color: #000;
             color: #fff;
-            text-align: center;
+            font-family: 'Cairo', sans-serif;
             margin: 0;
             padding: 0;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
             overflow-x: hidden;
         }
 
-        .container {
-            padding: 30px;
-            max-width: 1200px;
-            margin: 0 auto;
+        .about {
+            text-align: center;
+            margin-top: 20vh; /* لتوسيط النص عموديًا */
+            font-size: 2rem;
+            font-weight: 700;
+            text-shadow: 0 2px 5px rgba(255, 255, 255, 0.2);
+            color: #ddd;
         }
 
-        h1 {
-            font-size: 3rem;
-            margin-bottom: 20px;
-            text-shadow: 0 3px 6px rgba(0,0,0,0.4);
-            color: #ffdd57;
-        }
-
-        .slogan {
-            font-size: 1.4rem;
-            margin-bottom: 40px;
-            opacity: 0.9;
-            color: #e0e0e0;
-        }
-
-        .counter {
-            font-size: 1.8rem;
-            margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .counter:hover {
-            transform: translateY(-5px);
-        }
-
-        .counter span {
-            font-size: 4rem;
-            font-weight: bold;
-            color: #ffdd57;
-            text-shadow: 0 3px 6px rgba(0,0,0,0.3);
-        }
-
-        .tasbeeh-circle {
-            width: 240px;
-            height: 240px;
-            border-radius: 50%;
-            background: linear-gradient(45deg, #4CAF50, #81C784);
+        .social {
+            margin-top: 40px;
             display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 40px auto;
-            cursor: pointer;
-            box-shadow: 0 10px 30px rgba(76, 175, 80, 0.5);
-            transition: all 0.3s ease;
-            position: relative;
-            overflow: hidden;
-        }
-
-        .tasbeeh-circle::before {
-            content: "";
-            position: absolute;
-            width: 200%;
-            height: 200%;
-            background: linear-gradient(
-                to right,
-                rgba(255,255,255,0),
-                rgba(255,255,255,0.4),
-                rgba(255,255,255,0)
-            );
-            animation: shine 2.5s infinite;
-            transform: rotate(30deg);
-        }
-
-        @keyframes shine {
-            0% { transform: translateX(-100%) rotate(30deg); }
-            50% { transform: translateX(100%) rotate(30deg); }
-            100% { transform: translateX(-100%) rotate(30deg); }
-        }
-
-        .tasbeeh-circle::after {
-            content: "سبحان الله";
-            position: absolute;
-            font-size: 2.5rem;
-            color: rgba(255, 255, 255, 0.15);
-            animation: rotateText 12s linear infinite;
-        }
-
-        @keyframes rotateText {
-            0% { transform: rotate(-45deg) translateX(-100%); }
-            100% { transform: rotate(-45deg) translateX(100%); }
-        }
-
-        .tasbeeh-circle:hover {
-            transform: scale(1.08);
-            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.7);
-        }
-
-        .tasbeeh-circle:active {
-            transform: scale(0.95);
-            box-shadow: 0 5px 20px rgba(76, 175, 80, 0.4);
-        }
-
-        .tasbeeh-circle span {
-            font-size: 2.5rem;
-            color: white;
-            z-index: 1;
-            text-shadow: 0 3px 6px rgba(0,0,0,0.4);
-        }
-
-        .userStats {
-            font-size: 1.5rem;
-            margin-bottom: 30px;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
-        }
-
-        .userStats:hover {
-            transform: translateY(-5px);
-        }
-
-        .userStats span {
-            color: #ffdd57;
-            font-weight: bold;
-        }
-
-        .info {
-            background: rgba(255, 255, 255, 0.2);
-            padding: 25px;
-            border-radius: 20px;
-            margin-bottom: 30px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-        }
-
-        .share {
-            display: flex;
-            justify-content: center;
             gap: 20px;
-            margin-bottom: 30px;
         }
 
-        .share button {
-            background: #1DA1F2;
-            color: white;
-            border: none;
-            padding: 15px 30px;
-            font-size: 1.2rem;
-            cursor: pointer;
-            border-radius: 10px;
-            transition: all 0.3s ease;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.3);
+        .social a {
+            color: #fff;
+            font-size: 2rem;
+            transition: color 0.3s ease, transform 0.3s ease;
         }
 
-        .share button:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 25px rgba(0,0,0,0.4);
+        .social a:hover {
+            color: #ffdd57;
+            transform: scale(1.2);
         }
 
-        .whatsapp {
-            background: #25D366;
+        .opinion-section {
+            margin-top: 60px;
+            width: 80%;
+            max-width: 600px;
+            text-align: center;
         }
 
-        .video-container {
-            margin: 40px 0;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.15);
-            border-radius: 20px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        .opinion-section h2 {
+            font-size: 1.5rem;
+            margin-bottom: 20px;
+            color: #ffdd57;
         }
 
-        .video-container iframe {
+        .opinion-input {
             width: 100%;
-            max-width: 800px;
-            height: 450px;
+            padding: 10px;
+            font-size: 1rem;
+            border: 1px solid #fff;
+            border-radius: 5px;
+            background-color: #222;
+            color: #fff;
+            margin-bottom: 10px;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        .opinion-input:focus {
+            outline: none;
+            border-color: #ffdd57;
+        }
+
+        .submit-btn {
+            padding: 10px 20px;
+            font-size: 1rem;
+            background-color: #ffdd57;
+            color: #000;
             border: none;
-            border-radius: 15px;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+            font-family: 'Cairo', sans-serif;
         }
 
-        .hadith {
-            margin: 30px 0;
-            font-size: 1.3rem;
-            color: #ffdd57;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 20px;
-            border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
+        .submit-btn:hover {
+            background-color: #e0c34e;
         }
 
-        .ramadan-counter {
-            margin: 40px 0;
-            font-size: 1.6rem;
-            background: rgba(255, 255, 255, 0.15);
-            padding: 25px;
-            border-radius: 20px;
-            box-shadow: 0 6px 20px rgba(0,0,0,0.3);
-            transition: transform 0.3s ease;
+        .opinions-list {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
         }
 
-        .ramadan-counter:hover {
-            transform: translateY(-5px);
+        .opinion-item {
+            background-color: #333;
+            padding: 10px;
+            margin-bottom: 10px;
+            border-radius: 5px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            font-size: 1.2rem;
+            color: #fff;
         }
 
-        .ramadan-counter span {
-            font-size: 2.2rem;
-            color: #ffdd57;
-            font-weight: bold;
-            text-shadow: 0 3px 6px rgba(0,0,0,0.3);
+        .delete-btn {
+            background-color: #ff4444;
+            color: #fff;
+            border: none;
+            padding: 5px 10px;
+            border-radius: 3px;
+            cursor: pointer;
+            transition: background-color 0.3s ease;
+        }
+
+        .delete-btn:hover {
+            background-color: #cc0000;
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>سبحان الله مليار</h1>
-        <p class="slogan">كل تسبيحة ترفع درجتك وتساهم في هدفنا</p>
-        
-        <div class="counter">
-            <span id="globalCounter">0</span>
-            <p>كم تبقى؟ <span id="remaining">1,000,000,000</span> تسبيحة للوصول إلى المليار</p>
-        </div>
-
-        <div class="tasbeeh-circle" id="tasbeehCircle">
-            <span>سبحان الله</span>
-        </div>
-
-        <div class="userStats">
-            <p>أنت ساهمت بـ <span id="userCounter">0</span> تسبيحة حتى الآن</p>
-        </div>
-
-        <div class="info">
-            <h2>فضل التسبيح</h2>
-            <p>عن أبي هريرة رضي الله عنه قال: قال رسول الله صلى الله عليه وسلم: "من قال سبحان الله وبحمده مائة مرة غفرت ذنوبه وإن كانت مثل زبد البحر"</p>
-        </div>
-
-        <div class="video-container">
-            <iframe src="https://www.youtube.com/embed/gzKPd6b6s38" allowfullscreen></iframe>
-        </div>
-
-        <div class="share">
-            <button onclick="shareOnTwitter()"><i class="fab fa-twitter"></i> تويتر</button>
-            <button onclick="shareOnFacebook()"><i class="fab fa-facebook"></i> فيسبوك</button>
-            <button class="whatsapp" onclick="shareOnWhatsApp()"><i class="fab fa-whatsapp"></i> واتساب</button>
-        </div>
-
-        <div class="hadith" id="hadith">
-            <p>قال رسول الله صلى الله عليه وسلم: "الدال على الخير كفاعله"</p>
-        </div>
-
-        <div class="ramadan-counter">
-            <p>كم تبقى على انتهاء رمضان؟ <span id="ramadanCountdown"></span></p>
-        </div>
+    <div class="about">
+        <p>نبذة عني: شخص يعيش في عالم مليء بالأسرار، يبحث عن المعنى في الظلال.</p>
     </div>
 
-    <!-- تعليمات Netlify Functions (يجب تقسيمها عند النشر) -->
-    <!-- ضع هذا الكود في ملف منفصل باسم netlify/functions/counter.js عند النشر على Netlify -->
-    <!--
-    const { getStore } = require("@netlify/blobs");
+    <div class="social">
+        <a href="https://twitter.com" target="_blank"><i class="fab fa-twitter"></i></a>
+        <a href="https://facebook.com" target="_blank"><i class="fab fa-facebook"></i></a>
+        <a href="https://instagram.com" target="_blank"><i class="fab fa-instagram"></i></a>
+        <a href="https://linkedin.com" target="_blank"><i class="fab fa-linkedin"></i></a>
+    </div>
 
-    exports.handler = async (event, context) => {
-      const store = getStore("counterStore");
-      let counter = parseInt((await store.get("globalCounter")) || "0");
-
-      if (event.httpMethod === "POST") {
-        counter += 1;
-        await store.set("globalCounter", counter.toString());
-        return {
-          statusCode: 200,
-          body: JSON.stringify({ globalCounter: counter }),
-        };
-      }
-
-      return {
-        statusCode: 200,
-        body: JSON.stringify({ globalCounter: counter }),
-      };
-    };
-    -->
+    <div class="opinion-section">
+        <h2>أرسل رأيك</h2>
+        <input type="text" id="opinionInput" class="opinion-input" placeholder="اكتب رأيك هنا...">
+        <button class="submit-btn" onclick="addOpinion()">إرسال</button>
+        <div class="opinions-list" id="opinionsList"></div>
+    </div>
 
     <script>
-        let userCounter = 0;
-        const target = 1000000000; // الهدف مليار
-
-        const globalCounterElement = document.getElementById('globalCounter');
-        const remainingElement = document.getElementById('remaining');
-        const userCounterElement = document.getElementById('userCounter');
-        const tasbeehCircle = document.getElementById('tasbeehCircle');
-        const hadithElement = document.getElementById('hadith');
-        const ramadanCountdownElement = document.getElementById('ramadanCountdown');
-
-        function updateGlobalCounter(globalCounter) {
-            globalCounterElement.textContent = globalCounter.toLocaleString();
-            remainingElement.textContent = (target - globalCounter).toLocaleString();
+        // تحميل الآراء من التخزين المحلي عند تحميل الصفحة
+        function loadOpinions() {
+            const opinions = JSON.parse(localStorage.getItem('opinions')) || [];
+            const opinionsList = document.getElementById('opinionsList');
+            opinionsList.innerHTML = '';
+            opinions.forEach((opinion, index) => {
+                const opinionDiv = document.createElement('div');
+                opinionDiv.className = 'opinion-item';
+                opinionDiv.innerHTML = `
+                    <span>${opinion}</span>
+                    <button class="delete-btn" onclick="deleteOpinion(${index})">حذف</button>
+                `;
+                opinionsList.appendChild(opinionDiv);
+            });
         }
 
-        function updateUserCounter() {
-            userCounterElement.textContent = userCounter.toLocaleString();
-        }
-
-        async function fetchGlobalCounter() {
-            try {
-                const response = await fetch('/.netlify/functions/counter');
-                const data = await response.json();
-                return data.globalCounter;
-            } catch (error) {
-                console.error('Error fetching counter:', error);
-                return 0; // قيمة افتراضية في حالة الفشل
+        // إضافة رأي جديد
+        function addOpinion() {
+            const opinionInput = document.getElementById('opinionInput');
+            const opinionText = opinionInput.value.trim();
+            if (opinionText) {
+                const opinions = JSON.parse(localStorage.getItem('opinions')) || [];
+                opinions.push(opinionText);
+                localStorage.setItem('opinions', JSON.stringify(opinions));
+                opinionInput.value = '';
+                loadOpinions();
             }
         }
 
-        async function addTasbeeh() {
-            try {
-                const response = await fetch('/.netlify/functions/counter', { method: 'POST' });
-                const data = await response.json();
-                const globalCounter = data.globalCounter;
-                userCounter++;
-                updateGlobalCounter(globalCounter);
-                updateUserCounter();
-                saveUserData();
+        // حذف رأي
+        function deleteOpinion(index) {
+            const opinions = JSON.parse(localStorage.getItem('opinions')) || [];
+            opinions.splice(index, 1);
+            localStorage.setItem('opinions', JSON.stringify(opinions));
+            loadOpinions();
+        }
 
-                if (globalCounter >= target) {
-                    alert("تهانينا! لقد وصلنا إلى مليار تسبيحة. تم إعادة العداد إلى الصفر.");
-                    await fetch('/.netlify/functions/counter', { method: 'POST' }); // إعادة تعيين عند الوصول للهدف
-                }
-            } catch (error) {
-                console.error('Error updating counter:', error);
+        // تحميل الآراء عند فتح الصفحة
+        loadOpinions();
+
+        // إضافة رأي بالضغط على Enter
+        document.getElementById('opinionInput').addEventListener('keypress', function(e) {
+            if (e.key === 'Enter') {
+                addOpinion();
             }
-        }
-
-        function saveUserData() {
-            localStorage.setItem('userCounter', userCounter);
-        }
-
-        function loadUserData() {
-            const savedCounter = localStorage.getItem('userCounter');
-            if (savedCounter) {
-                userCounter = parseInt(savedCounter);
-                updateUserCounter();
-            }
-        }
-
-        async function loadGlobalCounter() {
-            const globalCounter = await fetchGlobalCounter();
-            updateGlobalCounter(globalCounter);
-        }
-
-        function shareOnTwitter() {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent("انضم إلينا في تجميع مليار سبحان الله! ساهم الآن: ");
-            window.open(`https://twitter.com/intent/tweet?text=${text}&url=${url}`, '_blank');
-            showHadith();
-        }
-
-        function shareOnFacebook() {
-            const url = encodeURIComponent(window.location.href);
-            window.open(`https://www.facebook.com/sharer/sharer.php?u=${url}`, '_blank');
-            showHadith();
-        }
-
-        function shareOnWhatsApp() {
-            const url = encodeURIComponent(window.location.href);
-            const text = encodeURIComponent("انضم إلينا في تجميع مليار سبحان الله! ساهم الآن: ");
-            window.open(`https://wa.me/?text=${text}${url}`, '_blank');
-            showHadith();
-        }
-
-        function showHadith() {
-            hadithElement.style.display = 'block';
-            setTimeout(() => {
-                hadithElement.style.display = 'none';
-            }, 5000);
-        }
-
-        function updateRamadanCountdown() {
-            const now = new Date();
-            const ramadanEnd = new Date(2025, 2, 20); // تاريخ تقريبي لانتهاء رمضان 2025
-            const diff = ramadanEnd - now;
-            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            ramadanCountdownElement.textContent = days >= 0 ? `${days} يوم` : "انتهى رمضان";
-        }
-
-        tasbeehCircle.addEventListener('click', addTasbeeh);
-
-        loadUserData();
-        loadGlobalCounter();
-        updateRamadanCountdown();
-        setInterval(updateRamadanCountdown, 1000 * 60 * 60); // تحديث كل ساعة
+        });
     </script>
 </body>
 </html>
