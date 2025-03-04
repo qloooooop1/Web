@@ -3,6 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta name="description" content="موقع عبدالله - مطور ويب محترف يقدم حلول تقنية مبتكرة">
+    <meta name="keywords" content="مطور ويب, عبدالله, تطوير مواقع, تصميم ويب">
     <title>عبدالله - مطور ويب</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
@@ -47,9 +49,15 @@
             justify-content: center;
             align-items: center;
             text-align: center;
-            background: linear-gradient(45deg, #1a1a1a, #333);
             position: relative;
             overflow: hidden;
+        }
+        #particles-js {
+            position: absolute;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, #1a1a1a, #333);
+            z-index: -1;
         }
         .hero h1 {
             font-size: 3.5rem;
@@ -67,19 +75,27 @@
             margin-bottom: 20px;
             color: #00aaff;
         }
-        .about, .contact, .team, .clients {
+        .about, .contact, .team, .clients, .blog {
             background: #252525;
         }
         .projects {
             background: #1f1f1f;
         }
-        .dotted-box {
-            border: 2px dashed #00aaff;
-            padding: 40px;
-            margin: 20px auto;
-            width: 80%;
-            max-width: 600px;
-            font-size: 1.2rem;
+        .project-gallery {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .project-card {
+            background: #333;
+            padding: 20px;
+            width: 250px;
+            border-radius: 10px;
+            transition: transform 0.3s;
+        }
+        .project-card:hover {
+            transform: scale(1.05);
         }
         .team-grid, .clients-grid {
             display: flex;
@@ -94,13 +110,24 @@
             border-radius: 10px;
             opacity: 0;
         }
-        .contact a {
-            color: #00aaff;
-            text-decoration: none;
-            font-size: 1.2rem;
+        .contact-form {
+            max-width: 500px;
+            margin: 20px auto;
         }
-        .contact a i {
-            margin-left: 10px;
+        .contact-form input, .contact-form textarea {
+            width: 100%;
+            padding: 10px;
+            margin: 10px 0;
+            border: none;
+            border-radius: 5px;
+        }
+        .contact-form button {
+            background: #00aaff;
+            color: #fff;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
         }
         footer {
             background: #111;
@@ -116,6 +143,7 @@
         <a href="#home">الرئيسية</a>
         <a href="#about">من نحن</a>
         <a href="#projects">المشاريع</a>
+        <a href="#blog">المدونة</a>
         <a href="#team">فريق العمل</a>
         <a href="#clients">وراء العملاء</a>
         <a href="#contact">تواصل معي</a>
@@ -123,6 +151,7 @@
 
     <!-- الجزء الافتتاحي -->
     <div class="hero" id="home">
+        <div id="particles-js"></div>
         <h1>عبدالله</h1>
         <p>مطور ويب</p>
     </div>
@@ -136,9 +165,22 @@
     <!-- قسم المشاريع -->
     <div class="section projects" id="projects">
         <h2>المشاريع</h2>
-        <div class="dotted-box">
-            <i class="fas fa-tools"></i> مشاريع قريبًا
+        <div class="project-gallery">
+            <div class="project-card">
+                <h3>مشروع 1</h3>
+                <p>تصميم موقع تجاري</p>
+            </div>
+            <div class="project-card">
+                <h3>مشروع 2</h3>
+                <p>تطبيق ويب تفاعلي</p>
+            </div>
         </div>
+    </div>
+
+    <!-- قسم المدونة -->
+    <div class="section blog" id="blog">
+        <h2>المدونة</h2>
+        <p>مقالة قادمة: "كيف تبدأ كمطور ويب في 2025"</p>
     </div>
 
     <!-- قسم فريق العمل -->
@@ -155,11 +197,6 @@
                 <h3>سارة</h3>
                 <p>مبرمجة خلفية</p>
             </div>
-            <div class="team-member">
-                <i class="fas fa-user fa-2x"></i>
-                <h3>خالد</h3>
-                <p>مدير المشروع</p>
-            </div>
         </div>
     </div>
 
@@ -171,19 +208,18 @@
                 <h3>شركة المستقبل</h3>
                 <p>مشروع تطبيق ويب</p>
             </div>
-            <div class="client">
-                <h3>مؤسسة الريادة</h3>
-                <p>تصميم موقع</p>
-            </div>
         </div>
     </div>
 
     <!-- قسم التواصل -->
     <div class="section contact" id="contact">
         <h2>تواصل معي</h2>
-        <p><a href="mailto:abdullah@example.com"><i class="fas fa-envelope"></i> abdullah@example.com</a></p>
-        <p><a href="tel:+966500000000"><i class="fas fa-phone"></i> +966 500 000 000</a></p>
-        <p><a href="https://twitter.com/abdullah_dev"><i class="fab fa-twitter"></i> @abdullah_dev</a></p>
+        <form class="contact-form">
+            <input type="text" placeholder="الاسم" required>
+            <input type="email" placeholder="البريد الإلكتروني" required>
+            <textarea placeholder="رسالتك" rows="5" required></textarea>
+            <button type="submit">إرسال</button>
+        </form>
     </div>
 
     <!-- تذييل الصفحة -->
@@ -191,48 +227,35 @@
         <p>جميع الحقوق محفوظة © 2025 عبدالله</p>
     </footer>
 
-    <!-- إضافة مكتبة GSAP -->
+    <!-- مكتبات خارجية -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/particles.js@2.0.0/particles.min.js"></script>
     <script>
-        // تهيئة GSAP مع ScrollTrigger
+        // تهيئة Particles.js
+        particlesJS("particles-js", {
+            particles: {
+                number: { value: 80, density: { enable: true, value_area: 800 } },
+                color: { value: "#00aaff" },
+                shape: { type: "circle" },
+                opacity: { value: 0.5 },
+                size: { value: 3, random: true },
+                move: { enable: true, speed: 2 }
+            },
+            interactivity: {
+                events: { onhover: { enable: true, mode: "repulse" } }
+            }
+        });
+
+        // تهيئة GSAP
         gsap.registerPlugin(ScrollTrigger);
 
-        // تأثير الجزء الافتتاحي (Hero)
-        gsap.from(".hero h1", {
-            opacity: 0,
-            y: 50,
-            duration: 1.5,
-            ease: "power3.out"
-        });
-        gsap.from(".hero p", {
-            opacity: 0,
-            y: 30,
-            duration: 1.5,
-            delay: 0.5,
-            ease: "power3.out"
-        });
+        gsap.from(".hero h1", { opacity: 0, y: 50, duration: 1.5, ease: "power3.out" });
+        gsap.from(".hero p", { opacity: 0, y: 30, duration: 1.5, delay: 0.5, ease: "power3.out" });
 
-        // تأثير Parallax للخلفية
-        gsap.to(".hero", {
-            scrollTrigger: {
-                trigger: ".hero",
-                scrub: true,
-                start: "top top",
-                end: "bottom top"
-            },
-            backgroundPosition: "50% 100%",
-            ease: "none"
-        });
-
-        // تأثير ظهور الأقسام عند التمرير
         gsap.utils.toArray(".section").forEach(section => {
             gsap.from(section, {
-                scrollTrigger: {
-                    trigger: section,
-                    start: "top 80%",
-                    toggleActions: "play none none none"
-                },
+                scrollTrigger: { trigger: section, start: "top 80%" },
                 opacity: 0,
                 y: 50,
                 duration: 1,
@@ -240,32 +263,14 @@
             });
         });
 
-        // تأثير حركة لأعضاء الفريق والعملاء
-        gsap.utils.toArray(".team-member, .client").forEach(item => {
+        gsap.utils.toArray(".project-card, .team-member, .client").forEach(item => {
             gsap.from(item, {
-                scrollTrigger: {
-                    trigger: item,
-                    start: "top 90%",
-                    toggleActions: "play none none none"
-                },
+                scrollTrigger: { trigger: item, start: "top 90%" },
                 opacity: 0,
                 scale: 0.8,
                 duration: 0.8,
                 ease: "back.out(1.7)"
             });
-        });
-
-        // تأثير تكبير/تصغير للمربع المنقط
-        gsap.from(".dotted-box", {
-            scrollTrigger: {
-                trigger: ".projects",
-                start: "top 80%",
-                toggleActions: "play none none none"
-            },
-            opacity: 0,
-            scale: 0.9,
-            duration: 1,
-            ease: "elastic.out(1, 0.5)"
         });
     </script>
 </body>
