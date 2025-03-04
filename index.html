@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="موقع مطور ويب محترف - حلول تقنية متقدمة">
+    <meta name="description" content="موقع مطور ويب محترف - حلول تقنية استثنائية">
     <meta name="keywords" content="تطوير ويب, تصميم مواقع, برمجة احترافية">
     <title>مطور ويب محترف</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
@@ -15,24 +15,37 @@
             font-family: 'Poppins', sans-serif;
         }
         body {
-            background: linear-gradient(135deg, #e0eafc, #cfdef3);
-            color: #2c3e50;
+            background: linear-gradient(135deg, #1e1e2f, #3a1c71);
+            color: #f1ebeb;
             direction: rtl;
             scroll-behavior: smooth;
             line-height: 1.6;
             overflow-x: hidden;
+            position: relative;
+        }
+        body::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('https://www.transparenttextures.com/patterns/stardust.png');
+            opacity: 0.1;
+            z-index: -1;
         }
         /* القائمة الجانبية */
         .sidebar {
             position: fixed;
             top: 0;
             right: 0;
-            width: 250px;
+            width: 280px;
             height: 100%;
-            background: #2c3e50;
-            padding: 20px;
-            transition: transform 0.3s ease;
+            background: #2a0944;
+            padding: 30px;
+            transition: transform 0.4s ease;
             z-index: 1000;
+            box-shadow: -5px 0 15px rgba(0, 0, 0, 0.5);
         }
         .sidebar.open {
             transform: translateX(0);
@@ -43,33 +56,49 @@
         .sidebar .logo {
             display: flex;
             align-items: center;
-            font-size: 1.8rem;
-            color: #ecf0f1;
-            margin-bottom: 40px;
+            font-size: 2rem;
+            color: #ffd700;
+            margin-bottom: 50px;
         }
         .sidebar .logo i {
-            margin-left: 10px;
-            color: #3498db;
+            margin-left: 15px;
+            color: #ff6f61;
         }
         .sidebar a {
             display: block;
-            color: #ecf0f1;
+            color: #f1ebeb;
             text-decoration: none;
-            margin: 20px 0;
-            font-size: 1.2rem;
+            margin: 25px 0;
+            font-size: 1.3rem;
             transition: color 0.3s;
         }
         .sidebar a:hover {
-            color: #3498db;
+            color: #ffd700;
+        }
+        .sidebar .close-btn {
+            position: absolute;
+            top: 20px;
+            left: 20px;
+            font-size: 1.8rem;
+            color: #f1ebeb;
+            cursor: pointer;
         }
         .menu-toggle {
             position: fixed;
             top: 20px;
             right: 20px;
-            font-size: 2rem;
-            color: #2c3e50;
+            font-size: 2.5rem;
+            color: #ffd700;
             cursor: pointer;
             z-index: 1100;
+        }
+        .language-toggle {
+            position: absolute;
+            bottom: 20px;
+            right: 30px;
+            color: #ffd700;
+            font-size: 1.5rem;
+            cursor: pointer;
         }
         .hero {
             height: 100vh;
@@ -81,128 +110,150 @@
             position: relative;
         }
         .hero h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: #2c3e50;
+            font-size: 4rem;
+            font-weight: 800;
+            color: #ffd700;
+            text-shadow: 2px 2px 10px rgba(0, 0, 0, 0.3);
         }
-        /* قسم الأسئلة والأجوبة */
         .faq {
-            max-width: 800px;
-            margin: 20px auto;
+            max-width: 900px;
+            margin: 30px auto;
         }
         .faq-item {
-            background: #fff;
-            margin: 10px 0;
-            padding: 15px;
-            border-radius: 8px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            margin: 15px 0;
+            padding: 20px;
+            border-radius: 12px;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+        .faq-item:hover {
+            background: rgba(255, 255, 255, 0.2);
         }
         .faq-item h3 {
-            color: #3498db;
+            color: #ff6f61;
             margin-bottom: 10px;
         }
         .faq-item p {
             display: none;
-            color: #7f8c8d;
+            color: #f1ebeb;
         }
         .faq-item.active p {
             display: block;
         }
         .section {
-            padding: 60px 20px;
+            padding: 80px 20px;
             text-align: center;
         }
         .section h2 {
-            font-size: 2.5rem;
-            margin-bottom: 20px;
-            color: #2c3e50;
+            font-size: 3rem;
+            margin-bottom: 30px;
+            color: #ffd700;
+            text-shadow: 1px 1px 5px rgba(0, 0, 0, 0.2);
         }
-        .about, .contact, .team, .testimonials {
-            background: #fff;
+        .about, .services, .contact, .team, .testimonials {
+            background: rgba(255, 255, 255, 0.05);
         }
         .projects {
-            background: #ecf0f1;
+            background: rgba(42, 9, 68, 0.2);
         }
-        .project-gallery, .testimonials-grid {
+        .project-gallery, .testimonials-grid, .services-grid {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
             flex-wrap: wrap;
         }
-        .project-card, .testimonial-card {
-            background: #fff;
-            padding: 20px;
-            width: 280px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s;
+        .project-card, .testimonial-card, .service-card {
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            width: 300px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+            transition: transform 0.3s, background 0.3s;
         }
-        .project-card:hover, .testimonial-card:hover {
+        .project-card:hover, .testimonial-card:hover, .service-card:hover {
             transform: scale(1.05);
+            background: rgba(255, 255, 255, 0.2);
+        }
+        .service-card i {
+            font-size: 2.5rem;
+            color: #ff6f61;
+            margin-bottom: 15px;
         }
         .team-grid {
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 30px;
             flex-wrap: wrap;
         }
         .team-member {
-            background: #fff;
-            padding: 20px;
-            width: 220px;
-            border-radius: 10px;
-            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            background: rgba(255, 255, 255, 0.1);
+            padding: 25px;
+            width: 250px;
+            border-radius: 15px;
+            box-shadow: 0 6px 15px rgba(0, 0, 0, 0.2);
+        }
+        .team-member i {
+            font-size: 2rem;
+            color: #ffd700;
+            margin-bottom: 15px;
         }
         .contact-form {
-            max-width: 500px;
-            margin: 20px auto;
+            max-width: 600px;
+            margin: 30px auto;
         }
         .contact-form input, .contact-form textarea {
             width: 100%;
-            padding: 12px;
-            margin: 10px 0;
-            border: 1px solid #ddd;
-            border-radius: 5px;
+            padding: 15px;
+            margin: 15px 0;
+            border: none;
+            border-radius: 8px;
+            background: rgba(255, 255, 255, 0.8);
         }
         .contact-form button {
-            background: #3498db;
+            background: #ff6f61;
             color: #fff;
-            padding: 12px 25px;
+            padding: 15px 30px;
             border: none;
-            border-radius: 5px;
+            border-radius: 8px;
             cursor: pointer;
+            transition: background 0.3s;
+        }
+        .contact-form button:hover {
+            background: #e65b50;
         }
         .social-links {
-            margin-top: 20px;
+            margin-top: 30px;
             display: flex;
             justify-content: center;
-            gap: 25px;
+            gap: 30px;
         }
         .social-links a {
-            color: #2c3e50;
-            font-size: 1.8rem;
-            transition: color 0.3s;
+            color: #ffd700;
+            font-size: 2rem;
+            transition: color 0.3s, transform 0.3s;
         }
         .social-links a:hover {
-            color: #3498db;
+            color: #ff6f61;
+            transform: scale(1.2);
         }
         footer {
-            background: #2c3e50;
-            color: #ecf0f1;
-            padding: 20px;
+            background: #2a0944;
+            color: #f1ebeb;
+            padding: 30px;
             text-align: center;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.3);
         }
         @media (max-width: 768px) {
             .sidebar {
-                width: 200px;
+                width: 220px;
             }
             .hero h1 {
                 font-size: 2.5rem;
             }
-            .project-card, .team-member, .testimonial-card {
+            .project-card, .team-member, .testimonial-card, .service-card {
                 width: 100%;
-                max-width: 300px;
+                max-width: 320px;
             }
         }
     </style>
@@ -219,13 +270,20 @@
             <i class="fas fa-laptop-code"></i>
             <span>مطور ويب</span>
         </div>
+        <div class="close-btn">
+            <i class="fas fa-times"></i>
+        </div>
         <a href="#home">الرئيسية</a>
         <a href="#about">من نحن</a>
+        <a href="#services">الخدمات</a>
         <a href="#projects">المشاريع</a>
         <a href="blog.html">المدونة</a>
         <a href="#team">فريق العمل</a>
         <a href="#testimonials">آراء العملاء</a>
         <a href="#contact">تواصل معي</a>
+        <div class="language-toggle" onclick="toggleLanguage()">
+            <i class="fas fa-globe"></i>
+        </div>
     </div>
 
     <!-- الجزء الافتتاحي -->
@@ -233,16 +291,16 @@
         <h1>مطور ويب محترف</h1>
         <div class="faq">
             <div class="faq-item">
-                <h3>لماذا تختار خدماتنا؟</h3>
-                <p>نقدم حلول ويب متقدمة بتقنيات حديثة وفريق محترف يضمن الجودة والسرعة.</p>
+                <h3>ما الذي يجعلنا مميزين؟</h3>
+                <p>نستخدم أحدث التقنيات لتقديم حلول ويب مبتكرة تلبي احتياجاتك بدقة.</p>
             </div>
             <div class="faq-item">
-                <h3>ما الذي يميز تصميماتنا؟</h3>
-                <p>تصميمات تفاعلية، متجاوبة مع جميع الأجهزة، ومُحسّنة لمحركات البحث.</p>
+                <h3>كيف نضمن جودة المشاريع؟</h3>
+                <p>فريقنا يتبع معايير صارمة مع اختبارات دقيقة لضمان الأداء العالي.</p>
             </div>
             <div class="faq-item">
-                <h3>كيف نبدأ مشروعك؟</h3>
-                <p>تواصل معنا، نناقش فكرتك، ثم نبدأ التصميم والتطوير فورًا.</p>
+                <h3>ما هي خطوات العمل معنا؟</h3>
+                <p>نبدأ بتحليل فكرتك، ثم التصميم، التطوير، وأخيرًا الإطلاق.</p>
             </div>
         </div>
     </div>
@@ -250,7 +308,29 @@
     <!-- قسم من نحن -->
     <div class="section about" id="about">
         <h2>من نحن</h2>
-        <p>نحن فريق من المحترفين في تطوير الويب، ملتزمون بتقديم أفضل الحلول التقنية لتحويل أفكارك إلى واقع رقمي متميز.</p>
+        <p>نحن فريق من خبراء تطوير الويب، نهدف إلى تقديم تجارب رقمية استثنائية تجمع بين الإبداع والتقنية.</p>
+    </div>
+
+    <!-- قسم الخدمات -->
+    <div class="section services" id="services">
+        <h2>خدماتنا</h2>
+        <div class="services-grid">
+            <div class="service-card">
+                <i class="fas fa-desktop"></i>
+                <h3>تصميم مواقع</h3>
+                <p>تصميمات تفاعلية متجاوبة تلائم كل الأجهزة.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-code-branch"></i>
+                <h3>تطوير تطبيقات</h3>
+                <p>تطبيقات ويب متقدمة بأداء عالٍ.</p>
+            </div>
+            <div class="service-card">
+                <i class="fas fa-search"></i>
+                <h3>تحسين SEO</h3>
+                <p>رفع ترتيب موقعك في محركات البحث.</p>
+            </div>
+        </div>
     </div>
 
     <!-- قسم المشاريع -->
@@ -258,19 +338,19 @@
         <h2>المشاريع</h2>
         <div class="project-gallery">
             <div class="project-card">
-                <i class="fas fa-shopping-cart fa-2x" style="color: #3498db;"></i>
+                <i class="fas fa-shopping-cart fa-2x" style="color: #ff6f61;"></i>
                 <h3>متجر إلكتروني</h3>
-                <p>تصميم وتطوير متجر إلكتروني متكامل بأحدث التقنيات.</p>
+                <p>متجر متكامل بتقنيات حديثة.</p>
             </div>
             <div class="project-card">
-                <i class="fas fa-blog fa-2x" style="color: #3498db;"></i>
+                <i class="fas fa-blog fa-2x" style="color: #ff6f61;"></i>
                 <h3>مدونة تقنية</h3>
-                <p>موقع مدونة احترافي مع نظام إدارة محتوى.</p>
+                <p>مدونة احترافية مع إدارة محتوى.</p>
             </div>
             <div class="project-card">
-                <i class="fas fa-tools fa-2x" style="color: #3498db;"></i>
-                <h3>تطبيق إدارة مهام (قريبًا)</h3>
-                <p>جاري العمل على تطبيق إدارة مهام متطور.</p>
+                <i class="fas fa-tools fa-2x" style="color: #ff6f61;"></i>
+                <h3>تطبيق إدارة (قريبًا)</h3>
+                <p>جاري العمل على تطبيق متطور.</p>
             </div>
         </div>
     </div>
@@ -280,24 +360,19 @@
         <h2>فريق العمل</h2>
         <div class="team-grid">
             <div class="team-member">
-                <i class="fas fa-code fa-2x" style="color: #3498db;"></i>
+                <i class="fas fa-code"></i>
                 <h3>أحمد</h3>
-                <p>مطور واجهات أمامية</p>
+                <p>مطور واجهات</p>
             </div>
             <div class="team-member">
-                <i class="fas fa-server fa-2x" style="color: #3498db;"></i>
+                <i class="fas fa-server"></i>
                 <h3>ليلى</h3>
                 <p>مطورة خلفية</p>
             </div>
             <div class="team-member">
-                <i class="fas fa-paint-brush fa-2x" style="color: #3498db;"></i>
+                <i class="fas fa-paint-brush"></i>
                 <h3>ياسر</h3>
                 <p>مصمم واجهات</p>
-            </div>
-            <div class="team-member">
-                <i class="fas fa-tasks fa-2x" style="color: #3498db;"></i>
-                <h3>نورا</h3>
-                <p>مديرة مشاريع</p>
             </div>
         </div>
     </div>
@@ -307,14 +382,14 @@
         <h2>آراء العملاء</h2>
         <div class="testimonials-grid">
             <div class="testimonial-card">
-                <i class="fas fa-star fa-2x" style="color: #f1c40f;"></i>
+                <i class="fas fa-star fa-2x" style="color: #ffd700;"></i>
                 <h3>محمد</h3>
-                <p>"خدمة احترافية ونتائج مذهلة."</p>
+                <p>"تجربة مذهلة، احترافية عالية."</p>
             </div>
             <div class="testimonial-card">
-                <i class="fas fa-star fa-2x" style="color: #f1c40f;"></i>
+                <i class="fas fa-star fa-2x" style="color: #ffd700;"></i>
                 <h3>فاطمة</h3>
-                <p>"فريق مبدع وسريع الاستجابة."</p>
+                <p>"تصميم رائع وسرعة في التنفيذ."</p>
             </div>
         </div>
     </div>
@@ -348,9 +423,21 @@
         // فتح وإغلاق القائمة الجانبية
         const menuToggle = document.querySelector('.menu-toggle');
         const sidebar = document.querySelector('.sidebar');
+        const closeBtn = document.querySelector('.close-btn');
+        
         menuToggle.addEventListener('click', () => {
             sidebar.classList.toggle('open');
             sidebar.classList.toggle('closed');
+        });
+        closeBtn.addEventListener('click', () => {
+            sidebar.classList.remove('open');
+            sidebar.classList.add('closed');
+        });
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !menuToggle.contains(e.target) && sidebar.classList.contains('open')) {
+                sidebar.classList.remove('open');
+                sidebar.classList.add('closed');
+            }
         });
 
         // تفاعل الأسئلة والأجوبة
@@ -360,6 +447,19 @@
                 item.classList.toggle('active');
             });
         });
+
+        // تغيير اللغة (محاكاة بسيطة)
+        function toggleLanguage() {
+            const body = document.body;
+            if (body.getAttribute('lang') === 'ar') {
+                body.setAttribute('lang', 'en');
+                document.querySelector('.hero h1').textContent = 'Professional Web Developer';
+                // يمكن إضافة المزيد من التغييرات لاحقًا
+            } else {
+                body.setAttribute('lang', 'ar');
+                document.querySelector('.hero h1').textContent = 'مطور ويب محترف';
+            }
+        }
 
         // تأثيرات GSAP
         gsap.registerPlugin(ScrollTrigger);
@@ -377,7 +477,7 @@
             });
         });
 
-        gsap.utils.toArray(".project-card, .team-member, .testimonial-card").forEach(item => {
+        gsap.utils.toArray(".project-card, .team-member, .testimonial-card, .service-card").forEach(item => {
             gsap.from(item, {
                 scrollTrigger: { trigger: item, start: "top 90%" },
                 opacity: 0,
