@@ -65,6 +65,17 @@
             margin: 20px 0;
             border-radius: 5px;
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            border: 2px dashed #f39c12;
+        }
+        .feature-box {
+            display: flex;
+            align-items: center;
+            margin: 20px 0;
+        }
+        .feature-box i {
+            font-size: 2em;
+            margin-right: 15px;
+            color: #f39c12;
         }
         footer {
             background: #333;
@@ -104,6 +115,7 @@
         <nav>
             <a href="#showcase">🏠 الرئيسية</a>
             <a href="#about">👨‍💻 من أنا</a>
+            <a href="#features">✨ مميزات</a>
             <a href="#contact">📞 تواصل</a>
         </nav>
     </header>
@@ -118,6 +130,22 @@
             <h2 class="fade-in">من أنا</h2>
             <div class="box fade-in">
                 <p>أنا مطور ويب ذو خبرة عالية في تصميم وتطوير المواقع. أحب البرمجة وتعلم التقنيات الجديدة. 🌟</p>
+            </div>
+        </section>
+
+        <section id="features">
+            <h2 class="fade-in">مميزات</h2>
+            <div class="box fade-in feature-box">
+                <i class="fas fa-code"></i>
+                <p>كتابة كود نظيف وموثق بشكل جيد.</p>
+            </div>
+            <div class="box fade-in feature-box">
+                <i class="fas fa-mobile-alt"></i>
+                <p>تصاميم متجاوبة تعمل على جميع الأجهزة.</p>
+            </div>
+            <div class="box fade-in feature-box">
+                <i class="fas fa-rocket"></i>
+                <p>أداء عالي وسرعة في تحميل الصفحات.</p>
             </div>
         </section>
 
