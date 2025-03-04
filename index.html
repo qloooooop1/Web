@@ -13,8 +13,8 @@
             font-family: 'Arial', sans-serif;
         }
         body {
-            background: #f0f0f0;
-            color: #333;
+            background: #1e1e1e;
+            color: #ddd;
             line-height: 1.6;
             overflow-x: hidden;
         }
@@ -23,6 +23,7 @@
             color: white;
             padding: 15px 0;
             text-align: center;
+            box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
         }
         nav {
             margin: 15px 0;
@@ -57,21 +58,25 @@
         }
         .box {
             padding: 20px;
-            background: white;
+            background: #333;
             margin: 20px 0;
             border-radius: 5px;
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
         }
         footer {
             background: #333;
             color: white;
             text-align: center;
             padding: 20px 0;
+            box-shadow: 0 -4px 10px rgba(0, 0, 0, 0.5);
         }
         .social a {
             color: white;
             margin: 0 10px;
             font-size: 1.5em;
+        }
+        .social a:hover {
+            color: #f39c12;
         }
         @keyframes fadeIn {
             from {opacity: 0;}
@@ -80,14 +85,17 @@
         .fade-in {
             animation: fadeIn 2s;
         }
+        h2 {
+            margin-bottom: 20px;
+        }
     </style>
 </head>
 <body>
     <header>
         <nav>
-            <a href="#showcase">الرئيسية</a>
-            <a href="#about">من أنا</a>
-            <a href="#contact">تواصل</a>
+            <a href="#showcase">🏠 الرئيسية</a>
+            <a href="#about">👨‍💻 من أنا</a>
+            <a href="#contact">📞 تواصل</a>
         </nav>
     </header>
 
@@ -100,7 +108,7 @@
         <section id="about">
             <h2 class="fade-in">من أنا</h2>
             <div class="box fade-in">
-                <p>أنا مطور ويب ذو خبرة عالية في تصميم وتطوير المواقع. أحب البرمجة وتعلم التقنيات الجديدة.</p>
+                <p>أنا مطور ويب ذو خبرة عالية في تصميم وتطوير المواقع. أحب البرمجة وتعلم التقنيات الجديدة. 🌟</p>
             </div>
         </section>
 
@@ -113,6 +121,7 @@
                     <a href="#"><i class="fab fa-facebook"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
                     <a href="#"><i class="fab fa-instagram"></i></a>
+                    <a href="#"><i class="fab fa-linkedin"></i></a>
                 </div>
             </div>
         </section>
