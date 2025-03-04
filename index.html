@@ -6,6 +6,8 @@
     <title>روية - تطبيقاتنا الخاصة</title>
     <!-- Font Awesome للأيقونات -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.2/css/all.min.css">
+    <!-- خط Cairo من Google Fonts -->
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -32,11 +34,17 @@
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
+            transition: transform 0.3s ease-in-out;
+        }
+
+        nav.hidden {
+            transform: translateY(-100%);
         }
 
         nav .logo {
+            font-family: 'Cairo', sans-serif; /* تغيير الخط لاسم الشركة */
             color: #FFFFFF;
-            font-size: 28px;
+            font-size: 32px;
             font-weight: bold;
         }
 
@@ -59,41 +67,61 @@
             color: #D4AF37;
         }
 
+        /* زر تغيير اللغة */
+        #language-toggle {
+            background-color: #D4AF37;
+            color: #FFFFFF;
+            padding: 8px 15px;
+            border-radius: 20px;
+            cursor: pointer;
+            font-size: 14px;
+            transition: background-color 0.3s;
+        }
+
+        #language-toggle:hover {
+            background-color: #1A2A44;
+        }
+
         /* الهيدر */
         header {
-            height: 120vh;
-            background-color: #F7F7F7;
+            height: 100vh;
+            background: linear-gradient(135deg, #1A2A44 0%, #D4AF37 100%); /* خلفية متدرجة */
             display: flex;
             justify-content: center;
             align-items: center;
             text-align: center;
             padding: 40px;
             position: relative;
+            overflow: hidden;
         }
 
         header .logo-icon {
             position: absolute;
-            top: 150px;
-            font-size: 80px;
-            color: #D4AF37;
-            animation: pulse 2s infinite;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            font-size: 150px;
+            color: rgba(255, 255, 255, 0.2);
+            z-index: 0;
+            animation: float 6s ease-in-out infinite;
         }
 
         header .content {
             max-width: 900px;
-            margin-top: 100px;
+            z-index: 1;
         }
 
         header h1 {
-            font-size: 60px;
-            color: #1A2A44;
+            font-size: 70px;
+            color: #FFFFFF;
             margin-bottom: 25px;
+            text-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
             animation: slideInFromTop 1s ease-in-out;
         }
 
         header p {
-            font-size: 22px;
-            color: #666666;
+            font-size: 24px;
+            color: #FFFFFF;
             margin-bottom: 30px;
             animation: slideInFromBottom 1s ease-in-out;
         }
@@ -482,6 +510,12 @@
             100% { transform: scale(1); }
         }
 
+        @keyframes float {
+            0% { transform: translate(-50%, -50%) translateY(0); }
+            50% { transform: translate(-50%, -50%) translateY(-20px); }
+            100% { transform: translate(-50%, -50%) translateY(0); }
+        }
+
         /* التجاوب */
         @media (max-width: 768px) {
             header { height: 80vh; }
@@ -509,6 +543,7 @@
             <li><a href="#news">الأخبار</a></li>
             <li><a href="#faq">الأسئلة الشائعة</a></li>
             <li><a href="#contact">تواصل معنا</a></li>
+            <li><span id="language-toggle">English</span></li>
         </ul>
     </nav>
 
@@ -764,8 +799,22 @@
         <i class="fas fa-arrow-up"></i>
     </div>
 
-    <!-- JavaScript بسيط -->
+    <!-- JavaScript -->
     <script>
+        // اختفاء الهيدر عند التمرير مع بقاء اسم الشركة
+        const nav = document.querySelector('nav');
+        let lastScroll = 0;
+
+        window.addEventListener('scroll', () => {
+            const currentScroll = window.scrollY;
+            if (currentScroll > lastScroll && currentScroll > 100) {
+                nav.classList.add('hidden');
+            } else {
+                nav.classList.remove('hidden');
+            }
+            lastScroll = currentScroll;
+        });
+
         // زر العودة إلى الأعلى
         const backToTop = document.getElementById('back-to-top');
         window.addEventListener('scroll', () => {
@@ -777,6 +826,25 @@
         });
         backToTop.addEventListener('click', () => {
             window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+
+        // تغيير اللغة (مثال بسيط)
+        const languageToggle = document.getElementById('language-toggle');
+        languageToggle.addEventListener('click', () => {
+            if (languageToggle.textContent === 'English') {
+                document.documentElement.setAttribute('lang', 'en');
+                document.documentElement.setAttribute('dir', 'ltr');
+                languageToggle.textContent = 'العربية';
+                document.querySelector('header h1').textContent = 'Rawya - Our Exclusive Apps';
+                document.querySelector('header p').textContent = 'We create our own apps to meet your daily needs with innovative ideas and high quality on iPhone and Android.';
+                // يمكن إضافة المزيد من الترجمات هنا
+            } else {
+                document.documentElement.setAttribute('lang', 'ar');
+                document.documentElement.setAttribute('dir', 'rtl');
+                languageToggle.textContent = 'English';
+                document.querySelector('header h1').textContent = 'روية - تطبيقاتنا الخاصة';
+                document.querySelector('header p').textContent = 'نصنع تطبيقاتنا الخاصة لتلبية احتياجاتك اليومية بأفكار مبتكرة وجودة عالية على الآيفون والأندرويد.';
+            }
         });
     </script>
 </body>
