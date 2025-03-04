@@ -3,426 +3,131 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>ختمة رمضان</title>
-    <!-- رابط خط Awasm Font (افتراضي) -->
-    <link href="https://fonts.googleapis.com/css2?family=Awasm&display=swap" rel="stylesheet">
+    <title>تصميم صفحة أنيقة</title>
+    <!-- رابط Font Awesome -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
-        body {
-            font-family: 'Awasm', sans-serif;
-            background: linear-gradient(to bottom, #f4f1e9, #d9e4d4);
-            color: #2c3e50;
+        * {
             margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+
+        /* تصميم الهيدر */
+        header {
+            background: linear-gradient(135deg, #2b2d42, #8d5524);
             padding: 20px;
-            text-align: center;
-        }
-        h1, h2, h3 {
-            color: #d4a017;
-            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
-        }
-        .container {
-            max-width: 1100px;
-            margin: 0 auto;
-        }
-        .leaderboard, .groups, .group-details, .stats {
-            background: #fff;
-            padding: 20px;
-            margin: 15px 0;
-            border-radius: 15px;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-        }
-        .group-item, .member {
-            padding: 12px;
-            border-bottom: 1px solid #eee;
-            transition: background 0.3s;
-        }
-        .group-item:hover {
-            background: #f9f9f9;
-        }
-        button {
-            background-color: #27ae60;
             color: white;
-            border: none;
-            padding: 12px 25px;
-            border-radius: 8px;
-            cursor: pointer;
-            font-size: 1em;
-            transition: background 0.3s;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.2);
+            position: relative;
         }
-        button:hover {
-            background-color: #219653;
-        }
-        .delete-btn {
-            background-color: #e74c3c;
-        }
-        .delete-btn:hover {
-            background-color: #c0392b;
-        }
-        input, select {
-            padding: 10px;
-            margin: 8px;
-            border-radius: 8px;
-            border: 1px solid #ddd;
-            font-size: 1em;
-        }
-        .progress-bar {
-            width: 100%;
-            background: #ddd;
-            height: 25px;
-            border-radius: 12px;
-            overflow: hidden;
-            margin: 10px 0;
-        }
-        .progress {
-            height: 100%;
-            background: linear-gradient(to right, #27ae60, #2ecc71);
-            width: 0;
-            transition: width 0.5s ease;
-        }
-        #quran-reader {
-            margin-top: 20px;
-            background: #fff;
-            padding: 20px;
-            border-radius: 15px;
-            text-align: right;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
-        }
-        #quran-text {
-            font-size: 1.5em;
-            line-height: 2;
-            color: #1a2525;
-            background: #f9f9f9;
-            padding: 15px;
-            border-radius: 10px;
-            direction: rtl;
-        }
-        .modal {
-            display: none;
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            background: rgba(0,0,0,0.5);
-            justify-content: center;
+
+        .header-container {
+            max-width: 1200px;
+            margin: 0 auto;
+            display: flex;
+            justify-content: space-between;
             align-items: center;
+            flex-wrap: wrap;
         }
-        .modal-content {
-            background: #fff;
-            padding: 20px;
+
+        .logo {
+            font-size: 24px;
+            font-weight: bold;
+        }
+
+        .logo i {
+            margin-left: 10px;
+            color: #ffd700;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
+        nav ul li a {
+            color: white;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s ease;
+        }
+
+        nav ul li a:hover {
+            color: #ffd700;
+        }
+
+        /* مساحة الإعلان */
+        .ad-space {
+            width: 100%;
+            height: 100px;
+            background-color: rgba(255, 255, 255, 0.1);
+            margin-top: 20px;
             border-radius: 10px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 18px;
+            color: #ddd;
+            transition: all 0.3s ease;
+        }
+
+        .ad-space:hover {
+            background-color: rgba(255, 255, 255, 0.2);
+        }
+
+        /* المحتوى الرئيسي */
+        .main-content {
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 20px;
             text-align: center;
+        }
+
+        /* للشاشات الصغيرة */
+        @media (max-width: 768px) {
+            .header-container {
+                flex-direction: column;
+                gap: 20px;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .ad-space {
+                height: 80px;
+            }
         }
     </style>
 </head>
 <body>
-    <div class="container">
-        <h1>ختمة رمضان</h1>
-        <p>اجتمعوا على القرآن، تنافسوا في الخير</p>
-
-        <!-- إحصائيات يومية -->
-        <div class="stats" id="daily-stats">
-            <h2>إحصائياتك اليومية</h2>
-            <p id="stats-text"></p>
-        </div>
-
-        <!-- لوحة الصدارة -->
-        <div class="leaderboard">
-            <h2>لوحة الصدارة</h2>
-            <div id="top-groups"><h3>أفضل المجموعات</h3></div>
-            <div id="top-users"><h3>أفضل الأفراد</h3></div>
-        </div>
-
-        <!-- قائمة المجموعات -->
-        <div class="groups">
-            <h2>المجموعات المتاحة</h2>
-            <button onclick="showCreateGroupForm()">إنشاء مجموعة جديدة</button>
-            <div id="group-list"></div>
-        </div>
-
-        <!-- نموذج إنشاء مجموعة -->
-        <div id="create-group-form" style="display: none;">
-            <h3>إنشاء مجموعة</h3>
-            <input type="text" id="group-name" placeholder="اسم المجموعة">
-            <input type="number" id="group-max" placeholder="الحد الأقصى للأعضاء" min="1" max="20">
-            <input type="password" id="group-password" placeholder="كلمة المرور للإغلاق">
-            <button onclick="createGroup()">إنشاء</button>
-        </div>
-
-        <!-- تفاصيل المجموعة -->
-        <div class="group-details" id="group-details" style="display: none;">
-            <h2 id="current-group-name"></h2>
-            <div class="progress-bar">
-                <div class="progress" id="group-progress"></div>
+    <header>
+        <div class="header-container">
+            <div class="logo">
+                <i class="fas fa-rocket"></i> موقعي الأنيق
             </div>
-            <p id="group-progress-text">التقدم: 0%</p>
-            <div id="member-list"><h3>الأعضاء</h3></div>
-            <button onclick="leaveGroup()">مغادرة المجموعة</button>
-            <button class="delete-btn" onclick="promptDeleteGroup()">إغلاق المجموعة</button>
-            <div id="quran-reader">
-                <h3>قراءة القرآن</h3>
-                <select id="page-select" onchange="loadQuranPage()">
-                    <option value="">اختر صفحة</option>
-                </select>
-                <div id="quran-text"></div>
-                <button onclick="readPage()">تمت القراءة</button>
-            </div>
+            <nav>
+                <ul>
+                    <li><a href="#">الرئيسية</a></li>
+                    <li><a href="#">من نحن</a></li>
+                    <li><a href="#">الخدمات</a></li>
+                    <li><a href="#">اتصل بنا</a></li>
+                </ul>
+            </nav>
         </div>
+        <!-- مساحة الإعلان -->
+        <div class="ad-space">
+            مساحة مخصصة للإعلانات المستقبلية
+        </div>
+    </header>
 
-        <!-- نافذة تسجيل الاسم -->
-        <div class="modal" id="name-modal">
-            <div class="modal-content">
-                <h3>أدخل اسمك</h3>
-                <input type="text" id="user-name-input" placeholder="اسمك">
-                <button onclick="saveUserName()">حفظ</button>
-            </div>
-        </div>
+    <div class="main-content">
+        <h1>مرحباً بكم في موقعنا</h1>
+        <p>هذا تصميم أنيق مع هيدر يدعم إضافة إعلانات لاحقاً</p>
     </div>
-
-    <script>
-        let groups = JSON.parse(localStorage.getItem('khatmaGroups')) || [];
-        let currentGroup = null;
-        let userName = localStorage.getItem('khatmaUser');
-        let userStats = JSON.parse(localStorage.getItem('khatmaUserStats')) || { pagesToday: 0, lastPage: 0, lastDate: null };
-        const totalPages = 604;
-
-        // تحميل الصفحة
-        window.onload = function() {
-            const pageSelect = document.getElementById('page-select');
-            for (let i = 1; i <= totalPages; i++) {
-                const option = document.createElement('option');
-                option.value = i;
-                option.text = `صفحة ${i}`;
-                pageSelect.appendChild(option);
-            }
-            if (!userName) {
-                document.getElementById('name-modal').style.display = 'flex';
-            } else {
-                updateDailyStats();
-                updateGroupList();
-                const lastGroupId = localStorage.getItem('lastGroupId');
-                if (lastGroupId) joinGroup(parseInt(lastGroupId));
-                if (userStats.lastPage) {
-                    pageSelect.value = userStats.lastPage;
-                    loadQuranPage();
-                }
-            }
-        };
-
-        // حفظ اسم المستخدم
-        function saveUserName() {
-            userName = document.getElementById('user-name-input').value.trim();
-            if (userName) {
-                localStorage.setItem('khatmaUser', userName);
-                document.getElementById('name-modal').style.display = 'none';
-                updateDailyStats();
-                updateGroupList();
-            } else {
-                alert('يرجى إدخال اسم صالح');
-            }
-        }
-
-        // تحميل نص الصفحة من API
-        function loadQuranPage() {
-            const page = document.getElementById('page-select').value;
-            if (page) {
-                fetch(`http://api.alquran.cloud/v1/page/${page}/quran-uthmani`)
-                    .then(response => response.json())
-                    .then(data => {
-                        const ayahs = data.data.ayahs;
-                        let text = '';
-                        ayahs.forEach(ayah => {
-                            text += `<span style="margin: 5px">${ayah.text} <sup>(${ayah.surah.number}:${ayah.numberInSurah})</sup></span>`;
-                        });
-                        document.getElementById('quran-text').innerHTML = text;
-                        userStats.lastPage = parseInt(page);
-                        saveUserStats();
-                    })
-                    .catch(error => console.error('خطأ في جلب النص:', error));
-            }
-        }
-
-        // عرض إحصائيات يومية
-        function updateDailyStats() {
-            const today = new Date().toDateString();
-            if (userStats.lastDate !== today) {
-                userStats.pagesToday = 0;
-                userStats.lastDate = today;
-                saveUserStats();
-            }
-            document.getElementById('stats-text').innerHTML = `
-                مرحبًا ${userName}!<br>
-                الصفحات المقروءة اليوم: ${userStats.pagesToday}<br>
-                آخر صفحة توقفت عندها: ${userStats.lastPage || 'لم تبدأ بعد'}
-            `;
-        }
-
-        // عرض نموذج إنشاء مجموعة
-        function showCreateGroupForm() {
-            document.getElementById('create-group-form').style.display = 'block';
-        }
-
-        // إنشاء مجموعة جديدة
-        function createGroup() {
-            const name = document.getElementById('group-name').value;
-            const max = parseInt(document.getElementById('group-max').value) || 10;
-            const password = document.getElementById('group-password').value;
-            if (name && password) {
-                const group = {
-                    id: groups.length + 1,
-                    name: name,
-                    maxMembers: max,
-                    password: password,
-                    founder: userName,
-                    members: [{ name: userName, pages: 0 }],
-                    totalPages: 0,
-                    completedKhatmas: 0
-                };
-                groups.push(group);
-                saveGroups();
-                updateGroupList();
-                document.getElementById('create-group-form').style.display = 'none';
-                document.getElementById('group-name').value = '';
-                document.getElementById('group-max').value = '';
-                document.getElementById('group-password').value = '';
-                joinGroup(group.id);
-            } else {
-                alert('يرجى إدخال اسم المجموعة وكلمة المرور');
-            }
-        }
-
-        // تحديث قائمة المجموعات
-        function updateGroupList() {
-            const groupList = document.getElementById('group-list');
-            groupList.innerHTML = '';
-            groups.forEach(group => {
-                const div = document.createElement('div');
-                div.className = 'group-item';
-                div.innerHTML = `${group.name} (${group.members.length}/${group.maxMembers}) - ${group.totalPages} صفحة - ${group.completedKhatmas} ختمة <button onclick="joinGroup(${group.id})">انضم</button>`;
-                groupList.appendChild(div);
-            });
-            updateLeaderboard();
-        }
-
-        // الانضمام إلى مجموعة
-        function joinGroup(groupId) {
-            const group = groups.find(g => g.id === groupId);
-            if (group && group.members.length < group.maxMembers) {
-                if (!group.members.some(m => m.name === userName)) {
-                    group.members.push({ name: userName, pages: 0 });
-                    saveGroups();
-                }
-                currentGroup = group;
-                localStorage.setItem('lastGroupId', groupId);
-                showGroupDetails();
-            }
-        }
-
-        // عرض تفاصيل المجموعة
-        function showGroupDetails() {
-            document.getElementById('group-details').style.display = 'block';
-            document.getElementById('current-group-name').innerText = currentGroup.name;
-            updateGroupProgress();
-            updateMemberList();
-            document.querySelector('.delete-btn').style.display = currentGroup.founder === userName ? 'inline' : 'none';
-        }
-
-        // تحديث قائمة الأعضاء
-        function updateMemberList() {
-            const memberList = document.getElementById('member-list');
-            memberList.innerHTML = '<h3>الأعضاء</h3>';
-            currentGroup.members.forEach(member => {
-                const div = document.createElement('div');
-                div.className = 'member';
-                div.innerHTML = `${member.name}: ${member.pages} صفحة`;
-                memberList.appendChild(div);
-            });
-        }
-
-        // تحديث تقدم المجموعة
-        function updateGroupProgress() {
-            const totalPagesRead = currentGroup.totalPages;
-            const progress = (totalPagesRead / totalPages) * 100;
-            const khatmas = Math.floor(totalPagesRead / totalPages);
-            currentGroup.completedKhatmas = khatmas;
-            document.getElementById('group-progress').style.width = `${progress % 100}%`;
-            document.getElementById('group-progress-text').innerText = `التقدم: ${Math.round(progress)}% (${totalPagesRead}/${totalPages}) - ${khatmas} ختمة`;
-        }
-
-        // تسجيل قراءة صفحة
-        function readPage() {
-            const page = parseInt(document.getElementById('page-select').value);
-            if (page && currentGroup) {
-                const member = currentGroup.members.find(m => m.name === userName);
-                member.pages += 1;
-                currentGroup.totalPages += 1;
-                userStats.pagesToday += 1;
-                userStats.lastPage = page;
-                saveGroups();
-                saveUserStats();
-                updateGroupProgress();
-                updateMemberList();
-                updateLeaderboard();
-                updateDailyStats();
-                alert(`تم تسجيل قراءة الصفحة ${page} بنجاح!`);
-            }
-        }
-
-        // مغادرة المجموعة
-        function leaveGroup() {
-            if (currentGroup) {
-                currentGroup.members = currentGroup.members.filter(m => m.name !== userName);
-                saveGroups();
-                document.getElementById('group-details').style.display = 'none';
-                currentGroup = null;
-                localStorage.removeItem('lastGroupId');
-                updateGroupList();
-            }
-        }
-
-        // طلب إغلاق المجموعة
-        function promptDeleteGroup() {
-            if (currentGroup.founder === userName) {
-                const password = prompt('أدخل كلمة المرور لإغلاق المجموعة:');
-                if (password === currentGroup.password) {
-                    groups = groups.filter(g => g.id !== currentGroup.id);
-                    saveGroups();
-                    document.getElementById('group-details').style.display = 'none';
-                    currentGroup = null;
-                    localStorage.removeItem('lastGroupId');
-                    updateGroupList();
-                    alert('تم إغلاق المجموعة بنجاح');
-                } else {
-                    alert('كلمة المرور غير صحيحة');
-                }
-            }
-        }
-
-        // تحديث لوحة الصدارة
-        function updateLeaderboard() {
-            const topGroups = groups.sort((a, b) => b.totalPages - a.totalPages).slice(0, 5);
-            const topGroupsDiv = document.getElementById('top-groups');
-            topGroupsDiv.innerHTML = '<h3>أفضل المجموعات</h3>';
-            topGroups.forEach(group => {
-                topGroupsDiv.innerHTML += `<div>${group.name}: ${group.totalPages} صفحة - ${group.completedKhatmas} ختمة</div>`;
-            });
-
-            const allMembers = groups.flatMap(g => g.members).sort((a, b) => b.pages - a.pages).slice(0, 5);
-            const topUsersDiv = document.getElementById('top-users');
-            topUsersDiv.innerHTML = '<h3>أفضل الأفراد</h3>';
-            allMembers.forEach(member => {
-                topUsersDiv.innerHTML += `<div>${member.name}: ${member.pages} صفحة</div>`;
-            });
-        }
-
-        // حفظ بيانات المجموعات
-        function saveGroups() {
-            localStorage.setItem('khatmaGroups', JSON.stringify(groups));
-        }
-
-        // حفظ إحصائيات المستخدم
-        function saveUserStats() {
-            localStorage.setItem('khatmaUserStats', JSON.stringify(userStats));
-        }
-    </script>
 </body>
 </html>
