@@ -270,28 +270,34 @@
         </div>
     </div>
 
-    <!-- إضافة Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-app.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/9.6.1/firebase-database.js"></script>
+    <!-- تعليمات Netlify Functions (يجب تقسيمها عند النشر) -->
+    <!-- ضع هذا الكود في ملف منفصل باسم netlify/functions/counter.js عند النشر على Netlify -->
+    <!--
+    const { getStore } = require("@netlify/blobs");
+
+    exports.handler = async (event, context) => {
+      const store = getStore("counterStore");
+      let counter = parseInt((await store.get("globalCounter")) || "0");
+
+      if (event.httpMethod === "POST") {
+        counter += 1;
+        await store.set("globalCounter", counter.toString());
+        return {
+          statusCode: 200,
+          body: JSON.stringify({ globalCounter: counter }),
+        };
+      }
+
+      return {
+        statusCode: 200,
+        body: JSON.stringify({ globalCounter: counter }),
+      };
+    };
+    -->
 
     <script>
-        // تهيئة Firebase (استبدل هذه القيم بإعدادات مشروعك في Firebase)
-        const firebaseConfig = {
-            apiKey: "YOUR_API_KEY",
-            authDomain: "YOUR_AUTH_DOMAIN",
-            databaseURL: "https://your-database-name-default-rtdb.firebaseio.com",
-            projectId: "YOUR_PROJECT_ID",
-            storageBucket: "YOUR_STORAGE_BUCKET",
-            messagingSenderId: "YOUR_MESSAGING_SENDER_ID",
-            appId: "YOUR_APP_ID"
-        };
-        firebase.initializeApp(firebaseConfig);
-        const database = firebase.database();
-        const globalCounterRef = database.ref('globalCounter');
-
-        let globalCounter = 0;
         let userCounter = 0;
-        const target = 1000000000;
+        const target = 1000000000; // الهدف مليار
 
         const globalCounterElement = document.getElementById('globalCounter');
         const remainingElement = document.getElementById('remaining');
@@ -300,7 +306,7 @@
         const hadithElement = document.getElementById('hadith');
         const ramadanCountdownElement = document.getElementById('ramadanCountdown');
 
-        function updateGlobalCounter() {
+        function updateGlobalCounter(globalCounter) {
             globalCounterElement.textContent = globalCounter.toLocaleString();
             remainingElement.textContent = (target - globalCounter).toLocaleString();
         }
@@ -309,24 +315,34 @@
             userCounterElement.textContent = userCounter.toLocaleString();
         }
 
-        function addTasbeeh() {
-            globalCounterRef.transaction((currentValue) => {
-                return (currentValue || 0) + 1;
-            }, (error, committed, snapshot) => {
-                if (committed) {
-                    globalCounter = snapshot.val();
-                    userCounter++;
-                    updateGlobalCounter();
-                    updateUserCounter();
-                    saveUserData();
+        async function fetchGlobalCounter() {
+            try {
+                const response = await fetch('/.netlify/functions/counter');
+                const data = await response.json();
+                return data.globalCounter;
+            } catch (error) {
+                console.error('Error fetching counter:', error);
+                return 0; // قيمة افتراضية في حالة الفشل
+            }
+        }
 
-                    if (globalCounter >= target) {
-                        globalCounterRef.set(0);
-                        globalCounter = 0;
-                        alert("تهانينا! لقد وصلنا إلى مليار تسبيحة. تم إعادة العداد إلى الصفر.");
-                    }
+        async function addTasbeeh() {
+            try {
+                const response = await fetch('/.netlify/functions/counter', { method: 'POST' });
+                const data = await response.json();
+                const globalCounter = data.globalCounter;
+                userCounter++;
+                updateGlobalCounter(globalCounter);
+                updateUserCounter();
+                saveUserData();
+
+                if (globalCounter >= target) {
+                    alert("تهانينا! لقد وصلنا إلى مليار تسبيحة. تم إعادة العداد إلى الصفر.");
+                    await fetch('/.netlify/functions/counter', { method: 'POST' }); // إعادة تعيين عند الوصول للهدف
                 }
-            });
+            } catch (error) {
+                console.error('Error updating counter:', error);
+            }
         }
 
         function saveUserData() {
@@ -341,11 +357,9 @@
             }
         }
 
-        function loadGlobalCounter() {
-            globalCounterRef.on('value', (snapshot) => {
-                globalCounter = snapshot.val() || 0;
-                updateGlobalCounter();
-            });
+        async function loadGlobalCounter() {
+            const globalCounter = await fetchGlobalCounter();
+            updateGlobalCounter(globalCounter);
         }
 
         function shareOnTwitter() {
@@ -377,7 +391,7 @@
 
         function updateRamadanCountdown() {
             const now = new Date();
-            const ramadanEnd = new Date(2025, 2, 20); // تاريخ تقريبي لانتهاء رمضان 2025 (20 مارس)
+            const ramadanEnd = new Date(2025, 2, 20); // تاريخ تقريبي لانتهاء رمضان 2025
             const diff = ramadanEnd - now;
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
             ramadanCountdownElement.textContent = days >= 0 ? `${days} يوم` : "انتهى رمضان";
