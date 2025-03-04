@@ -15,25 +15,33 @@
             margin: 0;
             padding: 0;
             overflow-x: hidden;
+            transition: background 0.5s ease; /* تحسين: تأثير انتقال للخلفية */
         }
 
         .container {
             padding: 20px;
+            max-width: 800px; /* تحسين: تحديد عرض أقصى */
+            margin: 0 auto;
         }
 
         h1 {
             font-size: 2.5rem;
             margin-bottom: 10px;
+            text-shadow: 0 2px 5px rgba(0, 0, 0, 0.3); /* تحسين: ظل نصي */
         }
 
         .slogan {
             font-size: 1.2rem;
             margin-bottom: 30px;
+            opacity: 0.9; /* تحسين: شفافية خفيفة */
         }
 
         .counter {
             font-size: 2rem;
             margin-bottom: 20px;
+            background: rgba(255, 255, 255, 0.05); /* تحسين: خلفية خفيفة */
+            padding: 10px;
+            border-radius: 8px;
         }
 
         .counter span {
@@ -52,7 +60,7 @@
             justify-content: center;
             margin: 20px auto;
             cursor: pointer;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5), inset 0 0 10px rgba(255, 255, 255, 0.2); /* تحسين: ظل داخلي */
             transition: transform 0.2s, box-shadow 0.2s;
             position: relative;
             overflow: hidden;
@@ -73,6 +81,11 @@
             100% { transform: rotate(-45deg) translateX(100%); }
         }
 
+        .tasbeeh-circle:hover {
+            transform: scale(1.05); /* تحسين: تكبير عند التمرير */
+            box-shadow: 0 0 25px rgba(76, 175, 80, 0.7);
+        }
+
         .tasbeeh-circle:active {
             transform: scale(0.95);
             box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
@@ -87,6 +100,8 @@
         .userStats {
             font-size: 1.2rem;
             margin-bottom: 20px;
+            padding: 10px;
+            border: 1px dashed #ffdd57; /* تحسين: حدود منقطة */
         }
 
         .info {
@@ -94,6 +109,11 @@
             padding: 15px;
             border-radius: 10px;
             margin-bottom: 20px;
+            transition: background 0.3s ease; /* تحسين: انتقال ناعم */
+        }
+
+        .info:hover {
+            background-color: rgba(255, 255, 255, 0.15); /* تحسين: تأثير عند التمرير */
         }
 
         .share {
@@ -114,10 +134,12 @@
             display: flex;
             align-items: center;
             gap: 5px;
+            transition: transform 0.2s ease; /* تحسين: تأثير انتقال */
         }
 
         .share button:hover {
             background-color: #1991db;
+            transform: translateY(-2px); /* تحسين: رفع خفيف */
         }
 
         .whatsapp {
@@ -126,12 +148,19 @@
 
         .whatsapp:hover {
             background-color: #128C7E;
+            transform: translateY(-2px);
         }
 
         .hadith {
             margin-top: 20px;
             font-size: 1.1rem;
             color: #ffdd57;
+            animation: fadeIn 1s ease-in-out; /* تحسين: تأثير ظهور */
+        }
+
+        @keyframes fadeIn {
+            0% { opacity: 0; }
+            100% { opacity: 1; }
         }
 
         .notification-form {
@@ -139,6 +168,7 @@
             background-color: rgba(255, 255, 255, 0.1);
             padding: 20px;
             border-radius: 10px;
+            box-shadow: 0 0 15px rgba(0, 0, 0, 0.2); /* تحسين: ظل خارجي */
         }
 
         .notification-form input {
@@ -148,6 +178,12 @@
             margin: 10px 0;
             border-radius: 5px;
             border: 1px solid #ccc;
+            transition: border-color 0.3s ease; /* تحسين: انتقال للحدود */
+        }
+
+        .notification-form input:focus {
+            border-color: #4CAF50; /* تحسين: تغيير لون الحدود عند التركيز */
+            outline: none;
         }
 
         .notification-form button {
@@ -158,6 +194,7 @@
             font-size: 1rem;
             cursor: pointer;
             border-radius: 5px;
+            transition: background 0.3s ease;
         }
 
         .notification-form button:hover {
@@ -177,6 +214,7 @@
             font-size: 0.9rem;
             cursor: pointer;
             border-radius: 5px;
+            transition: background 0.3s ease;
         }
 
         .unsubscribe button:hover {
@@ -186,6 +224,9 @@
         .ramadan-counter {
             margin-top: 30px;
             font-size: 1.2rem;
+            padding: 10px;
+            background: rgba(255, 255, 255, 0.05); /* تحسين: خلفية خفيفة */
+            border-radius: 8px;
         }
 
         .ramadan-counter span {
@@ -201,8 +242,8 @@
         
         <!-- العداد العالمي -->
         <div class="counter">
-            <span id="globalCounter">750,432,109</span>
-            <p>كم تبقى؟ <span id="remaining">249,567,891</span> تسبيحة للوصول إلى المليار</p>
+            <span id="globalCounter">0</span>
+            <p>كم تبقى؟ <span id="remaining">1,000,000,000</span> تسبيحة للوصول إلى المليار</p>
         </div>
 
         <!-- زر التسبيح -->
@@ -254,9 +295,10 @@
 
     <script>
         // البيانات الأولية
-        let globalCounter = 750432109; // العداد العالمي
+        let globalCounter = 0; // العداد العالمي (تم تصفيره)
         let userCounter = 0; // عداد المستخدم
         const target = 1000000000; // الهدف: مليار
+        let lastMillion = 0; // لتتبع آخر مليون تم تجاوزه
 
         // عناصر DOM
         const globalCounterElement = document.getElementById('globalCounter');
@@ -274,6 +316,13 @@
         function updateGlobalCounter() {
             globalCounterElement.textContent = globalCounter.toLocaleString();
             remainingElement.textContent = (target - globalCounter).toLocaleString();
+
+            // التحقق من تجاوز مليون جديد
+            const currentMillion = Math.floor(globalCounter / 1000000);
+            if (currentMillion > lastMillion) {
+                lastMillion = currentMillion;
+                sendNotifications(currentMillion); // إرسال إشعارات
+            }
         }
 
         // تحديث عداد المستخدم
@@ -289,7 +338,6 @@
             updateUserCounter();
             saveUserData();
 
-            // إعادة الضبط عند الوصول إلى المليار
             if (globalCounter >= target) {
                 globalCounter = 0;
                 alert("تهانينا! لقد وصلنا إلى مليار تسبيحة. تم إعادة العداد إلى الصفر.");
@@ -338,10 +386,10 @@
             hadithElement.style.display = 'block';
             setTimeout(() => {
                 hadithElement.style.display = 'none';
-            }, 5000); // إخفاء الحديث بعد 5 ثوانٍ
+            }, 5000);
         }
 
-        // اشتراك في الإشعارات
+        // اشتراك في الإشعارات مع ربط Google Sheets
         function subscribeNotifications() {
             const email = emailInput.value;
             if (email && validateEmail(email)) {
@@ -349,6 +397,7 @@
                 subscribedEmailElement.textContent = email;
                 subscribeSection.style.display = 'none';
                 unsubscribeSection.style.display = 'block';
+                saveToGoogleSheets(email);
                 alert("تم الاشتراك بنجاح! سيتم إرسال إشعارات إلى بريدك الإلكتروني.");
             } else {
                 alert("الرجاء إدخال بريد إلكتروني صحيح.");
@@ -369,6 +418,44 @@
             return regex.test(email);
         }
 
+        // حفظ البريد في Google Sheets
+        function saveToGoogleSheets(email) {
+            const spreadsheetId = "11k27k-F_zo5y0dvStIoWrHiMCYMiuZuNTKV-zIxnQiU";
+            const url = `https://sheets.googleapis.com/v4/spreadsheets/${spreadsheetId}/values/Sheet1!A:A:append?valueInputOption=USER_ENTERED`;
+
+            // يتطلب مفتاح API من Google Cloud
+            const apiKey = "YOUR_API_KEY"; // ضع مفتاح API هنا بعد تفعيله
+            const data = {
+                values: [[email, new Date().toISOString()]]
+            };
+
+            fetch(url, {
+                method: "POST",
+                headers: {
+                    "Authorization": `Bearer ${apiKey}`,
+                    "Content-Type": "application/json"
+                },
+                body: JSON.stringify(data)
+            })
+            .then(response => response.json())
+            .then(data => console.log("تم حفظ البريد:", data))
+            .catch(error => console.error("خطأ في حفظ البريد:", error));
+        }
+
+        // إرسال إشعارات عند تجاوز مليون
+        function sendNotifications(million) {
+            // يتطلب خادوم (مثل Firebase Functions أو Node.js مع Nodemailer)
+            console.log(`تم تجاوز ${million} مليون تسبيحة! يجب إرسال إشعارات الآن.`);
+
+            // مثال افتراضي للتنفيذ:
+            /*
+            const emails = getEmailsFromGoogleSheets(); // جلب قائمة الايميلات من Google Sheets
+            emails.forEach(email => {
+                sendEmail(email, `تهانينا! وصلنا إلى ${million} مليون تسبيحة`, `العداد الحالي: ${globalCounter.toLocaleString()}`);
+            });
+            */
+        }
+
         // تحميل بيانات الاشتراك
         function loadSubscription() {
             const email = localStorage.getItem('subscribedEmail');
@@ -379,13 +466,18 @@
             }
         }
 
-        // عداد رمضان
+        // عداد رمضان (تقدير لرمضان 2025)
         function updateRamadanCountdown() {
             const now = new Date();
-            const ramadanEnd = new Date(now.getFullYear(), 3, 20); // تاريخ انتهاء رمضان (20 أبريل)
+            const ramadanEnd = new Date(2025, 2, 29); // 29 مارس 2025 (تقدير لنهاية رمضان)
+            if (now > ramadanEnd) {
+                ramadanCountdownElement.textContent = "انتهى رمضان!";
+                return;
+            }
             const diff = ramadanEnd - now;
             const days = Math.floor(diff / (1000 * 60 * 60 * 24));
-            ramadanCountdownElement.textContent = `${days} يوم`;
+            const hours = Math.floor((diff % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
+            ramadanCountdownElement.textContent = `${days} يوم و ${hours} ساعة`;
         }
 
         // الأحداث
@@ -396,7 +488,7 @@
         updateGlobalCounter();
         loadSubscription();
         updateRamadanCountdown();
-        setInterval(updateRamadanCountdown, 1000 * 60 * 60); // تحديث العداد كل ساعة
+        setInterval(updateRamadanCountdown, 1000 * 60 * 60); // تحديث كل ساعة
     </script>
 </body>
 </html>
