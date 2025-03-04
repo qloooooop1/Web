@@ -3,218 +3,155 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>نبذة خيالية</title>
+    <title>نبذة احترافية</title>
     <link href="https://fonts.googleapis.com/css2?family=Raleway:wght@300&family=Special+Elite&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css" integrity="sha512-DTOQO9RWCH3ppGqcWaEA1BIZOC6xxalwEsw9c2QQeAIftl+Vegovlnee1c9QX4TctnWMn13TZye+giMm8e2LwA==" crossorigin="anonymous" referrerpolicy="no-referrer" />
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
             font-family: 'Raleway', sans-serif;
-            background: linear-gradient(180deg, #0a0a0a, #1a1a2a, #0f1f2f);
-            color: #ffffff;
+            background: linear-gradient(180deg, #0d1b2a, #1b263b, #415a77); /* ألوان احترافية */
+            color: #e0e1dd; /* لون نص ناعم */
             direction: rtl;
             overflow-x: hidden;
             min-height: 100vh;
             position: relative;
+            transition: background 0.5s;
         }
-
-        .container {
-            max-width: 900px;
-            margin: 0 auto;
-            padding: 40px;
-            position: relative;
-            z-index: 1;
+        .container { max-width: 1000px; margin: 0 auto; padding: 40px; position: relative; z-index: 1; }
+        .header { text-align: center; padding: 40px 0; position: relative; }
+        .header::before {
+            content: "\f005 \f005 \f005"; /* نجوم من Font Awesome */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.2);
+            font-size: 20px;
+            position: absolute;
+            top: 10px;
+            left: 50%;
+            transform: translateX(-50%);
+            letter-spacing: 10px;
         }
-
-        .header {
-            text-align: center;
-            padding: 20px 0;
-            position: relative;
-        }
-
-        .title {
-            font-family: 'Special Elite', cursive; /* خط Awesome */
-            font-size: 60px;
-            color: #ffffff;
-            text-shadow: 0 0 15px rgba(255, 255, 255, 0.5), 0 0 30px rgba(0, 150, 255, 0.3);
-            margin-top: 20px;
-        }
-
         .sidebar {
-            position: fixed;
-            right: 20px;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(255, 255, 255, 0.05);
-            padding: 20px;
-            border-radius: 10px;
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            position: fixed; /* تثبيت الرؤية */
+            right: 20px; top: 50%; transform: translateY(-50%);
+            background: rgba(27, 38, 59, 0.9); /* لون متناغم مع الخلفية */
+            padding: 25px;
+            border-radius: 15px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 0 25px rgba(0, 0, 0, 0.7);
+            z-index: 10;
         }
-
         .sidebar h3 {
             font-family: 'Special Elite', cursive;
-            font-size: 24px;
-            color: #ffffff;
-            margin-bottom: 15px;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
+            font-size: 28px;
+            color: #e0e1dd;
+            margin-bottom: 20px;
+            text-shadow: 0 0 10px rgba(255, 255, 255, 0.4);
         }
-
-        .sidebar p {
-            font-size: 16px;
-            color: rgba(255, 255, 255, 0.8);
-            line-height: 1.5;
-        }
-
-        .content {
-            margin-top: 80px;
-        }
-
+        .sidebar p { font-size: 16px; color: #ccd6f6; line-height: 1.6; }
+        .content { margin-top: 60px; }
         .section {
-            opacity: 0;
-            transform: translateY(50px);
-            transition: all 0.8s ease-in-out;
-            margin-bottom: 60px;
-            padding: 20px;
-            background: rgba(255, 255, 255, 0.03);
-            border: 1px solid rgba(255, 255, 255, 0.1);
-            border-radius: 10px;
-            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
+            opacity: 0; transform: translateY(50px); transition: all 0.8s ease-in-out;
+            margin-bottom: 70px; padding: 25px;
+            background: rgba(255, 255, 255, 0.05);
+            border: 1px solid rgba(255, 255, 255, 0.15);
+            border-radius: 12px;
+            box-shadow: 0 8px 30px rgba(0, 0, 0, 0.5);
+            position: relative;
         }
-
-        .section.active {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        .section.active { opacity: 1; transform: translateY(0); }
         .section h2 {
             font-family: 'Special Elite', cursive;
-            font-size: 28px;
-            color: #ffffff;
-            text-shadow: 0 0 10px rgba(255, 255, 255, 0.3);
-            margin-bottom: 15px;
-        }
-
-        .section p {
-            font-size: 16px;
-            line-height: 1.6;
-            color: rgba(255, 255, 255, 0.9);
-        }
-
-        .social-links {
-            text-align: center;
-            margin: 40px 0;
-        }
-
-        .social-links a {
-            color: rgba(255, 255, 255, 0.7);
-            font-size: 30px;
-            margin: 0 20px;
-            text-decoration: none;
-            transition: color 0.3s, transform 0.3s;
-        }
-
-        .social-links a:hover {
-            color: #ffffff;
-            transform: scale(1.2);
-        }
-
-        .footer {
-            background: #0f0f0f;
-            color: #ffffff;
-            text-align: center;
-            padding: 20px 0;
-            font-size: 14px;
+            font-size: 32px;
+            color: #e0e1dd;
+            text-shadow: 0 0 12px rgba(255, 255, 255, 0.3);
+            margin-bottom: 20px;
             position: relative;
-            bottom: 0;
-            width: 100%;
         }
-
-        .stars {
+        .section h2::before {
+            content: "\f0c2"; /* رمز سحابة من Font Awesome */
+            font-family: "Font Awesome 6 Free";
+            font-weight: 900;
+            color: rgba(255, 255, 255, 0.3);
+            font-size: 20px;
             position: absolute;
-            width: 2px;
-            height: 2px;
-            background: #fff;
-            border-radius: 50%;
-            animation: twinkle 3s infinite;
-            z-index: 0;
+            left: -30px;
+            top: 50%;
+            transform: translateY(-50%);
         }
-
-        @keyframes twinkle {
-            0%, 100% { opacity: 0.2; }
-            50% { opacity: 1; }
+        .section p { font-size: 16px; line-height: 1.7; color: #ccd6f6; }
+        .social-links { text-align: center; margin: 50px 0; }
+        .social-links a {
+            color: #ccd6f6; font-size: 34px; margin: 0 25px;
+            text-decoration: none; transition: color 0.3s, transform 0.3s;
         }
-
-        .stars:nth-child(1) { top: 10%; left: 20%; }
-        .stars:nth-child(2) { top: 20%; left: 80%; }
-        .stars:nth-child(3) { top: 70%; left: 30%; }
-        .stars:nth-child(4) { top: 50%; left: 90%; }
-        .stars:nth-child(5) { top: 30%; left: 10%; }
-        .stars:nth-child(6) { top: 80%; left: 60%; }
+        .social-links a:hover { color: #ffffff; transform: scale(1.2); }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.3); } 100% { transform: scale(1); } }
+        .footer {
+            background: #0a1421; /* لون أعمق قليلاً */
+            color: #e0e1dd; text-align: center; padding: 25px 0;
+            font-size: 16px; position: relative; width: 100%;
+            box-shadow: 0 -5px 15px rgba(0, 0, 0, 0.5);
+        }
+        .stars { position: absolute; width: 3px; height: 3px; background: #fff; border-radius: 50%; transition: transform 0.5s; z-index: 0; }
+        @keyframes twinkle { 0%, 100% { opacity: 0.3; } 50% { opacity: 1; } }
+        .stars:nth-child(1) { top: 10%; left: 20%; animation: twinkle 3s infinite; }
+        .stars:nth-child(2) { top: 20%; left: 80%; animation: twinkle 2.5s infinite; }
+        .stars:nth-child(3) { top: 70%; left: 30%; animation: twinkle 3.5s infinite; }
+        .stars:nth-child(4) { top: 50%; left: 90%; animation: twinkle 2s infinite; }
+        .stars:nth-child(5) { top: 30%; left: 10%; animation: twinkle 4s infinite; }
+        .stars:nth-child(6) { top: 80%; left: 60%; animation: twinkle 3s infinite; }
+        .progress-bar { position: fixed; top: 0; left: 0; height: 6px; background: #778da9; width: 0; transition: width 0.3s ease; z-index: 10; }
     </style>
 </head>
 <body>
+    <div class="progress-bar"></div>
     <div class="container">
         <div class="header">
-            <h1 class="title">Soul</h1>
+            <!-- حذف Soul -->
         </div>
-
         <div class="sidebar">
             <h3>الرؤية</h3>
             <p>أدوات مبتكرة، سرعة في الإنجاز، إتقان في كل التفاصيل.</p>
         </div>
-
         <div class="content">
             <div class="section">
                 <h2>من أنا</h2>
                 <p>شخصية شغوفة تنسج الأحلام في عالم التصاميم، حيث أتلاعب بالألوان والخطوط لخلق تجارب بصرية ساحرة. هاوٍ لتطوير تطبيقات الويب والمواقع، أمزج بين الإبداع والتقنية لأحول الأفكار إلى واقع رقمي يتنفس الحياة.</p>
             </div>
-
             <div class="section">
                 <h2>التصميم</h2>
                 <p>أبدع في تصميم واجهات مبهرة تجمع بين الأناقة والوظيفية، مستخدمًا أحدث الأدوات مثل Figma وAdobe XD لتقديم تجارب مستخدم فريدة تترك انطباعًا دائمًا.</p>
             </div>
-
             <div class="section">
                 <h2>التطوير</h2>
                 <p>أبني مواقع وتطبيقات ويب متطورة باستخدام HTML، CSS، JavaScript، وأطر عمل مثل React وVue.js، مع التركيز على الأداء العالي والتجاوب مع جميع الأجهزة.</p>
             </div>
-
             <div class="section">
                 <h2>الإنجازات</h2>
                 <p>أكملت أكثر من 20 مشروعًا متنوعًا، من مواقع شخصية إلى تطبيقات تجارية، مع تحقيق رضا العملاء بنسبة 100% بفضل السرعة والدقة في العمل.</p>
             </div>
-
             <div class="section">
                 <h2>المهارات</h2>
                 <p>إتقان لغات البرمجة (Python, JavaScript)، تصميم الجرافيك، تحسين محركات البحث (SEO)، وإدارة المشاريع التقنية بكفاءة عالية.</p>
             </div>
         </div>
-
         <div class="social-links">
-            <a href="#" title="Twitter">𝕏</a> <!-- رمز تويتر الرسمي -->
-            <a href="#" title="Instagram">📸</a> <!-- كاميرا لإنستغرام -->
-            <a href="#" title="LinkedIn">💼</a> <!-- حقيبة للينكدإن -->
-            <a href="#" title="GitHub">💻</a> <!-- جهاز لجيت هب -->
+            <a href="#" title="Twitter"><i class="fab fa-twitter"></i></a>
+            <a href="#" title="Instagram"><i class="fab fa-instagram"></i></a>
+            <a href="#" title="LinkedIn"><i class="fab fa-linkedin-in"></i></a>
+            <a href="#" title="GitHub"><i class="fab fa-github"></i></a>
         </div>
     </div>
-
     <div class="footer">
         📧 info@creativeweb.dev | 📞 +123-456-7890
     </div>
-
-    <div class="stars"></div>
-    <div class="stars"></div>
-    <div class="stars"></div>
-    <div class="stars"></div>
-    <div class="stars"></div>
-    <div class="stars"></div>
+    <div class="stars"></div><div class="stars"></div><div class="stars"></div>
+    <div class="stars"></div><div class="stars"></div><div class="stars"></div>
 
     <script>
+        // تأثير التمرير للأقسام
         const sections = document.querySelectorAll('.section');
         window.addEventListener('scroll', () => {
             sections.forEach(section => {
@@ -223,6 +160,35 @@
                 if (sectionTop < windowHeight * 0.8) {
                     section.classList.add('active');
                 }
+            });
+        });
+
+        // تأثير حركة الماوس على النجوم
+        const stars = document.querySelectorAll('.stars');
+        document.addEventListener('mousemove', (e) => {
+            stars.forEach(star => {
+                const speed = Math.random() * 5;
+                star.style.transform = `translate(${e.clientX * speed / 100}px, ${e.clientY * speed / 100}px)`;
+            });
+        });
+
+        // شريط التقدم
+        window.addEventListener('scroll', () => {
+            const scrollTop = window.scrollY;
+            const docHeight = document.body.scrollHeight - window.innerHeight;
+            const progress = (scrollTop / docHeight) * 100;
+            document.querySelector('.progress-bar').style.width = `${progress}%`;
+        });
+
+        // تأثير النقر على الأيقونات
+        const socialIcons = document.querySelectorAll('.social-links a');
+        socialIcons.forEach(icon => {
+            icon.addEventListener('click', (e) => {
+                e.preventDefault();
+                icon.style.animation = 'pulse 0.5s ease';
+                icon.addEventListener('animationend', () => {
+                    icon.style.animation = '';
+                }, { once: true });
             });
         });
     </script>
