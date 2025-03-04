@@ -201,6 +201,77 @@
             margin-bottom: 20px;
         }
 
+        /* رؤيتنا وأهدافنا */
+        #vision .vision-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        #vision .vision-item {
+            width: 300px;
+            text-align: center;
+            animation: slideInFromRight 1s ease-in-out;
+        }
+
+        #vision .vision-item i {
+            font-size: 50px;
+            color: #D4AF37;
+            margin-bottom: 20px;
+        }
+
+        /* فريق العمل */
+        #team {
+            background-color: #F7F7F7;
+        }
+
+        #team .team-container {
+            display: flex;
+            justify-content: center;
+            gap: 40px;
+            flex-wrap: wrap;
+        }
+
+        #team .team-member {
+            width: 250px;
+            text-align: center;
+            padding: 20px;
+            border: 1px solid #D4AF37;
+            border-radius: 10px;
+            animation: slideInFromBottom 1s ease-in-out;
+        }
+
+        #team .team-member i {
+            font-size: 60px;
+            color: #D4AF37;
+            margin-bottom: 15px;
+        }
+
+        /* التطبيقات قيد التطوير */
+        #coming-soon .coming-container {
+            display: flex;
+            justify-content: center;
+            gap: 50px;
+            flex-wrap: wrap;
+        }
+
+        #coming-soon .coming-app {
+            background-color: #FFFFFF;
+            padding: 30px;
+            border: 2px dashed #D4AF37;
+            border-radius: 15px;
+            width: 320px;
+            text-align: center;
+            animation: slideInFromLeft 1s ease-in-out;
+        }
+
+        #coming-soon .coming-app i {
+            font-size: 60px;
+            color: #D4AF37;
+            margin-bottom: 20px;
+        }
+
         /* الإحصائيات */
         #stats .stats-container {
             display: flex;
@@ -278,6 +349,30 @@
             margin-bottom: 15px;
         }
 
+        /* الأسئلة الشائعة */
+        #faq {
+            background-color: #F7F7F7;
+        }
+
+        #faq .faq-container {
+            max-width: 800px;
+            margin: 0 auto;
+            text-align: right;
+        }
+
+        #faq .faq-item {
+            margin-bottom: 20px;
+            border-bottom: 1px solid #D4AF37;
+            padding-bottom: 10px;
+            animation: slideInFromRight 1s ease-in-out;
+        }
+
+        #faq .faq-item h3 {
+            color: #1A2A44;
+            font-size: 20px;
+            margin-bottom: 10px;
+        }
+
         /* تواصل معنا */
         #contact form {
             max-width: 700px;
@@ -340,6 +435,26 @@
             color: #D4AF37;
         }
 
+        /* زر العودة إلى الأعلى */
+        #back-to-top {
+            position: fixed;
+            bottom: 20px;
+            left: 20px;
+            background-color: #D4AF37;
+            color: #FFFFFF;
+            padding: 15px;
+            border-radius: 50%;
+            font-size: 20px;
+            cursor: pointer;
+            display: none;
+            z-index: 1000;
+            transition: background-color 0.3s;
+        }
+
+        #back-to-top:hover {
+            background-color: #1A2A44;
+        }
+
         /* التأثيرات */
         @keyframes slideInFromTop {
             from { transform: translateY(-100px); opacity: 0; }
@@ -386,9 +501,13 @@
             <li><a href="#about">من نحن</a></li>
             <li><a href="#apps">تطبيقاتنا</a></li>
             <li><a href="#features">المميزات</a></li>
+            <li><a href="#vision">رؤيتنا</a></li>
+            <li><a href="#team">الفريق</a></li>
+            <li><a href="#coming-soon">قريبًا</a></li>
             <li><a href="#stats">إحصائيات</a></li>
             <li><a href="#testimonials">آراء المستخدمين</a></li>
             <li><a href="#news">الأخبار</a></li>
+            <li><a href="#faq">الأسئلة الشائعة</a></li>
             <li><a href="#contact">تواصل معنا</a></li>
         </ul>
     </nav>
@@ -462,6 +581,67 @@
         </div>
     </section>
 
+    <!-- رؤيتنا وأهدافنا -->
+    <section id="vision">
+        <h2>رؤيتنا وأهدافنا</h2>
+        <div class="vision-container">
+            <div class="vision-item">
+                <i class="fas fa-eye"></i>
+                <h3>الريادة</h3>
+                <p>نسعى لنكون الأفضل في ابتكار التطبيقات.</p>
+            </div>
+            <div class="vision-item">
+                <i class="fas fa-globe"></i>
+                <h3>التوسع</h3>
+                <p>هدفنا الوصول لمستخدمين حول العالم.</p>
+            </div>
+            <div class="vision-item">
+                <i class="fas fa-heart"></i>
+                <h3>التميز</h3>
+                <p>نقدم تجربة مستخدم لا تُنسى.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- فريق العمل -->
+    <section id="team">
+        <h2>فريقنا</h2>
+        <div class="team-container">
+            <div class="team-member">
+                <i class="fas fa-user-tie"></i>
+                <h3>علي - المدير التنفيذي</h3>
+                <p>يقود الشركة برؤية استراتيجية.</p>
+            </div>
+            <div class="team-member">
+                <i class="fas fa-user-graduate"></i>
+                <h3>نور - مديرة التصميم</h3>
+                <p>تبتكر واجهات مذهلة.</p>
+            </div>
+            <div class="team-member">
+                <i class="fas fa-user-cog"></i>
+                <h3>خالد - رئيس المطورين</h3>
+                <p>يبني تطبيقات قوية.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- التطبيقات قيد التطوير -->
+    <section id="coming-soon">
+        <h2>تطبيقات قيد التطوير</h2>
+        <div class="coming-container">
+            <div class="coming-app">
+                <i class="fas fa-question"></i>
+                <h3>تطبيق جديد</h3>
+                <p>قريبًا - تجربة فريدة تنتظرك!</p>
+            </div>
+            <div class="coming-app">
+                <i class="fas fa-question"></i>
+                <h3>تطبيق جديد</h3>
+                <p>قريبًا - ابتكار يفوق التوقعات!</p>
+            </div>
+        </div>
+    </section>
+
     <!-- الإحصائيات -->
     <section id="stats">
         <h2>إحصائياتنا</h2>
@@ -522,6 +702,25 @@
         </div>
     </section>
 
+    <!-- الأسئلة الشائعة -->
+    <section id="faq">
+        <h2>الأسئلة الشائعة</h2>
+        <div class="faq-container">
+            <div class="faq-item">
+                <h3>ما الذي يميز تطبيقات روية؟</h3>
+                <p>تطبيقاتنا تجمع بين الابتكار، الأمان، وسهولة الاستخدام.</p>
+            </div>
+            <div class="faq-item">
+                <h3>هل التطبيقات متاحة على كل الأجهزة؟</h3>
+                <p>نعم، تدعم الآيفون والأندرويد بأحدث الإصدارات.</p>
+            </div>
+            <div class="faq-item">
+                <h3>كيف يمكنني التواصل معكم؟</h3>
+                <p>استخدم نموذج التواصل أو راسلنا على info@rawya.com.</p>
+            </div>
+        </div>
+    </section>
+
     <!-- تواصل معنا -->
     <section id="contact">
         <h2>تواصل معنا</h2>
@@ -559,5 +758,26 @@
             <i class="fab fa-instagram"></i>
         </p>
     </footer>
+
+    <!-- زر العودة إلى الأعلى -->
+    <div id="back-to-top">
+        <i class="fas fa-arrow-up"></i>
+    </div>
+
+    <!-- JavaScript بسيط -->
+    <script>
+        // زر العودة إلى الأعلى
+        const backToTop = document.getElementById('back-to-top');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 300) {
+                backToTop.style.display = 'block';
+            } else {
+                backToTop.style.display = 'none';
+            }
+        });
+        backToTop.addEventListener('click', () => {
+            window.scrollTo({ top: 0, behavior: 'smooth' });
+        });
+    </script>
 </body>
 </html>
