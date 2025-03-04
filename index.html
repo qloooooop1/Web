@@ -1,288 +1,249 @@
 <!DOCTYPE html>
-<html lang="ar">
+<html lang="ar" dir="rtl">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>رمضان 🌙</title>
-    <!-- إضافة Font Awesome -->
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+    <title>ختمة رمضان</title>
+    <!-- رابط خط Awasm Font (افتراضي، استبدله برابط حقيقي إذا لزم الأمر) -->
+    <link href="https://fonts.googleapis.com/css2?family=Awasm&display=swap" rel="stylesheet">
     <style>
         body {
-            font-family: 'Tajawal', sans-serif;
+            font-family: 'Awasm', sans-serif;
+            background-color: #f4f1e9;
+            color: #2c3e50;
+            margin: 0;
+            padding: 20px;
             text-align: center;
-            background-color: #f0f8ff;
-            direction: rtl;
-            position: relative;
-            overflow: hidden;
         }
-        #countdown {
-            font-size: 2em;
-            color: #2e8b57;
-            margin-top: 20px;
+        h1, h2, h3 {
+            color: #d4a017;
         }
-        #prayer {
-            font-size: 1.5em;
-            margin: 20px;
+        .container {
+            max-width: 1000px;
+            margin: 0 auto;
+        }
+        .leaderboard, .groups, .group-details {
+            background: #fff;
             padding: 15px;
-            background-color: #fff;
+            margin: 10px 0;
             border-radius: 10px;
-            cursor: pointer;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
         }
-        #prayer:hover {
-            background-color: #e0ffff;
+        .group-item, .member {
+            padding: 10px;
+            border-bottom: 1px solid #eee;
         }
-        #shareBtn, .gameBtn {
-            padding: 10px 20px;
-            background-color: #32cd32;
+        button {
+            background-color: #27ae60;
             color: white;
             border: none;
+            padding: 10px 20px;
             border-radius: 5px;
             cursor: pointer;
+        }
+        button:hover {
+            background-color: #219653;
+        }
+        input, select {
+            padding: 8px;
             margin: 5px;
+            border-radius: 5px;
+            border: 1px solid #ddd;
         }
-        #points {
-            font-size: 1.2em;
-            color: #ff8c00;
+        .progress-bar {
+            width: 100%;
+            background: #ddd;
+            height: 20px;
+            border-radius: 10px;
+            overflow: hidden;
         }
-        #leaderboard {
-            margin: 20px;
+        .progress {
+            height: 100%;
+            background: #27ae60;
+            width: 0;
+        }
+        #quran-reader {
+            margin-top: 20px;
+            background: #fff;
             padding: 15px;
-            background-color: #fff;
             border-radius: 10px;
-            max-width: 300px;
-            display: inline-block;
-        }
-        #leaderboard h3 {
-            margin: 0;
-            color: #2e8b57;
-        }
-        #leaderboard ul {
-            list-style: none;
-            padding: 0;
-        }
-        #leaderboard li {
-            padding: 5px;
-            font-size: 1.1em;
-        }
-        #eid {
-            display: none;
-            font-size: 3em;
-            color: #ff4500;
-        }
-        .star {
-            position: absolute;
-            font-size: 2em;
-            cursor: pointer;
-            transition: all 0.2s;
-        }
-        #gameArea {
-            margin: 20px;
-            padding: 20px;
-            background-color: #fff;
-            border-radius: 10px;
-            display: none;
         }
     </style>
 </head>
 <body>
-    <h1>رمضان <i class="fas fa-moon"></i></h1>
-    <input type="text" id="userName" placeholder="أدخل اسمك لتبدأ" style="margin-bottom: 10px;">
-    <div id="countdown"></div>
-    <div id="points">نجومك: 0 <i class="fas fa-star"></i></div>
-    <div id="prayer" onclick="changePrayer()">اضغط لعرض دعاء اليوم <i class="fas fa-pray"></i></div>
-    <button id="shareBtn" style="display: none;" onclick="sharePrayer()">شارك دعاء اليوم <i class="fas fa-share-alt"></i></button>
-    <div id="globalStats">انضم 0 شخص إلى تحدي رمضان</div>
-    <div>
-        <button class="gameBtn" onclick="startStarGame()">اجمع النجوم <i class="fas fa-star"></i></button>
-        <button class="gameBtn" onclick="startGuessGame()">خمن السورة <i class="fas fa-book-open"></i></button>
-        <button class="gameBtn" onclick="startQuizGame()">مسابقة رمضانية <i class="fas fa-question-circle"></i></button>
+    <div class="container">
+        <h1>ختمة رمضان</h1>
+        <p>اجتمعوا على القرآن، تنافسوا في الخير</p>
+
+        <!-- لوحة الصدارة -->
+        <div class="leaderboard">
+            <h2>لوحة الصدارة</h2>
+            <div id="top-groups">
+                <h3>أفضل المجموعات</h3>
+                <!-- سيتم ملؤها ديناميكيًا -->
+            </div>
+            <div id="top-users">
+                <h3>أفضل الأفراد</h3>
+                <!-- سيتم ملؤها ديناميكيًا -->
+            </div>
+        </div>
+
+        <!-- قائمة المجموعات -->
+        <div class="groups">
+            <h2>المجموعات المتاحة</h2>
+            <button onclick="showCreateGroupForm()">إنشاء مجموعة جديدة</button>
+            <div id="group-list">
+                <!-- سيتم ملؤها ديناميكيًا -->
+            </div>
+        </div>
+
+        <!-- نموذج إنشاء مجموعة -->
+        <div id="create-group-form" style="display: none;">
+            <h3>إنشاء مجموعة</h3>
+            <input type="text" id="group-name" placeholder="اسم المجموعة">
+            <input type="number" id="group-max" placeholder="الحد الأقصى للأعضاء" min="1" max="20">
+            <button onclick="createGroup()">إنشاء</button>
+        </div>
+
+        <!-- تفاصيل المجموعة -->
+        <div class="group-details" id="group-details" style="display: none;">
+            <h2 id="current-group-name"></h2>
+            <div class="progress-bar">
+                <div class="progress" id="group-progress"></div>
+            </div>
+            <p id="group-progress-text">التقدم: 0%</p>
+            <div id="member-list">
+                <h3>الأعضاء</h3>
+                <!-- سيتم ملؤها ديناميكيًا -->
+            </div>
+            <div id="quran-reader">
+                <h3>قراءة القرآن</h3>
+                <select id="page-select">
+                    <option value="">اختر صفحة</option>
+                    <!-- محاكاة صفحات القرآن -->
+                    <script>
+                        for(let i = 1; i <= 604; i++) {
+                            document.write(`<option value="${i}">صفحة ${i}</option>`);
+                        }
+                    </script>
+                </select>
+                <button onclick="readPage()">تمت القراءة</button>
+            </div>
+        </div>
     </div>
-    <div id="gameArea"></div>
-    <div id="leaderboard">
-        <h3><i class="fas fa-trophy"></i> الأكثر جمعًا للنجوم</h3>
-        <ul id="leaderList"></ul>
-    </div>
-    <div id="eid">عيد فطر مبارك <i class="fas fa-fireworks"></i></div>
 
     <script>
-        const ramadanStart = new Date('March 1, 2025 00:00:00').getTime();
-        const prayers = [
-            "اللهم بلغنا رمضان لا فاقدين ولا مفقودين 🌙",
-            "اللهم إنك عفو تحب العفو فاعف عنا 🤲",
-            "اللهم اجعل صيامي فيه صيام الصائمين وقيامي فيه قيام القائمين 🕋",
-            "اللهم تقبل منا صالح الأعمال في رمضان ⭐"
-        ];
-        const surahs = [
-            { text: "قُلْ هُوَ اللَّهُ أَحَدٌ", name: "سورة الإخلاص", options: ["الفاتحة", "الإخلاص", "الناس"] },
-            { text: "تَبَّتْ يَدَا أَبِي لَهَبٍ", name: "سورة المسد", options: ["المسد", "الفلق", "الكوثر"] }
-        ];
-        const quizQuestions = [
-            { question: "ما هو أول يوم يبدأ فيه الصيام؟", answer: "الفجر", options: ["الظهر", "الفجر", "المغرب"] },
-            { question: "ما اسم الليلة التي تُعتبر خير من ألف شهر؟", answer: "ليلة القدر", options: ["ليلة النصف", "ليلة القدر", "ليلة العيد"] }
-        ];
-        let prayerIndex = 0;
-        let points = 0;
-        let userName = "";
-        let globalUsers = Math.floor(Math.random() * 1000);
-        let leaderboard = [
-            { name: "أحمد", points: 25 },
-            { name: "فاطمة", points: 20 },
-            { name: "محمد", points: 15 },
-            { name: "زينب", points: 10 },
-            { name: "عمر", points: 5 }
-        ];
+        let groups = [];
+        let currentGroup = null;
+        let userName = "مستخدم_" + Math.floor(Math.random() * 1000); // اسم مستخدم عشوائي
 
-        // العداد
-        function updateCountdown() {
-            const now = new Date().getTime();
-            const distance = ramadanStart - now;
-            userName = document.getElementById("userName").value || "زائر";
+        // عرض نموذج إنشاء مجموعة
+        function showCreateGroupForm() {
+            document.getElementById('create-group-form').style.display = 'block';
+        }
 
-            if (distance <= 0) {
-                const daysInRamadan = Math.floor((now - ramadanStart) / (1000 * 60 * 60 * 24));
-                if (daysInRamadan < 30) {
-                    document.getElementById("countdown").innerHTML = `${userName}، رمضان مبارك! اليوم ${daysInRamadan + 1} من رمضان <i class="fas fa-star"></i>`;
-                } else {
-                    document.getElementById("countdown").style.display = "none";
-                    document.getElementById("prayer").style.display = "none";
-                    document.getElementById("shareBtn").style.display = "none";
-                    document.getElementById("eid").style.display = "block";
-                    startFireworks();
+        // إنشاء مجموعة جديدة
+        function createGroup() {
+            const name = document.getElementById('group-name').value;
+            const max = parseInt(document.getElementById('group-max').value) || 10;
+            if (name) {
+                const group = {
+                    id: groups.length + 1,
+                    name: name,
+                    maxMembers: max,
+                    members: [{ name: userName, pages: 0 }],
+                    totalPages: 0
+                };
+                groups.push(group);
+                updateGroupList();
+                document.getElementById('create-group-form').style.display = 'none';
+                document.getElementById('group-name').value = '';
+                document.getElementById('group-max').value = '';
+            }
+        }
+
+        // تحديث قائمة المجموعات
+        function updateGroupList() {
+            const groupList = document.getElementById('group-list');
+            groupList.innerHTML = '';
+            groups.forEach(group => {
+                const div = document.createElement('div');
+                div.className = 'group-item';
+                div.innerHTML = `${group.name} (${group.members.length}/${group.maxMembers}) - ${group.totalPages} صفحة <button onclick="joinGroup(${group.id})">انضم</button>`;
+                groupList.appendChild(div);
+            });
+            updateLeaderboard();
+        }
+
+        // الانضمام إلى مجموعة
+        function joinGroup(groupId) {
+            const group = groups.find(g => g.id === groupId);
+            if (group && group.members.length < group.maxMembers) {
+                if (!group.members.some(m => m.name === userName)) {
+                    group.members.push({ name: userName, pages: 0 });
                 }
-            } else {
-                const days = Math.floor(distance / (1000 * 60 * 60 * 24));
-                const hours = Math.floor((distance % (1000 * 60 * 60 * 24)) / (1000 * 60 * 60));
-                const minutes = Math.floor((distance % (1000 * 60 * 60)) / (1000 * 60));
-                const seconds = Math.floor((distance % (1000 * 60)) / 1000);
-                document.getElementById("countdown").innerHTML = 
-                    `${userName}، باقي ${days} أيام ${hours} ساعات ${minutes} دقائق ${seconds} ثوانٍ حتى رمضان <i class="fas fa-moon"></i>`;
-            }
-            updateLeaderboard();
-        }
-
-        // تغيير الدعاء
-        function changePrayer() {
-            prayerIndex = (prayerIndex + 1) % prayers.length;
-            points++;
-            document.getElementById("prayer").innerHTML = `دعاء اليوم ${prayerIndex + 1}: ${prayers[prayerIndex]}`;
-            document.getElementById("points").innerHTML = `نجومك: ${points} <i class="fas fa-star"></i>`;
-            document.getElementById("shareBtn").style.display = "block";
-            document.getElementById("globalStats").innerHTML = `انضم ${globalUsers + points} شخص إلى تحدي رمضان`;
-            updateLeaderboard();
-            if (points === prayers.length) {
-                alert(`${userName}، أكملت التحدي! أنت بطل رمضان <i class="fas fa-trophy"></i>`);
+                currentGroup = group;
+                showGroupDetails();
             }
         }
 
-        // مشاركة الدعاء
-        function sharePrayer() {
-            const text = `دعاء اليوم من رمضان: ${prayers[prayerIndex]} 🌙 انضم إلى تحدي رمضان: ${window.location.href}`;
-            const whatsappUrl = `https://api.whatsapp.com/send?text=${encodeURIComponent(text)}`;
-            window.open(whatsappUrl, '_blank');
+        // عرض تفاصيل المجموعة
+        function showGroupDetails() {
+            document.getElementById('group-details').style.display = 'block';
+            document.getElementById('current-group-name').innerText = currentGroup.name;
+            updateGroupProgress();
+            updateMemberList();
+        }
+
+        // تحديث قائمة الأعضاء
+        function updateMemberList() {
+            const memberList = document.getElementById('member-list');
+            memberList.innerHTML = '<h3>الأعضاء</h3>';
+            currentGroup.members.forEach(member => {
+                const div = document.createElement('div');
+                div.className = 'member';
+                div.innerHTML = `${member.name}: ${member.pages} صفحة`;
+                memberList.appendChild(div);
+            });
+        }
+
+        // تحديث تقدم المجموعة
+        function updateGroupProgress() {
+            const totalPages = currentGroup.totalPages;
+            const progress = (totalPages / 604) * 100;
+            document.getElementById('group-progress').style.width = `${progress}%`;
+            document.getElementById('group-progress-text').innerText = `التقدم: ${Math.round(progress)}% (${totalPages}/604)`;
+        }
+
+        // تسجيل قراءة صفحة
+        function readPage() {
+            const page = parseInt(document.getElementById('page-select').value);
+            if (page && currentGroup) {
+                const member = currentGroup.members.find(m => m.name === userName);
+                member.pages += 1;
+                currentGroup.totalPages += 1;
+                updateGroupProgress();
+                updateMemberList();
+                updateLeaderboard();
+            }
         }
 
         // تحديث لوحة الصدارة
         function updateLeaderboard() {
-            let userEntry = { name: userName, points: points };
-            let updated = false;
-            for (let i = 0; i < leaderboard.length; i++) {
-                if (leaderboard[i].points < points && !updated) {
-                    leaderboard.splice(i, 0, userEntry);
-                    updated = true;
-                }
-            }
-            if (!updated && leaderboard.length < 5) leaderboard.push(userEntry);
-            leaderboard = leaderboard.slice(0, 5).sort((a, b) => b.points - a.points);
-
-            let list = "";
-            leaderboard.forEach((entry, index) => {
-                list += `<li>${index + 1}. ${entry.name}: ${entry.points} <i class="fas fa-star"></i></li>`;
+            const topGroups = groups.sort((a, b) => b.totalPages - a.totalPages).slice(0, 5);
+            const topGroupsDiv = document.getElementById('top-groups');
+            topGroupsDiv.innerHTML = '<h3>أفضل المجموعات</h3>';
+            topGroups.forEach(group => {
+                topGroupsDiv.innerHTML += `<div>${group.name}: ${group.totalPages} صفحة</div>`;
             });
-            document.getElementById("leaderList").innerHTML = list;
-        }
 
-        // لعبة اجمع النجوم
-        function startStarGame() {
-            document.getElementById("gameArea").style.display = "block";
-            document.getElementById("gameArea").innerHTML = "انقر على النجوم لجمعها!";
-            for (let i = 0; i < 5; i++) {
-                const star = document.createElement("div");
-                star.className = "star";
-                star.innerHTML = '<i class="fas fa-star"></i>';
-                star.style.left = Math.random() * 90 + "%";
-                star.style.top = Math.random() * 90 + "%";
-                star.onclick = () => {
-                    points++;
-                    document.getElementById("points").innerHTML = `نجومك: ${points} <i class="fas fa-star"></i>`;
-                    star.remove();
-                    updateLeaderboard();
-                };
-                document.body.appendChild(star);
-                setTimeout(() => star.remove(), 5000);
-            }
-            setTimeout(() => document.getElementById("gameArea").style.display = "none", 6000);
-        }
-
-        // لعبة خمن السورة
-        function startGuessGame() {
-            document.getElementById("gameArea").style.display = "block";
-            const surah = surahs[Math.floor(Math.random() * surahs.length)];
-            let html = `<p>خمن السورة: "${surah.text}"</p>`;
-            surah.options.forEach(option => {
-                html += `<button onclick="checkGuess('${option}', '${surah.name}')">${option}</button>`;
+            const allMembers = groups.flatMap(g => g.members).sort((a, b) => b.pages - a.pages).slice(0, 5);
+            const topUsersDiv = document.getElementById('top-users');
+            topUsersDiv.innerHTML = '<h3>أفضل الأفراد</h3>';
+            allMembers.forEach(member => {
+                topUsersDiv.innerHTML += `<div>${member.name}: ${member.pages} صفحة</div>`;
             });
-            document.getElementById("gameArea").innerHTML = html;
         }
-        function checkGuess(selected, correct) {
-            if (selected === correct) {
-                points++;
-                document.getElementById("points").innerHTML = `نجومك: ${points} <i class="fas fa-star"></i>`;
-                document.getElementById("gameArea").innerHTML = "إجابة صحيحة! <i class="fas fa-check-circle"></i>";
-                updateLeaderboard();
-            } else {
-                document.getElementById("gameArea").innerHTML = `خطأ! الإجابة الصحيحة: ${correct}`;
-            }
-            setTimeout(() => document.getElementById("gameArea").style.display = "none", 2000);
-        }
-
-        // لعبة مسابقة رمضانية
-        function startQuizGame() {
-            document.getElementById("gameArea").style.display = "block";
-            const quiz = quizQuestions[Math.floor(Math.random() * quizQuestions.length)];
-            let html = `<p>${quiz.question}</p>`;
-            quiz.options.forEach(option => {
-                html += `<button onclick="checkQuiz('${option}', '${quiz.answer}')">${option}</button>`;
-            });
-            document.getElementById("gameArea").innerHTML = html;
-        }
-        function checkQuiz(selected, correct) {
-            if (selected === correct) {
-                points++;
-                document.getElementById("points").innerHTML = `نجومك: ${points} <i class="fas fa-star"></i>`;
-                document.getElementById("gameArea").innerHTML = "إجابة صحيحة! <i class="fas fa-check-circle"></i>";
-                updateLeaderboard();
-            } else {
-                document.getElementById("gameArea").innerHTML = `خطأ! الإجابة الصحيحة: ${correct}`;
-            }
-            setTimeout(() => document.getElementById("gameArea").style.display = "none", 2000);
-        }
-
-        // الألعاب النارية
-        function startFireworks() {
-            document.body.style.backgroundColor = "#ffe4b5";
-            for (let i = 0; i < 20; i++) {
-                const star = document.createElement("div");
-                star.className = "star";
-                star.innerHTML = '<i class="fas fa-fireworks"></i>';
-                star.style.left = Math.random() * 90 + "%";
-                star.style.top = Math.random() * 90 + "%";
-                document.body.appendChild(star);
-                setTimeout(() => star.remove(), 2000);
-            }
-        }
-
-        setInterval(updateCountdown, 1000);
-        setInterval(updateLeaderboard, 10000); // تحديث دوري كل 10 ثوانٍ
     </script>
 </body>
 </html>
