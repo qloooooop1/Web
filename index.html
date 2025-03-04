@@ -3,7 +3,8 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>مطور ويب - [اسمك]</title>
+    <title>عبدالله - مطور ويب</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
             margin: 0;
@@ -16,6 +17,8 @@
             color: #fff;
             direction: rtl;
             scroll-behavior: smooth;
+            line-height: 1.6;
+            overflow-x: hidden;
         }
         .navbar {
             position: fixed;
@@ -25,11 +28,17 @@
             display: flex;
             justify-content: space-between;
             background: rgba(0, 0, 0, 0.8);
+            z-index: 1000;
         }
         .navbar a {
             color: #fff;
             text-decoration: none;
             margin-left: 20px;
+            font-size: 1.1rem;
+            transition: color 0.3s;
+        }
+        .navbar a:hover {
+            color: #00aaff;
         }
         .hero {
             height: 100vh;
@@ -38,31 +47,226 @@
             justify-content: center;
             align-items: center;
             text-align: center;
+            background: linear-gradient(45deg, #1a1a1a, #333);
+            position: relative;
+            overflow: hidden;
         }
         .hero h1 {
-            font-size: 3rem;
-            animation: fadeIn 2s ease-in;
+            font-size: 3.5rem;
         }
         .hero p {
             font-size: 1.5rem;
             color: #00aaff;
         }
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
+        .section {
+            padding: 60px 20px;
+            text-align: center;
+        }
+        .section h2 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+            color: #00aaff;
+        }
+        .about, .contact, .team, .clients {
+            background: #252525;
+        }
+        .projects {
+            background: #1f1f1f;
+        }
+        .dotted-box {
+            border: 2px dashed #00aaff;
+            padding: 40px;
+            margin: 20px auto;
+            width: 80%;
+            max-width: 600px;
+            font-size: 1.2rem;
+        }
+        .team-grid, .clients-grid {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            flex-wrap: wrap;
+        }
+        .team-member, .client {
+            background: #333;
+            padding: 20px;
+            width: 200px;
+            border-radius: 10px;
+            opacity: 0;
+        }
+        .contact a {
+            color: #00aaff;
+            text-decoration: none;
+            font-size: 1.2rem;
+        }
+        .contact a i {
+            margin-left: 10px;
+        }
+        footer {
+            background: #111;
+            padding: 20px;
+            text-align: center;
+            font-size: 0.9rem;
         }
     </style>
 </head>
 <body>
+    <!-- شريط التنقل -->
     <div class="navbar">
         <a href="#home">الرئيسية</a>
-        <a href="#about">نبذة عني</a>
+        <a href="#about">من نحن</a>
         <a href="#projects">المشاريع</a>
-        <a href="#contact">تواصل</a>
+        <a href="#team">فريق العمل</a>
+        <a href="#clients">وراء العملاء</a>
+        <a href="#contact">تواصل معي</a>
     </div>
-    <div class="hero">
-        <h1>[اسمك]</h1>
+
+    <!-- الجزء الافتتاحي -->
+    <div class="hero" id="home">
+        <h1>عبدالله</h1>
         <p>مطور ويب</p>
     </div>
+
+    <!-- قسم من نحن -->
+    <div class="section about" id="about">
+        <h2>من نحن</h2>
+        <p>نحن فريق بقيادة عبدالله، نهدف إلى تقديم حلول ويب مبتكرة وعصرية تلبي احتياجات العملاء بأعلى معايير الجودة.</p>
+    </div>
+
+    <!-- قسم المشاريع -->
+    <div class="section projects" id="projects">
+        <h2>المشاريع</h2>
+        <div class="dotted-box">
+            <i class="fas fa-tools"></i> مشاريع قريبًا
+        </div>
+    </div>
+
+    <!-- قسم فريق العمل -->
+    <div class="section team" id="team">
+        <h2>فريق العمل</h2>
+        <div class="team-grid">
+            <div class="team-member">
+                <i class="fas fa-user fa-2x"></i>
+                <h3>أحمد</h3>
+                <p>مصمم واجهات</p>
+            </div>
+            <div class="team-member">
+                <i class="fas fa-user fa-2x"></i>
+                <h3>سارة</h3>
+                <p>مبرمجة خلفية</p>
+            </div>
+            <div class="team-member">
+                <i class="fas fa-user fa-2x"></i>
+                <h3>خالد</h3>
+                <p>مدير المشروع</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم وراء العملاء -->
+    <div class="section clients" id="clients">
+        <h2>وراء العملاء</h2>
+        <div class="clients-grid">
+            <div class="client">
+                <h3>شركة المستقبل</h3>
+                <p>مشروع تطبيق ويب</p>
+            </div>
+            <div class="client">
+                <h3>مؤسسة الريادة</h3>
+                <p>تصميم موقع</p>
+            </div>
+        </div>
+    </div>
+
+    <!-- قسم التواصل -->
+    <div class="section contact" id="contact">
+        <h2>تواصل معي</h2>
+        <p><a href="mailto:abdullah@example.com"><i class="fas fa-envelope"></i> abdullah@example.com</a></p>
+        <p><a href="tel:+966500000000"><i class="fas fa-phone"></i> +966 500 000 000</a></p>
+        <p><a href="https://twitter.com/abdullah_dev"><i class="fab fa-twitter"></i> @abdullah_dev</a></p>
+    </div>
+
+    <!-- تذييل الصفحة -->
+    <footer>
+        <p>جميع الحقوق محفوظة © 2025 عبدالله</p>
+    </footer>
+
+    <!-- إضافة مكتبة GSAP -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
+    <script>
+        // تهيئة GSAP مع ScrollTrigger
+        gsap.registerPlugin(ScrollTrigger);
+
+        // تأثير الجزء الافتتاحي (Hero)
+        gsap.from(".hero h1", {
+            opacity: 0,
+            y: 50,
+            duration: 1.5,
+            ease: "power3.out"
+        });
+        gsap.from(".hero p", {
+            opacity: 0,
+            y: 30,
+            duration: 1.5,
+            delay: 0.5,
+            ease: "power3.out"
+        });
+
+        // تأثير Parallax للخلفية
+        gsap.to(".hero", {
+            scrollTrigger: {
+                trigger: ".hero",
+                scrub: true,
+                start: "top top",
+                end: "bottom top"
+            },
+            backgroundPosition: "50% 100%",
+            ease: "none"
+        });
+
+        // تأثير ظهور الأقسام عند التمرير
+        gsap.utils.toArray(".section").forEach(section => {
+            gsap.from(section, {
+                scrollTrigger: {
+                    trigger: section,
+                    start: "top 80%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 0,
+                y: 50,
+                duration: 1,
+                ease: "power2.out"
+            });
+        });
+
+        // تأثير حركة لأعضاء الفريق والعملاء
+        gsap.utils.toArray(".team-member, .client").forEach(item => {
+            gsap.from(item, {
+                scrollTrigger: {
+                    trigger: item,
+                    start: "top 90%",
+                    toggleActions: "play none none none"
+                },
+                opacity: 0,
+                scale: 0.8,
+                duration: 0.8,
+                ease: "back.out(1.7)"
+            });
+        });
+
+        // تأثير تكبير/تصغير للمربع المنقط
+        gsap.from(".dotted-box", {
+            scrollTrigger: {
+                trigger: ".projects",
+                start: "top 80%",
+                toggleActions: "play none none none"
+            },
+            opacity: 0,
+            scale: 0.9,
+            duration: 1,
+            ease: "elastic.out(1, 0.5)"
+        });
+    </script>
 </body>
 </html>
