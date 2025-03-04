@@ -14,7 +14,7 @@
         }
 
         body {
-            background: #f0f4f8;
+            background: #f5f7fa;
             color: #2c3e50;
             line-height: 1.6;
             overflow-x: hidden;
@@ -39,31 +39,26 @@
             background: linear-gradient(135deg, #2c3e50, #3498db);
             color: white;
             padding: 20px;
-            text-align: center;
             position: fixed;
             width: 100%;
             top: 44px;
             z-index: 1000;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.2);
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
         }
 
         header h1 {
-            font-size: 2.5em;
-            letter-spacing: 2px;
-        }
-
-        nav {
-            margin-top: 15px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 20px;
+            font-size: 2em;
+            letter-spacing: 1px;
         }
 
         nav a {
             color: white;
             text-decoration: none;
-            font-size: 1.2em;
+            margin: 0 15px;
+            font-size: 1.1em;
             transition: color 0.3s;
         }
 
@@ -76,16 +71,65 @@
             padding: 5px 15px;
             border-radius: 20px;
             cursor: pointer;
-            font-size: 1em;
         }
 
-        /* السلايدات */
+        /* القائمة الجانبية */
+        .sidebar {
+            position: fixed;
+            top: 100px;
+            right: -250px;
+            width: 250px;
+            height: 100%;
+            background: #fff;
+            box-shadow: -2px 0 10px rgba(0, 0, 0, 0.1);
+            padding: 20px;
+            transition: right 0.3s ease;
+            z-index: 1002;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar a, .sidebar p {
+            display: block;
+            color: #2c3e50;
+            text-decoration: none;
+            margin: 15px 0;
+            font-size: 1.1em;
+        }
+
+        .sidebar a:hover {
+            color: #3498db;
+        }
+
+        #menu-toggle {
+            font-size: 1.5em;
+            cursor: pointer;
+        }
+
+        /* السلايدات والمنتجات */
+        .main {
+            margin-top: 120px;
+            padding: 20px;
+        }
+
+        .section {
+            margin-bottom: 60px;
+        }
+
+        .section-title {
+            font-size: 2.2em;
+            color: #2c3e50;
+            text-align: center;
+            margin-bottom: 20px;
+        }
+
         .slider {
             position: relative;
             width: 100%;
-            height: 500px;
+            height: 400px;
             overflow: hidden;
-            margin-top: 120px;
         }
 
         .slides {
@@ -102,86 +146,40 @@
             display: flex;
             align-items: center;
             justify-content: center;
-            font-size: 2em;
+            position: relative;
+        }
+
+        .slide i {
+            font-size: 4em;
             color: #3498db;
-            position: relative;
         }
 
-        .slide::after {
-            content: 'صورة قريبًا';
-            position: absolute;
-            bottom: 20px;
-            font-size: 0.5em;
-            color: #777;
+        .product-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 20px;
+            padding: 20px 0;
+            scroll-behavior: smooth;
         }
 
-        .slide:nth-child(1) { background: url('placeholder1.jpg') center/cover; }
-        .slide:nth-child(2) { background: url('placeholder2.jpg') center/cover; }
-        .slide:nth-child(3) { background: url('placeholder3.jpg') center/cover; }
-
-        .slider-btn {
-            position: absolute;
-            top: 50%;
-            transform: translateY(-50%);
-            background: rgba(0, 0, 0, 0.5);
-            color: white;
-            border: none;
-            padding: 10px;
-            cursor: pointer;
-            font-size: 1.5em;
-        }
-
-        #prev { left: 20px; }
-        #next { right: 20px; }
-
-        /* المنتجات */
-        .main {
-            padding: 40px 20px;
-        }
-
-        .section-title {
-            font-size: 2.5em;
-            color: #2c3e50;
-            text-align: center;
-            margin: 40px 0;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            width: 60px;
-            height: 4px;
-            background: #3498db;
-            position: absolute;
-            bottom: -15px;
-            right: 50%;
-            transform: translateX(50%);
-        }
-
-        .product-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            margin-bottom: 60px;
+        .product-slider::-webkit-scrollbar {
+            display: none;
         }
 
         .product-card {
+            flex: 0 0 auto;
+            width: 280px;
             background: white;
-            border-radius: 20px;
-            overflow: hidden;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            transition: transform 0.4s, box-shadow 0.4s;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            padding: 20px;
             text-align: center;
-            padding: 25px;
+            transition: transform 0.3s;
         }
 
         .product-card:hover {
             transform: scale(1.05);
-            box-shadow: 0 12px 30px rgba(0, 0, 0, 0.2);
         }
-
-        .product-card.large { grid-column: span 2; }
-        .product-card.medium { grid-column: span 1; }
 
         .product-placeholder {
             height: 200px;
@@ -189,35 +187,36 @@
             align-items: center;
             justify-content: center;
             background: #ecf0f1;
-            border: 3px dashed #3498db;
-            margin-bottom: 20px;
-            position: relative;
-        }
-
-        .product-placeholder i {
-            font-size: 3em;
-            color: #3498db;
-        }
-
-        .large .product-placeholder { height: 300px; }
-
-        .product-card h3 {
-            font-size: 1.6em;
-            color: #2c3e50;
+            border: 2px dashed #3498db;
             margin-bottom: 15px;
         }
 
-        .product-card p {
+        .price {
+            margin: 10px 0;
+        }
+
+        .price .old {
+            text-decoration: line-through;
             color: #7f8c8d;
-            margin-bottom: 20px;
+            margin-left: 10px;
+        }
+
+        .price .new {
+            color: #e74c3c;
+            font-weight: bold;
+        }
+
+        .loyalty {
+            color: #f1c40f;
+            font-size: 0.9em;
         }
 
         .btn {
-            padding: 12px 25px;
+            padding: 10px 20px;
             background: #3498db;
             color: white;
             text-decoration: none;
-            border-radius: 30px;
+            border-radius: 25px;
             transition: background 0.3s;
         }
 
@@ -225,109 +224,171 @@
             background: #2c3e50;
         }
 
+        /* صفحات إضافية */
+        .page {
+            display: none;
+            padding: 40px 20px;
+        }
+
+        .page.active {
+            display: block;
+        }
+
+        .social-icons a {
+            color: #2c3e50;
+            font-size: 1.5em;
+            margin: 0 10px;
+            transition: color 0.3s;
+        }
+
+        .social-icons a:hover {
+            color: #3498db;
+        }
+
+        /* مخطط تتبع الطلب */
+        .order-tracker {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            margin: 20px 0;
+            padding: 20px;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 2px 10px rgba(0, 0, 0, 0.1);
+        }
+
+        .tracker-step {
+            text-align: center;
+            flex: 1;
+        }
+
+        .tracker-step i {
+            font-size: 1.5em;
+            color: #3498db;
+        }
+
+        .tracker-step.active i {
+            color: #f1c40f;
+        }
+
         /* الفوتر */
         footer {
             background: linear-gradient(135deg, #2c3e50, #3498db);
             color: white;
             text-align: center;
-            padding: 25px;
-            margin-top: 60px;
+            padding: 20px;
         }
 
         /* التجاوب */
         @media (max-width: 768px) {
             .slider { height: 300px; }
-            .product-card.large { grid-column: span 1; }
-            .large .product-placeholder { height: 200px; }
-            .section-title { font-size: 2em; }
-        }
-
-        /* اللغة الإنجليزية */
-        body[lang="en"] {
-            direction: ltr;
-        }
-
-        body[lang="en"] .top-bar,
-        body[lang="en"] header,
-        body[lang="en"] footer {
-            text-align: left;
-        }
-
-        body[lang="en"] nav {
-            justify-content: flex-start;
+            .product-card { width: 220px; }
         }
     </style>
 </head>
 <body lang="ar">
-    <div class="top-bar" data-ar="تخفيضات تصل إلى 50% لفترة محدودة!" data-en="Discounts up to 50% for a limited time!">
-        <i class="fas fa-star"></i> تخفيضات تصل إلى 50% لفترة محدودة!
-    </div>
+    <div class="top-bar" data-ar="تخفيضات تصل إلى 50% الآن!" data-en="Discounts up to 50% now!">تخفيضات تصل إلى 50% الآن!</div>
 
     <header>
         <h1 data-ar="متجر الأناقة العصرية" data-en="Modern Elegance Store">متجر الأناقة العصرية</h1>
         <nav>
-            <a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
-            <a href="#products" data-ar="المنتجات" data-en="Products">المنتجات</a>
-            <a href="#about" data-ar="من نحن" data-en="About">من نحن</a>
-            <a href="#contact" data-ar="اتصل بنا" data-en="Contact">اتصل بنا</a>
+            <a href="#" data-page="home" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
+            <a href="#" data-page="products" data-ar="المنتجات" data-en="Products">المنتجات</a>
+            <a href="#" data-page="about" data-ar="من نحن" data-en="About">من نحن</a>
+            <a href="#" data-page="contact" data-ar="تواصل معنا" data-en="Contact">تواصل معنا</a>
             <span id="lang-toggle">EN</span>
+            <i class="fas fa-bars" id="menu-toggle"></i>
         </nav>
     </header>
 
-    <div class="slider">
-        <div class="slides">
-            <div class="slide"><i class="fas fa-camera"></i></div>
-            <div class="slide"><i class="fas fa-camera"></i></div>
-            <div class="slide"><i class="fas fa-camera"></i></div>
+    <div class="sidebar">
+        <a href="#" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</a>
+        <a href="#" data-ar="طلباتي" data-en="My Orders">طلباتي</a>
+        <p data-ar="نظام الولاء: 150 نقطة" data-en="Loyalty: 150 points">نظام الولاء: 150 نقطة</p>
+        <div class="order-tracker">
+            <div class="tracker-step active"><i class="fas fa-shopping-cart"></i><p>في السلة</p></div>
+            <div class="tracker-step"><i class="fas fa-credit-card"></i><p>الدفع</p></div>
+            <div class="tracker-step"><i class="fas fa-box"></i><p>التحضير</p></div>
+            <div class="tracker-step"><i class="fas fa-truck"></i><p>تم الشحن</p></div>
         </div>
-        <button class="slider-btn" id="prev"><i class="fas fa-chevron-left"></i></button>
-        <button class="slider-btn" id="next"><i class="fas fa-chevron-right"></i></button>
     </div>
 
     <div class="main">
-        <section class="products" id="products">
-            <h2 class="section-title" data-ar="وصل حديثًا" data-en="New Arrivals">وصل حديثًا</h2>
-            <div class="product-grid">
-                <div class="product-card large">
-                    <div class="product-placeholder"><i class="fas fa-vest"></i></div>
-                    <h3 data-ar="عباية فاخرة" data-en="Luxury Abaya">عباية فاخرة</h3>
-                    <p data-ar="تصميم مميز يناسب المناسبات الخاصة" data-en="Unique design for special occasions">تصميم مميز يناسب المناسبات الخاصة</p>
-                    <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+        <!-- الصفحة الرئيسية -->
+        <section class="page active" data-page="home">
+            <div class="section">
+                <h2 class="section-title" data-ar="وصل حديثًا" data-en="New Arrivals">وصل حديثًا</h2>
+                <div class="slider" data-slider="new">
+                    <div class="slides">
+                        <div class="slide"><i class="fas fa-camera"></i></div>
+                        <div class="slide"><i class="fas fa-camera"></i></div>
+                        <div class="slide"><i class="fas fa-camera"></i></div>
+                    </div>
                 </div>
-                <div class="product-card medium">
-                    <div class="product-placeholder"><i class="fas fa-tshirt"></i></div>
-                    <h3 data-ar="عباية كلاسيكية" data-en="Classic Abaya">عباية كلاسيكية</h3>
-                    <p data-ar="أناقة يومية ببساطة" data-en="Daily elegance with simplicity">أناقة يومية ببساطة</p>
-                    <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-placeholder"><i class="fas fa-robe"></i></div>
-                    <h3 data-ar="عباية عصرية" data-en="Modern Abaya">عباية عصرية</h3>
-                    <p data-ar="أسلوب شبابي مفعم بالحيوية" data-en="Youthful and vibrant style">أسلوب شبابي مفعم بالحيوية</p>
-                    <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+                <div class="product-slider" data-slider="new-products">
+                    <div class="product-card">
+                        <div class="product-placeholder"><i class="fas fa-vest"></i></div>
+                        <h3 data-ar="عباية فاخرة" data-en="Luxury Abaya">عباية فاخرة</h3>
+                        <div class="price"><span class="old">200 ر.س</span> <span class="new">150 ر.س</span></div>
+                        <p class="loyalty" data-ar="+10 نقاط" data-en="+10 points">+10 نقاط</p>
+                        <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-placeholder"><i class="fas fa-tshirt"></i></div>
+                        <h3 data-ar="عباية كلاسيكية" data-en="Classic Abaya">عباية كلاسيكية</h3>
+                        <div class="price"><span class="old">180 ر.س</span> <span class="new">130 ر.س</span></div>
+                        <p class="loyalty" data-ar="+8 نقاط" data-en="+8 points">+8 نقاط</p>
+                        <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+                    </div>
                 </div>
             </div>
 
-            <h2 class="section-title" data-ar="الأكثر مبيعًا" data-en="Best Sellers">الأكثر مبيعًا</h2>
-            <div class="product-grid">
-                <div class="product-card medium">
-                    <div class="product-placeholder"><i class="fas fa-vest-patches"></i></div>
-                    <h3 data-ar="عباية مطرزة" data-en="Embroidered Abaya">عباية مطرزة</h3>
-                    <p data-ar="تفاصيل دقيقة وفخامة" data-en="Fine details and luxury">تفاصيل دقيقة وفخامة</p>
-                    <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+            <div class="section">
+                <h2 class="section-title" data-ar="الأكثر مبيعًا" data-en="Best Sellers">الأكثر مبيعًا</h2>
+                <div class="slider" data-slider="best">
+                    <div class="slides">
+                        <div class="slide"><i class="fas fa-camera"></i></div>
+                        <div class="slide"><i class="fas fa-camera"></i></div>
+                        <div class="slide"><i class="fas fa-camera"></i></div>
+                    </div>
                 </div>
-                <div class="product-card large">
-                    <div class="product-placeholder"><i class="fas fa-coat"></i></div>
-                    <h3 data-ar="عباية شتوية" data-en="Winter Abaya">عباية شتوية</h3>
-                    <p data-ar="دفء وأناقة في آن واحد" data-en="Warmth and elegance combined">دفء وأناقة في آن واحد</p>
-                    <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+                <div class="product-slider" data-slider="best-products">
+                    <div class="product-card">
+                        <div class="product-placeholder"><i class="fas fa-vest-patches"></i></div>
+                        <h3 data-ar="عباية مطرزة" data-en="Embroidered Abaya">عباية مطرزة</h3>
+                        <div class="price"><span class="old">250 ر.س</span> <span class="new">200 ر.س</span></div>
+                        <p class="loyalty" data-ar="+15 نقاط" data-en="+15 points">+15 نقاط</p>
+                        <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+                    </div>
+                    <div class="product-card">
+                        <div class="product-placeholder"><i class="fas fa-coat"></i></div>
+                        <h3 data-ar="عباية شتوية" data-en="Winter Abaya">عباية شتوية</h3>
+                        <div class="price"><span class="old">300 ر.س</span> <span class="new">240 ر.س</span></div>
+                        <p class="loyalty" data-ar="+20 نقاط" data-en="+20 points">+20 نقاط</p>
+                        <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+                    </div>
                 </div>
-                <div class="product-card">
-                    <div class="product-placeholder"><i class="fas fa-shirt"></i></div>
-                    <h3 data-ar="عباية بسيطة" data-en="Simple Abaya">عباية بسيطة</h3>
-                    <p data-ar="أناقة بدون تعقيد" data-en="Elegance without complexity">أناقة بدون تعقيد</p>
-                    <a href="#" class="btn" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
-                </div>
+            </div>
+        </section>
+
+        <!-- صفحة من نحن -->
+        <section class="page" data-page="about">
+            <h2 class="section-title" data-ar="من نحن" data-en="About Us">من نحن</h2>
+            <p data-ar="نحن متجر الأناقة العصرية، نسعى لتقديم أفضل المنتجات بأسلوب عصري وجودة عالية." 
+               data-en="We are Modern Elegance Store, striving to offer the best products with a modern style and high quality.">
+                نحن متجر الأناقة العصرية، نسعى لتقديم أفضل المنتجات بأسلوب عصري وجودة عالية.
+            </p>
+        </section>
+
+        <!-- صفحة تواصل معنا -->
+        <section class="page" data-page="contact">
+            <h2 class="section-title" data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</h2>
+            <p data-ar="راسلنا عبر البريد: info@elegance.com" data-en="Email us at: info@elegance.com">راسلنا عبر البريد: info@elegance.com</p>
+            <div class="social-icons">
+                <a href="#"><i class="fab fa-facebook"></i></a>
+                <a href="#"><i class="fab fa-instagram"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fab fa-whatsapp"></i></a>
             </div>
         </section>
     </div>
@@ -339,19 +400,31 @@
     </footer>
 
     <script>
-        // التحكم بالسلايدات
-        const slides = document.querySelector('.slides');
-        let currentSlide = 0;
-        const totalSlides = 3;
+        // فتح/إغلاق القائمة الجانبية
+        const menuToggle = document.getElementById('menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        menuToggle.addEventListener('click', () => sidebar.classList.toggle('active'));
 
-        document.getElementById('next').addEventListener('click', () => {
-            currentSlide = (currentSlide + 1) % totalSlides;
-            slides.style.transform = `translateX(-${currentSlide * 33.33}%)`;
+        // التحكم بالسلايدات التلقائية
+        const sliders = document.querySelectorAll('.slider');
+        sliders.forEach(slider => {
+            const slides = slider.querySelector('.slides');
+            let current = 0;
+            const total = 3;
+
+            setInterval(() => {
+                current = (current + 1) % total;
+                slides.style.transform = `translateX(-${current * 33.33}%)`;
+            }, 5000);
         });
 
-        document.getElementById('prev').addEventListener('click', () => {
-            currentSlide = (currentSlide - 1 + totalSlides) % totalSlides;
-            slides.style.transform = `translateX(-${currentSlide * 33.33}%)`;
+        // تغيير الصفحات
+        document.querySelectorAll('nav a[data-page]').forEach(link => {
+            link.addEventListener('click', (e) => {
+                e.preventDefault();
+                document.querySelectorAll('.page').forEach(page => page.classList.remove('active'));
+                document.querySelector(`.page[data-page="${link.dataset.page}"]`).classList.add('active');
+            });
         });
 
         // تغيير اللغة
@@ -365,18 +438,6 @@
 
             document.querySelectorAll('[data-ar]').forEach(elem => {
                 elem.textContent = elem.getAttribute(`data-${newLang}`);
-            });
-        });
-
-        // تأثير تحريك عند التمرير
-        window.addEventListener('scroll', () => {
-            const cards = document.querySelectorAll('.product-card');
-            cards.forEach(card => {
-                const cardTop = card.getBoundingClientRect().top;
-                if (cardTop < window.innerHeight - 100) {
-                    card.style.opacity = '1';
-                    card.style.transform = 'scale(1)';
-                }
             });
         });
     </script>
