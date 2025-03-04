@@ -14,6 +14,7 @@
             text-align: center;
             margin: 0;
             padding: 0;
+            overflow-x: hidden;
         }
 
         .container {
@@ -41,13 +42,9 @@
             color: #ffdd57;
         }
 
-        .actions {
-            margin-bottom: 30px;
-        }
-
         .tasbeeh-circle {
-            width: 150px;
-            height: 150px;
+            width: 200px;
+            height: 200px;
             border-radius: 50%;
             background-color: #4CAF50;
             display: flex;
@@ -55,18 +52,36 @@
             justify-content: center;
             margin: 20px auto;
             cursor: pointer;
-            box-shadow: 0 0 15px rgba(0, 0, 0, 0.3);
+            box-shadow: 0 0 20px rgba(0, 0, 0, 0.5);
             transition: transform 0.2s, box-shadow 0.2s;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .tasbeeh-circle::before {
+            content: "سبحان الله";
+            position: absolute;
+            font-size: 2rem;
+            color: rgba(255, 255, 255, 0.1);
+            transform: rotate(-45deg);
+            white-space: nowrap;
+            animation: rotateText 10s linear infinite;
+        }
+
+        @keyframes rotateText {
+            0% { transform: rotate(-45deg) translateX(-100%); }
+            100% { transform: rotate(-45deg) translateX(100%); }
         }
 
         .tasbeeh-circle:active {
             transform: scale(0.95);
-            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
         }
 
         .tasbeeh-circle span {
-            font-size: 1.5rem;
+            font-size: 2rem;
             color: white;
+            z-index: 1;
         }
 
         .userStats {
@@ -81,9 +96,24 @@
             margin-bottom: 20px;
         }
 
+        .share {
+            display: flex;
+            justify-content: center;
+            gap: 10px;
+            margin-bottom: 20px;
+        }
+
         .share button {
             background-color: #1DA1F2;
-            margin: 5px;
+            color: white;
+            border: none;
+            padding: 10px 20px;
+            font-size: 1rem;
+            cursor: pointer;
+            border-radius: 5px;
+            display: flex;
+            align-items: center;
+            gap: 5px;
         }
 
         .share button:hover {
@@ -133,6 +163,35 @@
         .notification-form button:hover {
             background-color: #45a049;
         }
+
+        .unsubscribe {
+            display: none;
+            margin-top: 10px;
+        }
+
+        .unsubscribe button {
+            background-color: #ff4444;
+            color: white;
+            border: none;
+            padding: 5px 10px;
+            font-size: 0.9rem;
+            cursor: pointer;
+            border-radius: 5px;
+        }
+
+        .unsubscribe button:hover {
+            background-color: #cc0000;
+        }
+
+        .ramadan-counter {
+            margin-top: 30px;
+            font-size: 1.2rem;
+        }
+
+        .ramadan-counter span {
+            font-size: 1.5rem;
+            color: #ffdd57;
+        }
     </style>
 </head>
 <body>
@@ -164,9 +223,9 @@
 
         <!-- أزرار المشاركة -->
         <div class="share">
-            <button onclick="shareOnTwitter()"><i class="fab fa-twitter"></i> مشاركة على تويتر</button>
-            <button onclick="shareOnFacebook()"><i class="fab fa-facebook"></i> مشاركة على فيسبوك</button>
-            <button class="whatsapp" onclick="shareOnWhatsApp()"><i class="fab fa-whatsapp"></i> مشاركة على واتساب</button>
+            <button onclick="shareOnTwitter()"><i class="fab fa-twitter"></i> تويتر</button>
+            <button onclick="shareOnFacebook()"><i class="fab fa-facebook"></i> فيسبوك</button>
+            <button class="whatsapp" onclick="shareOnWhatsApp()"><i class="fab fa-whatsapp"></i> واتساب</button>
         </div>
 
         <!-- حديث الدال على الخير -->
@@ -178,13 +237,18 @@
         <div class="notification-form">
             <h2>تلقي الإشعارات</h2>
             <input type="email" id="email" placeholder="أدخل بريدك الإلكتروني">
-            <select id="notificationFrequency">
-                <option value="daily">يوميًا</option>
-                <option value="weekly">أسبوعيًا</option>
-                <option value="monthly">شهريًا</option>
-            </select>
-            <button onclick="subscribeNotifications()">اشترك في الإشعارات</button>
-            <button onclick="unsubscribeNotifications()">إلغاء الاشتراك</button>
+            <div id="subscribeSection">
+                <button onclick="subscribeNotifications()">اشترك في الإشعارات</button>
+            </div>
+            <div class="unsubscribe" id="unsubscribeSection">
+                <p>البريد الإلكتروني: <span id="subscribedEmail"></span></p>
+                <button onclick="unsubscribeNotifications()">إلغاء الاشتراك</button>
+            </div>
+        </div>
+
+        <!-- عداد رمضان -->
+        <div class="ramadan-counter">
+            <p>كم تبقى على انتهاء رمضان؟ <span id="ramadanCountdown"></span></p>
         </div>
     </div>
 
@@ -201,7 +265,10 @@
         const tasbeehCircle = document.getElementById('tasbeehCircle');
         const hadithElement = document.getElementById('hadith');
         const emailInput = document.getElementById('email');
-        const notificationFrequency = document.getElementById('notificationFrequency');
+        const subscribeSection = document.getElementById('subscribeSection');
+        const unsubscribeSection = document.getElementById('unsubscribeSection');
+        const subscribedEmailElement = document.getElementById('subscribedEmail');
+        const ramadanCountdownElement = document.getElementById('ramadanCountdown');
 
         // تحديث العداد العالمي
         function updateGlobalCounter() {
@@ -277,10 +344,12 @@
         // اشتراك في الإشعارات
         function subscribeNotifications() {
             const email = emailInput.value;
-            const frequency = notificationFrequency.value;
             if (email && validateEmail(email)) {
-                alert(`تم الاشتراك بنجاح! سيتم إرسال إشعارات ${frequency} إلى ${email}`);
-                // هنا يمكنك إضافة كود لإرسال الإشعارات عبر البريد الإلكتروني
+                localStorage.setItem('subscribedEmail', email);
+                subscribedEmailElement.textContent = email;
+                subscribeSection.style.display = 'none';
+                unsubscribeSection.style.display = 'block';
+                alert("تم الاشتراك بنجاح! سيتم إرسال إشعارات إلى بريدك الإلكتروني.");
             } else {
                 alert("الرجاء إدخال بريد إلكتروني صحيح.");
             }
@@ -288,13 +357,10 @@
 
         // إلغاء الاشتراك
         function unsubscribeNotifications() {
-            const email = emailInput.value;
-            if (email && validateEmail(email)) {
-                alert(`تم إلغاء الاشتراك بنجاح لـ ${email}`);
-                // هنا يمكنك إضافة كود لإلغاء الإشعارات
-            } else {
-                alert("الرجاء إدخال بريد إلكتروني صحيح.");
-            }
+            localStorage.removeItem('subscribedEmail');
+            subscribeSection.style.display = 'block';
+            unsubscribeSection.style.display = 'none';
+            alert("تم إلغاء الاشتراك بنجاح.");
         }
 
         // التحقق من صحة البريد الإلكتروني
@@ -303,12 +369,34 @@
             return regex.test(email);
         }
 
+        // تحميل بيانات الاشتراك
+        function loadSubscription() {
+            const email = localStorage.getItem('subscribedEmail');
+            if (email) {
+                subscribedEmailElement.textContent = email;
+                subscribeSection.style.display = 'none';
+                unsubscribeSection.style.display = 'block';
+            }
+        }
+
+        // عداد رمضان
+        function updateRamadanCountdown() {
+            const now = new Date();
+            const ramadanEnd = new Date(now.getFullYear(), 3, 20); // تاريخ انتهاء رمضان (20 أبريل)
+            const diff = ramadanEnd - now;
+            const days = Math.floor(diff / (1000 * 60 * 60 * 24));
+            ramadanCountdownElement.textContent = `${days} يوم`;
+        }
+
         // الأحداث
         tasbeehCircle.addEventListener('click', addTasbeeh);
 
         // تحميل البيانات عند بدء التشغيل
         loadUserData();
         updateGlobalCounter();
+        loadSubscription();
+        updateRamadanCountdown();
+        setInterval(updateRamadanCountdown, 1000 * 60 * 60); // تحديث العداد كل ساعة
     </script>
 </body>
 </html>
