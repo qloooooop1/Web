@@ -3,9 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta name="description" content="شركة روية - حلول تقنية مبتكرة لتطوير الويب">
-    <meta name="keywords" content="شركة روية, تطوير ويب, تصميم مواقع, برمجة">
-    <title>شركة روية - تطوير ويب</title>
+    <meta name="description" content="موقع مطور ويب محترف - حلول تقنية متقدمة">
+    <meta name="keywords" content="تطوير ويب, تصميم مواقع, برمجة احترافية">
+    <title>مطور ويب محترف</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
@@ -15,43 +15,61 @@
             font-family: 'Poppins', sans-serif;
         }
         body {
-            background: #f4f7fa;
-            color: #333;
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            color: #2c3e50;
             direction: rtl;
             scroll-behavior: smooth;
             line-height: 1.6;
             overflow-x: hidden;
         }
-        .navbar {
+        /* القائمة الجانبية */
+        .sidebar {
             position: fixed;
             top: 0;
-            width: 100%;
-            padding: 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
+            right: 0;
+            width: 250px;
+            height: 100%;
             background: #2c3e50;
+            padding: 20px;
+            transition: transform 0.3s ease;
             z-index: 1000;
         }
-        .navbar .logo {
+        .sidebar.open {
+            transform: translateX(0);
+        }
+        .sidebar.closed {
+            transform: translateX(100%);
+        }
+        .sidebar .logo {
             display: flex;
             align-items: center;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             color: #ecf0f1;
+            margin-bottom: 40px;
         }
-        .navbar .logo i {
+        .sidebar .logo i {
             margin-left: 10px;
             color: #3498db;
         }
-        .navbar a {
+        .sidebar a {
+            display: block;
             color: #ecf0f1;
             text-decoration: none;
-            margin-left: 20px;
-            font-size: 1.1rem;
+            margin: 20px 0;
+            font-size: 1.2rem;
             transition: color 0.3s;
         }
-        .navbar a:hover {
+        .sidebar a:hover {
             color: #3498db;
+        }
+        .menu-toggle {
+            position: fixed;
+            top: 20px;
+            right: 20px;
+            font-size: 2rem;
+            color: #2c3e50;
+            cursor: pointer;
+            z-index: 1100;
         }
         .hero {
             height: 100vh;
@@ -61,14 +79,35 @@
             align-items: center;
             text-align: center;
             position: relative;
-            background: linear-gradient(135deg, #dfe9f3, #ffffff);
         }
         .hero h1 {
-            font-size: 3rem;
+            font-size: 3.5rem;
+            font-weight: 700;
+            color: #2c3e50;
         }
-        .hero p {
-            font-size: 1.5rem;
+        /* قسم الأسئلة والأجوبة */
+        .faq {
+            max-width: 800px;
+            margin: 20px auto;
+        }
+        .faq-item {
+            background: #fff;
+            margin: 10px 0;
+            padding: 15px;
+            border-radius: 8px;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
+            cursor: pointer;
+        }
+        .faq-item h3 {
             color: #3498db;
+            margin-bottom: 10px;
+        }
+        .faq-item p {
+            display: none;
+            color: #7f8c8d;
+        }
+        .faq-item.active p {
+            display: block;
         }
         .section {
             padding: 60px 20px;
@@ -80,7 +119,7 @@
             color: #2c3e50;
         }
         .about, .contact, .team, .testimonials {
-            background: #ffffff;
+            background: #fff;
         }
         .projects {
             background: #ecf0f1;
@@ -94,9 +133,9 @@
         .project-card, .testimonial-card {
             background: #fff;
             padding: 20px;
-            width: 250px;
+            width: 280px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
             transition: transform 0.3s;
         }
         .project-card:hover, .testimonial-card:hover {
@@ -111,10 +150,9 @@
         .team-member {
             background: #fff;
             padding: 20px;
-            width: 200px;
+            width: 220px;
             border-radius: 10px;
-            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
-            opacity: 0;
+            box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
         }
         .contact-form {
             max-width: 500px;
@@ -122,7 +160,7 @@
         }
         .contact-form input, .contact-form textarea {
             width: 100%;
-            padding: 10px;
+            padding: 12px;
             margin: 10px 0;
             border: 1px solid #ddd;
             border-radius: 5px;
@@ -130,7 +168,7 @@
         .contact-form button {
             background: #3498db;
             color: #fff;
-            padding: 10px 20px;
+            padding: 12px 25px;
             border: none;
             border-radius: 5px;
             cursor: pointer;
@@ -139,11 +177,11 @@
             margin-top: 20px;
             display: flex;
             justify-content: center;
-            gap: 20px;
+            gap: 25px;
         }
         .social-links a {
             color: #2c3e50;
-            font-size: 1.5rem;
+            font-size: 1.8rem;
             transition: color 0.3s;
         }
         .social-links a:hover {
@@ -154,21 +192,13 @@
             color: #ecf0f1;
             padding: 20px;
             text-align: center;
-            font-size: 0.9rem;
         }
         @media (max-width: 768px) {
-            .navbar {
-                flex-direction: column;
-                padding: 10px;
-            }
-            .navbar a {
-                margin: 10px 0;
+            .sidebar {
+                width: 200px;
             }
             .hero h1 {
-                font-size: 2rem;
-            }
-            .hero p {
-                font-size: 1.2rem;
+                font-size: 2.5rem;
             }
             .project-card, .team-member, .testimonial-card {
                 width: 100%;
@@ -178,33 +208,49 @@
     </style>
 </head>
 <body>
-    <!-- شريط التنقل -->
-    <div class="navbar">
+    <!-- زر فتح القائمة -->
+    <div class="menu-toggle">
+        <i class="fas fa-bars"></i>
+    </div>
+
+    <!-- القائمة الجانبية -->
+    <div class="sidebar closed">
         <div class="logo">
-            <i class="fas fa-globe"></i>
-            <span>شركة روية</span>
+            <i class="fas fa-laptop-code"></i>
+            <span>مطور ويب</span>
         </div>
-        <div>
-            <a href="#home">الرئيسية</a>
-            <a href="#about">من نحن</a>
-            <a href="#projects">المشاريع</a>
-            <a href="blog.html">المدونة</a>
-            <a href="#team">فريق العمل</a>
-            <a href="#testimonials">آراء العملاء</a>
-            <a href="#contact">تواصل معنا</a>
-        </div>
+        <a href="#home">الرئيسية</a>
+        <a href="#about">من نحن</a>
+        <a href="#projects">المشاريع</a>
+        <a href="blog.html">المدونة</a>
+        <a href="#team">فريق العمل</a>
+        <a href="#testimonials">آراء العملاء</a>
+        <a href="#contact">تواصل معي</a>
     </div>
 
     <!-- الجزء الافتتاحي -->
     <div class="hero" id="home">
-        <h1>شركة روية</h1>
-        <p>حلول ويب مبتكرة</p>
+        <h1>مطور ويب محترف</h1>
+        <div class="faq">
+            <div class="faq-item">
+                <h3>لماذا تختار خدماتنا؟</h3>
+                <p>نقدم حلول ويب متقدمة بتقنيات حديثة وفريق محترف يضمن الجودة والسرعة.</p>
+            </div>
+            <div class="faq-item">
+                <h3>ما الذي يميز تصميماتنا؟</h3>
+                <p>تصميمات تفاعلية، متجاوبة مع جميع الأجهزة، ومُحسّنة لمحركات البحث.</p>
+            </div>
+            <div class="faq-item">
+                <h3>كيف نبدأ مشروعك؟</h3>
+                <p>تواصل معنا، نناقش فكرتك، ثم نبدأ التصميم والتطوير فورًا.</p>
+            </div>
+        </div>
     </div>
 
     <!-- قسم من نحن -->
     <div class="section about" id="about">
         <h2>من نحن</h2>
-        <p>شركة روية تقدم حلول تقنية متكاملة لتطوير الويب، مع فريق محترف يسعى لتحقيق رؤية عملائنا بأعلى جودة.</p>
+        <p>نحن فريق من المحترفين في تطوير الويب، ملتزمون بتقديم أفضل الحلول التقنية لتحويل أفكارك إلى واقع رقمي متميز.</p>
     </div>
 
     <!-- قسم المشاريع -->
@@ -214,17 +260,17 @@
             <div class="project-card">
                 <i class="fas fa-shopping-cart fa-2x" style="color: #3498db;"></i>
                 <h3>متجر إلكتروني</h3>
-                <p>تصميم وتطوير متجر إلكتروني بتقنيات حديثة.</p>
+                <p>تصميم وتطوير متجر إلكتروني متكامل بأحدث التقنيات.</p>
             </div>
             <div class="project-card">
                 <i class="fas fa-blog fa-2x" style="color: #3498db;"></i>
                 <h3>مدونة تقنية</h3>
-                <p>موقع مدونة تفاعلي مع إدارة محتوى.</p>
+                <p>موقع مدونة احترافي مع نظام إدارة محتوى.</p>
             </div>
             <div class="project-card">
                 <i class="fas fa-tools fa-2x" style="color: #3498db;"></i>
                 <h3>تطبيق إدارة مهام (قريبًا)</h3>
-                <p>جاري العمل على تطبيق لإدارة المهام.</p>
+                <p>جاري العمل على تطبيق إدارة مهام متطور.</p>
             </div>
         </div>
     </div>
@@ -236,7 +282,7 @@
             <div class="team-member">
                 <i class="fas fa-code fa-2x" style="color: #3498db;"></i>
                 <h3>أحمد</h3>
-                <p>مطور ويب أمامي</p>
+                <p>مطور واجهات أمامية</p>
             </div>
             <div class="team-member">
                 <i class="fas fa-server fa-2x" style="color: #3498db;"></i>
@@ -262,20 +308,20 @@
         <div class="testimonials-grid">
             <div class="testimonial-card">
                 <i class="fas fa-star fa-2x" style="color: #f1c40f;"></i>
-                <h3>محمد - شركة تقنية</h3>
-                <p>"خدمة ممتازة وتسليم في الوقت المحدد!"</p>
+                <h3>محمد</h3>
+                <p>"خدمة احترافية ونتائج مذهلة."</p>
             </div>
             <div class="testimonial-card">
                 <i class="fas fa-star fa-2x" style="color: #f1c40f;"></i>
-                <h3>فاطمة - متجر أونلاين</h3>
-                <p>"تصميم احترافي ودعم رائع."</p>
+                <h3>فاطمة</h3>
+                <p>"فريق مبدع وسريع الاستجابة."</p>
             </div>
         </div>
     </div>
 
     <!-- قسم التواصل -->
     <div class="section contact" id="contact">
-        <h2>تواصل معنا</h2>
+        <h2>تواصل معي</h2>
         <form class="contact-form">
             <input type="text" placeholder="الاسم" required>
             <input type="email" placeholder="البريد الإلكتروني" required>
@@ -292,17 +338,34 @@
 
     <!-- تذييل الصفحة -->
     <footer>
-        <p>جميع الحقوق محفوظة © 2025 شركة روية</p>
+        <p>جميع الحقوق محفوظة © 2025</p>
     </footer>
 
-    <!-- مكتبات خارجية -->
+    <!-- مكتبات خارجية وجافا سكريبت -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/gsap.min.js"></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.11.4/ScrollTrigger.min.js"></script>
     <script>
+        // فتح وإغلاق القائمة الجانبية
+        const menuToggle = document.querySelector('.menu-toggle');
+        const sidebar = document.querySelector('.sidebar');
+        menuToggle.addEventListener('click', () => {
+            sidebar.classList.toggle('open');
+            sidebar.classList.toggle('closed');
+        });
+
+        // تفاعل الأسئلة والأجوبة
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            item.addEventListener('click', () => {
+                item.classList.toggle('active');
+            });
+        });
+
+        // تأثيرات GSAP
         gsap.registerPlugin(ScrollTrigger);
 
         gsap.from(".hero h1", { opacity: 0, y: 50, duration: 1.5, ease: "power3.out" });
-        gsap.from(".hero p", { opacity: 0, y: 30, duration: 1.5, delay: 0.5, ease: "power3.out" });
+        gsap.from(".faq-item", { opacity: 0, y: 30, duration: 1, stagger: 0.2, delay: 0.5 });
 
         gsap.utils.toArray(".section").forEach(section => {
             gsap.from(section, {
