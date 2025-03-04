@@ -9,7 +9,7 @@
     <style>
         body {
             font-family: 'Awasm', sans-serif;
-            background-color: #f4f1e9;
+            background: linear-gradient(to bottom, #f4f1e9, #d9e4d4);
             color: #2c3e50;
             margin: 0;
             padding: 20px;
@@ -17,29 +17,36 @@
         }
         h1, h2, h3 {
             color: #d4a017;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.1);
         }
         .container {
-            max-width: 1000px;
+            max-width: 1100px;
             margin: 0 auto;
         }
-        .leaderboard, .groups, .group-details {
+        .leaderboard, .groups, .group-details, .stats {
             background: #fff;
-            padding: 15px;
-            margin: 10px 0;
-            border-radius: 10px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+            padding: 20px;
+            margin: 15px 0;
+            border-radius: 15px;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
         }
         .group-item, .member {
-            padding: 10px;
+            padding: 12px;
             border-bottom: 1px solid #eee;
+            transition: background 0.3s;
+        }
+        .group-item:hover {
+            background: #f9f9f9;
         }
         button {
             background-color: #27ae60;
             color: white;
             border: none;
-            padding: 10px 20px;
-            border-radius: 5px;
+            padding: 12px 25px;
+            border-radius: 8px;
             cursor: pointer;
+            font-size: 1em;
+            transition: background 0.3s;
         }
         button:hover {
             background-color: #219653;
@@ -51,34 +58,59 @@
             background-color: #c0392b;
         }
         input, select {
-            padding: 8px;
-            margin: 5px;
-            border-radius: 5px;
+            padding: 10px;
+            margin: 8px;
+            border-radius: 8px;
             border: 1px solid #ddd;
+            font-size: 1em;
         }
         .progress-bar {
             width: 100%;
             background: #ddd;
-            height: 20px;
-            border-radius: 10px;
+            height: 25px;
+            border-radius: 12px;
             overflow: hidden;
+            margin: 10px 0;
         }
         .progress {
             height: 100%;
-            background: #27ae60;
+            background: linear-gradient(to right, #27ae60, #2ecc71);
             width: 0;
+            transition: width 0.5s ease;
         }
         #quran-reader {
             margin-top: 20px;
             background: #fff;
-            padding: 15px;
-            border-radius: 10px;
+            padding: 20px;
+            border-radius: 15px;
             text-align: right;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.05);
         }
         #quran-text {
-            font-size: 1.2em;
-            margin: 10px 0;
-            color: #2c3e50;
+            font-size: 1.5em;
+            line-height: 2;
+            color: #1a2525;
+            background: #f9f9f9;
+            padding: 15px;
+            border-radius: 10px;
+            direction: rtl;
+        }
+        .modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.5);
+            justify-content: center;
+            align-items: center;
+        }
+        .modal-content {
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
         }
     </style>
 </head>
@@ -86,6 +118,12 @@
     <div class="container">
         <h1>ختمة رمضان</h1>
         <p>اجتمعوا على القرآن، تنافسوا في الخير</p>
+
+        <!-- إحصائيات يومية -->
+        <div class="stats" id="daily-stats">
+            <h2>إحصائياتك اليومية</h2>
+            <p id="stats-text"></p>
+        </div>
 
         <!-- لوحة الصدارة -->
         <div class="leaderboard">
@@ -129,16 +167,25 @@
                 <button onclick="readPage()">تمت القراءة</button>
             </div>
         </div>
+
+        <!-- نافذة تسجيل الاسم -->
+        <div class="modal" id="name-modal">
+            <div class="modal-content">
+                <h3>أدخل اسمك</h3>
+                <input type="text" id="user-name-input" placeholder="اسمك">
+                <button onclick="saveUserName()">حفظ</button>
+            </div>
+        </div>
     </div>
 
     <script>
         let groups = JSON.parse(localStorage.getItem('khatmaGroups')) || [];
         let currentGroup = null;
-        let userName = localStorage.getItem('khatmaUser') || "مستخدم_" + Math.floor(Math.random() * 1000);
-        localStorage.setItem('khatmaUser', userName);
+        let userName = localStorage.getItem('khatmaUser');
+        let userStats = JSON.parse(localStorage.getItem('khatmaUserStats')) || { pagesToday: 0, lastPage: 0, lastDate: null };
         const totalPages = 604;
 
-        // تحميل قائمة الصفحات عند تحميل الصفحة
+        // تحميل الصفحة
         window.onload = function() {
             const pageSelect = document.getElementById('page-select');
             for (let i = 1; i <= totalPages; i++) {
@@ -147,12 +194,32 @@
                 option.text = `صفحة ${i}`;
                 pageSelect.appendChild(option);
             }
-            updateGroupList();
-            const lastGroupId = localStorage.getItem('lastGroupId');
-            if (lastGroupId) {
-                joinGroup(parseInt(lastGroupId));
+            if (!userName) {
+                document.getElementById('name-modal').style.display = 'flex';
+            } else {
+                updateDailyStats();
+                updateGroupList();
+                const lastGroupId = localStorage.getItem('lastGroupId');
+                if (lastGroupId) joinGroup(parseInt(lastGroupId));
+                if (userStats.lastPage) {
+                    pageSelect.value = userStats.lastPage;
+                    loadQuranPage();
+                }
             }
         };
+
+        // حفظ اسم المستخدم
+        function saveUserName() {
+            userName = document.getElementById('user-name-input').value.trim();
+            if (userName) {
+                localStorage.setItem('khatmaUser', userName);
+                document.getElementById('name-modal').style.display = 'none';
+                updateDailyStats();
+                updateGroupList();
+            } else {
+                alert('يرجى إدخال اسم صالح');
+            }
+        }
 
         // تحميل نص الصفحة من API
         function loadQuranPage() {
@@ -164,12 +231,29 @@
                         const ayahs = data.data.ayahs;
                         let text = '';
                         ayahs.forEach(ayah => {
-                            text += `${ayah.text} (${ayah.surah.number}:${ayah.numberInSurah}) `;
+                            text += `<span style="margin: 5px">${ayah.text} <sup>(${ayah.surah.number}:${ayah.numberInSurah})</sup></span>`;
                         });
                         document.getElementById('quran-text').innerHTML = text;
+                        userStats.lastPage = parseInt(page);
+                        saveUserStats();
                     })
                     .catch(error => console.error('خطأ في جلب النص:', error));
             }
+        }
+
+        // عرض إحصائيات يومية
+        function updateDailyStats() {
+            const today = new Date().toDateString();
+            if (userStats.lastDate !== today) {
+                userStats.pagesToday = 0;
+                userStats.lastDate = today;
+                saveUserStats();
+            }
+            document.getElementById('stats-text').innerHTML = `
+                مرحبًا ${userName}!<br>
+                الصفحات المقروءة اليوم: ${userStats.pagesToday}<br>
+                آخر صفحة توقفت عندها: ${userStats.lastPage || 'لم تبدأ بعد'}
+            `;
         }
 
         // عرض نموذج إنشاء مجموعة
@@ -271,10 +355,14 @@
                 const member = currentGroup.members.find(m => m.name === userName);
                 member.pages += 1;
                 currentGroup.totalPages += 1;
+                userStats.pagesToday += 1;
+                userStats.lastPage = page;
                 saveGroups();
+                saveUserStats();
                 updateGroupProgress();
                 updateMemberList();
                 updateLeaderboard();
+                updateDailyStats();
                 alert(`تم تسجيل قراءة الصفحة ${page} بنجاح!`);
             }
         }
@@ -326,9 +414,14 @@
             });
         }
 
-        // حفظ البيانات في localStorage
+        // حفظ بيانات المجموعات
         function saveGroups() {
             localStorage.setItem('khatmaGroups', JSON.stringify(groups));
+        }
+
+        // حفظ إحصائيات المستخدم
+        function saveUserStats() {
+            localStorage.setItem('khatmaUserStats', JSON.stringify(userStats));
         }
     </script>
 </body>
