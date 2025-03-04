@@ -24,6 +24,9 @@
             padding: 15px 0;
             text-align: center;
             box-shadow: 0 4px 10px rgba(0, 0, 0, 0.5);
+            position: sticky;
+            top: 0;
+            z-index: 1000;
         }
         nav {
             margin: 15px 0;
@@ -88,6 +91,12 @@
         h2 {
             margin-bottom: 20px;
         }
+        .contact-info {
+            list-style: none;
+        }
+        .contact-info li {
+            margin: 10px 0;
+        }
     </style>
 </head>
 <body>
@@ -115,8 +124,10 @@
         <section id="contact">
             <h2 class="fade-in">تواصل معي</h2>
             <div class="box fade-in">
-                <p>البريد الإلكتروني: example@example.com</p>
-                <p>الهاتف: 123-456-7890</p>
+                <ul class="contact-info">
+                    <li>📧 البريد الإلكتروني: example@example.com</li>
+                    <li>📞 الهاتف: 123-456-7890</li>
+                </ul>
                 <div class="social">
                     <a href="#"><i class="fab fa-facebook"></i></a>
                     <a href="#"><i class="fab fa-twitter"></i></a>
@@ -130,5 +141,20 @@
     <footer>
         <p>حقوق النشر © 2025 موقعي الشخصي</p>
     </footer>
+
+    <script>
+        document.querySelectorAll('nav a').forEach(link => {
+            link.addEventListener('click', function(e) {
+                e.preventDefault();
+                const targetId = this.getAttribute('href').substring(1);
+                const targetElement = document.getElementById(targetId);
+                const offset = targetElement.offsetTop;
+                window.scrollTo({
+                    top: offset,
+                    behavior: 'smooth'
+                });
+            });
+        });
+    </script>
 </body>
 </html>
