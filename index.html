@@ -1,199 +1,125 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>متجر الأناقة الفاخرة</title>
+    <title>موقعي الشخصي</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link rel="stylesheet" href="style.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Arial', sans-serif;
+        }
+        body {
+            background: #f0f0f0;
+            color: #333;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        header {
+            background: #333;
+            color: white;
+            padding: 15px 0;
+            text-align: center;
+        }
+        nav {
+            margin: 15px 0;
+        }
+        nav a {
+            color: white;
+            text-decoration: none;
+            margin: 0 10px;
+            font-size: 1.2em;
+        }
+        .container {
+            width: 80%;
+            margin: auto;
+            overflow: hidden;
+        }
+        #showcase {
+            min-height: 400px;
+            background: url('showcase.jpg') no-repeat center center/cover;
+            color: white;
+            text-align: center;
+            padding-top: 100px;
+        }
+        #showcase h1 {
+            font-size: 55px;
+            margin-bottom: 10px;
+        }
+        #showcase p {
+            font-size: 20px;
+        }
+        section {
+            padding: 20px 0;
+        }
+        .box {
+            padding: 20px;
+            background: white;
+            margin: 20px 0;
+            border-radius: 5px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.1);
+        }
+        footer {
+            background: #333;
+            color: white;
+            text-align: center;
+            padding: 20px 0;
+        }
+        .social a {
+            color: white;
+            margin: 0 10px;
+            font-size: 1.5em;
+        }
+        @keyframes fadeIn {
+            from {opacity: 0;}
+            to {opacity: 1;}
+        }
+        .fade-in {
+            animation: fadeIn 2s;
+        }
+    </style>
 </head>
-<body lang="ar">
-    <div class="top-bar" data-ar="خصم 50% لفترة محدودة!" data-en="50% discount for a limited time!">خصم 50% لفترة محدودة!</div>
-
+<body>
     <header>
-        <div class="container">
-            <h1 data-ar="متجر الأناقة الفاخرة" data-en="Luxury Elegance Store">متجر الأناقة الفاخرة</h1>
-            <nav>
-                <a href="#" data-page="home" data-ar="الرئيسية" data-en="Home">الرئيسية</a>
-                <a href="#" data-page="products" data-ar="المنتجات" data-en="Products">المنتجات</a>
-                <a href="#" data-page="about" data-ar="من نحن" data-en="About">من نحن</a>
-                <a href="#" data-page="contact" data-ar="تواصل" data-en="Contact">تواصل</a>
-                <span id="lang-toggle">EN</span>
-                <span id="cart-toggle"><i class="fas fa-shopping-cart"></i></span>
-            </nav>
-        </div>
+        <nav>
+            <a href="#showcase">الرئيسية</a>
+            <a href="#about">من أنا</a>
+            <a href="#contact">تواصل</a>
+        </nav>
     </header>
 
-    <aside class="sidebar">
-        <i class="fas fa-times close-btn"></i>
-        <a href="#" id="login-btn" data-ar="تسجيل الدخول" data-en="Login">تسجيل الدخول</a>
-        <form class="login-form">
-            <input type="text" placeholder="البريد الإلكتروني" data-ar-placeholder="البريد الإلكتروني" data-en-placeholder="Email">
-            <input type="password" placeholder="كلمة المرور" data-ar-placeholder="كلمة المرور" data-en-placeholder="Password">
-            <button type="submit" data-ar="دخول" data-en="Login">دخول</button>
-        </form>
-        <a href="#" data-ar="طلباتي" data-en="My Orders">طلباتي</a>
-        <p data-ar="نظام الولاء: 200 نقطة" data-en="Loyalty: 200 points">نظام الولاء: 200 نقطة</p>
-        <div class="cart-items" id="cart-items"></div>
-    </aside>
+    <div id="showcase">
+        <h1>مرحبًا بكم في موقعي</h1>
+        <p>أنا مطور ويب محترف.</p>
+    </div>
 
-    <main>
-        <!-- الصفحة الرئيسية -->
-        <section class="page active" data-page="home">
-            <div class="section">
-                <h2 class="section-title" data-ar="وصل حديثًا" data-en="New Arrivals">وصل حديثًا</h2>
-                <div class="slider">
-                    <div class="slides">
-                        <div class="slide"><i class="fas fa-camera"></i></div>
-                        <div class="slide"><i class="fas fa-camera"></i></div>
-                        <div class="slide"><i class="fas fa-camera"></i></div>
-                    </div>
-                </div>
-                <div class="product-slider">
-                    <div class="product-card">
-                        <div class="product-placeholder"><i class="fas fa-vest"></i></div>
-                        <h3 data-ar="عباية فاخرة" data-en="Luxury Abaya">عباية فاخرة</h3>
-                        <div class="price"><span class="old">250 ر.س</span> <span class="new">200 ر.س</span></div>
-                        <p class="loyalty" data-ar="+15 نقاط" data-en="+15 points">+15 نقاط</p>
-                        <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-placeholder"><i class="fas fa-tshirt"></i></div>
-                        <h3 data-ar="عباية كلاسيك" data-en="Classic Abaya">عباية كلاسيك</h3>
-                        <div class="price"><span class="old">180 ر.س</span> <span class="new">140 ر.س</span></div>
-                        <p class="loyalty" data-ar="+10 نقاط" data-en="+10 points">+10 نقاط</p>
-                        <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-placeholder"><i class="fas fa-robe"></i></div>
-                        <h3 data-ar="عباية عصرية" data-en="Modern Abaya">عباية عصرية</h3>
-                        <div class="price"><span class="old">200 ر.س</span> <span class="new">160 ر.س</span></div>
-                        <p class="loyalty" data-ar="+12 نقاط" data-en="+12 points">+12 نقاط</p>
-                        <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2 class="section-title" data-ar="الأكثر مبيعًا" data-en="Best Sellers">الأكثر مبيعًا</h2>
-                <div class="slider">
-                    <div class="slides">
-                        <div class="slide"><i class="fas fa-camera"></i></div>
-                        <div class="slide"><i class="fas fa-camera"></i></div>
-                        <div class="slide"><i class="fas fa-camera"></i></div>
-                    </div>
-                </div>
-                <div class="product-slider">
-                    <div class="product-card">
-                        <div class="product-placeholder"><i class="fas fa-vest-patches"></i></div>
-                        <h3 data-ar="عباية مطرزة" data-en="Embroidered Abaya">عباية مطرزة</h3>
-                        <div class="price"><span class="old">300 ر.س</span> <span class="new">240 ر.س</span></div>
-                        <p class="loyalty" data-ar="+20 نقاط" data-en="+20 points">+20 نقاط</p>
-                        <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-placeholder"><i class="fas fa-coat"></i></div>
-                        <h3 data-ar="عباية شتوية" data-en="Winter Abaya">عباية شتوية</h3>
-                        <div class="price"><span class="old">350 ر.س</span> <span class="new">280 ر.س</span></div>
-                        <p class="loyalty" data-ar="+25 نقاط" data-en="+25 points">+25 نقاط</p>
-                        <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
-                    </div>
-                    <div class="product-card">
-                        <div class="product-placeholder"><i class="fas fa-shirt"></i></div>
-                        <h3 data-ar="عباية بسيطة" data-en="Simple Abaya">عباية بسيطة</h3>
-                        <div class="price"><span class="old">150 ر.س</span> <span class="new">120 ر.س</span></div>
-                        <p class="loyalty" data-ar="+8 نقاط" data-en="+8 points">+8 نقاط</p>
-                        <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
-                    </div>
-                </div>
-            </div>
-
-            <div class="section">
-                <h2 class="section-title" data-ar="آراء العملاء" data-en="Customer Reviews">آراء العملاء</h2>
-                <div class="reviews">
-                    <div class="review-card">
-                        <p data-ar="منتجات رائعة وجودة عالية!" data-en="Amazing products and high quality!">منتجات رائعة وجودة عالية!</p>
-                        <p>- ليلى أحمد</p>
-                    </div>
-                    <div class="review-card">
-                        <p data-ar="تجربة تسوق ممتعة وسهلة." data-en="A fun and easy shopping experience.">تجربة تسوق ممتعة وسهلة.</p>
-                        <p>- سارة محمد</p>
-                    </div>
-                </div>
+    <div class="container">
+        <section id="about">
+            <h2 class="fade-in">من أنا</h2>
+            <div class="box fade-in">
+                <p>أنا مطور ويب ذو خبرة عالية في تصميم وتطوير المواقع. أحب البرمجة وتعلم التقنيات الجديدة.</p>
             </div>
         </section>
 
-        <!-- صفحة المنتجات -->
-        <section class="page" data-page="products">
-            <h2 class="section-title" data-ar="جميع المنتجات" data-en="All Products">جميع المنتجات</h2>
-            <div class="product-slider">
-                <!-- يمكن إضافة المزيد من المنتجات هنا -->
-                <div class="product-card">
-                    <div class="product-placeholder"><i class="fas fa-vest"></i></div>
-                    <h3 data-ar="عباية فاخرة" data-en="Luxury Abaya">عباية فاخرة</h3>
-                    <div class="price"><span class="old">250 ر.س</span> <span class="new">200 ر.س</span></div>
-                    <p class="loyalty" data-ar="+15 نقاط" data-en="+15 points">+15 نقاط</p>
-                    <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
-                </div>
-                <div class="product-card">
-                    <div class="product-placeholder"><i class="fas fa-coat"></i></div>
-                    <h3 data-ar="عباية شتوية" data-en="Winter Abaya">عباية شتوية</h3>
-                    <div class="price"><span class="old">350 ر.س</span> <span class="new">280 ر.س</span></div>
-                    <p class="loyalty" data-ar="+25 نقاط" data-en="+25 points">+25 نقاط</p>
-                    <a href="#" class="btn add-to-cart" data-ar="أضف للسلة" data-en="Add to Cart">أضف للسلة</a>
+        <section id="contact">
+            <h2 class="fade-in">تواصل معي</h2>
+            <div class="box fade-in">
+                <p>البريد الإلكتروني: example@example.com</p>
+                <p>الهاتف: 123-456-7890</p>
+                <div class="social">
+                    <a href="#"><i class="fab fa-facebook"></i></a>
+                    <a href="#"><i class="fab fa-twitter"></i></a>
+                    <a href="#"><i class="fab fa-instagram"></i></a>
                 </div>
             </div>
         </section>
-
-        <!-- صفحة من نحن -->
-        <section class="page" data-page="about">
-            <h2 class="section-title" data-ar="من نحن" data-en="About Us">من نحن</h2>
-            <p data-ar="نحن متجر الأناقة الفاخرة، نهدف إلى تقديم أفضل المنتجات بجودة عالية وأسلوب عصري." 
-               data-en="We are Luxury Elegance Store, aiming to provide the best products with high quality and modern style.">
-                نحن متجر الأناقة الفاخرة، نهدف إلى تقديم أفضل المنتجات بجودة عالية وأسلوب عصري.
-            </p>
-            <h2 class="section-title" data-ar="رؤيتنا" data-en="Our Vision">رؤيتنا</h2>
-            <p data-ar="أن نكون الخيار الأول للأناقة والجودة في المنطقة." 
-               data-en="To be the top choice for elegance and quality in the region.">
-                أن نكون الخيار الأول للأناقة والجودة في المنطقة.
-            </p>
-            <h2 class="section-title" data-ar="فريق العمل" data-en="Our Team">فريق العمل</h2>
-            <div class="team">
-                <div class="team-member">
-                    <i class="fas fa-user-tie"></i>
-                    <p data-ar="أحمد خالد - المدير" data-en="Ahmed Khaled - Manager">أحمد خالد - المدير</p>
-                </div>
-                <div class="team-member">
-                    <i class="fas fa-user"></i>
-                    <p data-ar="نورا سعيد - المصممة" data-en="Noura Saeed - Designer">نورا سعيد - المصممة</p>
-                </div>
-                <div class="team-member">
-                    <i class="fas fa-user-check"></i>
-                    <p data-ar="خالد عمر - خدمة العملاء" data-en="Khaled Omar - Customer Service">خالد عمر - خدمة العملاء</p>
-                </div>
-            </div>
-        </section>
-
-        <!-- صفحة التواصل -->
-        <section class="page" data-page="contact">
-            <h2 class="section-title" data-ar="تواصل معنا" data-en="Contact Us">تواصل معنا</h2>
-            <p data-ar="راسلنا على: info@luxuryelegance.com" data-en="Email us at: info@luxuryelegance.com">راسلنا على: info@luxuryelegance.com</p>
-            <p data-ar="اتصل بنا: 1234-567-890" data-en="Call us: 1234-567-890">اتصل بنا: 1234-567-890</p>
-        </section>
-    </main>
+    </div>
 
     <footer>
-        <p data-ar="جميع الحقوق محفوظة © 2025 متجر الأناقة الفاخرة" data-en="All Rights Reserved © 2025 Luxury Elegance Store">
-            جميع الحقوق محفوظة © 2025 متجر الأناقة الفاخرة
-        </p>
-        <div class="social-icons">
-            <a href="#"><i class="fab fa-facebook"></i></a>
-            <a href="#"><i class="fab fa-instagram"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
-            <a href="#"><i class="fab fa-whatsapp"></i></a>
-        </div>
+        <p>حقوق النشر © 2025 موقعي الشخصي</p>
     </footer>
-
-    <script src="script.js"></script>
 </body>
 </html>
