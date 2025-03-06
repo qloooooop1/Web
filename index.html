@@ -154,23 +154,23 @@
 
         /* قسم المشاريع */
         .portfolio {
-            overflow: hidden; /* لمنع التجاوز خارج القسم */
+            overflow: hidden;
         }
 
         .portfolio .gallery {
             display: flex;
             gap: 30px;
-            flex-wrap: nowrap; /* لمنع التفاف العناصر */
-            cursor: grab; /* للإشارة إلى إمكانية السحب */
-            user-select: none; /* لمنع تحديد النص أثناء السحب */
+            flex-wrap: nowrap;
+            cursor: grab;
+            user-select: none;
         }
 
         .portfolio .gallery:active {
-            cursor: grabbing; /* تغيير المؤشر أثناء السحب */
+            cursor: grabbing;
         }
 
         .portfolio .project {
-            min-width: 300px; /* عرض ثابت لكل مشروع */
+            min-width: 300px;
             padding: 20px;
             background-color: #FFFFFF;
             border-radius: 15px;
@@ -343,10 +343,14 @@
     <!-- قسم التواصل -->
     <section class="contact" id="contact">
         <h2>تواصل معنا</h2>
-        <form>
-            <input type="text" placeholder="الاسم" required>
-            <input type="email" placeholder="البريد الإلكتروني" required>
-            <textarea placeholder="رسالتك" rows="5" required></textarea>
+        <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="contact">
+            <p hidden>
+                <label>لا تملأ هذا إذا كنت إنسانًا: <input name="bot-field"></label>
+            </p>
+            <input type="text" name="name" placeholder="الاسم" required>
+            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+            <textarea name="message" placeholder="رسالتك" rows="5" required></textarea>
             <button type="submit">إرسال</button>
         </form>
     </section>
@@ -362,7 +366,7 @@
         </div>
     </footer>
 
-    <!-- JavaScript للتحكم بحركة القائمة -->
+    <!-- JavaScript لتحريك قائمة إبداعاتنا -->
     <script>
         const gallery = document.querySelector('.portfolio .gallery');
         let isDragging = false;
@@ -387,11 +391,10 @@
             if (!isDragging) return;
             e.preventDefault();
             const x = e.pageX - gallery.offsetLeft;
-            const walk = (x - startX) * 2; // سرعة الحركة (يمكن تعديلها)
+            const walk = (x - startX) * 2;
             gallery.scrollLeft = scrollLeft - walk;
         });
 
-        // دعم اللمس للأجهزة المحمولة
         gallery.addEventListener('touchstart', (e) => {
             isDragging = true;
             startX = e.touches[0].pageX - gallery.offsetLeft;
