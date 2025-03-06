@@ -163,6 +163,8 @@
             flex-wrap: nowrap;
             cursor: grab;
             user-select: none;
+            overflow-x: auto; /* للسماح بالتمرير الأفقي */
+            -webkit-overflow-scrolling: touch; /* تحسين التمرير على الأجهزة المحمولة */
         }
 
         .portfolio .gallery:active {
@@ -239,6 +241,31 @@
         .contact button:hover {
             background-color: #e03e00;
             transform: scale(1.03);
+        }
+
+        /* صفحة النجاح */
+        .success-page {
+            height: 100vh;
+            background-color: #1A1A1A;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #FFFFFF;
+            padding: 20px;
+        }
+
+        .success-page i {
+            font-size: 60px;
+            color: #FF4500;
+            margin-bottom: 20px;
+        }
+
+        .success-page p {
+            font-size: 24px;
+            max-width: 600px;
+            line-height: 1.5;
         }
 
         /* الفوتر */
@@ -343,7 +370,7 @@
     <!-- قسم التواصل -->
     <section class="contact" id="contact">
         <h2>تواصل معنا</h2>
-        <form name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+        <form name="contact" method="POST" action="/success" data-netlify="true" data-netlify-honeypot="bot-field">
             <input type="hidden" name="form-name" value="contact">
             <p hidden>
                 <label>لا تملأ هذا إذا كنت إنسانًا: <input name="bot-field"></label>
@@ -373,10 +400,12 @@
         let startX;
         let scrollLeft;
 
+        // دعم الماوس
         gallery.addEventListener('mousedown', (e) => {
             isDragging = true;
             startX = e.pageX - gallery.offsetLeft;
             scrollLeft = gallery.scrollLeft;
+            e.preventDefault(); // منع التحديد أو السحب الافتراضي
         });
 
         gallery.addEventListener('mouseleave', () => {
@@ -391,17 +420,23 @@
             if (!isDragging) return;
             e.preventDefault();
             const x = e.pageX - gallery.offsetLeft;
-            const walk = (x - startX) * 2;
+            const walk = (x - startX) * 2; // سرعة الحركة
             gallery.scrollLeft = scrollLeft - walk;
         });
 
+        // دعم اللمس (الأجهزة المحمولة)
         gallery.addEventListener('touchstart', (e) => {
             isDragging = true;
             startX = e.touches[0].pageX - gallery.offsetLeft;
             scrollLeft = gallery.scrollLeft;
+            e.preventDefault(); // منع السلوك الافتراضي
         });
 
         gallery.addEventListener('touchend', () => {
+            isDragging = false;
+        });
+
+        gallery.addEventListener('touchcancel', () => {
             isDragging = false;
         });
 
@@ -410,6 +445,7 @@
             const x = e.touches[0].pageX - gallery.offsetLeft;
             const walk = (x - startX) * 2;
             gallery.scrollLeft = scrollLeft - walk;
+            e.preventDefault(); // منع التمرير العمودي أثناء السحب
         });
     </script>
 </body>
