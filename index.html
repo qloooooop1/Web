@@ -37,11 +37,11 @@
         }
 
         .hero h1 {
-            font-size: 60px; /* حجم أكبر للوضوح */
-            font-weight: 900; /* وزن أثقل للاحترافية */
+            font-size: 60px;
+            font-weight: 900;
             color: #FFFFFF;
             text-shadow: 0 4px 20px rgba(255, 69, 0, 0.7), 0 2px 5px rgba(0, 0, 0, 0.5);
-            letter-spacing: 1px; /* تباعد بسيط بين الحروف */
+            letter-spacing: 1px;
             animation: slideIn 1.8s ease-out forwards;
         }
 
@@ -153,15 +153,19 @@
         }
 
         /* قسم المشاريع */
+        .portfolio {
+            overflow: hidden; /* لمنع التجاوز خارج القسم */
+        }
+
         .portfolio .gallery {
             display: flex;
-            justify-content: center;
             gap: 30px;
-            flex-wrap: wrap;
+            flex-wrap: nowrap; /* لمنع التفاف العناصر */
+            animation: slideProjects 15s linear infinite alternate; /* تأثير الانسحاب */
         }
 
         .portfolio .project {
-            width: 300px;
+            min-width: 300px; /* عرض ثابت لكل مشروع */
             padding: 20px;
             background-color: #FFFFFF;
             border-radius: 15px;
@@ -182,6 +186,21 @@
         .portfolio .project p {
             color: #333;
             font-size: 18px;
+        }
+
+        .portfolio .project a {
+            color: #FF4500;
+            text-decoration: none;
+        }
+
+        .portfolio .project a:hover {
+            text-decoration: underline;
+        }
+
+        /* تأثير الانسحاب للمشاريع */
+        @keyframes slideProjects {
+            0% { transform: translateX(0); }
+            100% { transform: translateX(calc(-300px * 2)); } /* يعتمد على عدد المشاريع */
         }
 
         /* قسم التواصل */
@@ -310,6 +329,14 @@
             <div class="project">
                 <i class="fas fa-bullhorn"></i>
                 <p>حملة تسويقية رقمية</p>
+            </div>
+            <div class="project">
+                <i class="fab fa-telegram"></i>
+                <p>بوت الرصد 1 - <a href="https://t.me/Rsad1bot" target="_blank">@Rsad1bot</a></p>
+            </div>
+            <div class="project">
+                <i class="fab fa-telegram"></i>
+                <p>بوت الرصد 2 - <a href="https://t.me/AlRASD1_BOT" target="_blank">@AlRASD1_BOT</a></p>
             </div>
         </div>
     </section>
