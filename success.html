@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تم الإرسال - روية</title>
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            height: 100vh;
+            background-color: #1A1A1A;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            color: #FFFFFF;
+            padding: 20px;
+        }
+
+        i {
+            font-size: 60px;
+            color: #FF4500;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 24px;
+            max-width: 600px;
+            line-height: 1.5;
+        }
+    </style>
+</head>
+<body>
+    <i class="fas fa-check-circle"></i>
+    <p>تم إرسال رسالتك بنجاح! نشكرك على تواصلك معنا، وسيتم الرد عليك في أقرب وقت ممكن.</p>
+
+    <script>
+        // إعادة توجيه إلى الصفحة الرئيسية بعد 5 ثوانٍ
+        setTimeout(() => {
+            window.location.href = "/"; // العودة إلى الصفحة الرئيسية
+        }, 5000);
+    </script>
+</body>
+</html>
