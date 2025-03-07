@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقعي الشخصي | <\> </title>
+    <title>موقعي الشخصي | <> </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
@@ -27,7 +27,9 @@
             top: 0;
             left: 0;
             z-index: -1;
-            opacity: 20; /* زيادة الوضوح قليلاً */
+            opacity: 0.25; /* زيادة الوضوح قليلاً */
+            width: 100%;
+            height: 100%;
         }
 
         /* Header */
@@ -271,7 +273,7 @@
     <canvas id="bgCanvas"></canvas>
 
     <header>
-        <h1><\></h1>
+        <h1><></h1>
         <nav>
             <ul>
                 <li><a href="#home">الرئيسية</a></li>
@@ -336,7 +338,7 @@
     </div>
 
     <footer id="contact">
-        <p>جميع الحقوق محفوظة © 2025 | <\></p>
+        <p>جميع الحقوق محفوظة © 2025 | <></p>
         <div class="social">
             <a href="#"><i class="fab fa-github"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
@@ -345,10 +347,10 @@
     </footer>
 
     <script>
-        // Animated Background with Subtle Code
+        // Animated Background with Wider Effect
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth;
+        canvas.width = window.innerWidth * 1.5; // زيادة العرض بنسبة 50%
         canvas.height = window.innerHeight;
 
         const code = ['0', '1', 'if', 'else', 'function', 'var', 'let', '{', '}', ';', '<', '>'];
@@ -356,30 +358,35 @@
 
         class Particle {
             constructor() {
-                this.x = Math.random() * canvas.width;
+                this.x = Math.random() * canvas.width; // نطاق أوسع أفقيًا
                 this.y = Math.random() * canvas.height;
                 this.text = code[Math.floor(Math.random() * code.length)];
-                this.size = Math.random() * 15 + 10;
-                this.speedY = Math.random() * 0.5 + 0.2;
+                this.size = Math.random() * 20 + 10; // زيادة الحجم
+                this.speedX = (Math.random() - 0.5) * 0.5; // حركة أفقية خفيفة
+                this.speedY = Math.random() * 0.7 + 0.3; // زيادة السرعة العمودية
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(0, 255, 204, 0.3)';
+                ctx.fillStyle = 'rgba(0, 255, 204, 0.4)'; // زيادة الشفافية قليلاً
                 ctx.font = `${this.size}px Courier New`;
                 ctx.fillText(this.text, this.x, this.y);
             }
 
             update() {
+                this.x += this.speedX; // إضافة حركة أفقية
                 this.y += this.speedY;
                 if (this.y > canvas.height) {
                     this.y = 0 - this.size;
+                    this.x = Math.random() * canvas.width;
+                }
+                if (this.x < 0 || this.x > canvas.width) {
                     this.x = Math.random() * canvas.width;
                 }
                 this.draw();
             }
         }
 
-        for (let i = 0; i < 70; i++) {
+        for (let i = 0; i < 100; i++) { // زيادة عدد الجزيئات إلى 100
             particles.push(new Particle());
         }
 
@@ -391,7 +398,7 @@
         animate();
 
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth;
+            canvas.width = window.innerWidth * 1.5;
             canvas.height = window.innerHeight;
         });
 
