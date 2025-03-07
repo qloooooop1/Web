@@ -215,7 +215,6 @@
             transform: rotate(90deg);
         }
 
-        /* Contact Form Styles */
         .contact-form {
             display: flex;
             flex-direction: column;
@@ -252,7 +251,6 @@
             color: #000;
         }
 
-        /* Success Message Styles */
         .success-message {
             display: none;
             flex-direction: column;
@@ -286,15 +284,22 @@
             color: #e0e0e0;
         }
 
-        footer .social a, footer .contact-btn {
-            color: #00ffcc;
-            font-size: 32px;
-            margin: 0 25px;
-            transition: color 0.3s, transform 0.5s;
-            cursor: pointer;
+        footer .social {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px; /* مسافة متساوية بين الأيقونات */
         }
 
-        footer .social a:hover, footer .contact-btn:hover {
+        footer .social a, footer .social .contact-btn {
+            color: #00ffcc;
+            font-size: 32px;
+            transition: color 0.3s, transform 0.5s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        footer .social a:hover, footer .social .contact-btn:hover {
             color: #ff007a;
             transform: scale(1.2) rotate(360deg);
         }
@@ -317,6 +322,7 @@
             .skills-grid { grid-template-columns: 1fr; }
             header nav { padding: 5px 10px; }
             header nav ul li { margin-left: 15px; }
+            footer .social { gap: 15px; }
         }
     </style>
 </head>
@@ -513,12 +519,14 @@
         const contactForm = document.getElementById('contactForm');
         const successMessage = document.getElementById('successMessage');
 
-        contactBtn.addEventListener('click', () => {
-            popups.forEach(p => p.classList.remove('active'));
-            contactPopup.classList.add('active');
-            contactForm.style.display = 'flex';
-            successMessage.style.display = 'none';
-        });
+        if (contactBtn) {
+            contactBtn.addEventListener('click', () => {
+                popups.forEach(p => p.classList.remove('active'));
+                contactPopup.classList.add('active');
+                contactForm.style.display = 'flex';
+                successMessage.style.display = 'none';
+            });
+        }
 
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -526,7 +534,7 @@
             successMessage.style.display = 'flex';
             setTimeout(() => {
                 contactPopup.classList.remove('active');
-            }, 3000); // إغلاق النافذة بعد 3 ثوانٍ
+            }, 3000);
         });
 
         // Smooth Scroll
