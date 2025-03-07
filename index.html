@@ -5,7 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>موقعي الشخصي | root</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -27,7 +27,7 @@
             top: 0;
             left: 0;
             z-index: -1;
-            opacity: 0.15; /* Reduced opacity for subtler background */
+            opacity: 0.15;
             width: 100%;
             height: 100%;
         }
@@ -47,17 +47,20 @@
         }
 
         header h1 {
-            font-size: 32px;
+            font-size: 24px; /* Reduced to fit nav size */
             text-transform: uppercase;
-            letter-spacing: 4px;
+            letter-spacing: 2px; /* Adjusted for proportion */
             color: #ff007a;
             animation: codePulse 1.5s ease-in-out infinite;
             background: rgba(255, 255, 255, 0.05);
-            padding: 10px 20px; /* Matches nav padding */
-            border-radius: 50px 50px 10px 10px; /* Matches nav shape */
-            border: 2px solid #00ffcc; /* Matches nav border color */
-            box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.3), 0 0 15px rgba(0, 255, 204, 0.5); /* Matches nav glow */
+            padding: 10px 20px;
+            border-radius: 50px 50px 10px 10px;
+            border: 2px solid #00ffcc;
+            box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.3), 0 0 15px rgba(0, 255, 204, 0.5);
             transition: transform 0.3s, box-shadow 0.3s;
+            height: 54px; /* Matches nav height (10px padding top + 10px bottom + 34px content) */
+            display: flex;
+            align-items: center;
         }
 
         header h1:hover {
@@ -138,6 +141,16 @@
             border-radius: 10px;
         }
 
+        .about-text {
+            font-family: 'Amiri', serif; /* Elegant, formal Arabic font */
+            font-size: 22px;
+            color: #e0e0e0;
+            line-height: 1.8;
+            letter-spacing: 1px;
+            background: none; /* Removed background for cleaner look */
+            padding: 0;
+        }
+
         .divider {
             width: 80%;
             height: 2px;
@@ -173,7 +186,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 204, 0.05), transparent); /* Reduced glow intensity */
+            background: radial-gradient(circle, rgba(0, 255, 204, 0.05), transparent);
             transition: transform 0.5s;
             z-index: 0;
         }
@@ -350,15 +363,15 @@
             transition: color 0.3s, transform 0.5s;
             cursor: pointer;
             text-decoration: none;
-            background: rgba(0, 255, 204, 0.1);
-            padding: 10px;
+            background: rgba(0, 255, 204, 0.05); /* Reduced background intensity */
+            padding: 8px; /* Slightly smaller padding */
             border-radius: 50%;
         }
 
         footer .social a:hover, footer .social .contact-btn:hover {
             color: #ff007a;
             transform: scale(1.2) rotate(360deg);
-            box-shadow: 0 0 15px rgba(255, 0, 122, 0.5);
+            box-shadow: 0 0 8px rgba(255, 0, 122, 0.3); /* Smaller shadow */
         }
 
         @keyframes glitch {
@@ -383,8 +396,8 @@
             .container { width: 100%; }
             .content { padding: 30px; }
             .skills-grid { 
-                grid-template-columns: 1fr; /* Single column on mobile */
-                padding: 0 10px; /* Reduced padding to shrink area */
+                grid-template-columns: 1fr;
+                padding: 0 10px;
             }
             header nav { padding: 5px 10px; }
             header nav ul li { margin-left: 15px; }
@@ -411,7 +424,7 @@
         <div class="content">
             <div class="section" id="about">
                 <h2>نبذة عني</h2>
-                <p>أنا مطور تقني مبدع، أعمل على تصميم وتطوير حلول برمجية متكاملة باستخدام أحدث التقنيات. شغفي يكمن في تحويل الأفكار إلى واقع رقمي يتميز بالكفاءة والجمال.</p>
+                <p class="about-text">أنا مطور تقني مبدع، أعمل على تصميم وتطوير حلول برمجية متكاملة باستخدام أحدث التقنيات. شغفي يكمن في تحويل الأفكار إلى واقع رقمي يتميز بالكفاءة والجمال.</p>
             </div>
             <div class="divider"></div>
             <div class="section" id="skills">
@@ -559,11 +572,14 @@
 
             card.addEventListener('touchstart', (e) => {
                 e.preventDefault();
-                const popupId = card.getAttribute('data-popup');
-                const popup = document.getElementById(popupId);
-                if (!popup.classList.contains('active')) {
-                    popups.forEach(p => p.classList.remove('active'));
-                    popup.classList.add('active');
+                // Only trigger on a deliberate tap, not light scrolling
+                if (e.touches.length === 1 && e.targetTouches[0].force <= 0.5) { // Medium or lighter press
+                    const popupId = card.getAttribute('data-popup');
+                    const popup = document.getElementById(popupId);
+                    if (!popup.classList.contains('active')) {
+                        popups.forEach(p => p.classList.remove('active'));
+                        popup.classList.add('active');
+                    }
                 }
             });
         });
