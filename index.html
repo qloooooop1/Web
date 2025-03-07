@@ -5,6 +5,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>موقعي الشخصي | <> </title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
         * {
             margin: 0;
@@ -14,28 +15,23 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0d0d0d, #1a1a1a); /* خلفية الـ body الأساسية */
+            background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
             color: #00ffcc;
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
-            /* ملاحظة: للتحكم بخلفية الـ body، يمكنك تغيير قيمة rgba لتخفيفها أو زيادتها:
-               - للتخفيف: استخدم rgba(13, 13, 13, 0.5) أو أقل (مثل 0.3)
-               - لزيادة الكثافة: استخدم rgba(13, 13, 13, 1) أو أعلى شفافية */
         }
 
-        /* Animated Background */
         canvas {
             position: fixed;
             top: 0;
             left: 0;
             z-index: -1;
-            opacity: 0.7;
+            opacity: 0.25;
             width: 100%;
             height: 100%;
         }
 
-        /* Header */
         header {
             position: fixed;
             top: 0;
@@ -91,7 +87,6 @@
             transform: scale(1.1);
         }
 
-        /* Main Content */
         .container {
             min-height: 100vh;
             padding-top: 100px;
@@ -100,7 +95,7 @@
 
         .content {
             padding: 60px;
-            background: rgba(10, 10, 10, 0.7); /* تخفيف لون الخلفية لإظهار الخلفية المتحركة */
+            background: rgba(10, 10, 10, 0.6);
         }
 
         .section {
@@ -126,7 +121,6 @@
             margin: 0 auto 30px;
         }
 
-        /* Divider */
         .divider {
             width: 80%;
             height: 2px;
@@ -134,7 +128,6 @@
             margin: 40px auto;
         }
 
-        /* Skills Section */
         .skills-grid {
             display: grid;
             grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
@@ -173,7 +166,6 @@
             color: #00ffcc;
         }
 
-        /* Popup */
         .popup {
             display: none;
             position: fixed;
@@ -189,6 +181,7 @@
             text-align: center;
             opacity: 0;
             transition: transform 0.3s ease, opacity 0.3s ease;
+            font-family: 'Cairo', sans-serif;
         }
 
         .popup.active {
@@ -222,7 +215,61 @@
             transform: rotate(90deg);
         }
 
-        /* Footer */
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 10px;
+            border: 1px solid #00ffcc;
+            border-radius: 5px;
+            background: rgba(255, 255, 255, 0.05);
+            color: #e0e0e0;
+            font-size: 16px;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: #ff007a;
+            box-shadow: 0 0 10px rgba(255, 0, 122, 0.5);
+        }
+
+        .contact-form button {
+            padding: 10px;
+            background: #ff007a;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: #00ffcc;
+            color: #000;
+        }
+
+        .success-message {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .success-message i {
+            font-size: 60px;
+            color: #ff007a;
+        }
+
+        .success-message p {
+            font-size: 20px;
+            color: #e0e0e0;
+            max-width: 400px;
+            line-height: 1.5;
+        }
+
         footer {
             background: #000;
             padding: 60px 20px;
@@ -237,19 +284,26 @@
             color: #e0e0e0;
         }
 
-        footer .social a {
-            color: #00ffcc;
-            font-size: 32px;
-            margin: 0 25px;
-            transition: color 0.3s, transform 0.5s;
+        footer .social {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px; /* مسافة متساوية بين الأيقونات */
         }
 
-        footer .social a:hover {
+        footer .social a, footer .social .contact-btn {
+            color: #00ffcc;
+            font-size: 32px;
+            transition: color 0.3s, transform 0.5s;
+            cursor: pointer;
+            text-decoration: none;
+        }
+
+        footer .social a:hover, footer .social .contact-btn:hover {
             color: #ff007a;
             transform: scale(1.2) rotate(360deg);
         }
 
-        /* Animations */
         @keyframes glitch {
             2%, 64% { transform: translate(2px, 0) skew(0deg); }
             4%, 60% { transform: translate(-2px, 0) skew(0deg); }
@@ -262,13 +316,13 @@
             100% { text-shadow: 0 0 5px #ff007a, 0 0 10px #ff007a, 0 0 20px #ff007a; }
         }
 
-        /* Responsive Design */
         @media (max-width: 768px) {
             .container { width: 100%; }
             .content { padding: 30px; }
             .skills-grid { grid-template-columns: 1fr; }
             header nav { padding: 5px 10px; }
             header nav ul li { margin-left: 15px; }
+            footer .social { gap: 15px; }
         }
     </style>
 </head>
@@ -276,7 +330,7 @@
     <canvas id="bgCanvas"></canvas>
 
     <header>
-        <h1>Var</h1>
+        <h1><></h1>
         <nav>
             <ul>
                 <li><a href="#home">الرئيسية</a></li>
@@ -318,7 +372,7 @@
         </div>
     </div>
 
-    <!-- Popups -->
+    <!-- Skill Popups -->
     <div class="popup" id="popup1">
         <span class="close-btn">×</span>
         <h4>البرمجة</h4>
@@ -340,17 +394,34 @@
         <p>كتابة سكربتات ذكية لأتمتة العمليات باستخدام Bash وPython.</p>
     </div>
 
+    <!-- Contact Popup -->
+    <div class="popup" id="contactPopup">
+        <span class="close-btn">×</span>
+        <h4>راسلنا</h4>
+        <form class="contact-form" id="contactForm">
+            <input type="text" placeholder="الاسم" required>
+            <input type="email" placeholder="البريد الإلكتروني" required>
+            <textarea placeholder="رسالتك" rows="5" required></textarea>
+            <button type="submit">إرسال</button>
+        </form>
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            <p>تم إرسال رسالتك بنجاح! نشكرك على تواصلك معنا، وسيتم الرد عليك في أقرب وقت ممكن.</p>
+        </div>
+    </div>
+
     <footer id="contact">
-        <p>جميع الحقوق محفوظة © 2025 | var لـموقع</p>
+        <p>جميع الحقوق محفوظة © 2025 | <></p>
         <div class="social">
             <a href="#"><i class="fab fa-github"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
             <a href="#"><i class="fab fa-twitter"></i></a>
+            <i class="fas fa-envelope contact-btn" id="contactBtn"></i>
         </div>
     </footer>
 
     <script>
-        // Animated Background with Wider Effect
+        // Animated Background
         const canvas = document.getElementById('bgCanvas');
         const ctx = canvas.getContext('2d');
         canvas.width = window.innerWidth * 1.5;
@@ -405,7 +476,7 @@
             canvas.height = window.innerHeight;
         });
 
-        // Popup Functionality
+        // Skill Popup Functionality
         const skillCards = document.querySelectorAll('.skill-card');
         const popups = document.querySelectorAll('.popup');
         const closeBtns = document.querySelectorAll('.close-btn');
@@ -440,6 +511,30 @@
                 e.preventDefault();
                 btn.parentElement.classList.remove('active');
             });
+        });
+
+        // Contact Popup Functionality
+        const contactBtn = document.getElementById('contactBtn');
+        const contactPopup = document.getElementById('contactPopup');
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        if (contactBtn) {
+            contactBtn.addEventListener('click', () => {
+                popups.forEach(p => p.classList.remove('active'));
+                contactPopup.classList.add('active');
+                contactForm.style.display = 'flex';
+                successMessage.style.display = 'none';
+            });
+        }
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            contactForm.style.display = 'none';
+            successMessage.style.display = 'flex';
+            setTimeout(() => {
+                contactPopup.classList.remove('active');
+            }, 3000);
         });
 
         // Smooth Scroll
