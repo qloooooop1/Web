@@ -14,7 +14,7 @@
         }
 
         body {
-            background: #0d0d0d;
+            background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
             color: #00ffcc;
             line-height: 1.6;
             overflow-x: hidden;
@@ -25,19 +25,22 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.9);
+            background: rgba(0, 0, 0, 0.95);
             padding: 20px;
             display: flex;
             justify-content: space-between;
             align-items: center;
             z-index: 1000;
-            box-shadow: 0 2px 10px rgba(0, 255, 204, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 255, 204, 0.5);
+            transition: all 0.3s ease;
         }
 
         header h1 {
-            font-size: 24px;
+            font-size: 28px;
             text-transform: uppercase;
-            letter-spacing: 2px;
+            letter-spacing: 3px;
+            color: #ff007a;
+            animation: neon 1.5s ease-in-out infinite alternate;
         }
 
         header nav ul {
@@ -46,18 +49,20 @@
         }
 
         header nav ul li {
-            margin-left: 30px;
+            margin-left: 35px;
         }
 
         header nav ul li a {
             color: #00ffcc;
             text-decoration: none;
             font-weight: bold;
-            transition: color 0.3s;
+            font-size: 18px;
+            transition: color 0.3s, transform 0.3s;
         }
 
         header nav ul li a:hover {
             color: #ff007a;
+            transform: scale(1.1);
         }
 
         /* Main Content */
@@ -69,108 +74,162 @@
 
         .sidebar {
             width: 30%;
-            background: url('https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+            background: url('https://images.unsplash.com/photo-1510915228340-29c85a43dcfe?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
             position: fixed;
             right: 0;
             top: 0;
             height: 100%;
-            border-left: 2px solid #00ffcc;
+            border-left: 3px solid #00ffcc;
+            filter: brightness(0.8);
+            transition: transform 0.5s ease;
         }
 
         .content {
             width: 70%;
-            padding: 40px;
-            background: rgba(10, 10, 10, 0.8);
+            padding: 50px;
+            background: rgba(10, 10, 10, 0.85);
         }
 
         .content h2 {
-            font-size: 36px;
+            font-size: 40px;
             color: #ff007a;
-            margin-bottom: 20px;
+            margin-bottom: 25px;
             text-transform: uppercase;
-            letter-spacing: 3px;
+            letter-spacing: 4px;
             animation: glitch 2s linear infinite;
         }
 
         .content p {
-            font-size: 18px;
-            margin-bottom: 20px;
+            font-size: 20px;
+            margin-bottom: 25px;
+            color: #e0e0e0;
         }
 
+        /* Skills Section */
         .skills {
-            margin-top: 40px;
+            margin-top: 50px;
         }
 
         .skills h3 {
-            font-size: 24px;
+            font-size: 28px;
             color: #00ffcc;
+            margin-bottom: 20px;
+            text-align: center;
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 20px;
+        }
+
+        .skill-card {
+            background: rgba(0, 255, 204, 0.1);
+            padding: 20px;
+            border-radius: 10px;
+            text-align: center;
+            cursor: pointer;
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(0, 255, 204, 0.3);
+        }
+
+        .skill-card i {
+            font-size: 40px;
+            color: #ff007a;
             margin-bottom: 15px;
         }
 
-        .skills ul {
-            list-style: none;
+        .skill-card h4 {
+            font-size: 20px;
+            color: #00ffcc;
         }
 
-        .skills ul li {
-            font-size: 18px;
-            margin-bottom: 10px;
+        /* Popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            background: #1a1a1a;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.5);
+            z-index: 2000;
+            max-width: 400px;
+            text-align: center;
         }
 
-        .skills ul li i {
-            margin-left: 10px;
+        .popup.active {
+            display: block;
+        }
+
+        .popup h4 {
             color: #ff007a;
+            margin-bottom: 15px;
+        }
+
+        .popup p {
+            color: #e0e0e0;
+        }
+
+        .popup .close-btn {
+            position: absolute;
+            top: 10px;
+            right: 10px;
+            font-size: 20px;
+            color: #00ffcc;
+            cursor: pointer;
         }
 
         /* Footer */
         footer {
             background: #000;
-            padding: 40px 20px;
+            padding: 50px 20px;
             text-align: center;
-            border-top: 2px solid #00ffcc;
+            border-top: 3px solid #00ffcc;
         }
 
         footer p {
-            font-size: 16px;
-            margin-bottom: 10px;
+            font-size: 18px;
+            margin-bottom: 15px;
+            color: #e0e0e0;
         }
 
         footer .social a {
             color: #00ffcc;
-            font-size: 24px;
-            margin: 0 15px;
-            transition: color 0.3s;
+            font-size: 28px;
+            margin: 0 20px;
+            transition: color 0.3s, transform 0.3s;
         }
 
         footer .social a:hover {
             color: #ff007a;
+            transform: rotate(360deg);
         }
 
-        /* Glitch Animation */
+        /* Animations */
         @keyframes glitch {
-            2%, 64% {
-                transform: translate(2px, 0) skew(0deg);
-            }
-            4%, 60% {
-                transform: translate(-2px, 0) skew(0deg);
-            }
-            62% {
-                transform: translate(0, 0) skew(5deg);
-            }
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
+        }
+
+        @keyframes neon {
+            from { text-shadow: 0 0 5px #ff007a, 0 0 10px #ff007a, 0 0 20px #ff007a; }
+            to { text-shadow: 0 0 10px #ff007a, 0 0 20px #ff007a, 0 0 40px #ff007a; }
         }
 
         /* Responsive Design */
         @media (max-width: 768px) {
-            .container {
-                flex-direction: column;
-            }
-            .sidebar {
-                width: 100%;
-                height: 300px;
-                position: relative;
-            }
-            .content {
-                width: 100%;
-            }
+            .container { flex-direction: column; }
+            .sidebar { width: 100%; height: 400px; position: relative; }
+            .content { width: 100%; }
+            .skills-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -191,18 +250,52 @@
         <div class="sidebar"></div>
         <div class="content">
             <h2>نبذة عني</h2>
-            <p>أنا مطور شغوف بالتقنية، أعمل على بناء حلول إبداعية باستخدام البرمجة والتصميم. أسعى دائمًا لتطوير مهاراتي واستكشاف أحدث التقنيات في عالم البرمجيات وأنظمة التشغيل.</p>
+            <p>أنا مطور شغوف بالتقنية، أعمل على ابتكار حلول برمجية متطورة وتصاميم واجهات مستخدم فريدة. أمتلك خبرة واسعة في أنظمة التشغيل والأتمتة، وأسعى دائمًا لتحقيق التميز في كل مشروع أقوم به.</p>
             
             <div class="skills">
-                <h3>ما يمكنني فعله</h3>
-                <ul>
-                    <li><i class="fas fa-code"></i>برمجة تطبيقات متقدمة</li>
-                    <li><i class="fas fa-paint-brush"></i>تصميم واجهات مستخدم مذهلة</li>
-                    <li><i class="fas fa-server"></i>إدارة أنظمة تشغيل متطورة</li>
-                    <li><i class="fas fa-terminal"></i>كتابة سكربتات أتمتة قوية</li>
-                </ul>
+                <h3>مهاراتي</h3>
+                <div class="skills-grid">
+                    <div class="skill-card" data-popup="popup1">
+                        <i class="fas fa-code"></i>
+                        <h4>البرمجة</h4>
+                    </div>
+                    <div class="skill-card" data-popup="popup2">
+                        <i class="fas fa-paint-brush"></i>
+                        <h4>التصميم</h4>
+                    </div>
+                    <div class="skill-card" data-popup="popup3">
+                        <i class="fas fa-server"></i>
+                        <h4>إدارة الأنظمة</h4>
+                    </div>
+                    <div class="skill-card" data-popup="popup4">
+                        <i class="fas fa-terminal"></i>
+                        <h4>الأتمتة</h4>
+                    </div>
+                </div>
             </div>
         </div>
+    </div>
+
+    <!-- Popups -->
+    <div class="popup" id="popup1">
+        <span class="close-btn">&times;</span>
+        <h4>البرمجة</h4>
+        <p>إنشاء تطبيقات متقدمة باستخدام لغات مثل Python وJavaScript مع التركيز على الأداء العالي.</p>
+    </div>
+    <div class="popup" id="popup2">
+        <span class="close-btn">&times;</span>
+        <h4>التصميم</h4>
+        <p>تصميم واجهات مستخدم جذابة وتفاعلية باستخدام أدوات مثل CSS وFigma.</p>
+    </div>
+    <div class="popup" id="popup3">
+        <span class="close-btn">&times;</span>
+        <h4>إدارة الأنظمة</h4>
+        <p>تكوين وإدارة أنظمة تشغيل مثل Linux بكفاءة عالية.</p>
+    </div>
+    <div class="popup" id="popup4">
+        <span class="close-btn">&times;</span>
+        <h4>الأتمتة</h4>
+        <p>كتابة سكربتات لأتمتة المهام اليومية باستخدام Bash وPython.</p>
     </div>
 
     <footer>
@@ -213,5 +306,55 @@
             <a href="#"><i class="fab fa-twitter"></i></a>
         </div>
     </footer>
+
+    <script>
+        // Popup Functionality
+        const skillCards = document.querySelectorAll('.skill-card');
+        const popups = document.querySelectorAll('.popup');
+        const closeBtns = document.querySelectorAll('.close-btn');
+
+        skillCards.forEach(card => {
+            card.addEventListener('click', () => {
+                const popupId = card.getAttribute('data-popup');
+                const popup = document.getElementById(popupId);
+                popup.classList.add('active');
+            });
+
+            card.addEventListener('touchstart', () => {
+                const popupId = card.getAttribute('data-popup');
+                const popup = document.getElementById(popupId);
+                popup.classList.add('active');
+            });
+        });
+
+        closeBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.classList.remove('active');
+            });
+
+            btn.addEventListener('touchstart', () => {
+                btn.parentElement.classList.remove('active');
+            });
+        });
+
+        // Smooth Scroll for Navigation
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Header Shrink on Scroll
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                document.querySelector('header').style.padding = '10px 20px';
+            } else {
+                document.querySelector('header').style.padding = '20px';
+            }
+        });
+    </script>
 </body>
 </html>
