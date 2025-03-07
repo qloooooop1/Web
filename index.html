@@ -130,6 +130,7 @@
             border-radius: 10px;
             box-shadow: var(--shadow);
             transition: var(--transition);
+            cursor: pointer;
         }
 
         .celebrity-grid img:hover {
@@ -250,6 +251,46 @@
             color: var(--primary);
         }
 
+        .popup {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.7);
+            justify-content: center;
+            align-items: center;
+            z-index: 3000;
+        }
+
+        .popup-content {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            max-width: 500px;
+            width: 90%;
+            text-align: center;
+            position: relative;
+            box-shadow: var(--shadow);
+        }
+
+        .popup-content button {
+            background: var(--primary);
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+            margin-top: 15px;
+            transition: var(--transition);
+        }
+
+        .popup-content button:hover {
+            background: #e65b50;
+            transform: scale(1.05);
+        }
+
         footer {
             background: #1e3c72;
             color: white;
@@ -264,6 +305,7 @@
             text-decoration: none;
             margin: 0 10px;
             transition: var(--transition);
+            cursor: pointer;
         }
 
         footer a:hover {
@@ -332,16 +374,16 @@
         </div>
 
         <div class="celebrity-grid">
-            <img src="https://images.unsplash.com/photo-1514790193030-c89d266d5a9d?q=80&w=200" alt="Celebrity 1">
-            <img src="https://images.unsplash.com/photo-1524504388940-b6befb839f39?q=80&w=200" alt="Celebrity 2">
-            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200" alt="Celebrity 3">
-            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=200" alt="Celebrity 4">
-            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200" alt="Celebrity 5">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200" alt="Celebrity 6">
-            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200" alt="Celebrity 7">
-            <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=200" alt="Celebrity 8">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200" alt="Celebrity 9">
-            <img src="https://images.unsplash.com/photo-1499996861123-1050b8e615c7?q=80&w=200" alt="Celebrity 10">
+            <img src="https://images.unsplash.com/photo-1514790193030-c89d266d5a9d?q=80&w=200" alt="Celebrity 1" onclick="showCelebPopup('Brad Pitt')">
+            <img src="https://images.unsplash.com/photo-1524504388940-b6befb839f39?q=80&w=200" alt="Celebrity 2" onclick="showCelebPopup('Angelina Jolie')">
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200" alt="Celebrity 3" onclick="showCelebPopup('Leonardo DiCaprio')">
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=200" alt="Celebrity 4" onclick="showCelebPopup('Jennifer Lawrence')">
+            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200" alt="Celebrity 5" onclick="showCelebPopup('Tom Cruise')">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200" alt="Celebrity 6" onclick="showCelebPopup('Scarlett Johansson')">
+            <img src="https://images.unsplash.com/photo-1519345182560-3f2917c472ef?q=80&w=200" alt="Celebrity 7" onclick="showCelebPopup('Chris Hemsworth')">
+            <img src="https://images.unsplash.com/photo-1509967416493-3d98d43d524d?q=80&w=200" alt="Celebrity 8" onclick="showCelebPopup('Emma Watson')">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200" alt="Celebrity 9" onclick="showCelebPopup('Robert Downey Jr.')">
+            <img src="https://images.unsplash.com/photo-1499996861123-1050b8e615c7?q=80&w=200" alt="Celebrity 10" onclick="showCelebPopup('Natalie Portman')">
         </div>
 
         <div class="faq">
@@ -370,16 +412,56 @@
         </div>
     </div>
 
+    <div id="celeb-popup" class="popup">
+        <div class="popup-content">
+            <h2 id="celeb-name"></h2>
+            <p id="celeb-info"></p>
+            <button onclick="closePopup('celeb-popup')">Close</button>
+        </div>
+    </div>
+
+    <div id="privacy-popup" class="popup">
+        <div class="popup-content">
+            <h2>Privacy Policy</h2>
+            <p>We value your privacy. Your photos are processed locally and not stored on our servers. Data is used solely for the purpose of celebrity matching.</p>
+            <button onclick="closePopup('privacy-popup')">Close</button>
+        </div>
+    </div>
+
+    <div id="terms-popup" class="popup">
+        <div class="popup-content">
+            <h2>Terms of Service</h2>
+            <p>By using Celebrity Match, you agree to our terms. This service is for entertainment purposes only.</p>
+            <button onclick="closePopup('terms-popup')">Close</button>
+        </div>
+    </div>
+
+    <div id="contact-popup" class="popup">
+        <div class="popup-content">
+            <h2>Contact Us</h2>
+            <p>Email: support@celebritymatch.com<br>Phone: +1-555-123-4567</p>
+            <button onclick="closePopup('contact-popup')">Close</button>
+        </div>
+    </div>
+
+    <div id="premium-popup" class="popup">
+        <div class="popup-content">
+            <h2>Premium Plans</h2>
+            <p>Unlock advanced features for $4.99/month: detailed analysis, more celebrity matches, and priority support.</p>
+            <button onclick="closePopup('premium-popup')">Close</button>
+        </div>
+    </div>
+
     <canvas id="canvas" style="display: none;"></canvas>
 
     <footer>
         <p>© 2025 Celebrity Match - Powered by Next-Gen AI Technology</p>
         <p>Unlock your celebrity vibe with our premium features!</p>
         <p>
-            <a href="#">Privacy Policy</a> | 
-            <a href="#">Terms of Service</a> | 
-            <a href="#">Contact Us</a> | 
-            <a href="#">Premium Plans</a>
+            <a onclick="showPopup('privacy-popup')">Privacy Policy</a> | 
+            <a onclick="showPopup('terms-popup')">Terms of Service</a> | 
+            <a onclick="showPopup('contact-popup')">Contact Us</a> | 
+            <a onclick="showPopup('premium-popup')">Premium Plans</a>
         </p>
         <div class="social">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -400,7 +482,7 @@
     </style>
 
     <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0/dist/tf.min.js"></script>
-    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-detection@1.0.1/dist/face-detection.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/blazeface@0.1.0/dist/blazeface.min.js"></script>
     <script>
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
@@ -524,28 +606,24 @@
         }
 
         async function loadFaceDetection() {
-            const model = await faceDetection.SupportedModels.MediaPipeFaceDetector;
-            const detector = await faceDetection.createDetector(model, {
-                runtime: 'mediapipe',
-                solutionPath: 'https://cdn.jsdelivr.net/npm/@mediapipe/face_detection'
-            });
-            detectFace(detector);
+            const model = await blazeface.load();
+            detectFace(model);
         }
 
-        async function detectFace(detector) {
+        async function detectFace(model) {
             async function detectionLoop() {
                 if (video.readyState === 4 && modal.style.display === 'flex' && video.style.display !== 'none') {
-                    const faces = await detector.estimateFaces(video);
-                    if (faces.length > 0) {
-                        const face = faces[0];
+                    const predictions = await model.estimateFaces(video, false);
+                    if (predictions.length > 0) {
+                        const face = predictions[0];
                         const frameRect = faceFrame.getBoundingClientRect();
                         const videoRect = video.getBoundingClientRect();
                         const scaleX = video.videoWidth / videoRect.width;
                         const scaleY = video.videoHeight / videoRect.height;
-                        const faceX = face.box.xMin / scaleX + videoRect.left;
-                        const faceY = face.box.yMin / scaleY + videoRect.top;
-                        const faceWidth = face.box.width / scaleX;
-                        const faceHeight = face.box.height / scaleY;
+                        const faceX = face.topLeft[0] / scaleX + videoRect.left;
+                        const faceY = face.topLeft[1] / scaleY + videoRect.top;
+                        const faceWidth = (face.bottomRight[0] - face.topLeft[0]) / scaleX;
+                        const faceHeight = (face.bottomRight[1] - face.topLeft[1]) / scaleY;
 
                         if (faceX > frameRect.left && faceY > frameRect.top &&
                             faceX + faceWidth < frameRect.right && faceY + faceHeight < frameRect.bottom) {
@@ -614,6 +692,37 @@
             if (currentStream) {
                 currentStream.getTracks().forEach(track => track.stop());
             }
+        }
+
+        function showPopup(popupId) {
+            document.getElementById(popupId).style.display = 'flex';
+        }
+
+        function closePopup(popupId) {
+            document.getElementById(popupId).style.display = 'none';
+        }
+
+        function showCelebPopup(celebName) {
+            const celebData = {
+                "Brad Pitt": { users: 3421, match: 78, beauty: 85 },
+                "Angelina Jolie": { users: 2987, match: 82, beauty: 88 },
+                "Leonardo DiCaprio": { users: 3765, match: 79, beauty: 83 },
+                "Jennifer Lawrence": { users: 2543, match: 81, beauty: 87 },
+                "Tom Cruise": { users: 3109, match: 77, beauty: 84 },
+                "Scarlett Johansson": { users: 2876, match: 83, beauty: 89 },
+                "Chris Hemsworth": { users: 3332, match: 80, beauty: 86 },
+                "Emma Watson": { users: 2698, match: 79, beauty: 85 },
+                "Robert Downey Jr.": { users: 3456, match: 78, beauty: 82 },
+                "Natalie Portman": { users: 2914, match: 81, beauty: 88 }
+            };
+            const data = celebData[celebName];
+            const lang = document.documentElement.lang || 'en';
+            const info = lang === 'en' ?
+                `Users Tested: ${data.users}<br>Average Match Percentage: ${data.match}%<br>Average Beauty Score: ${data.beauty}%` :
+                `عدد المستخدمين الذين جربوا: ${data.users}<br>متوسط نسبة التطابق: ${data.match}%<br>متوسط درجة الجمال: ${data.beauty}%`;
+            document.getElementById('celeb-name').textContent = celebName;
+            document.getElementById('celeb-info').innerHTML = info;
+            showPopup('celeb-popup');
         }
 
         updateLanguage('en');
