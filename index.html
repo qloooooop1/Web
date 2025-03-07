@@ -44,9 +44,9 @@
         }
 
         header .logo {
-            font-size: 3em;
-            font-weight: 800;
-            letter-spacing: 2px;
+            font-size: 2.5em;
+            font-weight: 700;
+            letter-spacing: 1px;
             text-transform: uppercase;
             background: -webkit-linear-gradient(#fff, var(--primary));
             -webkit-background-clip: text;
@@ -54,9 +54,9 @@
         }
 
         header .subtitle {
-            font-size: 1.5em;
+            font-size: 1.2em;
             font-weight: 300;
-            margin-top: 10px;
+            margin-top: 8px;
             opacity: 0.9;
         }
 
@@ -88,10 +88,10 @@
         .cta-btn {
             background: var(--primary);
             color: white;
-            padding: 12px 25px;
-            border-radius: 25px;
+            padding: 10px 20px;
+            border-radius: 20px;
             text-decoration: none;
-            font-size: 16px;
+            font-size: 14px;
             transition: var(--transition);
         }
 
@@ -101,56 +101,56 @@
         }
 
         .container {
-            max-width: 1400px;
-            margin: 50px auto;
-            padding: 0 20px;
+            max-width: 1200px;
+            margin: 40px auto;
+            padding: 0 15px;
             flex: 1;
         }
 
         .intro, .how-it-works, .faq {
             background: rgba(255, 255, 255, 0.95);
-            padding: 40px;
-            border-radius: 20px;
+            padding: 30px;
+            border-radius: 15px;
             box-shadow: var(--shadow);
-            margin-bottom: 50px;
+            margin-bottom: 40px;
             animation: fadeInUp 1s ease-in-out;
         }
 
         .celebrity-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 30px;
-            margin: 50px 0;
+            grid-template-columns: repeat(auto-fit, minmax(150px, 1fr));
+            gap: 20px;
+            margin: 40px 0;
         }
 
         .celebrity-grid img {
             width: 100%;
-            height: 250px;
+            height: 180px;
             object-fit: cover;
-            border-radius: 15px;
+            border-radius: 10px;
             box-shadow: var(--shadow);
             transition: var(--transition);
         }
 
         .celebrity-grid img:hover {
-            transform: scale(1.05);
+            transform: scale(1.03);
         }
 
         .main-btn {
             background: linear-gradient(45deg, var(--primary), #de4d4d);
             color: white;
-            padding: 18px 40px;
+            padding: 15px 35px;
             border: none;
-            border-radius: 30px;
-            font-size: 20px;
+            border-radius: 25px;
+            font-size: 18px;
             cursor: pointer;
             box-shadow: var(--shadow);
             transition: var(--transition);
         }
 
         .main-btn:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 8px 20px rgba(255, 111, 97, 0.6);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 18px rgba(255, 111, 97, 0.5);
         }
 
         #camera-modal {
@@ -169,22 +169,21 @@
 
         #camera-modal .modal-content {
             background: white;
-            padding: 30px;
-            border-radius: 20px;
+            padding: 25px;
+            border-radius: 15px;
             text-align: center;
             width: 90%;
-            max-width: 600px;
+            max-width: 500px;
             box-shadow: var(--shadow);
             position: relative;
-            animation: fadeIn 0.5s ease;
         }
 
         #camera-modal video, #camera-modal img {
             width: 100%;
-            max-height: 400px;
-            border-radius: 15px;
+            max-height: 350px;
+            border-radius: 10px;
             object-fit: cover;
-            margin-bottom: 20px;
+            margin-bottom: 15px;
         }
 
         #camera-modal img {
@@ -196,22 +195,27 @@
             top: 50%;
             left: 50%;
             transform: translate(-50%, -50%);
-            width: 70%;
-            height: 80%;
+            width: 60%;
+            height: 70%;
             border: 3px dashed var(--primary);
-            border-radius: 15px;
-            display: none;
+            border-radius: 10px;
+            transition: border-color 0.5s ease;
+        }
+
+        #camera-modal .face-frame.active {
+            border-color: #00cc00;
+            border-style: solid;
         }
 
         #camera-modal button {
             background: var(--primary);
             color: white;
-            padding: 12px 25px;
+            padding: 10px 20px;
             border: none;
-            border-radius: 12px;
+            border-radius: 10px;
             cursor: pointer;
-            font-size: 16px;
-            margin: 10px;
+            font-size: 14px;
+            margin: 8px;
             transition: var(--transition);
         }
 
@@ -222,21 +226,21 @@
 
         #camera-modal .processing {
             display: none;
-            font-size: 1.3em;
+            font-size: 1.2em;
             color: var(--secondary);
-            margin: 20px 0;
+            margin: 15px 0;
             font-weight: 500;
         }
 
         #camera-modal .result {
             display: none;
-            font-size: 1.5em;
+            font-size: 1.3em;
             color: #1e3c72;
-            margin: 20px 0;
-            line-height: 1.8;
+            margin: 15px 0;
+            line-height: 1.6;
             background: linear-gradient(45deg, #f5f7fa, #c3cfe2);
-            padding: 20px;
-            border-radius: 15px;
+            padding: 15px;
+            border-radius: 10px;
             box-shadow: var(--shadow);
             animation: resultPop 0.5s ease-in-out;
         }
@@ -249,7 +253,7 @@
         footer {
             background: #1e3c72;
             color: white;
-            padding: 50px 20px;
+            padding: 40px 15px;
             text-align: center;
             box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
             margin-top: auto;
@@ -258,7 +262,7 @@
         footer a {
             color: var(--primary);
             text-decoration: none;
-            margin: 0 15px;
+            margin: 0 10px;
             transition: var(--transition);
         }
 
@@ -268,8 +272,8 @@
         }
 
         footer .social i {
-            font-size: 1.8em;
-            margin: 0 15px;
+            font-size: 1.5em;
+            margin: 0 12px;
             transition: var(--transition);
         }
 
@@ -293,7 +297,6 @@
             to { transform: scale(1); opacity: 1; }
         }
 
-        /* RTL Support */
         [dir="rtl"] {
             text-align: right;
         }
@@ -329,16 +332,16 @@
         </div>
 
         <div class="celebrity-grid">
-            <img src="https://images.unsplash.com/photo-1514790193030-c89d266d5a9d" alt="Celebrity 1">
-            <img src="https://images.unsplash.com/photo-1524504388940-b6befb839f39" alt="Celebrity 2">
-            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6" alt="Celebrity 3">
-            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" alt="Celebrity 4">
-            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7" alt="Celebrity 5">
-            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" alt="Celebrity 6">
-            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d" alt="Celebrity 7">
-            <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df" alt="Celebrity 8">
-            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" alt="Celebrity 9">
-            <img src="https://images.unsplash.com/photo-1499996861123-1050b8e615c7" alt="Celebrity 10">
+            <img src="https://images.unsplash.com/photo-1514790193030-c89d266d5a9d?q=80&w=200" alt="Celebrity 1">
+            <img src="https://images.unsplash.com/photo-1524504388940-b6befb839f39?q=80&w=200" alt="Celebrity 2">
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6?q=80&w=200" alt="Celebrity 3">
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?q=80&w=200" alt="Celebrity 4">
+            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7?q=80&w=200" alt="Celebrity 5">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330?q=80&w=200" alt="Celebrity 6">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d?q=80&w=200" alt="Celebrity 7">
+            <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df?q=80&w=200" alt="Celebrity 8">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d?q=80&w=200" alt="Celebrity 9">
+            <img src="https://images.unsplash.com/photo-1499996861123-1050b8e615c7?q=80&w=200" alt="Celebrity 10">
         </div>
 
         <div class="faq">
@@ -396,6 +399,8 @@
         .flag-sa { background: url('https://flagcdn.com/w20/sa.png'); }
     </style>
 
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow/tfjs@3.18.0/dist/tf.min.js"></script>
+    <script src="https://cdn.jsdelivr.net/npm/@tensorflow-models/face-detection@1.0.1/dist/face-detection.min.js"></script>
     <script>
         const video = document.getElementById('video');
         const canvas = document.getElementById('canvas');
@@ -413,7 +418,12 @@
             en: {
                 title: "Celebrity Match",
                 subtitle: "Discover Your Celebrity Doppelgänger",
+                introTitle: "Unleash Your Star Power!",
                 intro: "Experience cutting-edge facial recognition with Celebrity Match – find your celebrity twin, get a detailed beauty analysis, and unlock exclusive insights into your unique charm!",
+                howTitle: "How It Works",
+                how: "1. Snap a photo using our advanced camera tool.<br>2. Our AI analyzes your facial features in seconds.<br>3. Discover your celebrity match with stunning accuracy!",
+                faqTitle: "Frequently Asked Questions",
+                faq: "<strong>Is it accurate?</strong> Our AI uses state-of-the-art technology for precise matches!<br><strong>How long does it take?</strong> Results are ready in just a few seconds!<br><strong>Is my photo safe?</strong> We prioritize your privacy – images are not stored.",
                 tryNow: "Try Now",
                 start: "Start Analysis",
                 capture: "Capture",
@@ -421,12 +431,23 @@
                 cancel: "Cancel",
                 close: "Close",
                 processing: "Processing Your Star Potential...",
-                result: "🌟 You're a match with <span>{celeb}</span> by an incredible <span>{percent}%</span>!<br>✨ Beauty Score: <span>{beauty}%</span><br>⚖️ Facial Symmetry: <span>{symmetry}%</span>"
+                result: "🌟 You're a match with <span>{celeb}</span> by an incredible <span>{percent}%</span>!<br>✨ Beauty Score: <span>{beauty}%</span><br>⚖️ Facial Symmetry: <span>{symmetry}%</span>",
+                footer1: "© 2025 Celebrity Match - Powered by Next-Gen AI Technology",
+                footer2: "Unlock your celebrity vibe with our premium features!",
+                privacy: "Privacy Policy",
+                terms: "Terms of Service",
+                contact: "Contact Us",
+                premium: "Premium Plans"
             },
             ar: {
                 title: "مباراة المشاهير",
                 subtitle: "اكتشف من تشبه من المشاهير",
+                introTitle: "أطلق العنان لقوتك النجمية!",
                 intro: "جرب تقنية التعرف على الوجه المتطورة مع مباراة المشاهير – اعثر على توأمك من المشاهير، واحصل على تحليل جمال مفصل، وافتح رؤى حصرية حول سحرك الفريد!",
+                howTitle: "كيف يعمل",
+                how: "1. التقط صورة باستخدام أداة الكاميرا المتقدمة الخاصة بنا.<br>2. يحلل الذكاء الاصطناعي ملامح وجهك في ثوانٍ.<br>3. اكتشف تطابقك مع أحد المشاهير بدقة مذهلة!",
+                faqTitle: "الأسئلة الشائعة",
+                faq: "<strong>هل هو دقيق؟</strong> يستخدم الذكاء الاصطناعي لدينا أحدث التقنيات للحصول على تطابقات دقيقة!<br><strong>كم من الوقت يستغرق؟</strong> النتائج جاهزة في ثوانٍ قليلة فقط!<br><strong>هل صورتي آمنة؟</strong> نحن نعطي الأولوية لخصوصيتك – لا يتم تخزين الصور.",
                 tryNow: "جرب الآن",
                 start: "ابدأ التحليل",
                 capture: "التقاط",
@@ -434,7 +455,13 @@
                 cancel: "إلغاء",
                 close: "إغلاق",
                 processing: "جارٍ معالجة إمكانياتك النجمية...",
-                result: "🌟 أنت مشابه لـ <span>{celeb}</span> بنسبة مذهلة <span>{percent}%</span>!<br>✨ درجة الجمال: <span>{beauty}%</span><br>⚖️ تناسق الوجه: <span>{symmetry}%</span>"
+                result: "🌟 أنت مشابه لـ <span>{celeb}</span> بنسبة مذهلة <span>{percent}%</span>!<br>✨ درجة الجمال: <span>{beauty}%</span><br>⚖️ تناسق الوجه: <span>{symmetry}%</span>",
+                footer1: "© 2025 مباراة المشاهير - مدعوم بتقنية الذكاء الاصطناعي من الجيل التالي",
+                footer2: "افتح أجواء المشاهير الخاصة بك مع ميزاتنا المميزة!",
+                privacy: "سياسة الخصوصية",
+                terms: "شروط الخدمة",
+                contact: "اتصل بنا",
+                premium: "الخطط المميزة"
             }
         };
 
@@ -450,7 +477,12 @@
             document.documentElement.dir = lang === 'ar' ? 'rtl' : 'ltr';
             document.querySelector('.logo').textContent = translations[lang].title;
             document.querySelector('.subtitle').textContent = translations[lang].subtitle;
+            document.querySelector('.intro h2').textContent = translations[lang].introTitle;
             document.querySelector('.intro p').textContent = translations[lang].intro;
+            document.querySelector('.how-it-works h2').textContent = translations[lang].howTitle;
+            document.querySelector('.how-it-works p').innerHTML = translations[lang].how;
+            document.querySelector('.faq h2').textContent = translations[lang].faqTitle;
+            document.querySelector('.faq p').innerHTML = translations[lang].faq;
             document.querySelector('.cta-btn span').textContent = translations[lang].tryNow;
             document.querySelector('.main-btn span').textContent = translations[lang].start;
             modal.querySelectorAll('button')[0].textContent = translations[lang].capture;
@@ -458,12 +490,20 @@
             modal.querySelectorAll('button')[2].textContent = translations[lang].cancel;
             modal.querySelector('.close-btn').textContent = translations[lang].close;
             processingDiv.textContent = translations[lang].processing;
+            document.querySelector('footer p:nth-child(1)').textContent = translations[lang].footer1;
+            document.querySelector('footer p:nth-child(2)').textContent = translations[lang].footer2;
+            const footerLinks = document.querySelectorAll('footer p:nth-child(3) a');
+            footerLinks[0].textContent = translations[lang].privacy;
+            footerLinks[1].textContent = translations[lang].terms;
+            footerLinks[2].textContent = translations[lang].contact;
+            footerLinks[3].textContent = translations[lang].premium;
         }
 
-        function openCameraModal() {
+        async function openCameraModal() {
             modal.style.display = 'flex';
             faceFrame.style.display = 'block';
-            startCamera();
+            await startCamera();
+            loadFaceDetection();
         }
 
         async function startCamera() {
@@ -481,6 +521,45 @@
                 alert("Please allow camera access!");
                 closeModal();
             }
+        }
+
+        async function loadFaceDetection() {
+            const model = await faceDetection.SupportedModels.MediaPipeFaceDetector;
+            const detector = await faceDetection.createDetector(model, {
+                runtime: 'mediapipe',
+                solutionPath: 'https://cdn.jsdelivr.net/npm/@mediapipe/face_detection'
+            });
+            detectFace(detector);
+        }
+
+        async function detectFace(detector) {
+            async function detectionLoop() {
+                if (video.readyState === 4 && modal.style.display === 'flex' && video.style.display !== 'none') {
+                    const faces = await detector.estimateFaces(video);
+                    if (faces.length > 0) {
+                        const face = faces[0];
+                        const frameRect = faceFrame.getBoundingClientRect();
+                        const videoRect = video.getBoundingClientRect();
+                        const scaleX = video.videoWidth / videoRect.width;
+                        const scaleY = video.videoHeight / videoRect.height;
+                        const faceX = face.box.xMin / scaleX + videoRect.left;
+                        const faceY = face.box.yMin / scaleY + videoRect.top;
+                        const faceWidth = face.box.width / scaleX;
+                        const faceHeight = face.box.height / scaleY;
+
+                        if (faceX > frameRect.left && faceY > frameRect.top &&
+                            faceX + faceWidth < frameRect.right && faceY + faceHeight < frameRect.bottom) {
+                            faceFrame.classList.add('active');
+                        } else {
+                            faceFrame.classList.remove('active');
+                        }
+                    } else {
+                        faceFrame.classList.remove('active');
+                    }
+                }
+                requestAnimationFrame(detectionLoop);
+            }
+            detectionLoop();
         }
 
         function switchCamera() {
@@ -510,7 +589,7 @@
         }
 
         function showResult() {
-            const celebrities = ["Brad Pitt", "Angelina Jolie", "Leonardo DiCaprio", "Jennifer Lawrence", "Tom Cruise"];
+            const celebrities = ["براد بيت", "أنجلينا جولي", "ليوناردو دي كابريو", "جنيفر لورانس", "توم كروز"];
             const randomCeleb = celebrities[Math.floor(Math.random() * celebrities.length)];
             const percent = Math.floor(Math.random() * 41) + 60;
             const beauty = Math.floor(Math.random() * 41) + 60;
