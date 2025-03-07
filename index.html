@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقعي الشخصي | <> </title>
+    <title>موقعي الشخصي | root</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&display=swap" rel="stylesheet">
     <style>
@@ -11,7 +11,7 @@
             margin: 0;
             padding: 0;
             box-sizing: border-box;
-            font-family: 'Courier New', monospace;
+            font-family: 'Cairo', sans-serif; /* Updated to Cairo for Arabic elegance */
         }
 
         body {
@@ -52,6 +52,17 @@
             letter-spacing: 4px;
             color: #ff007a;
             animation: codePulse 1.5s ease-in-out infinite;
+            background: rgba(255, 255, 255, 0.05);
+            padding: 8px 20px;
+            border-radius: 50px 50px 10px 10px;
+            border: 2px solid #ff007a;
+            box-shadow: inset 0 0 10px rgba(255, 0, 122, 0.3), 0 0 15px rgba(255, 0, 122, 0.5);
+            transition: transform 0.3s, box-shadow 0.3s;
+        }
+
+        header h1:hover {
+            transform: scale(1.05);
+            box-shadow: inset 0 0 15px rgba(255, 0, 122, 0.5), 0 0 20px rgba(255, 0, 122, 0.7);
         }
 
         header nav {
@@ -96,6 +107,8 @@
         .content {
             padding: 60px;
             background: rgba(10, 10, 10, 0.6);
+            border-radius: 20px; /* Rounded content area */
+            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2); /* Subtle glow */
         }
 
         .section {
@@ -111,6 +124,7 @@
             letter-spacing: 5px;
             animation: glitch 2s linear infinite;
             text-align: center;
+            text-shadow: 0 0 10px rgba(255, 0, 122, 0.7); /* Enhanced glow */
         }
 
         .section p {
@@ -119,6 +133,9 @@
             text-align: center;
             max-width: 800px;
             margin: 0 auto 30px;
+            background: rgba(0, 255, 204, 0.05); /* Subtle background for text */
+            padding: 10px;
+            border-radius: 10px;
         }
 
         .divider {
@@ -126,6 +143,7 @@
             height: 2px;
             background: linear-gradient(to right, transparent, #00ffcc, transparent);
             margin: 40px auto;
+            box-shadow: 0 0 10px rgba(0, 255, 204, 0.5); /* Glowing divider */
         }
 
         .skills-grid {
@@ -138,15 +156,39 @@
         .skill-card {
             background: rgba(0, 255, 204, 0.15);
             padding: 25px;
-            border-radius: 15px;
+            border-radius: 20px;
             text-align: center;
             cursor: pointer;
             transition: transform 0.4s, box-shadow 0.4s;
             border: 1px solid rgba(0, 255, 204, 0.3);
+            position: relative;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(0, 255, 204, 0.1), transparent);
+            transition: transform 0.5s;
+            z-index: 0;
+        }
+
+        .skill-card:hover::before {
+            transform: scale(1.2);
+        }
+
+        .skill-card i, .skill-card h4 {
+            position: relative;
+            z-index: 1;
         }
 
         .skill-card:hover {
-            transform: translateY(-15px);
+            transform: translateY(-15px) rotate(2deg);
             box-shadow: 0 15px 30px rgba(0, 255, 204, 0.4);
         }
 
@@ -158,12 +200,13 @@
         }
 
         .skill-card:hover i {
-            transform: rotate(10deg);
+            transform: scale(1.1) rotate(10deg);
         }
 
         .skill-card h4 {
             font-size: 22px;
             color: #00ffcc;
+            text-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
         }
 
         .popup {
@@ -181,7 +224,7 @@
             text-align: center;
             opacity: 0;
             transition: transform 0.3s ease, opacity 0.3s ease;
-            font-family: 'Cairo', sans-serif;
+            border: 1px solid #00ffcc; /* Added border for elegance */
         }
 
         .popup.active {
@@ -194,11 +237,15 @@
             color: #ff007a;
             margin-bottom: 20px;
             font-size: 26px;
+            text-shadow: 0 0 5px rgba(255, 0, 122, 0.5);
         }
 
         .popup p {
             color: #e0e0e0;
             font-size: 18px;
+            background: rgba(0, 255, 204, 0.05);
+            padding: 10px;
+            border-radius: 10px;
         }
 
         .popup .close-btn {
@@ -213,6 +260,7 @@
 
         .popup .close-btn:hover {
             transform: rotate(90deg);
+            color: #ff007a;
         }
 
         .contact-form {
@@ -228,6 +276,7 @@
             background: rgba(255, 255, 255, 0.05);
             color: #e0e0e0;
             font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
         }
 
         .contact-form input:focus, .contact-form textarea:focus {
@@ -243,12 +292,13 @@
             border: none;
             border-radius: 5px;
             cursor: pointer;
-            transition: background 0.3s;
+            transition: background 0.3s, transform 0.3s;
         }
 
         .contact-form button:hover {
             background: #00ffcc;
             color: #000;
+            transform: scale(1.05);
         }
 
         .success-message {
@@ -261,6 +311,7 @@
         .success-message i {
             font-size: 60px;
             color: #ff007a;
+            animation: pulse 1.5s infinite;
         }
 
         .success-message p {
@@ -276,19 +327,21 @@
             text-align: center;
             border-top: 4px solid #00ffcc;
             position: relative;
+            box-shadow: 0 -5px 20px rgba(0, 255, 204, 0.3); /* Footer glow */
         }
 
         footer p {
             font-size: 20px;
             margin-bottom: 20px;
             color: #e0e0e0;
+            text-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
         }
 
         footer .social {
             display: flex;
             justify-content: center;
             align-items: center;
-            gap: 25px; /* مسافة متساوية بين الأيقونات */
+            gap: 25px;
         }
 
         footer .social a, footer .social .contact-btn {
@@ -297,11 +350,15 @@
             transition: color 0.3s, transform 0.5s;
             cursor: pointer;
             text-decoration: none;
+            background: rgba(0, 255, 204, 0.1);
+            padding: 10px;
+            border-radius: 50%;
         }
 
         footer .social a:hover, footer .social .contact-btn:hover {
             color: #ff007a;
             transform: scale(1.2) rotate(360deg);
+            box-shadow: 0 0 15px rgba(255, 0, 122, 0.5);
         }
 
         @keyframes glitch {
@@ -314,6 +371,12 @@
             0% { text-shadow: 0 0 5px #ff007a, 0 0 10px #ff007a, 0 0 20px #ff007a; }
             50% { text-shadow: 0 0 10px #ff007a, 0 0 20px #ff007a, 0 0 40px #ff007a; }
             100% { text-shadow: 0 0 5px #ff007a, 0 0 10px #ff007a, 0 0 20px #ff007a; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
         }
 
         @media (max-width: 768px) {
@@ -411,7 +474,7 @@
     </div>
 
     <footer id="contact">
-        <p>جميع الحقوق محفوظة © 2025 | root </p>
+        <p>جميع الحقوق محفوظة © 2025 | root</p>
         <div class="social">
             <a href="#"><i class="fab fa-github"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
@@ -442,7 +505,7 @@
 
             draw() {
                 ctx.fillStyle = 'rgba(0, 255, 204, 0.4)';
-                ctx.font = `${this.size}px Courier New`;
+                ctx.font = `${this.size}px 'Cairo', sans-serif`; // Updated font
                 ctx.fillText(this.text, this.x, this.y);
             }
 
@@ -511,6 +574,14 @@
                 e.preventDefault();
                 btn.parentElement.classList.remove('active');
             });
+        });
+
+        // Close popup when clicking outside
+        document.addEventListener('click', (e) => {
+            const activePopup = document.querySelector('.popup.active');
+            if (activePopup && !activePopup.contains(e.target) && !e.target.closest('.skill-card') && !e.target.closest('.contact-btn')) {
+                activePopup.classList.remove('active');
+            }
         });
 
         // Contact Popup Functionality
