@@ -107,7 +107,7 @@
             flex: 1;
         }
 
-        .intro {
+        .intro, .how-it-works, .faq {
             background: rgba(255, 255, 255, 0.95);
             padding: 40px;
             border-radius: 20px;
@@ -191,6 +191,18 @@
             display: none;
         }
 
+        #camera-modal .face-frame {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            width: 70%;
+            height: 80%;
+            border: 3px dashed var(--primary);
+            border-radius: 15px;
+            display: none;
+        }
+
         #camera-modal button {
             background: var(--primary);
             color: white;
@@ -218,10 +230,20 @@
 
         #camera-modal .result {
             display: none;
-            font-size: 1.2em;
+            font-size: 1.5em;
             color: #1e3c72;
             margin: 20px 0;
             line-height: 1.8;
+            background: linear-gradient(45deg, #f5f7fa, #c3cfe2);
+            padding: 20px;
+            border-radius: 15px;
+            box-shadow: var(--shadow);
+            animation: resultPop 0.5s ease-in-out;
+        }
+
+        #camera-modal .result span {
+            font-weight: bold;
+            color: var(--primary);
         }
 
         footer {
@@ -266,6 +288,11 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes resultPop {
+            from { transform: scale(0.8); opacity: 0; }
+            to { transform: scale(1); opacity: 1; }
+        }
+
         /* RTL Support */
         [dir="rtl"] {
             text-align: right;
@@ -292,20 +319,31 @@
 
     <div class="container">
         <div class="intro">
-            <p>Experience the future of facial recognition technology with Celebrity Match – find your celebrity twin, analyze your beauty, and unlock exclusive insights!</p>
+            <h2>Unleash Your Star Power!</h2>
+            <p>Experience cutting-edge facial recognition with Celebrity Match – find your celebrity twin, get a detailed beauty analysis, and unlock exclusive insights into your unique charm!</p>
+        </div>
+
+        <div class="how-it-works">
+            <h2>How It Works</h2>
+            <p>1. Snap a photo using our advanced camera tool.<br>2. Our AI analyzes your facial features in seconds.<br>3. Discover your celebrity match with stunning accuracy!</p>
         </div>
 
         <div class="celebrity-grid">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Brad_Pitt_2014.jpg/220px-Brad_Pitt_2014.jpg" alt="Brad Pitt">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/4/47/Angelina_Jolie_2_June_2014_%28cropped%29.jpg/220px-Angelina_Jolie_2_June_2014_%28cropped%29.jpg" alt="Angelina Jolie">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/3/33/Leonardo_DiCaprio_2010.jpg/220px-Leonardo_DiCaprio_2010.jpg" alt="Leonardo DiCaprio">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/94/Jennifer_Lawrence_in_2016.jpg/220px-Jennifer_Lawrence_in_2016.jpg" alt="Jennifer Lawrence">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/8/85/Tom_Cruise_by_Gage_Skidmore.jpg/220px-Tom_Cruise_by_Gage_Skidmore.jpg" alt="Tom Cruise">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1a/Natalie_Portman_2016.jpg/220px-Natalie_Portman_2016.jpg" alt="Natalie Portman">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/1/1e/Will_Smith_in_Berlin_%282016%29.jpg/220px-Will_Smith_in_Berlin_%282016%29.jpg" alt="Will Smith">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9f/Scarlett_Johansson_in_Kuwait_03_%28cropped%29.jpg/220px-Scarlett_Johansson_in_Kuwait_03_%28cropped%29.jpg" alt="Scarlett Johansson">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/2/2f/Chris_Evans_2016.jpg/220px-Chris_Evans_2016.jpg" alt="Chris Evans">
-            <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/9/9e/Emma_Watson_interview_in_2017.jpg/220px-Emma_Watson_interview_in_2017.jpg" alt="Emma Watson">
+            <img src="https://images.unsplash.com/photo-1514790193030-c89d266d5a9d" alt="Celebrity 1">
+            <img src="https://images.unsplash.com/photo-1524504388940-b6befb839f39" alt="Celebrity 2">
+            <img src="https://images.unsplash.com/photo-1539571696357-5a69c17a67c6" alt="Celebrity 3">
+            <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e" alt="Celebrity 4">
+            <img src="https://images.unsplash.com/photo-1519085360753-af0119f7cbe7" alt="Celebrity 5">
+            <img src="https://images.unsplash.com/photo-1494790108377-be9c29b29330" alt="Celebrity 6">
+            <img src="https://images.unsplash.com/photo-1506794778202-cad84cf45f1d" alt="Celebrity 7">
+            <img src="https://images.unsplash.com/photo-1488426862026-3ee34a7d66df" alt="Celebrity 8">
+            <img src="https://images.unsplash.com/photo-1507003211169-0a1dd7228f2d" alt="Celebrity 9">
+            <img src="https://images.unsplash.com/photo-1499996861123-1050b8e615c7" alt="Celebrity 10">
+        </div>
+
+        <div class="faq">
+            <h2>Frequently Asked Questions</h2>
+            <p><strong>Is it accurate?</strong> Our AI uses state-of-the-art technology for precise matches!<br><strong>How long does it take?</strong> Results are ready in just a few seconds!<br><strong>Is my photo safe?</strong> We prioritize your privacy – images are not stored.</p>
         </div>
 
         <button class="main-btn" onclick="openCameraModal()">
@@ -316,13 +354,14 @@
     <div id="camera-modal">
         <div class="modal-content">
             <video id="video" autoplay muted playsinline></video>
+            <div class="face-frame" id="face-frame"></div>
             <img id="photo-preview" src="" alt="Captured Photo">
             <div>
                 <button onclick="captureImage()">Capture</button>
                 <button onclick="switchCamera()">Switch Camera</button>
                 <button onclick="closeModal()">Cancel</button>
             </div>
-            <div class="processing">Processing...</div>
+            <div class="processing">Processing Your Star Potential...</div>
             <div class="result"></div>
             <button onclick="closeModal()" class="close-btn" style="display: none;">Close</button>
         </div>
@@ -332,10 +371,12 @@
 
     <footer>
         <p>© 2025 Celebrity Match - Powered by Next-Gen AI Technology</p>
+        <p>Unlock your celebrity vibe with our premium features!</p>
         <p>
             <a href="#">Privacy Policy</a> | 
             <a href="#">Terms of Service</a> | 
-            <a href="#">Contact Us</a>
+            <a href="#">Contact Us</a> | 
+            <a href="#">Premium Plans</a>
         </p>
         <div class="social">
             <a href="#"><i class="fab fa-facebook-f"></i></a>
@@ -364,6 +405,7 @@
         const processingDiv = modal.querySelector('.processing');
         const resultDiv = modal.querySelector('.result');
         const closeBtn = modal.querySelector('.close-btn');
+        const faceFrame = document.getElementById('face-frame');
         let currentStream;
         let facingMode = 'user';
 
@@ -371,28 +413,28 @@
             en: {
                 title: "Celebrity Match",
                 subtitle: "Discover Your Celebrity Doppelgänger",
-                intro: "Experience the future of facial recognition technology with Celebrity Match – find your celebrity twin, analyze your beauty, and unlock exclusive insights!",
+                intro: "Experience cutting-edge facial recognition with Celebrity Match – find your celebrity twin, get a detailed beauty analysis, and unlock exclusive insights into your unique charm!",
                 tryNow: "Try Now",
                 start: "Start Analysis",
                 capture: "Capture",
                 switch: "Switch Camera",
                 cancel: "Cancel",
                 close: "Close",
-                processing: "Processing...",
-                result: "You resemble {celeb} by {percent}%!<br>Beauty Score: {beauty}%<br>Facial Symmetry: {symmetry}%"
+                processing: "Processing Your Star Potential...",
+                result: "🌟 You're a match with <span>{celeb}</span> by an incredible <span>{percent}%</span>!<br>✨ Beauty Score: <span>{beauty}%</span><br>⚖️ Facial Symmetry: <span>{symmetry}%</span>"
             },
             ar: {
                 title: "مباراة المشاهير",
                 subtitle: "اكتشف من تشبه من المشاهير",
-                intro: "جرب مستقبل تقنية التعرف على الوجه مع مباراة المشاهير – اعثر على توأمك من المشاهير، وحلل جمالك، وافتح رؤى حصرية!",
+                intro: "جرب تقنية التعرف على الوجه المتطورة مع مباراة المشاهير – اعثر على توأمك من المشاهير، واحصل على تحليل جمال مفصل، وافتح رؤى حصرية حول سحرك الفريد!",
                 tryNow: "جرب الآن",
                 start: "ابدأ التحليل",
                 capture: "التقاط",
                 switch: "تبديل الكاميرا",
                 cancel: "إلغاء",
                 close: "إغلاق",
-                processing: "جارٍ المعالجة...",
-                result: "أنت تشبه {celeb} بنسبة {percent}%!<br>درجة الجمال: {beauty}%<br>تناسق الوجه: {symmetry}%"
+                processing: "جارٍ معالجة إمكانياتك النجمية...",
+                result: "🌟 أنت مشابه لـ <span>{celeb}</span> بنسبة مذهلة <span>{percent}%</span>!<br>✨ درجة الجمال: <span>{beauty}%</span><br>⚖️ تناسق الوجه: <span>{symmetry}%</span>"
             }
         };
 
@@ -420,6 +462,7 @@
 
         function openCameraModal() {
             modal.style.display = 'flex';
+            faceFrame.style.display = 'block';
             startCamera();
         }
 
@@ -453,6 +496,7 @@
             photoPreview.src = imageData;
             photoPreview.style.display = 'block';
             video.style.display = 'none';
+            faceFrame.style.display = 'none';
             currentStream.getTracks().forEach(track => track.stop());
             processImage(imageData);
         }
@@ -485,6 +529,7 @@
             modal.style.display = 'none';
             video.style.display = 'block';
             photoPreview.style.display = 'none';
+            faceFrame.style.display = 'none';
             resultDiv.style.display = 'none';
             closeBtn.style.display = 'none';
             if (currentStream) {
