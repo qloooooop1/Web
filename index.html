@@ -110,6 +110,7 @@
             border: 3px solid #ff4040;
             object-fit: cover;
             aspect-ratio: 1 / 1;
+            transition: opacity 0.3s ease; /* لجعل التغيير في الخفوت سلسًا */
         }
 
         .hero-content {
@@ -484,7 +485,7 @@
         </div>
         <div class="hero-content">
             <h2 data-en="Hello, I'm root" data-ar="مرحباً، أنا root">مرحباً، أنا root</h2>
-            <h3 data-en="Creative Tech Developer" data-ar="مطور تقني ">مطور تقني </h3>
+            <h3 data-en="Creative Tech Developer" data-ar="مطور تقني مبدع">مطور تقني مبدع</h3>
             <p class="about-text" data-en="I'm a creative tech developer working on designing and developing integrated software solutions using the latest technologies. My passion lies in turning ideas into efficient and beautiful digital realities." data-ar="أنا مطور تقني مبدع، أعمل على تصميم وتطوير حلول برمجية متكاملة باستخدام أحدث التقنيات. شغفي يكمن في تحويل الأفكار إلى واقع رقمي يتميز بالكفاءة والجمال.">أنا مطور تقني مبدع، أعمل على تصميم وتطوير حلول برمجية متكاملة باستخدام أحدث التقنيات. شغفي يكمن في تحويل الأفكار إلى واقع رقمي يتميز بالكفاءة والجمال.</p>
             <div class="social">
                 <a href="#"><i class="fab fa-github"></i></a>
@@ -638,6 +639,14 @@
         const clockCtx = clockCanvas.getContext('2d');
         let isClockVisible = false;
 
+        // ضبط مقاسات الساعة لتتطابق مع الصورة من البداية
+        clockCanvas.width = profileImg.clientWidth;
+        clockCanvas.height = profileImg.clientHeight;
+        clockCanvas.style.position = 'absolute'; // جعل الساعة فوق الصورة
+        clockCanvas.style.top = '0';
+        clockCanvas.style.left = '0';
+        clockCanvas.style.display = 'none'; // إخفاء الساعة في البداية
+
         function drawClock() {
             const now = new Date(new Date().getTime() + 3 * 60 * 60 * 1000); // توقيت السعودية (UTC+3)
             const width = clockCanvas.width;
@@ -688,16 +697,25 @@
 
         profileImg.addEventListener('click', () => {
             if (!isClockVisible) {
-                clockCanvas.width = profileImg.clientWidth;
-                clockCanvas.height = profileImg.clientHeight;
-                profileImg.style.display = 'none';
+                // جعل الصورة خافتة
+                profileImg.style.opacity = '0.3';
+                // إظهار الساعة
                 clockCanvas.style.display = 'block';
+                clockCanvas.style.zIndex = '1'; // التأكد من أن الساعة فوق الصورة
                 drawClock();
             } else {
+                // إعادة الصورة إلى وضوحها الطبيعي
+                profileImg.style.opacity = '1';
+                // إخفاء الساعة
                 clockCanvas.style.display = 'none';
-                profileImg.style.display = 'block';
             }
             isClockVisible = !isClockVisible;
+        });
+
+        // تحديث مقاسات الساعة عند تغيير حجم النافذة
+        window.addEventListener('resize', () => {
+            clockCanvas.width = profileImg.clientWidth;
+            clockCanvas.height = profileImg.clientHeight;
         });
 
         // Language Toggle
