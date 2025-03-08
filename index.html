@@ -7,7 +7,6 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
-        /* نفس الـCSS السابق بدون تغيير */
         * {
             margin: 0;
             padding: 0;
@@ -502,7 +501,7 @@
             <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile" id="profileImg">
             <canvas id="clockCanvas" style="display: none;"></canvas>
             <canvas id="waveCanvas" style="display: none;"></canvas>
-            <!-- استبدل رابط الصوت برابط MP3 فعلي -->
+            <!-- استبدل رابط الصوت برابط MP3 فعلي إذا لزم الأمر -->
             <audio id="clockSound" src="https://l.top4top.io/m_33548tr9o0.mov" preload="auto"></audio>
         </div>
         <div class="hero-content">
@@ -693,6 +692,10 @@
                 source.connect(analyser);
                 analyser.connect(audioContext.destination);
             }
+            // التأكد من استئناف AudioContext إذا كان معلقًا
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
+            }
         }
 
         // رسم التأثير الصوتي (Wave)
@@ -761,38 +764,39 @@
             ctx.stroke();
         }
 
-        // التحكم في التبديل بين الساعة والصورة
+        // التحكم في التبديل بين الساعة والصورة مع تشغيل/إيقاف الصوت
         function toggleClock() {
             if (!isClockVisible) {
-                initializeAudio(); // تهيئة الصوت عند النقر الأول
+                // التحويل إلى الساعة
+                initializeAudio(); // تهيئة الصوت
                 profileImg.style.opacity = '0.2';
                 clockCanvas.style.display = 'block';
                 waveCanvas.style.display = 'block';
-                waveCanvas.style.opacity = '1'; // التأكد من ظهور التأثير
+                waveCanvas.style.opacity = '1';
                 clockCanvas.style.zIndex = '1';
                 waveCanvas.style.zIndex = '0';
                 clockCanvas.classList.add('pulse');
                 isClockVisible = true;
 
-                // تشغيل الصوت ومعالجة الأخطاء
+                // تشغيل الصوت تلقائيًا
+                clockSound.currentTime = 0; // إعادة الصوت للبداية
                 clockSound.play()
                     .then(() => {
-                        if (audioContext.state === 'suspended') audioContext.resume();
                         drawWave(); // بدء التأثير الصوتي
+                        drawClock(); // بدء رسم الساعة
                     })
                     .catch(error => {
-                        console.error('Error playing audio:', error);
+                        console.error('خطأ في تشغيل الصوت:', error);
                         alert('تعذر تشغيل الصوت. تأكد من أن المتصفح يسمح بتشغيل الصوت بعد التفاعل.');
                     });
-
-                drawClock(); // بدء رسم الساعة
             } else {
+                // العودة إلى الصورة
                 profileImg.style.opacity = '1';
                 clockCanvas.style.display = 'none';
                 waveCanvas.style.display = 'none';
                 clockCanvas.classList.remove('pulse');
-                clockSound.pause();
-                clockSound.currentTime = 0; // إعادة الصوت للبداية
+                clockSound.pause(); // إيقاف الصوت
+                clockSound.currentTime = 0; // إعادة تعيين الصوت
                 isClockVisible = false;
             }
         }
