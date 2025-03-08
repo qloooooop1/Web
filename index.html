@@ -84,7 +84,8 @@
         }
 
         header nav ul li a:hover {
-            color: #fff;
+            color: #ff007a;
+            background: rgba(255, 0, 122, 0.1);
             transform: scale(1.1);
         }
 
@@ -123,7 +124,7 @@
             object-fit: cover;
             aspect-ratio: 1 / 1;
             cursor: pointer;
-            transition: transform 0.3s;
+            transition: transform 0.3s, opacity 0.3s;
         }
 
         .hero-image img:hover {
@@ -139,14 +140,25 @@
             height: 100%;
             border-radius: 50%;
             border: 3px solid #ff4040;
-            background: rgba(255, 64, 64, 0.1);
+            background: rgba(0, 0, 0, 0.2); /* Faded background */
             box-shadow: 0 0 20px rgba(255, 64, 64, 0.5);
+            justify-content: center;
+            align-items: center;
         }
 
         .hero-image .clock.active {
             display: flex;
-            justify-content: center;
-            align-items: center;
+        }
+
+        .hero-image .clock img {
+            opacity: 0.3; /* Faded image */
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            z-index: 1;
         }
 
         .hero-image .clock .hour-hand,
@@ -155,20 +167,23 @@
             position: absolute;
             background: #ff4040;
             transform-origin: bottom;
+            z-index: 2;
         }
 
         .hero-image .clock .hour-hand {
-            width: 4px;
+            width: 6px;
             height: 25%;
             top: 25%;
             background: #ff8080;
+            border-radius: 3px;
         }
 
         .hero-image .clock .minute-hand {
-            width: 3px;
+            width: 4px;
             height: 35%;
             top: 15%;
             background: #ff4040;
+            border-radius: 2px;
         }
 
         .hero-image .clock .second-hand {
@@ -176,7 +191,21 @@
             height: 40%;
             top: 10%;
             background: #fff;
+            border-radius: 1px;
         }
+
+        .hero-image .clock .number {
+            position: absolute;
+            font-family: 'Amiri', serif;
+            font-size: 18px;
+            color: #ff4040;
+            text-shadow: 0 0 5px rgba(255, 64, 64, 0.7);
+        }
+
+        .hero-image .clock .number-12 { top: 5%; left: 50%; transform: translateX(-50%); }
+        .hero-image .clock .number-3 { right: 5%; top: 50%; transform: translateY(-50%); }
+        .hero-image .clock .number-6 { bottom: 5%; left: 50%; transform: translateX(-50%); }
+        .hero-image .clock .number-9 { left: 5%; top: 50%; transform: translateY(-50%); }
 
         .hero-content {
             flex: 2;
@@ -208,38 +237,35 @@
             margin-bottom: 30px;
         }
 
-        .hero .social {
+        .hero .social,
+        footer .social {
             display: flex;
             justify-content: center;
-            gap: 15px;
+            align-items: center;
+            gap: 25px;
         }
 
-        .hero .social a {
-            color: #ff4040;
-            font-size: 24px;
-            transition: color 0.3s, transform 0.3s;
-            text-decoration: none;
-            padding: 8px;
-            border-radius: 50%;
-        }
-
-        .hero .social a:hover {
-            color: #fff;
-            transform: scale(1.2);
-        }
-
-        .contact-btn {
-            color: #ff4040;
-            font-size: 24px;
+        .hero .social a,
+        footer .social a,
+        .hero .social .contact-btn,
+        footer .social .contact-btn {
+            color: #00ffcc;
+            font-size: 32px;
+            transition: color 0.3s, transform 0.5s;
             cursor: pointer;
-            transition: color 0.3s, transform 0.3s;
+            text-decoration: none;
+            background: rgba(0, 255, 204, 0.05);
             padding: 8px;
             border-radius: 50%;
         }
 
-        .contact-btn:hover {
-            color: #fff;
-            transform: scale(1.2);
+        .hero .social a:hover,
+        footer .social a:hover,
+        .hero .social .contact-btn:hover,
+        footer .social .contact-btn:hover {
+            color: #ff007a;
+            transform: scale(1.2) rotate(360deg);
+            box-shadow: 0 0 8px rgba(255, 0, 122, 0.3);
         }
 
         .container {
@@ -298,16 +324,16 @@
         }
 
         .skill-card {
-            background: rgba(255, 64, 64, 0.15);
+            background: rgba(0, 255, 204, 0.15);
             padding: 25px;
             border-radius: 20px;
             text-align: center;
             cursor: pointer;
             transition: transform 0.4s, box-shadow 0.4s;
-            border: 1px solid rgba(255, 64, 64, 0.3);
+            border: 1px solid rgba(0, 255, 204, 0.3);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(255, 64, 64, 0.2);
+            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2);
         }
 
         .skill-card::before {
@@ -317,7 +343,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(255, 64, 64, 0.05), transparent);
+            background: radial-gradient(circle, rgba(0, 255, 204, 0.05), transparent);
             transition: transform 0.5s;
             z-index: 0;
         }
@@ -333,12 +359,12 @@
 
         .skill-card:hover {
             transform: translateY(-15px) rotate(2deg);
-            box-shadow: 0 15px 30px rgba(255, 64, 64, 0.4);
+            box-shadow: 0 15px 30px rgba(0, 255, 204, 0.4);
         }
 
         .skill-card i {
             font-size: 50px;
-            color: #ff4040;
+            color: #ff007a;
             margin-bottom: 20px;
             transition: transform 0.3s;
         }
@@ -349,8 +375,8 @@
 
         .skill-card h4 {
             font-size: 22px;
-            color: #ff8080;
-            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
+            color: #00ffcc;
+            text-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
         }
 
         .popup {
@@ -477,7 +503,7 @@
             font-size: 20px;
             margin-bottom: 20px;
             color: #e0e0e0;
-            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
+            text-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
         }
 
         footer .social {
@@ -487,21 +513,23 @@
             gap: 25px;
         }
 
-        footer .social a, footer .social .contact-btn {
-            color: #ff4040;
+        footer .social a,
+        footer .social .contact-btn {
+            color: #00ffcc;
             font-size: 32px;
             transition: color 0.3s, transform 0.5s;
             cursor: pointer;
             text-decoration: none;
-            background: rgba(255, 64, 64, 0.05);
+            background: rgba(0, 255, 204, 0.05);
             padding: 8px;
             border-radius: 50%;
         }
 
-        footer .social a:hover, footer .social .contact-btn:hover {
-            color: #fff;
+        footer .social a:hover,
+        footer .social .contact-btn:hover {
+            color: #ff007a;
             transform: scale(1.2) rotate(360deg);
-            box-shadow: 0 0 8px rgba(255, 64, 64, 0.3);
+            box-shadow: 0 0 8px rgba(255, 0, 122, 0.3);
         }
 
         @keyframes glitch {
@@ -566,9 +594,14 @@
         <div class="hero-image">
             <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile" id="profileImg">
             <div class="clock" id="clock">
+                <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Faded profile" class="faded-image">
                 <div class="hour-hand"></div>
                 <div class="minute-hand"></div>
                 <div class="second-hand"></div>
+                <div class="number number-12">12</div>
+                <div class="number number-3">3</div>
+                <div class="number number-6">6</div>
+                <div class="number number-9">9</div>
             </div>
         </div>
         <div class="hero-content">
@@ -579,7 +612,7 @@
                 <a href="#" data-ar="جيثب" data-en="GitHub"><i class="fab fa-github"></i></a>
                 <a href="#" data-ar="لينكدإن" data-en="LinkedIn"><i class="fab fa-linkedin"></i></a>
                 <a href="#" data-ar="تويتر" data-en="Twitter"><i class="fab fa-twitter"></i></a>
-                <i class="fas fa-envelope contact-btn" id="contactBtn"></i>
+                <a href="#" data-ar="راسلنا" data-en="Contact Us" class="contact-btn"><i class="fas fa-envelope"></i></a>
             </div>
         </div>
     </div>
@@ -660,7 +693,7 @@
             <a href="#" data-ar="جيثب" data-en="GitHub"><i class="fab fa-github"></i></a>
             <a href="#" data-ar="لينكدإن" data-en="LinkedIn"><i class="fab fa-linkedin"></i></a>
             <a href="#" data-ar="تويتر" data-en="Twitter"><i class="fab fa-twitter"></i></a>
-            <i class="fas fa-envelope contact-btn" id="contactBtn"></i>
+            <a href="#" data-ar="راسلنا" data-en="Contact Us" class="contact-btn"><i class="fas fa-envelope"></i></a>
         </div>
     </footer>
 
@@ -726,13 +759,16 @@
         const hourHand = clock.querySelector('.hour-hand');
         const minuteHand = clock.querySelector('.minute-hand');
         const secondHand = clock.querySelector('.second-hand');
+        const fadedImage = clock.querySelector('.faded-image');
 
         profileImg.addEventListener('click', () => {
             clock.classList.toggle('active');
             if (clock.classList.contains('active')) {
+                profileImg.style.opacity = '0.3'; // Fade the original image
                 updateClock();
                 clockInterval = setInterval(updateClock, 1000);
             } else {
+                profileImg.style.opacity = '1'; // Restore original image opacity
                 clearInterval(clockInterval);
             }
         });
