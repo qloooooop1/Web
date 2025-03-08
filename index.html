@@ -32,7 +32,6 @@
             height: 100%;
         }
 
-        /* هيدر */
         header {
             position: fixed;
             top: 0;
@@ -42,7 +41,7 @@
             display: flex;
             justify-content: center;
             align-items: center;
-            z-index: 1001;
+            z-index: 1000;
             box-shadow: 0 4px 20px rgba(255, 64, 64, 0.3);
         }
 
@@ -88,79 +87,6 @@
             transform: scale(1.1);
         }
 
-        /* زر الثلاث خطوط */
-        .menu-toggle {
-            display: none;
-            position: fixed;
-            top: 80px;
-            left: 20px;
-            font-size: 24px;
-            color: #ff4040;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 10px 15px;
-            border-radius: 5px;
-            cursor: pointer;
-            z-index: 1002;
-            transition: transform 0.3s;
-        }
-
-        .menu-toggle:hover {
-            transform: scale(1.1);
-            color: #fff;
-        }
-
-        /* قائمة جانبية */
-        .sidebar {
-            position: fixed;
-            top: 0;
-            left: -250px;
-            width: 250px;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            padding: 60px 20px 20px;
-            border-radius: 0 10px 10px 0;
-            box-shadow: 5px 0 20px rgba(255, 64, 64, 0.3);
-            transition: left 0.3s ease;
-            z-index: 1001;
-            overflow-y: auto;
-        }
-
-        .sidebar.active {
-            left: 0;
-        }
-
-        .sidebar ul {
-            list-style: none;
-            padding: 0;
-        }
-
-        .sidebar ul li {
-            margin: 20px 0;
-        }
-
-        .sidebar ul li a {
-            color: #ff4040;
-            text-decoration: none;
-            font-size: 18px;
-            padding: 10px 15px;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            transition: color 0.3s, transform 0.3s;
-            border-radius: 5px;
-        }
-
-        .sidebar ul li a:hover {
-            color: #fff;
-            transform: translateX(10px);
-            background: rgba(255, 64, 64, 0.1);
-        }
-
-        .sidebar ul li a i {
-            font-size: 20px;
-        }
-
-        /* قسم الهيرو */
         .hero {
             display: flex;
             align-items: center;
@@ -168,8 +94,6 @@
             padding: 100px 50px 50px;
             max-width: 1200px;
             margin: 0 auto;
-            position: relative;
-            z-index: 10;
         }
 
         .hero-image {
@@ -239,7 +163,6 @@
             transform: scale(1.2);
         }
 
-        /* الحاوية الرئيسية */
         .container {
             min-height: 100vh;
             padding-top: 200px;
@@ -267,6 +190,17 @@
             animation: glitch 2s linear infinite;
             text-align: center;
             text-shadow: 0 0 10px rgba(255, 64, 64, 0.7);
+        }
+
+        .section p {
+            font-size: 20px;
+            color: #e0e0e0;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            background: rgba(255, 64, 64, 0.05);
+            padding: 10px;
+            border-radius: 10px;
         }
 
         .divider {
@@ -340,133 +274,181 @@
             text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
         }
 
-        /* قسم البحث عن الدومين - تصميم احترافي */
-        .domain-search {
-            text-align: center;
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
             padding: 40px;
-            background: linear-gradient(135deg, rgba(0, 0, 0, 0.9), rgba(26, 26, 26, 0.9));
             border-radius: 20px;
-            box-shadow: 0 10px 40px rgba(255, 64, 64, 0.4);
-            border: 2px solid #ff4040;
-            max-width: 800px;
-            margin: 0 auto;
-            position: relative;
-            overflow: hidden;
+            box-shadow: 0 0 40px rgba(255, 64, 64, 0.6);
+            z-index: 2000;
+            max-width: 450px;
+            text-align: center;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            border: 1px solid #ff4040;
         }
 
-        .domain-search::before {
-            content: '';
-            position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 64, 64, 0.1), transparent);
-            z-index: 0;
-            transition: transform 0.5s;
+        .popup.active {
+            display: block;
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
         }
 
-        .domain-search:hover::before {
-            transform: scale(1.2);
+        .popup h4 {
+            color: #ff4040;
+            margin-bottom: 20px;
+            font-size: 26px;
+            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
         }
 
-        .domain-search .search-container {
-            position: relative;
-            z-index: 1;
-        }
-
-        .domain-search input[type="text"] {
-            width: 60%;
-            padding: 15px 20px;
+        .popup p {
+            color: #e0e0e0;
             font-size: 18px;
-            border: 2px solid #ff4040;
-            border-radius: 50px 0 0 50px;
+            background: rgba(255, 64, 64, 0.05);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .popup .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: #ff4040;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .popup .close-btn:hover {
+            transform: rotate(90deg);
+            color: #fff;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 10px;
+            border: 1px solid #ff4040;
+            border-radius: 5px;
             background: rgba(255, 64, 64, 0.05);
             color: #e0e0e0;
+            font-size: 16px;
             transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
             outline: none;
-        }
-
-        .domain-search input[type="text"]:focus {
             border-color: #ff8080;
-            box-shadow: 0 0 15px rgba(255, 64, 64, 0.6);
+            box-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
         }
 
-        .domain-search button {
-            padding: 15px 30px;
-            font-size: 18px;
+        .contact-form button {
+            padding: 10px;
             background: #ff4040;
             color: #fff;
             border: none;
-            border-radius: 0 50px 50px 0;
+            border-radius: 5px;
             cursor: pointer;
             transition: background 0.3s, transform 0.3s;
-            margin-left: -5px;
-            position: relative;
-            overflow: hidden;
         }
 
-        .domain-search button:hover {
+        .contact-form button:hover {
             background: #ff8080;
             transform: scale(1.05);
         }
 
-        .domain-search button::after {
-            content: '';
-            position: absolute;
-            top: 50%;
-            left: 50%;
-            width: 0;
-            height: 0;
-            background: rgba(255, 255, 255, 0.2);
-            border-radius: 50%;
-            transform: translate(-50%, -50%);
-            transition: width 0.4s, height 0.4s;
-        }
-
-        .domain-search button:hover::after {
-            width: 200px;
-            height: 200px;
-        }
-
-        .domain-search .loading {
+        .success-message {
             display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .success-message i {
+            font-size: 60px;
             color: #ff4040;
-            font-size: 18px;
-            margin-top: 15px;
             animation: pulse 1.5s infinite;
         }
 
-        .domain-search .loading.active {
-            display: block;
-        }
-
-        .domain-search .result {
-            margin-top: 20px;
-            padding: 15px;
-            background: rgba(255, 64, 64, 0.1);
-            border-radius: 10px;
+        .success-message p {
+            font-size: 20px;
             color: #e0e0e0;
-            font-size: 16px;
-            display: none;
+            max-width: 400px;
+            line-height: 1.8;
         }
 
-        .domain-search .result.show {
-            display: block;
+        footer {
+            background: #000;
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 4px solid #ff4040;
+            position: relative;
+            box-shadow: 0 -5px 20px rgba(255, 64, 64, 0.3);
         }
 
-        .popup, .success-message {
-            /* نفس التنسيقات السابقة */
+        footer p {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
         }
 
-        /* تنسيقات إضافية كما هي */
-        @keyframes glitch { /* ... */ }
-        @keyframes codePulse { /* ... */ }
-        @keyframes pulse { /* ... */ }
+        footer .social {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+        }
+
+        footer .social a, footer .social .contact-btn {
+            color: #ff4040;
+            font-size: 32px;
+            transition: color 0.3s, transform 0.5s;
+            cursor: pointer;
+            text-decoration: none;
+            background: rgba(255, 64, 64, 0.05);
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        footer .social a:hover, footer .social .contact-btn:hover {
+            color: #fff;
+            transform: scale(1.2) rotate(360deg);
+            box-shadow: 0 0 8px rgba(255, 64, 64, 0.3);
+        }
+
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
+        }
+
+        @keyframes codePulse {
+            0% { text-shadow: 0 0 5px #ff4040, 0 0 10px #ff4040, 0 0 20px #ff4040; }
+            50% { text-shadow: 0 0 10px #ff4040, 0 0 20px #ff4040, 0 0 40px #ff4040; }
+            100% { text-shadow: 0 0 5px #ff4040, 0 0 10px #ff4040, 0 0 20px #ff4040; }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
 
         @media (max-width: 768px) {
-            .menu-toggle {
-                display: block;
+            .container { width: 100%; }
+            .content { padding: 30px; }
+            .skills-grid { 
+                grid-template-columns: 1fr;
+                padding: 0 10px;
             }
             .hero {
                 flex-direction: column;
@@ -476,12 +458,9 @@
                 max-width: 50%;
                 margin-bottom: 20px;
             }
-            header nav ul {
-                display: none;
-            }
-            .container {
-                padding-top: 150px;
-            }
+            header nav ul { gap: 10px; }
+            header nav ul li { margin-left: 10px; }
+            footer .social { gap: 15px; }
         }
     </style>
 </head>
@@ -489,7 +468,6 @@
     <canvas id="bgCanvas"></canvas>
 
     <header>
-        <h1>root</h1>
         <nav>
             <ul>
                 <li><a href="#home" data-en="Home" data-ar="الرئيسية">الرئيسية</a></li>
@@ -500,20 +478,7 @@
         </nav>
     </header>
 
-    <div class="menu-toggle" onclick="toggleSidebar()">
-        <i class="fas fa-bars"></i>
-    </div>
-
-    <div class="sidebar" id="sidebar">
-        <ul>
-            <li><a href="#faq" onclick="toggleSidebar()"><i class="fas fa-question-circle"></i> الأسئلة والأجوبة</a></li>
-            <li><a href="#works" onclick="toggleSidebar()"><i class="fas fa-briefcase"></i> أعمالنا</a></li>
-            <li><a href="#blog" onclick="toggleSidebar()"><i class="fas fa-blog"></i> المدونة</a></li>
-            <li><a href="#domain-search" onclick="toggleSidebar()"><i class="fas fa-search"></i> البحث عن دومين</a></li>
-        </ul>
-    </div>
-
-    <div class="hero" id="home">
+    <div class="hero">
         <div class="hero-image">
             <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile" id="profileImg">
             <canvas id="clockCanvas" style="display: none;"></canvas>
@@ -539,7 +504,6 @@
                 <p class="about-text" data-en="I'm a passionate developer and tech enthusiast dedicated to crafting innovative digital solutions that blend creativity with cutting-edge technology." data-ar="أنا مطور شغوف وعاشق للتكنولوجيا، أكرس جهودي لصياغة حلول رقمية مبتكرة تجمع بين الإبداع والتكنولوجيا المتطورة.">أنا مطور شغوف وعاشق للتكنولوجيا، أكرس جهودي لصياغة حلول رقمية مبتكرة تجمع بين الإبداع والتكنولوجيا المتطورة.</p>
             </div>
             <div class="divider"></div>
-
             <div class="section" id="skills">
                 <h2 data-en="My Skills" data-ar="مهاراتي">مهاراتي</h2>
                 <div class="skills-grid">
@@ -560,74 +524,6 @@
                         <h4 data-en="Automation" data-ar="الأتمتة">الأتمتة</h4>
                     </div>
                 </div>
-            </div>
-            <div class="divider"></div>
-
-            <div class="section" id="faq">
-                <h2 data-en="FAQ" data-ar="الأسئلة الشائعة">الأسئلة الشائعة</h2>
-                <div class="faq-item">
-                    <h4>ما هي خدماتكم؟</h4>
-                    <p>نقدم خدمات تطوير البرمجيات، التصميم، وإدارة الأنظمة بأعلى معايير الجودة.</p>
-                </div>
-                <div class="faq-item">
-                    <h4>كم تكلفة المشروع؟</h4>
-                    <p>التكلفة تعتمد على متطلبات المشروع، ويمكننا تقديم عرض سعر مجاني بعد التشاور.</p>
-                </div>
-                <div class="faq-item">
-                    <h4>هل تقدمون دعمًا فنيًا؟</h4>
-                    <p>نعم، نقدم دعمًا فنيًا 24/7 لجميع عملائنا بعد انتهاء المشروع.</p>
-                </div>
-            </div>
-            <div class="divider"></div>
-
-            <div class="section" id="works">
-                <h2 data-en="Our Works" data-ar="أعمالنا">أعمالنا</h2>
-                <div class="works-grid">
-                    <div class="work-card">
-                        <i class="fas fa-laptop-code"></i>
-                        <h4>موقع إلكتروني لشركة</h4>
-                    </div>
-                    <div class="work-card">
-                        <i class="fas fa-paint-brush"></i>
-                        <h4>تصميم واجهة مستخدم</h4>
-                    </div>
-                    <div class="work-card">
-                        <i class="fas fa-server"></i>
-                        <h4>إعداد خادم متقدم</h4>
-                    </div>
-                </div>
-            </div>
-            <div class="divider"></div>
-
-            <div class="section" id="blog">
-                <h2 data-en="Blog" data-ar="المدونة">المدونة</h2>
-                <div class="blog-list">
-                    <p>تابع أحدث المقالات حول التكنولوجيا والبرمجة:
-                        <ul>
-                            <li><a href="#" style="color: #ff8080;">نصائح لتحسين أداء المواقع</a></li>
-                            <li><a href="#" style="color: #ff8080;">أفضل أدوات التصميم 2025</a></li>
-                        </ul>
-                    </p>
-                </div>
-            </div>
-            <div class="divider"></div>
-
-            <div class="section" id="domain-search">
-                <h2 data-en="Domain Search" data-ar="البحث عن دومين">البحث عن دومين</h2>
-                <div class="domain-search">
-                    <div class="search-container">
-                        <input type="text" id="domainInput" placeholder="أدخل اسم الدومين (مثال: mysite.com)" data-en-placeholder="Enter domain (e.g., mysite.com)">
-                        <button onclick="searchDomain()">بحث</button>
-                    </div>
-                    <div class="loading" id="loading">جاري البحث <i class="fas fa-spinner fa-spin"></i></div>
-                    <div class="result" id="domainResult"></div>
-                </div>
-            </div>
-            <div class="divider"></div>
-
-            <div class="section" id="contact">
-                <h2 data-en="Contact" data-ar="تواصل">تواصل</h2>
-                <!-- يمكن إضافة نموذج تواصل هنا إذا أردت -->
             </div>
         </div>
     </div>
@@ -756,18 +652,21 @@
             const height = clockCanvas.height;
             clockCtx.clearRect(0, 0, width, height);
 
+            // خلفية شفافة
             clockCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
             clockCtx.beginPath();
             clockCtx.arc(width / 2, height / 2, width / 2, 0, Math.PI * 2);
             clockCtx.fill();
 
+            // حدود الساعة
             clockCtx.strokeStyle = '#ff4040';
             clockCtx.lineWidth = 4;
             clockCtx.beginPath();
             clockCtx.arc(width / 2, height / 2, width / 2 - 10, 0, Math.PI * 2);
             clockCtx.stroke();
 
-            clockCtx.fillStyle = '#ffffff';
+            // الأرقام
+            clockCtx.fillStyle = '#ffffff'; // لون واضح للأرقام
             clockCtx.font = 'bold 22px Cairo';
             clockCtx.textAlign = 'center';
             clockCtx.fillText('12', width / 2, 25);
@@ -775,13 +674,14 @@
             clockCtx.fillText('6', width / 2, height - 15);
             clockCtx.fillText('9', 25, height / 2 + 8);
 
+            // العقارب
             const hours = now.getHours() % 12;
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
 
-            drawHand(clockCtx, (hours + minutes / 60) * 30, width / 2 - 50, 5, '#ff4040');
-            drawHand(clockCtx, minutes * 6, width / 2 - 70, 4, '#ff8080');
-            drawHand(clockCtx, seconds * 6, width / 2 - 130, 3, '#ffffff');
+            drawHand(clockCtx, (hours + minutes / 60) * 30, width / 2 - 50, 5, '#ff4040'); // ساعة
+            drawHand(clockCtx, minutes * 6, width / 2 - 70, 4, '#ff8080'); // دقائق
+            drawHand(clockCtx, seconds * 6, width / 2 - 130, 3, '#ffffff'); // ثواني
 
             if (isClockVisible) {
                 requestAnimationFrame(drawClock);
@@ -803,13 +703,13 @@
 
         function toggleClock() {
             if (!isClockVisible) {
-                profileImg.style.opacity = '0.2';
+                profileImg.style.opacity = '0.2'; // الصورة خافتة
                 clockCanvas.style.display = 'block';
                 clockCanvas.style.zIndex = '1';
                 isClockVisible = true;
                 drawClock();
             } else {
-                profileImg.style.opacity = '1';
+                profileImg.style.opacity = '1'; // الصورة تعود لوضوحها
                 clockCanvas.style.display = 'none';
                 isClockVisible = false;
             }
@@ -846,14 +746,6 @@
 
         updateLanguage();
 
-        // Sidebar Toggle
-        const menuToggle = document.querySelector('.menu-toggle');
-        const sidebar = document.getElementById('sidebar');
-
-        function toggleSidebar() {
-            sidebar.classList.toggle('active');
-        }
-
         // Skill Popup Functionality
         const skillCards = document.querySelectorAll('.skill-card');
         const popups = document.querySelectorAll('.popup');
@@ -868,10 +760,27 @@
                     popup.classList.add('active');
                 }
             });
+
+            card.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                if (e.touches.length === 1 && e.targetTouches[0].force <= 0.5) {
+                    const popupId = card.getAttribute('data-popup');
+                    const popup = document.getElementById(popupId);
+                    if (!popup.classList.contains('active')) {
+                        popups.forEach(p => p.classList.remove('active'));
+                        popup.classList.add('active');
+                    }
+                }
+            });
         });
 
         closeBtns.forEach(btn => {
             btn.addEventListener('click', () => {
+                btn.parentElement.classList.remove('active');
+            });
+
+            btn.addEventListener('touchstart', (e) => {
+                e.preventDefault();
                 btn.parentElement.classList.remove('active');
             });
         });
@@ -919,52 +828,6 @@
             .catch(error => console.error('Error:', error));
         });
 
-        // Domain Search with API
-        const domainInput = document.getElementById('domainInput');
-        const loading = document.getElementById('loading');
-        const domainResult = document.getElementById('domainResult');
-
-        // ملاحظة: تحتاج إلى مفتاح API من whoisxmlapi.com أو خدمة مشابهة
-        const API_KEY = 'YOUR_API_KEY_HERE'; // استبدل بمفتاح API حقيقي
-        const API_URL = `https://www.whoisxmlapi.com/whoisserver/WhoisService?apiKey=${API_KEY}&domainName=`;
-
-        async function searchDomain() {
-            const domain = domainInput.value.trim();
-            if (!domain) {
-                alert('يرجى إدخال اسم الدومين!');
-                return;
-            }
-
-            loading.classList.add('active');
-            domainResult.classList.remove('show');
-            domainResult.innerHTML = '';
-
-            try {
-                const response = await fetch(`${API_URL}${domain}&outputFormat=JSON`);
-                const data = await response.json();
-
-                if (data.WhoisRecord) {
-                    const { domainName, status, createdDate, expiresDate } = data.WhoisRecord;
-                    domainResult.innerHTML = `
-                        <strong>النطاق:</strong> ${domainName}<br>
-                        <strong>الحالة:</strong> ${status || 'غير متوفرة'}<br>
-                        <strong>تاريخ الإنشاء:</strong> ${createdDate || 'غير متوفر'}<br>
-                        <strong>تاريخ الانتهاء:</strong> ${expiresDate || 'غير متوفر'}<br>
-                        ${status && status.includes('available') ? '<span style="color: #00ff00;">النطاق متاح!</span>' : '<span style="color: #ff0000;">النطاق غير متاح!</span>'}
-                    `;
-                } else {
-                    domainResult.innerHTML = '<span style="color: #ff0000;">فشل البحث، يرجى المحاولة لاحقًا.</span>';
-                }
-                domainResult.classList.add('show');
-            } catch (error) {
-                domainResult.innerHTML = '<span style="color: #ff0000;">خطأ في الاتصال بالخادم، يرجى التحقق من الإنترنت.</span>';
-                domainResult.classList.add('show');
-                console.error('Error:', error);
-            } finally {
-                loading.classList.remove('active');
-            }
-        }
-
         // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
@@ -972,7 +835,6 @@
                 document.querySelector(this.getAttribute('href')).scrollIntoView({
                     behavior: 'smooth'
                 });
-                if (window.innerWidth <= 768) toggleSidebar();
             });
         });
 
@@ -987,4 +849,4 @@
         });
     </script>
 </body>
-</html>
+</html> 
