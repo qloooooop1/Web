@@ -15,7 +15,7 @@
         }
 
         body {
-            background: #1a1a1a; /* Dark background like Alex's site */
+            background: #1a1a1a;
             color: #e0e0e0;
             line-height: 1.6;
             overflow-x: hidden;
@@ -42,14 +42,14 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(255, 64, 64, 0.3); /* Red shadow */
+            box-shadow: 0 4px 20px rgba(255, 64, 64, 0.3);
         }
 
         header h1 {
             font-size: 24px;
             text-transform: uppercase;
             letter-spacing: 2px;
-            color: #ff4040; /* Red like Alex's title */
+            color: #ff4040;
             background: rgba(255, 64, 64, 0.1);
             padding: 10px 20px;
             border-radius: 50px 50px 10px 10px;
@@ -98,13 +98,18 @@
 
         .hero-image {
             flex: 1;
-            max-width: 40%;
+            max-width: 30%; /* Adjusted for balance */
+            position: relative;
         }
 
         .hero-image img {
             width: 100%;
-            border-radius: 10px;
+            height: auto;
+            border-radius: 50%; /* Circular image to blend naturally */
             box-shadow: 0 0 20px rgba(255, 64, 64, 0.5);
+            border: 3px solid #ff4040; /* Red border to match theme */
+            object-fit: cover;
+            aspect-ratio: 1 / 1; /* Ensures the image stays circular */
         }
 
         .hero-content {
@@ -124,7 +129,7 @@
 
         .hero-content h3 {
             font-size: 28px;
-            color: #ff8080; /* Lighter red for subtitle */
+            color: #ff8080;
             margin-bottom: 20px;
         }
 
@@ -157,24 +162,9 @@
             transform: scale(1.2);
         }
 
-        .hero .hire-btn {
-            display: inline-block;
-            padding: 10px 20px;
-            background: #ff4040;
-            color: #fff;
-            text-decoration: none;
-            border-radius: 25px;
-            transition: background 0.3s, transform 0.3s;
-        }
-
-        .hero .hire-btn:hover {
-            background: #ff8080;
-            transform: scale(1.05);
-        }
-
         .container {
             min-height: 100vh;
-            padding-top: 200px; /* Adjusted for hero section */
+            padding-top: 200px;
             width: 100%;
         }
 
@@ -464,7 +454,7 @@
                 padding: 100px 20px 20px;
             }
             .hero-image {
-                max-width: 100%;
+                max-width: 50%; /* Slightly larger on mobile for balance */
                 margin-bottom: 20px;
             }
             header nav ul { gap: 10px; }
@@ -489,7 +479,7 @@
 
     <div class="hero">
         <div class="hero-image">
-            <img src="https://i.imgur.com/8Z9V9mQ.jpg" alt="Anime-style profile"> <!-- Placeholder anime image URL -->
+            <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile">
         </div>
         <div class="hero-content">
             <h2>مرحباً، أنا root</h2>
@@ -501,7 +491,6 @@
                 <a href="#"><i class="fab fa-twitter"></i></a>
                 <a href="#"><i class="fas fa-times"></i></a>
             </div>
-            <a href="#contact" class="hire-btn">توظيفني</a>
         </div>
     </div>
 
@@ -605,7 +594,7 @@
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(255, 64, 64, 0.4)'; // Adjusted to red
+                ctx.fillStyle = 'rgba(255, 64, 64, 0.4)';
                 ctx.font = `${this.size}px 'Cairo', sans-serif`;
                 ctx.fillText(this.text, this.x, this.y);
             }
