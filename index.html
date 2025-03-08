@@ -698,10 +698,10 @@
         profileImg.addEventListener('click', () => {
             if (!isClockVisible) {
                 // جعل الصورة خافتة
-                profileImg.style.opacity = '0.3';
+                profileImg.style.opacity = '0.5';
                 // إظهار الساعة
                 clockCanvas.style.display = 'block';
-                clockCanvas.style.zIndex = '2'; // التأكد من أن الساعة فوق الصورة
+                clockCanvas.style.zIndex = '1'; // التأكد من أن الساعة فوق الصورة
                 drawClock();
             } else {
                 // إعادة الصورة إلى وضوحها الطبيعي
