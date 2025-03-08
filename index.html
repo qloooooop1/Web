@@ -451,16 +451,6 @@
             100% { transform: scale(1); }
         }
 
-        @keyframes clockPulse {
-            0% { transform: scale(1); opacity: 1; }
-            50% { transform: scale(1.05); opacity: 0.9; }
-            100% { transform: scale(1); opacity: 1; }
-        }
-
-        #clockCanvas.pulse {
-            animation: clockPulse 1s infinite ease-in-out;
-        }
-
         @media (max-width: 768px) {
             .container { width: 100%; }
             .content { padding: 30px; }
@@ -499,9 +489,7 @@
     <div class="hero">
         <div class="hero-image">
             <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile" id="profileImg">
-            <canvas id="clockCanvas" style="display: none;"></canvas>
             <canvas id="waveCanvas" style="display: none;"></canvas>
-            <!-- استبدل رابط الصوت برابط MP3 فعلي إذا لزم الأمر -->
             <audio id="clockSound" src="https://www15.online-convert.com/v2/dl/web7/download-file/727bbdd9-9219-4f7d-9020-ed71781c2850/3B365C16-A020-45CD-9461-537C5ECA5455.mp3" preload="auto"></audio>
         </div>
         <div class="hero-content">
@@ -654,32 +642,23 @@
             bgCanvas.height = window.innerHeight;
         });
 
-        // Clock and Wave Functionality
+        // Sound Wave Functionality
         let audioContext = null;
         let analyser = null;
         let dataArray = null;
         const profileImg = document.getElementById('profileImg');
-        const clockCanvas = document.getElementById('clockCanvas');
-        const clockCtx = clockCanvas.getContext('2d');
         const waveCanvas = document.getElementById('waveCanvas');
         const waveCtx = waveCanvas.getContext('2d');
         const clockSound = document.getElementById('clockSound');
-        let isClockVisible = false;
+        let isWaveActive = false;
 
-        clockCanvas.width = profileImg.clientWidth;
-        clockCanvas.height = profileImg.clientHeight;
         waveCanvas.width = profileImg.clientWidth;
         waveCanvas.height = profileImg.clientHeight;
         waveCanvas.style.position = 'absolute';
         waveCanvas.style.top = '0';
         waveCanvas.style.left = '0';
-        clockCanvas.style.position = 'absolute';
-        clockCanvas.style.top = '0';
-        clockCanvas.style.left = '0';
-        clockCanvas.style.display = 'none';
-        waveCanvas.style.display = 'none';
 
-        // تهيئة AudioContext وAnalyser
+        // Initialize AudioContext and Analyser
         function initializeAudio() {
             if (!audioContext) {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -692,15 +671,14 @@
                 source.connect(analyser);
                 analyser.connect(audioContext.destination);
             }
-            // التأكد من استئناف AudioContext إذا كان معلقًا
             if (audioContext.state === 'suspended') {
                 audioContext.resume();
             }
         }
 
-        // رسم التأثير الصوتي (Wave)
+        // Draw Wave Effect
         function drawWave() {
-            if (isClockVisible && !clockSound.paused) {
+            if (isWaveActive && !clockSound.paused) {
                 analyser.getByteFrequencyData(dataArray);
                 waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
                 const barWidth = (waveCanvas.width / dataArray.length) * 2.5;
@@ -714,103 +692,45 @@
                     x += barWidth + 1;
                 }
                 requestAnimationFrame(drawWave);
+            } else if (!isWaveActive) {
+                waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
             }
         }
 
-        // رسم الساعة
-        function drawClock() {
-            const now = new Date();
-            const width = clockCanvas.width;
-            const height = clockCanvas.height;
-            clockCtx.clearRect(0, 0, width, height);
-
-            clockCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-            clockCtx.beginPath();
-            clockCtx.arc(width / 2, height / 2, width / 2, 0, Math.PI * 2);
-            clockCtx.fill();
-
-            clockCtx.strokeStyle = '#ff4040';
-            clockCtx.lineWidth = 4;
-            clockCtx.beginPath();
-            clockCtx.arc(width / 2, height / 2, width / 2 - 10, 0, Math.PI * 2);
-            clockCtx.stroke();
-
-            clockCtx.fillStyle = '#ffffff';
-            clockCtx.font = 'bold 22px Cairo';
-            clockCtx.textAlign = 'center';
-            clockCtx.fillText('12', width / 2, 25);
-            clockCtx.fillText('3', width - 25, height / 2 + 8);
-            clockCtx.fillText('6', width / 2, height - 15);
-            clockCtx.fillText('9', 25, height / 2 + 8);
-
-            const hours = now.getHours() % 12;
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
-
-            drawHand(clockCtx, (hours + minutes / 60) * 30, width / 2 - 50, 5, '#ff4040');
-            drawHand(clockCtx, minutes * 6, width / 2 - 70, 4, '#ff8080');
-            drawHand(clockCtx, seconds * 6, width / 2 - 130, 3, '#ffffff');
-
-            if (isClockVisible) requestAnimationFrame(drawClock);
-        }
-
-        function drawHand(ctx, angle, length, width, color) {
-            ctx.beginPath();
-            ctx.lineWidth = width;
-            ctx.strokeStyle = color;
-            ctx.moveTo(clockCanvas.width / 2, clockCanvas.height / 2);
-            const rad = (angle - 90) * Math.PI / 180;
-            ctx.lineTo(clockCanvas.width / 2 + Math.cos(rad) * length, clockCanvas.height / 2 + Math.sin(rad) * length);
-            ctx.stroke();
-        }
-
-        // التحكم في التبديل بين الساعة والصورة مع تشغيل/إيقاف الصوت
-        function toggleClock() {
-            if (!isClockVisible) {
-                // التحويل إلى الساعة
-                initializeAudio(); // تهيئة الصوت
-                profileImg.style.opacity = '0.2';
-                clockCanvas.style.display = 'block';
+        // Toggle Wave and Audio
+        function toggleWave() {
+            if (!isWaveActive) {
+                initializeAudio();
                 waveCanvas.style.display = 'block';
                 waveCanvas.style.opacity = '1';
-                clockCanvas.style.zIndex = '1';
-                waveCanvas.style.zIndex = '0';
-                clockCanvas.classList.add('pulse');
-                isClockVisible = true;
+                profileImg.style.opacity = '0.2';
+                isWaveActive = true;
 
-                // تشغيل الصوت تلقائيًا
-                clockSound.currentTime = 0; // إعادة الصوت للبداية
+                clockSound.currentTime = 0;
                 clockSound.play()
                     .then(() => {
-                        drawWave(); // بدء التأثير الصوتي
-                        drawClock(); // بدء رسم الساعة
+                        drawWave();
                     })
                     .catch(error => {
-                        console.error('خطأ في تشغيل الصوت:', error);
-                        alert('تعذر تشغيل الصوت. تأكد من أن المتصفح يسمح بتشغيل الصوت بعد التفاعل.');
+                        console.error('Error playing audio:', error);
                     });
             } else {
-                // العودة إلى الصورة
                 profileImg.style.opacity = '1';
-                clockCanvas.style.display = 'none';
+                waveCanvas.style.opacity = '0';
                 waveCanvas.style.display = 'none';
-                clockCanvas.classList.remove('pulse');
-                clockSound.pause(); // إيقاف الصوت
-                clockSound.currentTime = 0; // إعادة تعيين الصوت
-                isClockVisible = false;
+                clockSound.pause();
+                clockSound.currentTime = 0;
+                isWaveActive = false;
             }
         }
 
-        profileImg.addEventListener('click', toggleClock);
-        clockCanvas.addEventListener('click', toggleClock);
+        profileImg.addEventListener('click', toggleWave);
 
         window.addEventListener('resize', () => {
-            clockCanvas.width = profileImg.clientWidth;
-            clockCanvas.height = profileImg.clientHeight;
             waveCanvas.width = profileImg.clientWidth;
             waveCanvas.height = profileImg.clientHeight;
-            if (isClockVisible) {
-                drawClock();
+            if (isWaveActive) {
+                drawWave();
             }
         });
 
@@ -938,7 +858,6 @@
             } else {
                 document.querySelector('header').style.padding = '15px 20px';
             }
-            if (isClockVisible) drawClock();
         });
     </script>
 </body>
