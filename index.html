@@ -15,8 +15,8 @@
         }
 
         body {
-            background: linear-gradient(135deg, #0d0d0d, #1a1a1a);
-            color: #00ffcc;
+            background: #1a1a1a; /* Dark background like Alex's site */
+            color: #e0e0e0;
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
@@ -36,74 +36,145 @@
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.95);
+            background: rgba(0, 0, 0, 0.9);
             padding: 15px 20px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(0, 255, 204, 0.6);
-            transition: padding 0.3s ease;
+            box-shadow: 0 4px 20px rgba(255, 64, 64, 0.3); /* Red shadow */
         }
 
         header h1 {
-            font-size: 24px; /* Reduced to fit nav size */
+            font-size: 24px;
             text-transform: uppercase;
-            letter-spacing: 2px; /* Adjusted for proportion */
-            color: #ff007a;
-            animation: codePulse 1.5s ease-in-out infinite;
-            background: rgba(255, 255, 255, 0.05);
+            letter-spacing: 2px;
+            color: #ff4040; /* Red like Alex's title */
+            background: rgba(255, 64, 64, 0.1);
             padding: 10px 20px;
             border-radius: 50px 50px 10px 10px;
-            border: 2px solid #00ffcc;
-            box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.3), 0 0 15px rgba(0, 255, 204, 0.5);
+            border: 2px solid #ff4040;
+            box-shadow: inset 0 0 10px rgba(255, 64, 64, 0.3), 0 0 15px rgba(255, 64, 64, 0.5);
             transition: transform 0.3s, box-shadow 0.3s;
-            height: 54px; /* Matches nav height (10px padding top + 10px bottom + 34px content) */
+            height: 54px;
             display: flex;
             align-items: center;
         }
 
         header h1:hover {
             transform: scale(1.05);
-            box-shadow: inset 0 0 15px rgba(0, 255, 204, 0.5), 0 0 20px rgba(0, 255, 204, 0.7);
-        }
-
-        header nav {
-            background: rgba(255, 255, 255, 0.05);
-            padding: 10px 20px;
-            border-radius: 50px 50px 10px 10px;
-            border: 2px solid #00ffcc;
-            box-shadow: inset 0 0 10px rgba(0, 255, 204, 0.3);
+            box-shadow: inset 0 0 15px rgba(255, 64, 64, 0.5), 0 0 20px rgba(255, 64, 64, 0.7);
         }
 
         header nav ul {
             list-style: none;
             display: flex;
-        }
-
-        header nav ul li {
-            margin-left: 30px;
+            gap: 20px;
         }
 
         header nav ul li a {
-            color: #00ffcc;
+            color: #ff4040;
             text-decoration: none;
             font-weight: bold;
             font-size: 18px;
             padding: 8px 15px;
-            transition: color 0.3s, transform 0.3s, background 0.3s;
+            transition: color 0.3s, transform 0.3s;
             border-radius: 20px;
         }
 
         header nav ul li a:hover {
-            color: #ff007a;
-            background: rgba(255, 0, 122, 0.1);
+            color: #fff;
             transform: scale(1.1);
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 100px 50px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-image {
+            flex: 1;
+            max-width: 40%;
+        }
+
+        .hero-image img {
+            width: 100%;
+            border-radius: 10px;
+            box-shadow: 0 0 20px rgba(255, 64, 64, 0.5);
+        }
+
+        .hero-content {
+            flex: 2;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-content h2 {
+            font-size: 48px;
+            color: #ff4040;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 64, 64, 0.7);
+        }
+
+        .hero-content h3 {
+            font-size: 28px;
+            color: #ff8080; /* Lighter red for subtitle */
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-family: 'Amiri', serif;
+            font-size: 18px;
+            color: #e0e0e0;
+            line-height: 1.8;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        .hero .social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .hero .social a {
+            color: #ff4040;
+            font-size: 24px;
+            transition: color 0.3s, transform 0.3s;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .hero .social a:hover {
+            color: #fff;
+            transform: scale(1.2);
+        }
+
+        .hero .hire-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #ff4040;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .hero .hire-btn:hover {
+            background: #ff8080;
+            transform: scale(1.05);
         }
 
         .container {
             min-height: 100vh;
-            padding-top: 100px;
+            padding-top: 200px; /* Adjusted for hero section */
             width: 100%;
         }
 
@@ -111,7 +182,7 @@
             padding: 60px;
             background: rgba(10, 10, 10, 0.6);
             border-radius: 20px;
-            box-shadow: 0 0 30px rgba(0, 255, 204, 0.2);
+            box-shadow: 0 0 30px rgba(255, 64, 64, 0.2);
         }
 
         .section {
@@ -121,13 +192,13 @@
 
         .section h2 {
             font-size: 42px;
-            color: #ff007a;
+            color: #ff4040;
             margin-bottom: 30px;
             text-transform: uppercase;
             letter-spacing: 5px;
             animation: glitch 2s linear infinite;
             text-align: center;
-            text-shadow: 0 0 10px rgba(255, 0, 122, 0.7);
+            text-shadow: 0 0 10px rgba(255, 64, 64, 0.7);
         }
 
         .section p {
@@ -136,27 +207,17 @@
             text-align: center;
             max-width: 800px;
             margin: 0 auto 30px;
-            background: rgba(0, 255, 204, 0.05);
+            background: rgba(255, 64, 64, 0.05);
             padding: 10px;
             border-radius: 10px;
-        }
-
-        .about-text {
-            font-family: 'Amiri', serif; /* Elegant, formal Arabic font */
-            font-size: 22px;
-            color: #e0e0e0;
-            line-height: 1.8;
-            letter-spacing: 1px;
-            background: none; /* Removed background for cleaner look */
-            padding: 0;
         }
 
         .divider {
             width: 80%;
             height: 2px;
-            background: linear-gradient(to right, transparent, #00ffcc, transparent);
+            background: linear-gradient(to right, transparent, #ff4040, transparent);
             margin: 40px auto;
-            box-shadow: 0 0 10px rgba(0, 255, 204, 0.5);
+            box-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
         }
 
         .skills-grid {
@@ -167,16 +228,16 @@
         }
 
         .skill-card {
-            background: rgba(0, 255, 204, 0.15);
+            background: rgba(255, 64, 64, 0.15);
             padding: 25px;
             border-radius: 20px;
             text-align: center;
             cursor: pointer;
             transition: transform 0.4s, box-shadow 0.4s;
-            border: 1px solid rgba(0, 255, 204, 0.3);
+            border: 1px solid rgba(255, 64, 64, 0.3);
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(0, 255, 204, 0.2);
+            box-shadow: 0 5px 15px rgba(255, 64, 64, 0.2);
         }
 
         .skill-card::before {
@@ -186,7 +247,7 @@
             left: -50%;
             width: 200%;
             height: 200%;
-            background: radial-gradient(circle, rgba(0, 255, 204, 0.05), transparent);
+            background: radial-gradient(circle, rgba(255, 64, 64, 0.05), transparent);
             transition: transform 0.5s;
             z-index: 0;
         }
@@ -202,12 +263,12 @@
 
         .skill-card:hover {
             transform: translateY(-15px) rotate(2deg);
-            box-shadow: 0 15px 30px rgba(0, 255, 204, 0.4);
+            box-shadow: 0 15px 30px rgba(255, 64, 64, 0.4);
         }
 
         .skill-card i {
             font-size: 50px;
-            color: #ff007a;
+            color: #ff4040;
             margin-bottom: 20px;
             transition: transform 0.3s;
         }
@@ -218,8 +279,8 @@
 
         .skill-card h4 {
             font-size: 22px;
-            color: #00ffcc;
-            text-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
+            color: #ff8080;
+            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
         }
 
         .popup {
@@ -231,13 +292,13 @@
             background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
             padding: 40px;
             border-radius: 20px;
-            box-shadow: 0 0 40px rgba(0, 255, 204, 0.6);
+            box-shadow: 0 0 40px rgba(255, 64, 64, 0.6);
             z-index: 2000;
             max-width: 450px;
             text-align: center;
             opacity: 0;
             transition: transform 0.3s ease, opacity 0.3s ease;
-            border: 1px solid #00ffcc;
+            border: 1px solid #ff4040;
         }
 
         .popup.active {
@@ -247,16 +308,16 @@
         }
 
         .popup h4 {
-            color: #ff007a;
+            color: #ff4040;
             margin-bottom: 20px;
             font-size: 26px;
-            text-shadow: 0 0 5px rgba(255, 0, 122, 0.5);
+            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
         }
 
         .popup p {
             color: #e0e0e0;
             font-size: 18px;
-            background: rgba(0, 255, 204, 0.05);
+            background: rgba(255, 64, 64, 0.05);
             padding: 10px;
             border-radius: 10px;
         }
@@ -266,14 +327,14 @@
             top: 15px;
             right: 15px;
             font-size: 24px;
-            color: #00ffcc;
+            color: #ff4040;
             cursor: pointer;
             transition: transform 0.3s;
         }
 
         .popup .close-btn:hover {
             transform: rotate(90deg);
-            color: #ff007a;
+            color: #fff;
         }
 
         .contact-form {
@@ -284,9 +345,9 @@
 
         .contact-form input, .contact-form textarea {
             padding: 10px;
-            border: 1px solid #00ffcc;
+            border: 1px solid #ff4040;
             border-radius: 5px;
-            background: rgba(255, 255, 255, 0.05);
+            background: rgba(255, 64, 64, 0.05);
             color: #e0e0e0;
             font-size: 16px;
             transition: border-color 0.3s, box-shadow 0.3s;
@@ -294,13 +355,13 @@
 
         .contact-form input:focus, .contact-form textarea:focus {
             outline: none;
-            border-color: #ff007a;
-            box-shadow: 0 0 10px rgba(255, 0, 122, 0.5);
+            border-color: #ff8080;
+            box-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
         }
 
         .contact-form button {
             padding: 10px;
-            background: #ff007a;
+            background: #ff4040;
             color: #fff;
             border: none;
             border-radius: 5px;
@@ -309,8 +370,7 @@
         }
 
         .contact-form button:hover {
-            background: #00ffcc;
-            color: #000;
+            background: #ff8080;
             transform: scale(1.05);
         }
 
@@ -323,7 +383,7 @@
 
         .success-message i {
             font-size: 60px;
-            color: #ff007a;
+            color: #ff4040;
             animation: pulse 1.5s infinite;
         }
 
@@ -331,23 +391,23 @@
             font-size: 20px;
             color: #e0e0e0;
             max-width: 400px;
-            line-height: 1.5;
+            line-height: 1.8;
         }
 
         footer {
             background: #000;
             padding: 60px 20px;
             text-align: center;
-            border-top: 4px solid #00ffcc;
+            border-top: 4px solid #ff4040;
             position: relative;
-            box-shadow: 0 -5px 20px rgba(0, 255, 204, 0.3);
+            box-shadow: 0 -5px 20px rgba(255, 64, 64, 0.3);
         }
 
         footer p {
             font-size: 20px;
             margin-bottom: 20px;
             color: #e0e0e0;
-            text-shadow: 0 0 5px rgba(0, 255, 204, 0.5);
+            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
         }
 
         footer .social {
@@ -358,20 +418,20 @@
         }
 
         footer .social a, footer .social .contact-btn {
-            color: #00ffcc;
+            color: #ff4040;
             font-size: 32px;
             transition: color 0.3s, transform 0.5s;
             cursor: pointer;
             text-decoration: none;
-            background: rgba(0, 255, 204, 0.05); /* Reduced background intensity */
-            padding: 8px; /* Slightly smaller padding */
+            background: rgba(255, 64, 64, 0.05);
+            padding: 8px;
             border-radius: 50%;
         }
 
         footer .social a:hover, footer .social .contact-btn:hover {
-            color: #ff007a;
+            color: #fff;
             transform: scale(1.2) rotate(360deg);
-            box-shadow: 0 0 8px rgba(255, 0, 122, 0.3); /* Smaller shadow */
+            box-shadow: 0 0 8px rgba(255, 64, 64, 0.3);
         }
 
         @keyframes glitch {
@@ -381,9 +441,9 @@
         }
 
         @keyframes codePulse {
-            0% { text-shadow: 0 0 5px #ff007a, 0 0 10px #ff007a, 0 0 20px #ff007a; }
-            50% { text-shadow: 0 0 10px #ff007a, 0 0 20px #ff007a, 0 0 40px #ff007a; }
-            100% { text-shadow: 0 0 5px #ff007a, 0 0 10px #ff007a, 0 0 20px #ff007a; }
+            0% { text-shadow: 0 0 5px #ff4040, 0 0 10px #ff4040, 0 0 20px #ff4040; }
+            50% { text-shadow: 0 0 10px #ff4040, 0 0 20px #ff4040, 0 0 40px #ff4040; }
+            100% { text-shadow: 0 0 5px #ff4040, 0 0 10px #ff4040, 0 0 20px #ff4040; }
         }
 
         @keyframes pulse {
@@ -399,8 +459,16 @@
                 grid-template-columns: 1fr;
                 padding: 0 10px;
             }
-            header nav { padding: 5px 10px; }
-            header nav ul li { margin-left: 15px; }
+            .hero {
+                flex-direction: column;
+                padding: 100px 20px 20px;
+            }
+            .hero-image {
+                max-width: 100%;
+                margin-bottom: 20px;
+            }
+            header nav ul { gap: 10px; }
+            header nav ul li { margin-left: 10px; }
             footer .social { gap: 15px; }
         }
     </style>
@@ -409,7 +477,6 @@
     <canvas id="bgCanvas"></canvas>
 
     <header>
-        <h1>root</h1>
         <nav>
             <ul>
                 <li><a href="#home">الرئيسية</a></li>
@@ -419,6 +486,24 @@
             </ul>
         </nav>
     </header>
+
+    <div class="hero">
+        <div class="hero-image">
+            <img src="https://i.imgur.com/8Z9V9mQ.jpg" alt="Anime-style profile"> <!-- Placeholder anime image URL -->
+        </div>
+        <div class="hero-content">
+            <h2>مرحباً، أنا root</h2>
+            <h3>مطور تقني مبدع</h3>
+            <p class="about-text">أنا مطور تقني مبدع، أعمل على تصميم وتطوير حلول برمجية متكاملة باستخدام أحدث التقنيات. شغفي يكمن في تحويل الأفكار إلى واقع رقمي يتميز بالكفاءة والجمال.</p>
+            <div class="social">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-twitter"></i></a>
+                <a href="#"><i class="fas fa-times"></i></a>
+            </div>
+            <a href="#contact" class="hire-btn">توظيفني</a>
+        </div>
+    </div>
 
     <div class="container">
         <div class="content">
@@ -520,7 +605,7 @@
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(0, 255, 204, 0.4)';
+                ctx.fillStyle = 'rgba(255, 64, 64, 0.4)'; // Adjusted to red
                 ctx.font = `${this.size}px 'Cairo', sans-serif`;
                 ctx.fillText(this.text, this.x, this.y);
             }
@@ -572,8 +657,7 @@
 
             card.addEventListener('touchstart', (e) => {
                 e.preventDefault();
-                // Only trigger on a deliberate tap, not light scrolling
-                if (e.touches.length === 1 && e.targetTouches[0].force <= 0.5) { // Medium or lighter press
+                if (e.touches.length === 1 && e.targetTouches[0].force <= 0.5) {
                     const popupId = card.getAttribute('data-popup');
                     const popup = document.getElementById(popupId);
                     if (!popup.classList.contains('active')) {
