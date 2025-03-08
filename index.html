@@ -654,6 +654,7 @@
         });
 
         // Clock and Wave Functionality
+        let audioContext = null;
         const profileImg = document.getElementById('profileImg');
         const clockCanvas = document.getElementById('clockCanvas');
         const clockCtx = clockCanvas.getContext('2d');
@@ -675,16 +676,48 @@
         clockCanvas.style.display = 'none';
         waveCanvas.style.display = 'none';
 
-        // Web Audio API for Sound Visualization
-        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
-        const analyser = audioContext.createAnalyser();
-        analyser.fftSize = 256;
-        const bufferLength = analyser.frequencyBinCount;
-        const dataArray = new Uint8Array(bufferLength);
+        function initializeAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                const analyser = audioContext.createAnalyser();
+                analyser.fftSize = 256;
+                const bufferLength = analyser.frequencyBinCount;
+                const dataArray = new Uint8Array(bufferLength);
 
-        const source = audioContext.createMediaElementSource(clockSound);
-        source.connect(analyser);
-        analyser.connect(audioContext.destination);
+                const source = audioContext.createMediaElementSource(clockSound);
+                source.connect(analyser);
+                analyser.connect(audioContext.destination);
+
+                function drawWave() {
+                    if (isClockVisible && clockSound.paused === false) {
+                        analyser.getByteFrequencyData(dataArray);
+                        waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+                        const barWidth = (waveCanvas.width / bufferLength) * 2.5;
+                        let x = 0;
+
+                        for (let i = 0; i < bufferLength; i++) {
+                            const barHeight = (dataArray[i] / 255) * (waveCanvas.height / 4);
+                            waveCtx.fillStyle = `rgba(255, 64, 64, 0.7)`;
+                            waveCtx.fillRect(waveCanvas.width / 2 - x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
+                            waveCtx.fillRect(waveCanvas.width / 2 + x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
+                            x += barWidth + 1;
+                        }
+                        requestAnimationFrame(drawWave);
+                    }
+                }
+
+                clockSound.addEventListener('play', () => {
+                    if (audioContext.state === 'suspended') {
+                        audioContext.resume();
+                    }
+                    drawWave();
+                });
+
+                clockSound.addEventListener('pause', () => {
+                    waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+                });
+            }
+        }
 
         function drawClock() {
             const now = new Date();
@@ -732,39 +765,24 @@
             ctx.stroke();
         }
 
-        function drawWave() {
-            waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
-            analyser.getByteFrequencyData(dataArray);
-
-            const barWidth = (waveCanvas.width / bufferLength) * 2.5;
-            let x = 0;
-
-            for (let i = 0; i < bufferLength; i++) {
-                const barHeight = (dataArray[i] / 255) * (waveCanvas.height / 2);
-                waveCtx.fillStyle = `rgba(255, 64, 64, 0.7)`;
-                waveCtx.fillRect(x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
-                x += barWidth + 1;
-            }
-
-            if (isClockVisible) requestAnimationFrame(drawWave);
-        }
-
         profileImg.addEventListener('click', toggleClock);
         clockCanvas.addEventListener('click', toggleClock);
 
         function toggleClock() {
             if (!isClockVisible) {
+                initializeAudio(); // تأكد من تهيئة الصوت عند النقر الأول
                 profileImg.style.opacity = '0.2';
                 clockCanvas.style.display = 'block';
                 waveCanvas.style.display = 'block';
                 clockCanvas.style.zIndex = '1';
                 waveCanvas.style.zIndex = '0';
                 clockCanvas.classList.add('pulse');
-                clockSound.currentTime = 0;
-                clockSound.play();
+                clockSound.play().catch(error => {
+                    console.error('Error playing audio:', error);
+                    alert('تعذر تشغيل الصوت. تأكد من أن المتصفح يسمح بتشغيل الصوت بعد التفاعل.');
+                });
                 isClockVisible = true;
                 drawClock();
-                drawWave();
             } else {
                 profileImg.style.opacity = '1';
                 clockCanvas.style.display = 'none';
@@ -782,7 +800,6 @@
             waveCanvas.height = profileImg.clientHeight;
             if (isClockVisible) {
                 drawClock();
-                drawWave();
             }
         });
 
@@ -910,10 +927,7 @@
             } else {
                 document.querySelector('header').style.padding = '15px 20px';
             }
-            if (isClockVisible) {
-                drawClock();
-                drawWave();
-            }
+            if (isClockVisible) drawClock();
         });
     </script>
 </body>
