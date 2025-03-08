@@ -243,141 +243,6 @@
             text-shadow: 0 0 10px rgba(255, 64, 64, 0.7);
         }
 
-        /* قسم البحث عن الدومين */
-        .domain-search {
-            text-align: center;
-            padding: 30px;
-            background: rgba(255, 64, 64, 0.1);
-            border-radius: 15px;
-            box-shadow: 0 0 20px rgba(255, 64, 64, 0.3);
-        }
-
-        .domain-search input[type="text"] {
-            width: 70%;
-            padding: 12px;
-            font-size: 16px;
-            border: 2px solid #ff4040;
-            border-radius: 5px;
-            background: rgba(255, 64, 64, 0.05);
-            color: #e0e0e0;
-            transition: border-color 0.3s;
-        }
-
-        .domain-search input[type="text"]:focus {
-            outline: none;
-            border-color: #ff8080;
-            box-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
-        }
-
-        .domain-search button {
-            padding: 12px 25px;
-            font-size: 16px;
-            background: #ff4040;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s, transform 0.3s;
-            margin-left: 10px;
-        }
-
-        .domain-search button:hover {
-            background: #ff8080;
-            transform: scale(1.05);
-        }
-
-        .domain-search .loading {
-            display: none;
-            color: #ff4040;
-            font-size: 18px;
-            margin-top: 10px;
-        }
-
-        .domain-search .loading.active {
-            display: block;
-            animation: pulse 1.5s infinite;
-        }
-
-        /* قسم أعمالنا */
-        .works-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
-            gap: 25px;
-            padding: 0 20px;
-        }
-
-        .work-card {
-            background: rgba(255, 64, 64, 0.15);
-            padding: 20px;
-            border-radius: 15px;
-            text-align: center;
-            transition: transform 0.4s;
-            border: 1px solid rgba(255, 64, 64, 0.3);
-        }
-
-        .work-card i {
-            font-size: 40px;
-            color: #ff4040;
-            margin-bottom: 15px;
-        }
-
-        .work-card h4 {
-            font-size: 20px;
-            color: #ff8080;
-        }
-
-        .work-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 10px 20px rgba(255, 64, 64, 0.3);
-        }
-
-        /* قسم الأسئلة والأجوبة */
-        .faq-item {
-            margin-bottom: 20px;
-            padding: 15px;
-            background: rgba(255, 64, 64, 0.05);
-            border-radius: 10px;
-            transition: transform 0.3s;
-        }
-
-        .faq-item:hover {
-            transform: scale(1.02);
-        }
-
-        .faq-item h4 {
-            color: #ff4040;
-            margin-bottom: 10px;
-        }
-
-        .faq-item p {
-            color: #e0e0e0;
-            font-size: 16px;
-        }
-
-        /* قسم المدونة */
-        .blog-list {
-            text-align: center;
-        }
-
-        .blog-list ul {
-            list-style: none;
-        }
-
-        .blog-list ul li {
-            margin: 15px 0;
-        }
-
-        .blog-list ul li a {
-            color: #ff8080;
-            text-decoration: none;
-            transition: color 0.3s;
-        }
-
-        .blog-list ul li a:hover {
-            color: #fff;
-        }
-
-        /* تنسيقات إضافية */
         .divider {
             width: 80%;
             height: 2px;
@@ -662,14 +527,18 @@
 
     <div class="sidebar">
         <ul>
+            <li><a href="#home"><i class="fas fa-home"></i> الرئيسية</a></li>
+            <li><a href="#about"><i class="fas fa-user"></i> نبذة</a></li>
+            <li><a href="#skills"><i class="fas fa-tools"></i> مهاراتي</a></li>
             <li><a href="#faq"><i class="fas fa-question-circle"></i> الأسئلة والأجوبة</a></li>
             <li><a href="#works"><i class="fas fa-briefcase"></i> أعمالنا</a></li>
             <li><a href="#blog"><i class="fas fa-blog"></i> المدونة</a></li>
             <li><a href="#domain-search"><i class="fas fa-search"></i> البحث عن دومين</a></li>
+            <li><a href="#contact"><i class="fas fa-envelope"></i> تواصل</a></li>
         </ul>
     </div>
 
-    <div class="hero">
+    <div class="hero" id="home">
         <div class="hero-image">
             <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile" id="profileImg">
             <canvas id="clockCanvas" style="display: none;"></canvas>
@@ -775,6 +644,12 @@
                     <button onclick="searchDomain()">بحث</button>
                     <div class="loading" id="loading">جاري البحث <i class="fas fa-spinner fa-spin"></i></div>
                 </div>
+            </div>
+            <div class="divider"></div>
+
+            <div class="section" id="contact">
+                <h2 data-en="Contact" data-ar="تواصل">تواصل</h2>
+                <!-- يمكن إضافة نموذج تواصل هنا إذا أردت -->
             </div>
         </div>
     </div>
