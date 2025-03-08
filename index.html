@@ -94,6 +94,9 @@
             padding: 100px 50px 50px;
             max-width: 1200px;
             margin: 0 auto;
+            background: #0a0a0a;
+            border-radius: 20px;
+            overflow: hidden;
         }
 
         .hero-image {
@@ -161,6 +164,23 @@
         .hero .social a:hover {
             color: #fff;
             transform: scale(1.2);
+        }
+
+        .message-btn {
+            display: inline-block;
+            padding: 10px 20px;
+            background: #ff4040;
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 18px;
+            margin-top: 20px;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .message-btn:hover {
+            background: #ff8080;
+            transform: scale(1.05);
         }
 
         .container {
@@ -492,8 +512,9 @@
                 <a href="#"><i class="fab fa-linkedin"></i></a>
                 <a href="#"><i class="fab fa-snapchat"></i></a>
                 <a href="#" id="languageToggle"><i class="fas fa-globe"></i></a>
-                <a href="#" id="heroContactBtn"><i class="fas fa-envelope"></i></a>
+                <a href="#" id="heroContactBtn"><i class="fab fa-x"></i></a>
             </div>
+            <a href="#" class="message-btn" id="messageBtn" data-en="Message me" data-ar="راسلني">راسلني</a>
         </div>
     </div>
 
@@ -573,7 +594,7 @@
             <a href="#"><i class="fab fa-github"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
             <a href="#"><i class="fab fa-snapchat"></i></a>
-            <i class="fas fa-envelope contact-btn" id="contactBtn"></i>
+            <i class="fab fa-x contact-btn" id="contactBtn"></i>
         </div>
     </footer>
 
@@ -652,21 +673,18 @@
             const height = clockCanvas.height;
             clockCtx.clearRect(0, 0, width, height);
 
-            // خلفية شفافة
             clockCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
             clockCtx.beginPath();
             clockCtx.arc(width / 2, height / 2, width / 2, 0, Math.PI * 2);
             clockCtx.fill();
 
-            // حدود الساعة
             clockCtx.strokeStyle = '#ff4040';
             clockCtx.lineWidth = 4;
             clockCtx.beginPath();
             clockCtx.arc(width / 2, height / 2, width / 2 - 10, 0, Math.PI * 2);
             clockCtx.stroke();
 
-            // الأرقام
-            clockCtx.fillStyle = '#ffffff'; // لون واضح للأرقام
+            clockCtx.fillStyle = '#ffffff';
             clockCtx.font = 'bold 22px Cairo';
             clockCtx.textAlign = 'center';
             clockCtx.fillText('12', width / 2, 25);
@@ -674,14 +692,13 @@
             clockCtx.fillText('6', width / 2, height - 15);
             clockCtx.fillText('9', 25, height / 2 + 8);
 
-            // العقارب
             const hours = now.getHours() % 12;
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
 
-            drawHand(clockCtx, (hours + minutes / 60) * 30, width / 2 - 50, 5, '#ff4040'); // ساعة
-            drawHand(clockCtx, minutes * 6, width / 2 - 70, 4, '#ff8080'); // دقائق
-            drawHand(clockCtx, seconds * 6, width / 2 - 130, 3, '#ffffff'); // ثواني
+            drawHand(clockCtx, (hours + minutes / 60) * 30, width / 2 - 50, 5, '#ff4040');
+            drawHand(clockCtx, minutes * 6, width / 2 - 70, 4, '#ff8080');
+            drawHand(clockCtx, seconds * 6, width / 2 - 110, 3, '#ffffff');
 
             if (isClockVisible) {
                 requestAnimationFrame(drawClock);
@@ -703,13 +720,13 @@
 
         function toggleClock() {
             if (!isClockVisible) {
-                profileImg.style.opacity = '0.2'; // الصورة خافتة
+                profileImg.style.opacity = '0.2';
                 clockCanvas.style.display = 'block';
                 clockCanvas.style.zIndex = '1';
                 isClockVisible = true;
                 drawClock();
             } else {
-                profileImg.style.opacity = '1'; // الصورة تعود لوضوحها
+                profileImg.style.opacity = '1';
                 clockCanvas.style.display = 'none';
                 isClockVisible = false;
             }
@@ -795,11 +812,12 @@
         // Contact Popup Functionality
         const contactBtn = document.getElementById('contactBtn');
         const heroContactBtn = document.getElementById('heroContactBtn');
+        const messageBtn = document.getElementById('messageBtn');
         const contactPopup = document.getElementById('contactPopup');
         const contactForm = document.getElementById('contactForm');
         const successMessage = document.getElementById('successMessage');
 
-        [contactBtn, heroContactBtn].forEach(btn => {
+        [contactBtn, heroContactBtn, messageBtn].forEach(btn => {
             if (btn) {
                 btn.addEventListener('click', () => {
                     popups.forEach(p => p.classList.remove('active'));
