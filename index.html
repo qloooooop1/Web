@@ -7,6 +7,7 @@
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <style>
+        /* نفس الـCSS السابق بدون تغيير */
         * {
             margin: 0;
             padding: 0;
@@ -501,7 +502,8 @@
             <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile" id="profileImg">
             <canvas id="clockCanvas" style="display: none;"></canvas>
             <canvas id="waveCanvas" style="display: none;"></canvas>
-            <audio id="clockSound" src="https://l.top4top.io/m_3354rmzc30.mp4" preload="auto"></audio>
+            <!-- استبدل رابط الصوت برابط MP3 فعلي -->
+            <audio id="clockSound" src="https://e.top4top.io/m_3354i0qn40.mp4" preload="auto"></audio>
         </div>
         <div class="hero-content">
             <h2 data-en="Hello, I'm root" data-ar="مرحباً، أنا root">مرحباً، أنا root</h2>
@@ -655,6 +657,8 @@
 
         // Clock and Wave Functionality
         let audioContext = null;
+        let analyser = null;
+        let dataArray = null;
         const profileImg = document.getElementById('profileImg');
         const clockCanvas = document.getElementById('clockCanvas');
         const clockCtx = clockCanvas.getContext('2d');
@@ -676,49 +680,41 @@
         clockCanvas.style.display = 'none';
         waveCanvas.style.display = 'none';
 
+        // تهيئة AudioContext وAnalyser
         function initializeAudio() {
             if (!audioContext) {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                const analyser = audioContext.createAnalyser();
+                analyser = audioContext.createAnalyser();
                 analyser.fftSize = 256;
                 const bufferLength = analyser.frequencyBinCount;
-                const dataArray = new Uint8Array(bufferLength);
+                dataArray = new Uint8Array(bufferLength);
 
                 const source = audioContext.createMediaElementSource(clockSound);
                 source.connect(analyser);
                 analyser.connect(audioContext.destination);
-
-                function drawWave() {
-                    if (isClockVisible && clockSound.paused === false) {
-                        analyser.getByteFrequencyData(dataArray);
-                        waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
-                        const barWidth = (waveCanvas.width / bufferLength) * 2.5;
-                        let x = 0;
-
-                        for (let i = 0; i < bufferLength; i++) {
-                            const barHeight = (dataArray[i] / 255) * (waveCanvas.height / 4);
-                            waveCtx.fillStyle = `rgba(255, 64, 64, 0.7)`;
-                            waveCtx.fillRect(waveCanvas.width / 2 - x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
-                            waveCtx.fillRect(waveCanvas.width / 2 + x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
-                            x += barWidth + 1;
-                        }
-                        requestAnimationFrame(drawWave);
-                    }
-                }
-
-                clockSound.addEventListener('play', () => {
-                    if (audioContext.state === 'suspended') {
-                        audioContext.resume();
-                    }
-                    drawWave();
-                });
-
-                clockSound.addEventListener('pause', () => {
-                    waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
-                });
             }
         }
 
+        // رسم التأثير الصوتي (Wave)
+        function drawWave() {
+            if (isClockVisible && !clockSound.paused) {
+                analyser.getByteFrequencyData(dataArray);
+                waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+                const barWidth = (waveCanvas.width / dataArray.length) * 2.5;
+                let x = 0;
+
+                for (let i = 0; i < dataArray.length; i++) {
+                    const barHeight = (dataArray[i] / 255) * (waveCanvas.height / 4);
+                    waveCtx.fillStyle = `rgba(255, 64, 64, 0.7)`;
+                    waveCtx.fillRect(waveCanvas.width / 2 - x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
+                    waveCtx.fillRect(waveCanvas.width / 2 + x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
+                    x += barWidth + 1;
+                }
+                requestAnimationFrame(drawWave);
+            }
+        }
+
+        // رسم الساعة
         function drawClock() {
             const now = new Date();
             const width = clockCanvas.width;
@@ -765,33 +761,44 @@
             ctx.stroke();
         }
 
-        profileImg.addEventListener('click', toggleClock);
-        clockCanvas.addEventListener('click', toggleClock);
-
+        // التحكم في التبديل بين الساعة والصورة
         function toggleClock() {
             if (!isClockVisible) {
-                initializeAudio(); // تأكد من تهيئة الصوت عند النقر الأول
+                initializeAudio(); // تهيئة الصوت عند النقر الأول
                 profileImg.style.opacity = '0.2';
                 clockCanvas.style.display = 'block';
                 waveCanvas.style.display = 'block';
+                waveCanvas.style.opacity = '1'; // التأكد من ظهور التأثير
                 clockCanvas.style.zIndex = '1';
                 waveCanvas.style.zIndex = '0';
                 clockCanvas.classList.add('pulse');
-                clockSound.play().catch(error => {
-                    console.error('Error playing audio:', error);
-                    alert('تعذر تشغيل الصوت. تأكد من أن المتصفح يسمح بتشغيل الصوت بعد التفاعل.');
-                });
                 isClockVisible = true;
-                drawClock();
+
+                // تشغيل الصوت ومعالجة الأخطاء
+                clockSound.play()
+                    .then(() => {
+                        if (audioContext.state === 'suspended') audioContext.resume();
+                        drawWave(); // بدء التأثير الصوتي
+                    })
+                    .catch(error => {
+                        console.error('Error playing audio:', error);
+                        alert('تعذر تشغيل الصوت. تأكد من أن المتصفح يسمح بتشغيل الصوت بعد التفاعل.');
+                    });
+
+                drawClock(); // بدء رسم الساعة
             } else {
                 profileImg.style.opacity = '1';
                 clockCanvas.style.display = 'none';
                 waveCanvas.style.display = 'none';
                 clockCanvas.classList.remove('pulse');
                 clockSound.pause();
+                clockSound.currentTime = 0; // إعادة الصوت للبداية
                 isClockVisible = false;
             }
         }
+
+        profileImg.addEventListener('click', toggleClock);
+        clockCanvas.addEventListener('click', toggleClock);
 
         window.addEventListener('resize', () => {
             clockCanvas.width = profileImg.clientWidth;
