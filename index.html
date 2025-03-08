@@ -443,6 +443,16 @@
             100% { transform: scale(1); }
         }
 
+        @keyframes clockPulse {
+            0% { transform: scale(1); opacity: 1; }
+            50% { transform: scale(1.05); opacity: 0.9; }
+            100% { transform: scale(1); opacity: 1; }
+        }
+
+        #clockCanvas.pulse {
+            animation: clockPulse 1s infinite ease-in-out;
+        }
+
         @media (max-width: 768px) {
             .container { width: 100%; }
             .content { padding: 30px; }
@@ -482,6 +492,7 @@
         <div class="hero-image">
             <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile" id="profileImg">
             <canvas id="clockCanvas" style="display: none;"></canvas>
+            <audio id="clockSound" src="https://example.com/remix-sound.mp3" preload="auto"></audio>
         </div>
         <div class="hero-content">
             <h2 data-en="Hello, I'm root" data-ar="مرحباً، أنا root">مرحباً، أنا root</h2>
@@ -637,6 +648,7 @@
         const profileImg = document.getElementById('profileImg');
         const clockCanvas = document.getElementById('clockCanvas');
         const clockCtx = clockCanvas.getContext('2d');
+        const clockSound = document.getElementById('clockSound');
         let isClockVisible = false;
 
         clockCanvas.width = profileImg.clientWidth;
@@ -666,7 +678,7 @@
             clockCtx.stroke();
 
             // الأرقام
-            clockCtx.fillStyle = '#ffffff'; // لون واضح للأرقام
+            clockCtx.fillStyle = '#ffffff';
             clockCtx.font = 'bold 22px Cairo';
             clockCtx.textAlign = 'center';
             clockCtx.fillText('12', width / 2, 25);
@@ -679,9 +691,9 @@
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
 
-            drawHand(clockCtx, (hours + minutes / 60) * 30, width / 2 - 50, 5, '#ff4040'); // ساعة
-            drawHand(clockCtx, minutes * 6, width / 2 - 70, 4, '#ff8080'); // دقائق
-            drawHand(clockCtx, seconds * 6, width / 2 - 130, 3, '#ffffff'); // ثواني
+            drawHand(clockCtx, (hours + minutes / 60) * 30, width / 2 - 50, 5, '#ff4040');
+            drawHand(clockCtx, minutes * 6, width / 2 - 70, 4, '#ff8080');
+            drawHand(clockCtx, seconds * 6, width / 2 - 130, 3, '#ffffff');
 
             if (isClockVisible) {
                 requestAnimationFrame(drawClock);
@@ -703,14 +715,19 @@
 
         function toggleClock() {
             if (!isClockVisible) {
-                profileImg.style.opacity = '0.2'; // الصورة خافتة
+                profileImg.style.opacity = '0.2';
                 clockCanvas.style.display = 'block';
                 clockCanvas.style.zIndex = '1';
+                clockCanvas.classList.add('pulse');
+                clockSound.currentTime = 0;
+                clockSound.play();
                 isClockVisible = true;
                 drawClock();
             } else {
-                profileImg.style.opacity = '1'; // الصورة تعود لوضوحها
+                profileImg.style.opacity = '1';
                 clockCanvas.style.display = 'none';
+                clockCanvas.classList.remove('pulse');
+                clockSound.pause();
                 isClockVisible = false;
             }
         }
@@ -849,4 +866,4 @@
         });
     </script>
 </body>
-</html> 
+</html>
