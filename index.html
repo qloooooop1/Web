@@ -20,6 +20,7 @@
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
+            transition: all 0.3s ease;
         }
 
         canvas {
@@ -39,7 +40,7 @@
             background: rgba(0, 0, 0, 0.9);
             padding: 15px 20px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             z-index: 1000;
             box-shadow: 0 4px 20px rgba(255, 64, 64, 0.3);
@@ -87,6 +88,17 @@
             transform: scale(1.1);
         }
 
+        .lang-toggle {
+            color: #ff4040;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        .lang-toggle:hover {
+            color: #fff;
+        }
+
         .hero {
             display: flex;
             align-items: center;
@@ -98,18 +110,72 @@
 
         .hero-image {
             flex: 1;
-            max-width: 30%; /* Adjusted for balance */
+            max-width: 30%;
             position: relative;
         }
 
         .hero-image img {
             width: 100%;
             height: auto;
-            border-radius: 50%; /* Circular image to blend naturally */
+            border-radius: 50%;
             box-shadow: 0 0 20px rgba(255, 64, 64, 0.5);
-            border: 3px solid #ff4040; /* Red border to match theme */
+            border: 3px solid #ff4040;
             object-fit: cover;
-            aspect-ratio: 1 / 1; /* Ensures the image stays circular */
+            aspect-ratio: 1 / 1;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .hero-image img:hover {
+            transform: scale(1.05);
+        }
+
+        .hero-image .clock {
+            display: none;
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            border: 3px solid #ff4040;
+            background: rgba(255, 64, 64, 0.1);
+            box-shadow: 0 0 20px rgba(255, 64, 64, 0.5);
+        }
+
+        .hero-image .clock.active {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+        }
+
+        .hero-image .clock .hour-hand,
+        .hero-image .clock .minute-hand,
+        .hero-image .clock .second-hand {
+            position: absolute;
+            background: #ff4040;
+            transform-origin: bottom;
+        }
+
+        .hero-image .clock .hour-hand {
+            width: 4px;
+            height: 25%;
+            top: 25%;
+            background: #ff8080;
+        }
+
+        .hero-image .clock .minute-hand {
+            width: 3px;
+            height: 35%;
+            top: 15%;
+            background: #ff4040;
+        }
+
+        .hero-image .clock .second-hand {
+            width: 2px;
+            height: 40%;
+            top: 10%;
+            background: #fff;
         }
 
         .hero-content {
@@ -158,6 +224,20 @@
         }
 
         .hero .social a:hover {
+            color: #fff;
+            transform: scale(1.2);
+        }
+
+        .contact-btn {
+            color: #ff4040;
+            font-size: 24px;
+            cursor: pointer;
+            transition: color 0.3s, transform 0.3s;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .contact-btn:hover {
             color: #fff;
             transform: scale(1.2);
         }
@@ -442,6 +522,10 @@
             100% { transform: scale(1); }
         }
 
+        @keyframes rotate {
+            100% { transform: rotate(360deg); }
+        }
+
         @media (max-width: 768px) {
             .container { width: 100%; }
             .content { padding: 30px; }
@@ -454,7 +538,7 @@
                 padding: 100px 20px 20px;
             }
             .hero-image {
-                max-width: 50%; /* Slightly larger on mobile for balance */
+                max-width: 50%;
                 margin-bottom: 20px;
             }
             header nav ul { gap: 10px; }
@@ -469,27 +553,33 @@
     <header>
         <nav>
             <ul>
-                <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#about">نبذة</a></li>
-                <li><a href="#skills">مهاراتي</a></li>
-                <li><a href="#contact">تواصل</a></li>
+                <li><a href="#home" data-ar="الرئيسية" data-en="Home">الرئيسية</a></li>
+                <li><a href="#about" data-ar="نبذة" data-en="About">نبذة</a></li>
+                <li><a href="#skills" data-ar="مهاراتي" data-en="Skills">مهاراتي</a></li>
+                <li><a href="#contact" data-ar="تواصل" data-en="Contact">تواصل</a></li>
             </ul>
         </nav>
+        <i class="fas fa-globe lang-toggle" id="langToggle"></i>
     </header>
 
     <div class="hero">
         <div class="hero-image">
-            <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile">
+            <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile" id="profileImg">
+            <div class="clock" id="clock">
+                <div class="hour-hand"></div>
+                <div class="minute-hand"></div>
+                <div class="second-hand"></div>
+            </div>
         </div>
         <div class="hero-content">
-            <h2>مرحباً، أنا root</h2>
-            <h3>مطور تقني مبدع</h3>
-            <p class="about-text">أنا مطور تقني مبدع، أعمل على تصميم وتطوير حلول برمجية متكاملة باستخدام أحدث التقنيات. شغفي يكمن في تحويل الأفكار إلى واقع رقمي يتميز بالكفاءة والجمال.</p>
+            <h2 data-ar="مرحباً، أنا root" data-en="Hi, I'm root">مرحباً، أنا root</h2>
+            <h3 data-ar="مطور تقني مبدع" data-en="Creative Tech Developer">مطور تقني مبدع</h3>
+            <p class="about-text" data-ar="أنا مطور تقني مبدع، أعمل على تصميم وتطوير حلول برمجية متكاملة باستخدام أحدث التقنيات. شغفي يكمن في تحويل الأفكار إلى واقع رقمي يتميز بالكفاءة والجمال." data-en="I am a creative tech developer, working on designing and developing comprehensive software solutions using the latest technologies. My passion lies in turning ideas into a digital reality distinguished by efficiency and beauty.">أنا مطور تقني مبدع، أعمل على تصميم وتطوير حلول برمجية متكاملة باستخدام أحدث التقنيات. شغفي يكمن في تحويل الأفكار إلى واقع رقمي يتميز بالكفاءة والجمال.</p>
             <div class="social">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-twitter"></i></a>
-                <a href="#"><i class="fas fa-times"></i></a>
+                <a href="#" data-ar="جيثب" data-en="GitHub"><i class="fab fa-github"></i></a>
+                <a href="#" data-ar="لينكدإن" data-en="LinkedIn"><i class="fab fa-linkedin"></i></a>
+                <a href="#" data-ar="تويتر" data-en="Twitter"><i class="fab fa-twitter"></i></a>
+                <i class="fas fa-envelope contact-btn" id="contactBtn"></i>
             </div>
         </div>
     </div>
@@ -497,28 +587,28 @@
     <div class="container">
         <div class="content">
             <div class="section" id="about">
-                <h2>نبذة عني</h2>
-                <p class="about-text">أنا مطور تقني مبدع، أعمل على تصميم وتطوير حلول برمجية متكاملة باستخدام أحدث التقنيات. شغفي يكمن في تحويل الأفكار إلى واقع رقمي يتميز بالكفاءة والجمال.</p>
+                <h2 data-ar="نبذة عني" data-en="About Me">نبذة عني</h2>
+                <p class="about-text" data-ar="أنا مطور تقني مبدع، أعمل على تصميم وتطوير حلول برمجية متكاملة باستخدام أحدث التقنيات. شغفي يكمن في تحويل الأفكار إلى واقع رقمي يتميز بالكفاءة والجمال." data-en="I am a creative tech developer, working on designing and developing comprehensive software solutions using the latest technologies. My passion lies in turning ideas into a digital reality distinguished by efficiency and beauty.">أنا مطور تقني مبدع، أعمل على تصميم وتطوير حلول برمجية متكاملة باستخدام أحدث التقنيات. شغفي يكمن في تحويل الأفكار إلى واقع رقمي يتميز بالكفاءة والجمال.</p>
             </div>
             <div class="divider"></div>
             <div class="section" id="skills">
-                <h2>مهاراتي</h2>
+                <h2 data-ar="مهاراتي" data-en="My Skills">مهاراتي</h2>
                 <div class="skills-grid">
-                    <div class="skill-card" data-popup="popup1">
+                    <div class="skill-card" data-popup-ar="popup1" data-popup-en="popup1">
                         <i class="fas fa-code"></i>
-                        <h4>البرمجة</h4>
+                        <h4 data-ar="البرمجة" data-en="Programming">البرمجة</h4>
                     </div>
-                    <div class="skill-card" data-popup="popup2">
+                    <div class="skill-card" data-popup-ar="popup2" data-popup-en="popup2">
                         <i class="fas fa-paint-brush"></i>
-                        <h4>التصميم</h4>
+                        <h4 data-ar="التصميم" data-en="Design">التصميم</h4>
                     </div>
-                    <div class="skill-card" data-popup="popup3">
+                    <div class="skill-card" data-popup-ar="popup3" data-popup-en="popup3">
                         <i class="fas fa-server"></i>
-                        <h4>إدارة الأنظمة</h4>
+                        <h4 data-ar="إدارة الأنظمة" data-en="System Management">إدارة الأنظمة</h4>
                     </div>
-                    <div class="skill-card" data-popup="popup4">
+                    <div class="skill-card" data-popup-ar="popup4" data-popup-en="popup4">
                         <i class="fas fa-terminal"></i>
-                        <h4>الأتمتة</h4>
+                        <h4 data-ar="الأتمتة" data-en="Automation">الأتمتة</h4>
                     </div>
                 </div>
             </div>
@@ -528,47 +618,48 @@
     <!-- Skill Popups -->
     <div class="popup" id="popup1">
         <span class="close-btn">×</span>
-        <h4>البرمجة</h4>
-        <p>تطوير تطبيقات عالية الأداء باستخدام Python وJavaScript مع التركيز على الجودة والكفاءة.</p>
+        <h4 data-ar="البرمجة" data-en="Programming">البرمجة</h4>
+        <p data-ar="تطوير تطبيقات عالية الأداء باستخدام Python وJavaScript مع التركيز على الجودة والكفاءة." data-en="Developing high-performance applications using Python and JavaScript with a focus on quality and efficiency.">تطوير تطبيقات عالية الأداء باستخدام Python وJavaScript مع التركيز على الجودة والكفاءة.</p>
     </div>
     <div class="popup" id="popup2">
         <span class="close-btn">×</span>
-        <h4>التصميم</h4>
-        <p>إنشاء واجهات مستخدم تفاعلية وجذابة باستخدام CSS وأدوات التصميم الحديثة.</p>
+        <h4 data-ar="التصميم" data-en="Design">التصميم</h4>
+        <p data-ar="إنشاء واجهات مستخدم تفاعلية وجذابة باستخدام CSS وأدوات التصميم الحديثة." data-en="Creating interactive and appealing user interfaces using CSS and modern design tools.">إنشاء واجهات مستخدم تفاعلية وجذابة باستخدام CSS وأدوات التصميم الحديثة.</p>
     </div>
     <div class="popup" id="popup3">
         <span class="close-btn">×</span>
-        <h4>إدارة الأنظمة</h4>
-        <p>تكوين وتحسين أنظمة تشغيل متقدمة مثل Linux لتحقيق أعلى مستويات الأداء.</p>
+        <h4 data-ar="إدارة الأنظمة" data-en="System Management">إدارة الأنظمة</h4>
+        <p data-ar="تكوين وتحسين أنظمة تشغيل متقدمة مثل Linux لتحقيق أعلى مستويات الأداء." data-en="Configuring and optimizing advanced operating systems like Linux for maximum performance.">تكوين وتحسين أنظمة تشغيل متقدمة مثل Linux لتحقيق أعلى مستويات الأداء.</p>
     </div>
     <div class="popup" id="popup4">
         <span class="close-btn">×</span>
-        <h4>الأتمتة</h4>
-        <p>كتابة سكربتات ذكية لأتمتة العمليات باستخدام Bash وPython.</p>
+        <h4 data-ar="الأتمتة" data-en="Automation">الأتمتة</h4>
+        <p data-ar="كتابة سكربتات ذكية لأتمتة العمليات باستخدام Bash وPython." data-en="Writing smart scripts to automate processes using Bash and Python.">كتابة سكربتات ذكية لأتمتة العمليات باستخدام Bash وPython.</p>
     </div>
 
     <!-- Contact Popup -->
     <div class="popup" id="contactPopup">
         <span class="close-btn">×</span>
-        <h4>راسلنا</h4>
+        <h4 data-ar="راسلنا" data-en="Contact Us">راسلنا</h4>
+        <p data-ar="يرجى إدخال معلوماتك للتواصل معي. عنوان بريدي الإلكتروني: example@email.com" data-en="Please enter your details to contact me. My email address: example@email.com">يرجى إدخال معلوماتك للتواصل معي. عنوان بريدي الإلكتروني: example@email.com</p>
         <form class="contact-form" id="contactForm">
-            <input type="text" placeholder="الاسم" required>
-            <input type="email" placeholder="البريد الإلكتروني" required>
-            <textarea placeholder="رسالتك" rows="5" required></textarea>
-            <button type="submit">إرسال</button>
+            <input type="text" placeholder="الاسم" data-ar-placeholder="الاسم" data-en-placeholder="Name" required>
+            <input type="email" placeholder="البريد الإلكتروني" data-ar-placeholder="البريد الإلكتروني" data-en-placeholder="Email" required>
+            <textarea placeholder="رسالتك" data-ar-placeholder="رسالتك" data-en-placeholder="Message" rows="5" required></textarea>
+            <button type="submit" data-ar="إرسال" data-en="Send">إرسال</button>
         </form>
         <div class="success-message" id="successMessage">
             <i class="fas fa-check-circle"></i>
-            <p>تم إرسال رسالتك بنجاح! نشكرك على تواصلك معنا، وسيتم الرد عليك في أقرب وقت ممكن.</p>
+            <p data-ar="تم إرسال رسالتك بنجاح! نشكرك على تواصلك معنا، وسيتم الرد عليك في أقرب وقت ممكن." data-en="Your message has been sent successfully! Thank you for contacting us, we will reply to you as soon as possible.">تم إرسال رسالتك بنجاح! نشكرك على تواصلك معنا، وسيتم الرد عليك في أقرب وقت ممكن.</p>
         </div>
     </div>
 
     <footer id="contact">
-        <p>جميع الحقوق محفوظة © 2025 | root</p>
+        <p data-ar="جميع الحقوق محفوظة © 2025 | root" data-en="All rights reserved © 2025 | root">جميع الحقوق محفوظة © 2025 | root</p>
         <div class="social">
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#" data-ar="جيثب" data-en="GitHub"><i class="fab fa-github"></i></a>
+            <a href="#" data-ar="لينكدإن" data-en="LinkedIn"><i class="fab fa-linkedin"></i></a>
+            <a href="#" data-ar="تويتر" data-en="Twitter"><i class="fab fa-twitter"></i></a>
             <i class="fas fa-envelope contact-btn" id="contactBtn"></i>
         </div>
     </footer>
@@ -629,6 +720,39 @@
             canvas.height = window.innerHeight;
         });
 
+        // Clock Functionality
+        const profileImg = document.getElementById('profileImg');
+        const clock = document.getElementById('clock');
+        const hourHand = clock.querySelector('.hour-hand');
+        const minuteHand = clock.querySelector('.minute-hand');
+        const secondHand = clock.querySelector('.second-hand');
+
+        profileImg.addEventListener('click', () => {
+            clock.classList.toggle('active');
+            if (clock.classList.contains('active')) {
+                updateClock();
+                clockInterval = setInterval(updateClock, 1000);
+            } else {
+                clearInterval(clockInterval);
+            }
+        });
+
+        let clockInterval;
+        function updateClock() {
+            const now = new Date();
+            const hours = now.getHours() % 12;
+            const minutes = now.getMinutes();
+            const seconds = now.getSeconds();
+
+            const hourDeg = (hours * 30) + (minutes * 0.5); // 360° / 12 hours
+            const minuteDeg = (minutes * 6); // 360° / 60 minutes
+            const secondDeg = (seconds * 6); // 360° / 60 seconds
+
+            hourHand.style.transform = `rotate(${hourDeg}deg)`;
+            minuteHand.style.transform = `rotate(${minuteDeg}deg)`;
+            secondHand.style.transform = `rotate(${secondDeg}deg)`;
+        }
+
         // Skill Popup Functionality
         const skillCards = document.querySelectorAll('.skill-card');
         const popups = document.querySelectorAll('.popup');
@@ -636,7 +760,7 @@
 
         skillCards.forEach(card => {
             card.addEventListener('click', () => {
-                const popupId = card.getAttribute('data-popup');
+                const popupId = card.getAttribute(`data-${currentLang}-popup`);
                 const popup = document.getElementById(popupId);
                 if (!popup.classList.contains('active')) {
                     popups.forEach(p => p.classList.remove('active'));
@@ -647,7 +771,7 @@
             card.addEventListener('touchstart', (e) => {
                 e.preventDefault();
                 if (e.touches.length === 1 && e.targetTouches[0].force <= 0.5) {
-                    const popupId = card.getAttribute('data-popup');
+                    const popupId = card.getAttribute(`data-${currentLang}-popup`);
                     const popup = document.getElementById(popupId);
                     if (!popup.classList.contains('active')) {
                         popups.forEach(p => p.classList.remove('active'));
@@ -677,19 +801,19 @@
         });
 
         // Contact Popup Functionality
-        const contactBtn = document.getElementById('contactBtn');
+        const contactBtn = document.querySelectorAll('.contact-btn');
         const contactPopup = document.getElementById('contactPopup');
         const contactForm = document.getElementById('contactForm');
         const successMessage = document.getElementById('successMessage');
 
-        if (contactBtn) {
-            contactBtn.addEventListener('click', () => {
+        contactBtn.forEach(btn => {
+            btn.addEventListener('click', () => {
                 popups.forEach(p => p.classList.remove('active'));
                 contactPopup.classList.add('active');
                 contactForm.style.display = 'flex';
                 successMessage.style.display = 'none';
             });
-        }
+        });
 
         contactForm.addEventListener('submit', (e) => {
             e.preventDefault();
@@ -699,6 +823,43 @@
                 contactPopup.classList.remove('active');
             }, 3000);
         });
+
+        // Language Toggle
+        const langToggle = document.getElementById('langToggle');
+        let currentLang = localStorage.getItem('language') || 'ar';
+
+        function translatePage(lang) {
+            document.querySelectorAll('[data-ar], [data-en]').forEach(element => {
+                const arText = element.getAttribute('data-ar');
+                const enText = element.getAttribute('data-en');
+                if (lang === 'en' && enText) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = element.getAttribute(`data-${lang}-placeholder`) || enText;
+                    } else {
+                        element.textContent = enText;
+                    }
+                } else if (arText) {
+                    if (element.tagName === 'INPUT' || element.tagName === 'TEXTAREA') {
+                        element.placeholder = element.getAttribute(`data-${lang}-placeholder`) || arText;
+                    } else {
+                        element.textContent = arText;
+                    }
+                }
+                if (element.tagName === 'A') {
+                    element.href = `#${lang === 'en' ? element.getAttribute('data-en').toLowerCase() : element.getAttribute('data-ar').toLowerCase()}`;
+                }
+            });
+            document.body.dir = lang === 'en' ? 'ltr' : 'rtl';
+            localStorage.setItem('language', lang);
+            currentLang = lang;
+        }
+
+        langToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            translatePage(currentLang);
+        });
+
+        translatePage(currentLang);
 
         // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
