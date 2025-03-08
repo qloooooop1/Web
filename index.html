@@ -653,7 +653,7 @@
             const height = clockCanvas.height;
             clockCtx.clearRect(0, 0, width, height);
 
-            clockCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
+            clockCtx.fillStyle = 'rgba(0, 0, 0, 1)';
             clockCtx.beginPath();
             clockCtx.arc(width / 2, height / 2, width / 2 - 10, 0, Math.PI * 2);
             clockCtx.fill();
@@ -698,7 +698,7 @@
         profileImg.addEventListener('click', () => {
             if (!isClockVisible) {
                 // جعل الصورة خافتة
-                profileImg.style.opacity = '0';
+                profileImg.style.opacity = '0.2';
                 // إظهار الساعة
                 clockCanvas.style.display = 'block';
                 clockCanvas.style.zIndex = '1'; // التأكد من أن الساعة فوق الصورة
