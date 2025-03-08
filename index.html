@@ -113,6 +113,14 @@
             transition: opacity 0.3s ease;
         }
 
+        #waveCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
         .hero-content {
             flex: 2;
             text-align: center;
@@ -492,8 +500,8 @@
         <div class="hero-image">
             <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile" id="profileImg">
             <canvas id="clockCanvas" style="display: none;"></canvas>
-            <!-- مكان الرابط الصوتي هنا، يمكنك تغييره مستقبلاً -->
-            <audio id="clockSound" src="https://b.top4top.io/m_3354ejsms0.mp4" preload="auto"></audio>
+            <canvas id="waveCanvas" style="display: none;"></canvas>
+            <audio id="clockSound" src="https://l.top4top.io/m_3354rmzc30.mp4" preload="auto"></audio>
         </div>
         <div class="hero-content">
             <h2 data-en="Hello, I'm root" data-ar="مرحباً، أنا root">مرحباً، أنا root</h2>
@@ -591,18 +599,18 @@
 
     <script>
         // Animated Background
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth * 1.5;
-        canvas.height = window.innerHeight;
+        const bgCanvas = document.getElementById('bgCanvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        bgCanvas.width = window.innerWidth * 1.5;
+        bgCanvas.height = window.innerHeight;
 
         const code = ['0', '1', 'if', 'else', 'function', 'var', 'let', '{', '}', ';', '<', '>'];
         const particles = [];
 
         class Particle {
             constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
+                this.x = Math.random() * bgCanvas.width;
+                this.y = Math.random() * bgCanvas.height;
                 this.text = code[Math.floor(Math.random() * code.length)];
                 this.size = Math.random() * 20 + 10;
                 this.speedX = (Math.random() - 0.5) * 0.5;
@@ -610,20 +618,20 @@
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(255, 64, 64, 0.4)';
-                ctx.font = `${this.size}px 'Cairo', sans-serif`;
-                ctx.fillText(this.text, this.x, this.y);
+                bgCtx.fillStyle = 'rgba(255, 64, 64, 0.4)';
+                bgCtx.font = `${this.size}px 'Cairo', sans-serif`;
+                bgCtx.fillText(this.text, this.x, this.y);
             }
 
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if (this.y > canvas.height) {
+                if (this.y > bgCanvas.height) {
                     this.y = 0 - this.size;
-                    this.x = Math.random() * canvas.width;
+                    this.x = Math.random() * bgCanvas.width;
                 }
-                if (this.x < 0 || this.x > canvas.width) {
-                    this.x = Math.random() * canvas.width;
+                if (this.x < 0 || this.x > bgCanvas.width) {
+                    this.x = Math.random() * bgCanvas.width;
                 }
                 this.draw();
             }
@@ -633,31 +641,50 @@
             particles.push(new Particle());
         }
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        function animateBackground() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
             particles.forEach(p => p.update());
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateBackground);
         }
-        animate();
+        animateBackground();
 
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth * 1.5;
-            canvas.height = window.innerHeight;
+            bgCanvas.width = window.innerWidth * 1.5;
+            bgCanvas.height = window.innerHeight;
         });
 
-        // Clock Functionality
+        // Clock and Wave Functionality
         const profileImg = document.getElementById('profileImg');
         const clockCanvas = document.getElementById('clockCanvas');
         const clockCtx = clockCanvas.getContext('2d');
+        const waveCanvas = document.getElementById('waveCanvas');
+        const waveCtx = waveCanvas.getContext('2d');
         const clockSound = document.getElementById('clockSound');
         let isClockVisible = false;
 
         clockCanvas.width = profileImg.clientWidth;
         clockCanvas.height = profileImg.clientHeight;
+        waveCanvas.width = profileImg.clientWidth;
+        waveCanvas.height = profileImg.clientHeight;
+        waveCanvas.style.position = 'absolute';
+        waveCanvas.style.top = '0';
+        waveCanvas.style.left = '0';
         clockCanvas.style.position = 'absolute';
         clockCanvas.style.top = '0';
         clockCanvas.style.left = '0';
         clockCanvas.style.display = 'none';
+        waveCanvas.style.display = 'none';
+
+        // Web Audio API for Sound Visualization
+        const audioContext = new (window.AudioContext || window.webkitAudioContext)();
+        const analyser = audioContext.createAnalyser();
+        analyser.fftSize = 256;
+        const bufferLength = analyser.frequencyBinCount;
+        const dataArray = new Uint8Array(bufferLength);
+
+        const source = audioContext.createMediaElementSource(clockSound);
+        source.connect(analyser);
+        analyser.connect(audioContext.destination);
 
         function drawClock() {
             const now = new Date();
@@ -665,20 +692,17 @@
             const height = clockCanvas.height;
             clockCtx.clearRect(0, 0, width, height);
 
-            // خلفية شفافة
             clockCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
             clockCtx.beginPath();
             clockCtx.arc(width / 2, height / 2, width / 2, 0, Math.PI * 2);
             clockCtx.fill();
 
-            // حدود الساعة
             clockCtx.strokeStyle = '#ff4040';
             clockCtx.lineWidth = 4;
             clockCtx.beginPath();
             clockCtx.arc(width / 2, height / 2, width / 2 - 10, 0, Math.PI * 2);
             clockCtx.stroke();
 
-            // الأرقام
             clockCtx.fillStyle = '#ffffff';
             clockCtx.font = 'bold 22px Cairo';
             clockCtx.textAlign = 'center';
@@ -687,7 +711,6 @@
             clockCtx.fillText('6', width / 2, height - 15);
             clockCtx.fillText('9', 25, height / 2 + 8);
 
-            // العقارب
             const hours = now.getHours() % 12;
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
@@ -696,9 +719,7 @@
             drawHand(clockCtx, minutes * 6, width / 2 - 70, 4, '#ff8080');
             drawHand(clockCtx, seconds * 6, width / 2 - 130, 3, '#ffffff');
 
-            if (isClockVisible) {
-                requestAnimationFrame(drawClock);
-            }
+            if (isClockVisible) requestAnimationFrame(drawClock);
         }
 
         function drawHand(ctx, angle, length, width, color) {
@@ -711,6 +732,23 @@
             ctx.stroke();
         }
 
+        function drawWave() {
+            waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+            analyser.getByteFrequencyData(dataArray);
+
+            const barWidth = (waveCanvas.width / bufferLength) * 2.5;
+            let x = 0;
+
+            for (let i = 0; i < bufferLength; i++) {
+                const barHeight = (dataArray[i] / 255) * (waveCanvas.height / 2);
+                waveCtx.fillStyle = `rgba(255, 64, 64, 0.7)`;
+                waveCtx.fillRect(x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
+                x += barWidth + 1;
+            }
+
+            if (isClockVisible) requestAnimationFrame(drawWave);
+        }
+
         profileImg.addEventListener('click', toggleClock);
         clockCanvas.addEventListener('click', toggleClock);
 
@@ -718,15 +756,19 @@
             if (!isClockVisible) {
                 profileImg.style.opacity = '0.2';
                 clockCanvas.style.display = 'block';
+                waveCanvas.style.display = 'block';
                 clockCanvas.style.zIndex = '1';
+                waveCanvas.style.zIndex = '0';
                 clockCanvas.classList.add('pulse');
                 clockSound.currentTime = 0;
                 clockSound.play();
                 isClockVisible = true;
                 drawClock();
+                drawWave();
             } else {
                 profileImg.style.opacity = '1';
                 clockCanvas.style.display = 'none';
+                waveCanvas.style.display = 'none';
                 clockCanvas.classList.remove('pulse');
                 clockSound.pause();
                 isClockVisible = false;
@@ -736,7 +778,12 @@
         window.addEventListener('resize', () => {
             clockCanvas.width = profileImg.clientWidth;
             clockCanvas.height = profileImg.clientHeight;
-            if (isClockVisible) drawClock();
+            waveCanvas.width = profileImg.clientWidth;
+            waveCanvas.height = profileImg.clientHeight;
+            if (isClockVisible) {
+                drawClock();
+                drawWave();
+            }
         });
 
         // Language Toggle
@@ -863,7 +910,10 @@
             } else {
                 document.querySelector('header').style.padding = '15px 20px';
             }
-            if (isClockVisible) drawClock();
+            if (isClockVisible) {
+                drawClock();
+                drawWave();
+            }
         });
     </script>
 </body>
