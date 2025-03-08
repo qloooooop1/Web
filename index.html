@@ -486,7 +486,7 @@
         <div class="hero-content">
             <h2 data-en="Hello, I'm root" data-ar="مرحباً، أنا root">مرحباً، أنا root</h2>
             <h3 data-en="Creative Tech Developer" data-ar="مطور تقني مبدع">مطور تقني مبدع</h3>
-            <p class="about-text" data-en="I'm a passionate developer and tech enthusiast dedicated to crafting innovative digital solutions that blend creativity with cutting-edge technology." data-ar="أنا مطور شغوف وعاشق للتكنولوجيا، أكرس جهودي لصياغة حلول رقمية مبتكرة تجمع بين الإبداع والتكنولوجيا المتطورة.">أنا مطور شغوف وعاشق للتكنولوجيا، أكرس جهودي لصياغة حلول رقمية مبتكرة تجمع بين الإبداع والتكنولوجيا المتطورة.</p>
+            <p class="about-text" data-en="I'm a tech enthusiast who thrives on solving complex problems with innovative and creative coding solutions." data-ar="أنا عاشق للتكنولوجيا، أزدهر بحل المشكلات المعقدة باستخدام حلول برمجية مبتكرة وإبداعية.">أنا عاشق للتكنولوجيا، أزدهر بحل المشكلات المعقدة باستخدام حلول برمجية مبتكرة وإبداعية.</p>
             <div class="social">
                 <a href="#"><i class="fab fa-github"></i></a>
                 <a href="#"><i class="fab fa-linkedin"></i></a>
@@ -639,7 +639,6 @@
         const clockCtx = clockCanvas.getContext('2d');
         let isClockVisible = false;
 
-        // ضبط مقاسات الساعة لتتطابق مع الصورة من البداية
         clockCanvas.width = profileImg.clientWidth;
         clockCanvas.height = profileImg.clientHeight;
         clockCanvas.style.position = 'absolute';
@@ -648,45 +647,44 @@
         clockCanvas.style.display = 'none';
 
         function drawClock() {
-            const now = new Date(); // استخدام توقيت المستخدم المحلي
+            const now = new Date();
             const width = clockCanvas.width;
             const height = clockCanvas.height;
             clockCtx.clearRect(0, 0, width, height);
 
-            // خلفية الساعة - يمكنك تعديل السطوع هنا
-            clockCtx.fillStyle = 'rgba(0, 0, 0, 0.3)'; // قيمة 0.6 للشفافية (0 = شفاف تمامًا، 1 = معتم تمامًا)
-            // لتقليل السطوع: اجعل القيمة أقرب إلى 1 (مثل 0.8)
-            // لزيادة السطوع: اجعل القيمة أقرب إلى 0 (مثل 0.4)
+            // خلفية شفافة
+            clockCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
             clockCtx.beginPath();
-            clockCtx.arc(width / 2, height / 2, width / 2, 0, Math.PI * 2); // مقاس الساعة يغطي الصورة بالكامل
+            clockCtx.arc(width / 2, height / 2, width / 2, 0, Math.PI * 2);
             clockCtx.fill();
 
-            clockCtx.strokeStyle = '#ff3620';
-            clockCtx.lineWidth = 3; // زيادة سمك الحدود للوضوح
+            // حدود الساعة
+            clockCtx.strokeStyle = '#ff4040';
+            clockCtx.lineWidth = 4;
             clockCtx.beginPath();
             clockCtx.arc(width / 2, height / 2, width / 2 - 10, 0, Math.PI * 2);
             clockCtx.stroke();
 
             // الأرقام
-            clockCtx.fillStyle = '#ff8080';
-            clockCtx.font = '20px Cairo';
+            clockCtx.fillStyle = '#ffffff'; // لون واضح للأرقام
+            clockCtx.font = 'bold 22px Cairo';
             clockCtx.textAlign = 'center';
-            clockCtx.fillText('12', width / 2, 20);
-            clockCtx.fillText('3', width - 20, height / 2 + 5);
-            clockCtx.fillText('6', width / 2, height - 10);
-            clockCtx.fillText('9', 20, height / 2 + 5);
+            clockCtx.fillText('12', width / 2, 25);
+            clockCtx.fillText('3', width - 25, height / 2 + 8);
+            clockCtx.fillText('6', width / 2, height - 15);
+            clockCtx.fillText('9', 25, height / 2 + 8);
 
             // العقارب
             const hours = now.getHours() % 12;
             const minutes = now.getMinutes();
             const seconds = now.getSeconds();
 
-            drawHand(clockCtx, hours * 30 + minutes / 2, width / 2 - 50, 4, '#ff4040'); // ساعة
-            drawHand(clockCtx, minutes * 6, width / 2 - 70, 3, '#ff8080'); // دقائق
-            drawHand(clockCtx, seconds * 6, width / 2 - 90, 5, '#ffffff'); // ثواني (أوضح بسمك 5)
+            drawHand(clockCtx, (hours + minutes / 60) * 30, width / 2 - 50, 5, '#ff4040'); // ساعة
+            drawHand(clockCtx, minutes * 6, width / 2 - 70, 4, '#ff8080'); // دقائق
+            drawHand(clockCtx, seconds * 6, width / 2 - 90, 3, '#ffffff'); // ثواني
 
             if (isClockVisible) {
-                requestAnimationFrame(drawClock); // استمرار التحديث طالما الساعة مرئية
+                requestAnimationFrame(drawClock);
             }
         }
 
@@ -700,25 +698,27 @@
             ctx.stroke();
         }
 
-        profileImg.addEventListener('click', () => {
+        profileImg.addEventListener('click', toggleClock);
+        clockCanvas.addEventListener('click', toggleClock);
+
+        function toggleClock() {
             if (!isClockVisible) {
-                profileImg.style.opacity = '0.3';
+                profileImg.style.opacity = '0.2'; // الصورة خافتة
                 clockCanvas.style.display = 'block';
                 clockCanvas.style.zIndex = '1';
                 isClockVisible = true;
-                drawClock(); // بدء رسم الساعة
+                drawClock();
             } else {
-                profileImg.style.opacity = '1';
+                profileImg.style.opacity = '1'; // الصورة تعود لوضوحها
                 clockCanvas.style.display = 'none';
                 isClockVisible = false;
             }
-        });
+        }
 
-        // تحديث مقاسات الساعة عند تغيير حجم النافذة
         window.addEventListener('resize', () => {
             clockCanvas.width = profileImg.clientWidth;
             clockCanvas.height = profileImg.clientHeight;
-            if (isClockVisible) drawClock(); // إعادة رسم الساعة إذا كانت مرئية
+            if (isClockVisible) drawClock();
         });
 
         // Language Toggle
@@ -785,7 +785,6 @@
             });
         });
 
-        // Close popup when clicking outside
         document.addEventListener('click', (e) => {
             const activePopup = document.querySelector('.popup.active');
             if (activePopup && !activePopup.contains(e.target) && !e.target.closest('.skill-card') && !e.target.closest('.contact-btn') && !e.target.closest('#heroContactBtn')) {
@@ -846,7 +845,7 @@
             } else {
                 document.querySelector('header').style.padding = '15px 20px';
             }
-            if (isClockVisible) drawClock(); // إعادة رسم الساعة عند التمرير
+            if (isClockVisible) drawClock();
         });
     </script>
 </body>
