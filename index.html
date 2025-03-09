@@ -1,1194 +1,10 @@
-<!DOCTYPE html>
-<html lang="ar" dir="rtl">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>موقعي الشخصي | root</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
-    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.2/gsap.min.js"></script>
-    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/toastify-js/src/toastify.min.css">
-    <script src="https://cdn.jsdelivr.net/npm/toastify-js"></script>
-    <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        body {
-            background: #1a1a1a;
-            color: #e0e0e0;
-            line-height: 1.6;
-            overflow-x: hidden;
-            position: relative;
-        }
-
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            opacity: 0.15;
-            width: 100%;
-            height: 100%;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(255, 64, 64, 0.3);
-        }
-
-        header h1 {
-            font-size: 24px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #ff4040;
-            background: rgba(255, 64, 64, 0.1);
-            padding: 10px 20px;
-            border-radius: 50px 50px 10px 10px;
-            border: 2px solid #ff4040;
-            box-shadow: inset 0 0 10px rgba(255, 64, 64, 0.3), 0 0 15px rgba(255, 64, 64, 0.5);
-            transition: transform 0.3s, box-shadow 0.3s;
-            height: 54px;
-            display: flex;
-            align-items: center;
-        }
-
-        header h1:hover {
-            transform: scale(1.05);
-            box-shadow: inset 0 0 15px rgba(255, 64, 64, 0.5), 0 0 20px rgba(255, 64, 64, 0.7);
-        }
-
-        header nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        header nav ul li a {
-            color: #ff4040;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
-            padding: 8px 15px;
-            transition: color 0.3s, transform 0.3s;
-            border-radius: 20px;
-        }
-
-        header nav ul li a:hover {
-            color: #fff;
-            transform: scale(1.1);
-        }
-
-        .menu-toggle {
-            position: fixed;
-            top: 70px;
-            right: 20px;
-            z-index: 1001;
-            font-size: 28px;
-            color: #ff4040;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .menu-toggle:hover {
-            transform: scale(1.1);
-            color: #fff;
-        }
-
-        .sidebar {
-            position: fixed;
-            top: 0;
-            right: -350px;
-            width: 350px;
-            height: 100%;
-            background: rgba(0, 0, 0, 0.95);
-            z-index: 2000;
-            padding: 20px;
-            box-shadow: -5px 0 20px rgba(255, 64, 64, 0.3);
-            overflow-y: auto;
-        }
-
-        .sidebar .close-sidebar {
-            font-size: 28px;
-            color: #ff4040;
-            cursor: pointer;
-            text-align: left;
-            margin-bottom: 20px;
-            transition: transform 0.3s;
-        }
-
-        .sidebar .close-sidebar:hover {
-            transform: rotate(90deg);
-            color: #fff;
-        }
-
-        .sidebar ul {
-            list-style: none;
-        }
-
-        .sidebar ul li {
-            margin: 20px 0;
-            opacity: 0;
-            transform: translateX(20px);
-        }
-
-        .sidebar ul li a, .sidebar ul li span {
-            color: #ff4040;
-            font-size: 20px;
-            text-decoration: none;
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            padding: 10px;
-            border-radius: 10px;
-            transition: color 0.3s, background 0.3s;
-        }
-
-        .sidebar ul li a:hover, .sidebar ul li span:hover {
-            color: #fff;
-            background: rgba(255, 64, 64, 0.2);
-        }
-
-        .auth-form, .profile-section, .ticket-form, .tickets-section {
-            display: none;
-            flex-direction: column;
-            gap: 15px;
-            background: rgba(255, 64, 64, 0.05);
-            padding: 20px;
-            border-radius: 10px;
-            box-shadow: 0 0 10px rgba(255, 64, 64, 0.3);
-            opacity: 0;
-            transform: scale(0.9);
-        }
-
-        .auth-form.active, .profile-section.active, .ticket-form.active, .tickets-section.active {
-            display: flex;
-        }
-
-        .auth-form input, .profile-section input, .ticket-form input, .ticket-form textarea {
-            padding: 10px;
-            border: 1px solid #ff4040;
-            border-radius: 5px;
-            background: rgba(255, 64, 64, 0.05);
-            color: #e0e0e0;
-            font-size: 16px;
-        }
-
-        .auth-form button, .profile-section button, .ticket-form button {
-            padding: 10px;
-            background: #ff4040;
-            color: #fff;
-            border: none;
-            border-radius: 5px;
-            cursor: pointer;
-            transition: background 0.3s;
-        }
-
-        .auth-form button:hover, .profile-section button:hover, .ticket-form button:hover {
-            background: #ff8080;
-        }
-
-        .profile-section img {
-            width: 100px;
-            height: 100px;
-            border-radius: 50%;
-            object-fit: cover;
-            border: 2px solid #ff4040;
-        }
-
-        .tickets-section .ticket {
-            background: rgba(255, 64, 64, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 15px;
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .tickets-section .ticket h4 {
-            color: #ff4040;
-            margin-bottom: 10px;
-        }
-
-        .tickets-section .ticket p {
-            color: #e0e0e0;
-        }
-
-        .tickets-section .ticket button {
-            margin-top: 10px;
-            padding: 5px 10px;
-            font-size: 14px;
-        }
-
-        .scripts-page {
-            display: none;
-            background: rgba(0, 0, 0, 0.95);
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: 3000;
-            padding: 50px;
-            overflow-y: auto;
-            opacity: 0;
-        }
-
-        .scripts-page.active {
-            display: block;
-        }
-
-        .script-card {
-            background: rgba(255, 64, 64, 0.15);
-            padding: 20px;
-            border-radius: 10px;
-            margin-bottom: 20px;
-            box-shadow: 0 0 10px rgba(255, 64, 64, 0.3);
-            opacity: 0;
-            transform: translateY(20px);
-        }
-
-        .script-card h4 {
-            color: #ff4040;
-            font-size: 22px;
-            margin-bottom: 10px;
-        }
-
-        .script-card p {
-            color: #e0e0e0;
-            font-size: 16px;
-            margin-bottom: 10px;
-        }
-
-        .script-card a {
-            color: #ff4040;
-            text-decoration: none;
-            font-weight: bold;
-            transition: color 0.3s;
-        }
-
-        .script-card a:hover {
-            color: #fff;
-        }
-
-        /* باقي الأنماط الأصلية */
-        .hero {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            padding: 100px 50px 50px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .hero-image {
-            flex: 1;
-            max-width: 30%;
-            position: relative;
-        }
-
-        .hero-image img {
-            width: 100%;
-            height: auto;
-            border-radius: 50%;
-            box-shadow: 0 0 20px rgba(255, 64, 64, 0.5);
-            border: 3px solid #ff4040;
-            object-fit: cover;
-            aspect-ratio: 1 / 1;
-            transition: opacity 0.3s ease;
-        }
-
-        .hero-content {
-            flex: 2;
-            text-align: center;
-            padding: 0 20px;
-        }
-
-        .hero-content h2 {
-            font-size: 48px;
-            color: #ff4040;
-            margin-bottom: 10px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255, 64, 64, 0.7);
-        }
-
-        .hero-content h3 {
-            font-size: 28px;
-            color: #ff8080;
-            margin-bottom: 20px;
-        }
-
-        .hero-content p {
-            font-family: 'Amiri', serif;
-            font-size: 18px;
-            color: #e0e0e0;
-            line-height: 1.8;
-            letter-spacing: 1px;
-            margin-bottom: 30px;
-        }
-
-        .hero .social {
-            display: flex;
-            justify-content: center;
-            gap: 15px;
-        }
-
-        .hero .social a {
-            color: #ff4040;
-            font-size: 24px;
-            transition: color 0.3s, transform 0.3s;
-            text-decoration: none;
-            padding: 8px;
-            border-radius: 50%;
-        }
-
-        .hero .social a:hover {
-            color: #fff;
-            transform: scale(1.2);
-        }
-
-        .container {
-            min-height: 100vh;
-            padding-top: 200px;
-            width: 100%;
-        }
-
-        .content {
-            padding: 60px;
-            background: rgba(10, 10, 10, 0.6);
-            border-radius: 20px;
-            box-shadow: 0 0 30px rgba(255, 64, 64, 0.2);
-        }
-
-        .section {
-            margin-bottom: 80px;
-            position: relative;
-        }
-
-        .section h2 {
-            font-size: 42px;
-            color: #ff4040;
-            margin-bottom: 30px;
-            text-transform: uppercase;
-            letter-spacing: 5px;
-            text-align: center;
-            text-shadow: 0 0 10px rgba(255, 64, 64, 0.7);
-        }
-
-        .section p {
-            font-size: 20px;
-            color: #e0e0e0;
-            text-align: center;
-            max-width: 800px;
-            margin: 0 auto 30px;
-            background: rgba(255, 64, 64, 0.05);
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        .divider {
-            width: 80%;
-            height: 2px;
-            background: linear-gradient(to right, transparent, #ff4040, transparent);
-            margin: 40px auto;
-            box-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
-        }
-
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            padding: 0 20px;
-        }
-
-        .skill-card {
-            background: rgba(255, 64, 64, 0.15);
-            padding: 25px;
-            border-radius: 20px;
-            text-align: center;
-            cursor: pointer;
-            transition: transform 0.4s, box-shadow 0.4s;
-            border: 1px solid rgba(255, 64, 64, 0.3);
-            position: relative;
-            overflow: hidden;
-            box-shadow: 0 5px 15px rgba(255, 64, 64, 0.2);
-        }
-
-        .skill-card:hover {
-            transform: translateY(-15px) rotate(2deg);
-            box-shadow: 0 15px 30px rgba(255, 64, 64, 0.4);
-        }
-
-        .skill-card i {
-            font-size: 50px;
-            color: #ff4040;
-            margin-bottom: 20px;
-            transition: transform 0.3s;
-        }
-
-        .skill-card:hover i {
-            transform: scale(1.1) rotate(10deg);
-        }
-
-        .skill-card h4 {
-            font-size: 22px;
-            color: #ff8080;
-            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
-        }
-
-        .popup {
-            display: none;
-            position: fixed;
-            top: 50%;
-            left: 50%;
-            transform: translate(-50%, -50%) scale(0.8);
-            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-            padding: 40px;
-            border-radius: 20px;
-            box-shadow: 0 0 40px rgba(255, 64, 64, 0.6);
-            z-index: 2000;
-            max-width: 450px;
-            text-align: center;
-            opacity: 0;
-            transition: transform 0.3s ease, opacity 0.3s ease;
-            border: 1px solid #ff4040;
-        }
-
-        .popup.active {
-            display: block;
-            transform: translate(-50%, -50%) scale(1);
-            opacity: 1;
-        }
-
-        .popup h4 {
-            color: #ff4040;
-            margin-bottom: 20px;
-            font-size: 26px;
-            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
-        }
-
-        .popup p {
-            color: #e0e0e0;
-            font-size: 18px;
-            background: rgba(255, 64, 64, 0.05);
-            padding: 10px;
-            border-radius: 10px;
-        }
-
-        .popup .close-btn {
-            position: absolute;
-            top: 15px;
-            right: 15px;
-            font-size: 24px;
-            color: #ff4040;
-            cursor: pointer;
-            transition: transform 0.3s;
-        }
-
-        .popup .close-btn:hover {
-            transform: rotate(90deg);
-            color: #fff;
-        }
-
-        footer {
-            background: #000;
-            padding: 60px 20px;
-            text-align: center;
-            border-top: 4px solid #ff4040;
-            position: relative;
-            box-shadow: 0 -5px 20px rgba(255, 64, 64, 0.3);
-        }
-
-        footer p {
-            font-size: 20px;
-            margin-bottom: 20px;
-            color: #e0e0e0;
-            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
-        }
-
-        footer .social {
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            gap: 25px;
-        }
-
-        footer .social a {
-            color: #ff4040;
-            font-size: 32px;
-            transition: color 0.3s, transform 0.5s;
-            cursor: pointer;
-            text-decoration: none;
-            background: rgba(255, 64, 64, 0.05);
-            padding: 8px;
-            border-radius: 50%;
-        }
-
-        footer .social a:hover {
-            color: #fff;
-            transform: scale(1.2) rotate(360deg);
-            box-shadow: 0 0 8px rgba(255, 64, 64, 0.3);
-        }
-
-        @media (max-width: 768px) {
-            .container { width: 100%; }
-            .content { padding: 30px; }
-            .skills-grid { 
-                grid-template-columns: 1fr;
-                padding: 0 10px;
-            }
-            .hero {
-                flex-direction: column;
-                padding: 100px 20px 20px;
-            }
-            .hero-image {
-                max-width: 50%;
-                margin-bottom: 20px;
-            }
-            header nav ul { gap: 10px; }
-            footer .social { gap: 15px; }
-            .sidebar { width: 100%; right: -100%; }
-        }
-    </style>
-</head>
-<body>
-    <canvas id="bgCanvas"></canvas>
-
-    <header>
-        <nav>
-            <ul>
-                <li><a href="#home" data-en="Home" data-ar="الرئيسية">الرئيسية</a></li>
-                <li><a href="#about" data-en="About" data-ar="نبذة">نبذة</a></li>
-                <li><a href="#skills" data-en="Skills" data-ar="مهاراتي">مهاراتي</a></li>
-                <li><a href="#contact" data-en="Contact" data-ar="تواصل">تواصل</a></li>
-            </ul>
-        </nav>
-    </header>
-
-    <div class="menu-toggle">
-        <i class="fas fa-bars"></i>
-    </div>
-
-    <div class="sidebar">
-        <span class="close-sidebar">×</span>
-        <ul id="sidebarMenu">
-            <li id="loginMenu"><span id="loginBtn"><i class="fas fa-sign-in-alt"></i> تسجيل الدخول</span></li>
-            <li id="registerMenu"><span id="registerBtn"><i class="fas fa-user-plus"></i> تسجيل جديد</span></li>
-            <li id="profileMenu" style="display: none;"><span id="profileBtn"><i class="fas fa-user"></i> حسابي</span></li>
-            <li id="ticketMenu" style="display: none;"><span id="ticketBtn"><i class="fas fa-ticket-alt"></i> إنشاء تذكرة</span></li>
-            <li id="ticketsMenu" style="display: none;"><span id="ticketsBtn"><i class="fas fa-ticket-alt"></i> تذاكري</span></li>
-            <li id="logoutMenu" style="display: none;"><span id="logoutBtn"><i class="fas fa-sign-out-alt"></i> تسجيل الخروج</span></li>
-            <li><a href="#" id="scriptsBtn"><i class="fas fa-code"></i> سكربتات مجانية</a></li>
-        </ul>
-
-        <form class="auth-form" id="loginForm" name="login" method="POST" data-netlify="true">
-            <input type="hidden" name="form-name" value="login">
-            <input type="text" name="username" placeholder="اسم المستخدم" required>
-            <input type="password" name="password" placeholder="كلمة المرور" required>
-            <button type="submit">تسجيل الدخول</button>
-        </form>
-
-        <form class="auth-form" id="registerForm" name="register" method="POST" data-netlify="true">
-            <input type="hidden" name="form-name" value="register">
-            <input type="text" name="username" placeholder="اسم المستخدم" required>
-            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-            <input type="password" name="password" placeholder="كلمة المرور" required>
-            <button type="submit">تسجيل</button>
-        </form>
-
-        <div class="profile-section" id="profileSection">
-            <img src="https://via.placeholder.com/100" alt="Profile Picture" id="profilePic">
-            <input type="file" id="profilePicInput" accept="image/*">
-            <input type="text" id="profileName" placeholder="الاسم">
-            <input type="email" id="profileEmail" placeholder="البريد الإلكتروني">
-            <input type="text" id="profilePhone" placeholder="رقم الجوال">
-            <input type="text" id="profileDomain" placeholder="الدومين">
-            <button id="saveProfile">حفظ</button>
-        </div>
-
-        <form class="ticket-form" id="ticketForm" name="ticket" method="POST" data-netlify="true">
-            <input type="hidden" name="form-name" value="ticket">
-            <input type="text" name="title" placeholder="عنوان التذكرة" required>
-            <textarea name="message" placeholder="الرسالة" rows="5" required></textarea>
-            <button type="submit">إرسال التذكرة</button>
-        </form>
-
-        <div class="tickets-section" id="ticketsSection">
-            <h3>تذاكري</h3>
-            <div id="ticketList"></div>
-        </div>
-    </div>
-
-    <div class="scripts-page" id="scriptsPage">
-        <span class="close-sidebar">×</span>
-        <div class="script-card">
-            <h4>سكربت إدارة المحتوى</h4>
-            <p>الوصف: نظام إدارة محتوى خفيف وسريع.</p>
-            <p>الميزات: واجهة سهلة، دعم متعدد اللغات.</p>
-            <p>طريقة التركيب: قم بفك الضغط ورفعه إلى الاستضافة.</p>
-            <a href="#">تحميل</a>
-        </div>
-        <div class="script-card">
-            <h4>سكربت الدردشة</h4>
-            <p>الوصف: نظام دردشة فورية.</p>
-            <p>الميزات: دعم الرسائل المشفرة.</p>
-            <p>طريقة التركيب: تثبيت عبر Composer.</p>
-            <a href="#">تحميل</a>
-        </div>
-    </div>
-
-    <div class="hero">
-        <div class="hero-image">
-            <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile" id="profileImg">
-            <canvas id="waveCanvas" style="display: none;"></canvas>
-            <audio id="clockSound" src="https://ephemeral-concha-441660.netlify.app/3B365C16-A020-45CD-9461-537C5ECA5455.mp4" preload="auto"></audio>
-        </div>
-        <div class="hero-content">
-            <h2 data-en="Hello, I'm root" data-ar="مرحباً، أنا root">مرحباً، أنا root</h2>
-            <h3 data-en="Creative Tech Developer" data-ar="مطور تقني">مطور تقني</h3>
-            <p class="about-text" data-en="I'm a tech enthusiast who thrives on solving complex problems with innovative and creative coding solutions." data-ar="أنا عاشق للتكنولوجيا، أزدهر بحل المشكلات المعقدة باستخدام حلول برمجية مبتكرة وإبداعية.">أنا عاشق للتكنولوجيا، أزدهر بحل المشكلات المعقدة باستخدام حلول برمجية مبتكرة وإبداعية.</p>
-            <div class="social">
-                <a href="#"><i class="fab fa-github"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-snapchat"></i></a>
-                <a href="#" id="languageToggle"><i class="fas fa-globe"></i></a>
-                <a href="#" id="heroContactBtn"><i class="fas fa-envelope"></i></a>
-            </div>
-        </div>
-    </div>
-
-    <div class="container">
-        <div class="content">
-            <div class="section" id="about">
-                <h2 data-en="About Me" data-ar="نبذة عني">نبذة عني</h2>
-                <p class="about-text" data-en="I'm a passionate developer and tech enthusiast dedicated to crafting innovative digital solutions that blend creativity with cutting-edge technology." data-ar="أنا مطور شغوف وعاشق للتكنولوجيا، أكرس جهودي لصياغة حلول رقمية مبتكرة تجمع بين الإبداع والتكنولوجيا المتطورة.">أنا مطور شغوف وعاشق للتكنولوجيا، أكرس جهودي لصياغة حلول رقمية مبتكرة تجمع بين الإبداع والتكنولوجيا المتطورة.</p>
-            </div>
-            <div class="divider"></div>
-            <div class="section" id="skills">
-                <h2 data-en="My Skills" data-ar="مهاراتي">مهاراتي</h2>
-                <div class="skills-grid">
-                    <div class="skill-card" data-popup="popup1">
-                        <i class="fas fa-code"></i>
-                        <h4 data-en="Programming" data-ar="البرمجة">البرمجة</h4>
-                    </div>
-                    <div class="skill-card" data-popup="popup2">
-                        <i class="fas fa-paint-brush"></i>
-                        <h4 data-en="Design" data-ar="التصميم">التصميم</h4>
-                    </div>
-                    <div class="skill-card" data-popup="popup3">
-                        <i class="fas fa-server"></i>
-                        <h4 data-en="System Administration" data-ar="إدارة الأنظمة">إدارة الأنظمة</h4>
-                    </div>
-                    <div class="skill-card" data-popup="popup4">
-                        <i class="fas fa-terminal"></i>
-                        <h4 data-en="Automation" data-ar="الأتمتة">الأتمتة</h4>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-
-    <!-- Popups -->
-    <div class="popup" id="popup1">
-        <span class="close-btn">×</span>
-        <h4 data-en="Programming" data-ar="البرمجة">البرمجة</h4>
-        <p data-en="Developing high-performance applications using Python and JavaScript with a focus on quality and efficiency." data-ar="تطوير تطبيقات عالية الأداء باستخدام Python وJavaScript مع التركيز على الجودة والكفاءة.">تطوير تطبيقات عالية الأداء باستخدام Python وJavaScript مع التركيز على الجودة والكفاءة.</p>
-    </div>
-    <div class="popup" id="popup2">
-        <span class="close-btn">×</span>
-        <h4 data-en="Design" data-ar="التصميم">التصميم</h4>
-        <p data-en="Creating interactive and appealing user interfaces using CSS and modern design tools." data-ar="إنشاء واجهات مستخدم تفاعلية وجذابة باستخدام CSS وأدوات التصميم الحديثة.">إنشاء واجهات مستخدم تفاعلية وجذابة باستخدام CSS وأدوات التصميم الحديثة.</p>
-    </div>
-    <div class="popup" id="popup3">
-        <span class="close-btn">×</span>
-        <h4 data-en="System Administration" data-ar="إدارة الأنظمة">إدارة الأنظمة</h4>
-        <p data-en="Configuring and optimizing advanced operating systems like Linux for peak performance." data-ar="تكوين وتحسين أنظمة تشغيل متقدمة مثل Linux لتحقيق أعلى مستويات الأداء.">تكوين وتحسين أنظمة تشغيل متقدمة مثل Linux لتحقيق أعلى مستويات الأداء.</p>
-    </div>
-    <div class="popup" id="popup4">
-        <span class="close-btn">×</span>
-        <h4 data-en="Automation" data-ar="الأتمتة">الأتمتة</h4>
-        <p data-en="Writing smart scripts for process automation using Bash and Python." data-ar="كتابة سكربتات ذكية لأتمتة العمليات باستخدام Bash وPython.">كتابة سكربتات ذكية لأتمتة العمليات باستخدام Bash وPython.</p>
-    </div>
-
-    <div class="popup" id="contactPopup">
-        <span class="close-btn">×</span>
-        <h4 data-en="Contact Us" data-ar="راسلنا">راسلنا</h4>
-        <form class="contact-form" id="contactForm" name="contact" method="POST" data-netlify="true">
-            <input type="hidden" name="form-name" value="contact">
-            <input type="text" name="name" placeholder="الاسم" required>
-            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-            <textarea name="message" placeholder="رسالتك" rows="5" required></textarea>
-            <button type="submit">إرسال</button>
-        </form>
-    </div>
-
-    <footer id="contact">
-        <p data-en="All Rights Reserved © 2025 | root" data-ar="جميع الحقوق محفوظة © 2025 | root">جميع الحقوق محفوظة © 2025 | root</p>
-        <div class="social">
-            <a href="#"><i class="fab fa-github"></i></a>
-            <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-snapchat"></i></a>
-            <i class="fas fa-envelope contact-btn" id="contactBtn"></i>
-        </div>
-    </footer>
-
-    <script>
-        // الخلفية المتحركة
-        const bgCanvas = document.getElementById('bgCanvas');
-        const bgCtx = bgCanvas.getContext('2d');
-        bgCanvas.width = window.innerWidth * 1.5;
-        bgCanvas.height = window.innerHeight;
-
-        const code = ['0', '1', 'if', 'else', 'function', 'var', 'let', '{', '}', ';', '<', '>'];
-        const particles = [];
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * bgCanvas.width;
-                this.y = Math.random() * bgCanvas.height;
-                this.text = code[Math.floor(Math.random() * code.length)];
-                this.size = Math.random() * 20 + 10;
-                this.speedX = (Math.random() - 0.5) * 0.5;
-                this.speedY = Math.random() * 0.7 + 0.3;
-            }
-
-            draw() {
-                bgCtx.fillStyle = 'rgba(255, 64, 64, 0.4)';
-                bgCtx.font = `${this.size}px 'Cairo', sans-serif`;
-                bgCtx.fillText(this.text, this.x, this.y);
-            }
-
-            update() {
-                this.x += this.speedX;
-                this.y += this.speedY;
-                if (this.y > bgCanvas.height) {
-                    this.y = 0 - this.size;
-                    this.x = Math.random() * bgCanvas.width;
-                }
-                if (this.x < 0 || this.x > bgCanvas.width) {
-                    this.x = Math.random() * bgCanvas.width;
-                }
-                this.draw();
-            }
-        }
-
-        for (let i = 0; i < 100; i++) {
-            particles.push(new Particle());
-        }
-
-        function animateBackground() {
-            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-            particles.forEach(p => p.update());
-            requestAnimationFrame(animateBackground);
-        }
-        animateBackground();
-
-        window.addEventListener('resize', () => {
-            bgCanvas.width = window.innerWidth * 1.5;
-            bgCanvas.height = window.innerHeight;
-        });
-
-        // Sound Wave Functionality (من الكود الأصلي)
-        let audioContext = null;
-        let analyser = null;
-        let dataArray = null;
-        const profileImg = document.getElementById('profileImg');
-        const waveCanvas = document.getElementById('waveCanvas');
-        const waveCtx = waveCanvas.getContext('2d');
-        const clockSound = document.getElementById('clockSound');
-        let isWaveActive = false;
-
-        waveCanvas.width = profileImg.clientWidth;
-        waveCanvas.height = profileImg.clientHeight;
-        waveCanvas.style.position = 'absolute';
-        waveCanvas.style.top = '0';
-        waveCanvas.style.left = '0';
-
-        function initializeAudio() {
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                analyser = audioContext.createAnalyser();
-                analyser.fftSize = 256;
-                const bufferLength = analyser.frequencyBinCount;
-                dataArray = new Uint8Array(bufferLength);
-
-                const source = audioContext.createMediaElementSource(clockSound);
-                source.connect(analyser);
-                analyser.connect(audioContext.destination);
-            }
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
-            }
-        }
-
-        function drawWave() {
-            if (isWaveActive && !clockSound.paused) {
-                analyser.getByteFrequencyData(dataArray);
-                waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
-                const barWidth = (waveCanvas.width / dataArray.length) * 2.5;
-                let x = 0;
-
-                for (let i = 0; i < dataArray.length; i++) {
-                    const barHeight = (dataArray[i] / 255) * (waveCanvas.height / 4);
-                    waveCtx.fillStyle = `rgba(255, 64, 64, 0.7)`;
-                    waveCtx.fillRect(waveCanvas.width / 2 - x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
-                    waveCtx.fillRect(waveCanvas.width / 2 + x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
-                    x += barWidth + 1;
-                }
-                requestAnimationFrame(drawWave);
-            } else if (!isWaveActive) {
-                waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
-            }
-        }
-
-        function toggleWave() {
-            if (!isWaveActive) {
-                initializeAudio();
-                waveCanvas.style.display = 'block';
-                waveCanvas.style.opacity = '1';
-                profileImg.style.opacity = '0.2';
-                isWaveActive = true;
-
-                clockSound.currentTime = 0;
-                clockSound.play()
-                    .then(() => drawWave())
-                    .catch(error => console.error('Error playing audio:', error));
-            } else {
-                profileImg.style.opacity = '1';
-                waveCanvas.style.opacity = '0';
-                waveCanvas.style.display = 'none';
-                clockSound.pause();
-                clockSound.currentTime = 0;
-                isWaveActive = false;
-            }
-        }
-
-        profileImg.addEventListener('click', toggleWave);
-
-        // Language Toggle (من الكود الأصلي)
-        const languageToggle = document.getElementById('languageToggle');
-        let currentLang = localStorage.getItem('lang') || 'ar';
-        document.documentElement.lang = currentLang;
-        document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-
-        function updateLanguage() {
-            document.querySelectorAll('[data-en][data-ar]').forEach(el => {
-                el.textContent = el.getAttribute(`data-${currentLang}`);
-            });
-        }
-
-        languageToggle.addEventListener('click', () => {
-            currentLang = currentLang === 'ar' ? 'en' : 'ar';
-            localStorage.setItem('lang', currentLang);
-            document.documentElement.lang = currentLang;
-            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
-            updateLanguage();
-        });
-
-        updateLanguage();
-
-        // القائمة الجانبية
-        const menuToggle = document.querySelector('.menu-toggle');
-        const sidebar = document.querySelector('.sidebar');
-        const closeSidebar = sidebar.querySelector('.close-sidebar');
-        const loginBtn = document.getElementById('loginBtn');
-        const registerBtn = document.getElementById('registerBtn');
-        const profileBtn = document.getElementById('profileBtn');
-        const ticketBtn = document.getElementById('ticketBtn');
-        const ticketsBtn = document.getElementById('ticketsBtn');
-        const logoutBtn = document.getElementById('logoutBtn');
-        const scriptsBtn = document.getElementById('scriptsBtn');
-        const loginForm = document.getElementById('loginForm');
-        const registerForm = document.getElementById('registerForm');
-        const profileSection = document.getElementById('profileSection');
-        const ticketForm = document.getElementById('ticketForm');
-        const ticketsSection = document.getElementById('ticketsSection');
-        const scriptsPage = document.getElementById('scriptsPage');
-        const closeScripts = scriptsPage.querySelector('.close-sidebar');
-        const ticketList = document.getElementById('ticketList');
-
-        let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-
-        function updateSidebar() {
-            const user = JSON.parse(localStorage.getItem('user'));
-            if (user) {
-                document.getElementById('loginMenu').style.display = 'none';
-                document.getElementById('registerMenu').style.display = 'none';
-                document.getElementById('profileMenu').style.display = 'block';
-                document.getElementById('ticketMenu').style.display = 'block';
-                document.getElementById('ticketsMenu').style.display = 'block';
-                document.getElementById('logoutMenu').style.display = 'block';
-            } else {
-                document.getElementById('loginMenu').style.display = 'block';
-                document.getElementById('registerMenu').style.display = 'block';
-                document.getElementById('profileMenu').style.display = 'none';
-                document.getElementById('ticketMenu').style.display = 'none';
-                document.getElementById('ticketsMenu').style.display = 'none';
-                document.getElementById('logoutMenu').style.display = 'none';
-            }
-        }
-
-        menuToggle.addEventListener('click', () => {
-            gsap.to(sidebar, { right: 0, duration: 0.5, ease: "power2.out" });
-            gsap.to(".sidebar ul li", { opacity: 1, x: 0, duration: 0.5, stagger: 0.1 });
-        });
-
-        closeSidebar.addEventListener('click', () => {
-            gsap.to(sidebar, { right: -350, duration: 0.5, ease: "power2.in" });
-            gsap.to(".sidebar ul li", { opacity: 0, x: 20, duration: 0.3 });
-        });
-
-        function showSection(section) {
-            [loginForm, registerForm, profileSection, ticketForm, ticketsSection].forEach(s => {
-                if (s !== section) gsap.to(s, { opacity: 0, scale: 0.9, duration: 0.3, onComplete: () => s.classList.remove('active') });
-            });
-            if (section) {
-                section.classList.add('active');
-                gsap.to(section, { opacity: 1, scale: 1, duration: 0.5, ease: "power2.out" });
-            }
-        }
-
-        loginBtn.addEventListener('click', () => showSection(loginForm));
-        registerBtn.addEventListener('click', () => showSection(registerForm));
-        profileBtn.addEventListener('click', () => showSection(profileSection));
-        ticketBtn.addEventListener('click', () => showSection(ticketForm));
-        ticketsBtn.addEventListener('click', () => {
-            showSection(ticketsSection);
-            displayTickets();
-        });
-
-        logoutBtn.addEventListener('click', () => {
-            localStorage.removeItem('user');
-            updateSidebar();
-            showSection(null);
-            gsap.to(sidebar, { right: -350, duration: 0.5 });
-            Toastify({
-                text: "تم تسجيل الخروج بنجاح",
-                duration: 3000,
-                style: { background: "#ff4040" }
-            }).showToast();
-        });
-
-        scriptsBtn.addEventListener('click', () => {
-            gsap.to(scriptsPage, { opacity: 1, duration: 0.5, onStart: () => scriptsPage.classList.add('active') });
-            gsap.to(".script-card", { opacity: 1, y: 0, duration: 0.5, stagger: 0.2 });
-            gsap.to(sidebar, { right: -350, duration: 0.5 });
-        });
-
-        closeScripts.addEventListener('click', () => {
-            gsap.to(scriptsPage, { opacity: 0, duration: 0.5, onComplete: () => scriptsPage.classList.remove('active') });
-        });
-
-        loginForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = loginForm.username.value.trim();
-            const password = loginForm.password.value.trim();
-            const storedUser = JSON.parse(localStorage.getItem('user')) || {};
-
-            if (!username || !password) {
-                Toastify({
-                    text: "يرجى ملء جميع الحقول",
-                    duration: 3000,
-                    style: { background: "#ff4040" }
-                }).showToast();
-                return;
-            }
-
-            if (username === 'admin' && password === 'admin123') {
-                localStorage.setItem('user', JSON.stringify({ username, password, isAdmin: true }));
-                Toastify({
-                    text: "تم تسجيل الدخول كأدمن",
-                    duration: 3000,
-                    style: { background: "#ff4040" }
-                }).showToast();
-            } else if (storedUser.username === username && storedUser.password === password) {
-                localStorage.setItem('user', JSON.stringify({ username, password, isAdmin: false }));
-                Toastify({
-                    text: "تم تسجيل الدخول بنجاح",
-                    duration: 3000,
-                    style: { background: "#ff4040" }
-                }).showToast();
-            } else {
-                Toastify({
-                    text: "اسم المستخدم أو كلمة المرور غير صحيحة",
-                    duration: 3000,
-                    style: { background: "#ff4040" }
-                }).showToast();
-                return;
-            }
-
-            updateSidebar();
-            showSection(null);
-            loginForm.reset();
-        });
-
-        registerForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const username = registerForm.username.value.trim();
-            const email = registerForm.email.value.trim();
-            const password = registerForm.password.value.trim();
-
-            if (!username || !email || !password) {
-                Toastify({
-                    text: "يرجى ملء جميع الحقول",
-                    duration: 3000,
-                    style: { background: "#ff4040" }
-                }).showToast();
-                return;
-            }
-
-            if (!/^[a-zA-Z0-9]+$/.test(username)) {
-                Toastify({
-                    text: "اسم المستخدم يجب أن يحتوي على حروف وأرقام فقط",
-                    duration: 3000,
-                    style: { background: "#ff4040" }
-                }).showToast();
-                return;
-            }
-
-            if (!/\S+@\S+\.\S+/.test(email)) {
-                Toastify({
-                    text: "البريد الإلكتروني غير صحيح",
-                    duration: 3000,
-                    style: { background: "#ff4040" }
-                }).showToast();
-                return;
-            }
-
-            if (password.length < 6) {
-                Toastify({
-                    text: "كلمة المرور يجب أن تكون 6 أحرف على الأقل",
-                    duration: 3000,
-                    style: { background: "#ff4040" }
-                }).showToast();
-                return;
-            }
-
-            localStorage.setItem('user', JSON.stringify({ username, email, password, isAdmin: false }));
-            updateSidebar();
-            Toastify({
-                text: "تم التسجيل بنجاح",
-                duration: 3000,
-                style: { background: "#ff4040" }
-            }).showToast();
-            showSection(null);
-            registerForm.reset();
-        });
-
-        const profilePicInput = document.getElementById('profilePicInput');
-        const profilePic = document.getElementById('profilePic');
-        const saveProfile = document.getElementById('saveProfile');
-
-        profilePicInput.addEventListener('change', (e) => {
-            const file = e.target.files[0];
-            if (file) profilePic.src = URL.createObjectURL(file);
-        });
-
-        saveProfile.addEventListener('click', () => {
-            const user = JSON.parse(localStorage.getItem('user')) || {};
-            const name = document.getElementById('profileName').value.trim();
-            const email = document.getElementById('profileEmail').value.trim();
-            const phone = document.getElementById('profilePhone').value.trim();
-            const domain = document.getElementById('profileDomain').value.trim();
-
-            if (email && !/\S+@\S+\.\S+/.test(email)) {
-                Toastify({
-                    text: "البريد الإلكتروني غير صحيح",
-                    duration: 3000,
-                    style: { background: "#ff4040" }
-                }).showToast();
-                return;
-            }
-
-            if (phone && !/^\d{10,15}$/.test(phone)) {
-                Toastify({
-                    text: "رقم الجوال غير صحيح",
-                    duration: 3000,
-                    style: { background: "#ff4040" }
-                }).showToast();
-                return;
-            }
-
-            user.name = name;
-            user.email = email || user.email;
-            user.phone = phone;
-            user.domain = domain;
-            localStorage.setItem('user', JSON.stringify(user));
-            Toastify({
-                text: "تم حفظ التغييرات",
-                duration: 3000,
-                style: { background: "#ff4040" }
-            }).showToast();
-        });
-
-        ticketForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            const user = JSON.parse(localStorage.getItem('user'));
-            if (user) {
-                const title = ticketForm.title.value.trim();
-                const message = ticketForm.message.value.trim();
-
-                if (!title || !message) {
-                    Toastify({
-                        text: "يرجى ملء جميع الحقول",
-                        duration: 3000,
-                        style: { background: "#ff4040" }
-                    }).showToast();
-                    return;
-                }
-
-                const ticket = {
-                    id: Date.now(),
-                    title,
-                    message,
-                    username: user.username,
-                    status: 'open',
-                    response: ''
-                };
-                tickets.push(ticket);
-                localStorage.setItem('tickets', JSON.stringify(tickets));
-                fetch('/', {
-                    method: 'POST',
-                    headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                    body: new URLSearchParams({
-                        'form-name': 'ticket',
-                        'title': ticket.title,
-                        'message': ticket.message,
-                        'username': ticket.username
-                    }).toString()
-                }).then(() => {
-                    ticketForm.reset();
-                    Toastify({
-                        text: "تم إرسال التذكرة بنجاح",
-                        duration: 3000,
-                        style: { background: "#ff4040" }
-                    }).showToast();
-                });
-            } else {
-                Toastify({
-                    text: "يرجى تسجيل الدخول أولاً",
-                    duration: 3000,
-                    style: { background: "#ff4040" }
-                }).showToast();
-            }
-        });
-
-        function displayTickets() {
-            ticketList.innerHTML = '';
-            const user = JSON.parse(localStorage.getItem('user'));
-            const isAdmin = user && user.isAdmin;
+    function displayTickets() {
+        ticketList.innerHTML = '';
+        const user = JSON.parse(localStorage.getItem('user'));
+        const isAdmin = user && user.isAdmin;
+        if (user) {
+            ticketsSection.classList.add('active');
+            ticketForm.classList.add('active');
             tickets.forEach((ticket, index) => {
                 if (isAdmin || ticket.username === user.username) {
                     const ticketDiv = document.createElement('div');
@@ -1196,119 +12,185 @@
                     ticketDiv.innerHTML = `
                         <h4>${ticket.title}</h4>
                         <p>${ticket.message}</p>
-                        <p>الحالة: ${ticket.status === 'open' ? 'مفتوحة' : 'مغلقة'}</p>
-                        ${ticket.response ? `<p>الرد: ${ticket.response}</p>` : ''}
-                        ${isAdmin && ticket.status === 'open' ? `
-                            <button onclick="respondToTicket(${ticket.id})">الرد</button>
-                            <button onclick="closeTicket(${ticket.id})">إغلاق</button>
-                        ` : ''}
+                        <p>بواسطة: ${ticket.username}</p>
+                        <p>تاريخ الإنشاء: ${ticket.createdAt}</p>
+                        <p>آخر تحديث: ${ticket.updatedAt}</p>
+                        <p>الحالة: <span class="${ticket.status === 'open' ? 'status-open' : 'status-closed'}">${ticket.status === 'open' ? 'مفتوحة' : 'مغلقة'}</span></p>
+                        ${ticket.responses.length ? '<p>الردود:</p><ul>' + ticket.responses.map(r => `<li>${r.text} (بواسطة: ${r.by}) - ${r.at}</li>`).join('') + '</ul>' : ''}
+                        <div class="actions">
+                            ${ticket.status === 'open' ? `<button onclick="respondToTicket(${ticket.id})">رد</button>` : ''}
+                            ${ticket.status === 'open' ? `<button onclick="closeTicket(${ticket.id})">إغلاق</button>` : ''}
+                            <button onclick="deleteTicket(${ticket.id})">حذف</button>
+                            ${isAdmin && ticket.username !== 'admin' ? `<button onclick="deleteUserAccount('${ticket.username}')">حذف الحساب</button>` : ''}
+                        </div>
                     `;
                     ticketList.appendChild(ticketDiv);
                     gsap.to(ticketDiv, { opacity: 1, y: 0, duration: 0.5, delay: index * 0.1 });
                 }
             });
         }
+    }
 
-        window.respondToTicket = function(id) {
-            const response = prompt('أدخل ردك على التذكرة:');
-            if (response) {
-                tickets = tickets.map(ticket => {
-                    if (ticket.id === id) ticket.response = response;
-                    return ticket;
-                });
-                localStorage.setItem('tickets', JSON.stringify(tickets));
-                displayTickets();
-                Toastify({
-                    text: "تم إرسال الرد",
-                    duration: 3000,
-                    style: { background: "#ff4040" }
-                }).showToast();
-            }
-        };
-
-        window.closeTicket = function(id) {
+    window.respondToTicket = function(id) {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (!user) return;
+        const response = prompt('أدخل ردك على التذكرة:');
+        if (response) {
             tickets = tickets.map(ticket => {
-                if (ticket.id === id) ticket.status = 'closed';
+                if (ticket.id === id) {
+                    ticket.responses.push({
+                        text: response,
+                        by: user.username,
+                        at: new Date().toLocaleString()
+                    });
+                    ticket.updatedAt = new Date().toLocaleString();
+                }
                 return ticket;
             });
             localStorage.setItem('tickets', JSON.stringify(tickets));
             displayTickets();
             Toastify({
-                text: "تم إغلاق التذكرة",
+                text: "تم إرسال الرد",
                 duration: 3000,
                 style: { background: "#ff4040" }
             }).showToast();
-        };
-
-        const user = JSON.parse(localStorage.getItem('user'));
-        if (user) {
-            document.getElementById('profileName').value = user.name || '';
-            document.getElementById('profileEmail').value = user.email || '';
-            document.getElementById('profilePhone').value = user.phone || '';
-            document.getElementById('profileDomain').value = user.domain || '';
-            updateSidebar();
         }
+    };
 
-        // Skill Popup Functionality (من الكود الأصلي)
-        const skillCards = document.querySelectorAll('.skill-card');
-        const popups = document.querySelectorAll('.popup');
-        const closeBtns = document.querySelectorAll('.close-btn');
+    window.closeTicket = function(id) {
+        tickets = tickets.map(ticket => {
+            if (ticket.id === id) {
+                ticket.status = 'closed';
+                ticket.updatedAt = new Date().toLocaleString();
+            }
+            return ticket;
+        });
+        localStorage.setItem('tickets', JSON.stringify(tickets));
+        displayTickets();
+        Toastify({
+            text: "تم إغلاق التذكرة",
+            duration: 3000,
+            style: { background: "#ff4040" }
+        }).showToast();
+    };
 
-        skillCards.forEach(card => {
-            card.addEventListener('click', () => {
-                const popupId = card.getAttribute('data-popup');
-                const popup = document.getElementById(popupId);
-                if (!popup.classList.contains('active')) {
-                    popups.forEach(p => p.classList.remove('active'));
-                    popup.classList.add('active');
+    window.deleteTicket = function(id) {
+        tickets = tickets.filter(ticket => ticket.id !== id);
+        localStorage.setItem('tickets', JSON.stringify(tickets));
+        displayTickets();
+        Toastify({
+            text: "تم حذف التذكرة",
+            duration: 3000,
+            style: { background: "#ff4040" }
+        }).showToast();
+    };
+
+    window.deleteUserAccount = function(username) {
+        const user = JSON.parse(localStorage.getItem('user'));
+        if (user && user.isAdmin) {
+            if (confirm(`هل أنت متأكد من حذف حساب ${username}؟`)) {
+                tickets = tickets.filter(ticket => ticket.username !== username);
+                if (user.username === username) {
+                    localStorage.removeItem('user');
                 }
-            });
-        });
-
-        closeBtns.forEach(btn => {
-            btn.addEventListener('click', () => {
-                btn.parentElement.classList.remove('active');
-            });
-        });
-
-        document.addEventListener('click', (e) => {
-            const activePopup = document.querySelector('.popup.active');
-            if (activePopup && !activePopup.contains(e.target) && !e.target.closest('.skill-card')) {
-                activePopup.classList.remove('active');
-            }
-        });
-
-        // Contact Popup Functionality (من الكود الأصلي)
-        const contactBtn = document.getElementById('contactBtn');
-        const heroContactBtn = document.getElementById('heroContactBtn');
-        const contactPopup = document.getElementById('contactPopup');
-        const contactForm = document.getElementById('contactForm');
-
-        [contactBtn, heroContactBtn].forEach(btn => {
-            if (btn) {
-                btn.addEventListener('click', () => {
-                    popups.forEach(p => p.classList.remove('active'));
-                    contactPopup.classList.add('active');
-                });
-            }
-        });
-
-        contactForm.addEventListener('submit', (e) => {
-            e.preventDefault();
-            fetch('/', {
-                method: 'POST',
-                headers: { "Content-Type": "application/x-www-form-urlencoded" },
-                body: new URLSearchParams(new FormData(contactForm)).toString()
-            }).then(() => {
+                localStorage.setItem('tickets', JSON.stringify(tickets));
+                updateUserUI();
                 Toastify({
-                    text: "تم إرسال الرسالة بنجاح",
+                    text: `تم حذف حساب ${username}`,
                     duration: 3000,
                     style: { background: "#ff4040" }
                 }).showToast();
-                contactForm.reset();
-                contactPopup.classList.remove('active');
-            });
+            }
+        }
+    };
+
+    updateUserUI();
+
+    // Skill Popups
+    const skillCards = document.querySelectorAll('.skill-card');
+    const popups = document.querySelectorAll('.popup');
+    const closeBtns = document.querySelectorAll('.close-btn');
+
+    skillCards.forEach(card => {
+        card.addEventListener('click', () => {
+            const popupId = card.getAttribute('data-popup');
+            const popup = document.getElementById(popupId);
+            if (!popup.classList.contains('active')) {
+                popups.forEach(p => p.classList.remove('active'));
+                popup.classList.add('active');
+            }
         });
-    </script>
-</body>
-</html>
+    });
+
+    closeBtns.forEach(btn => {
+        btn.addEventListener('click', () => {
+            btn.parentElement.classList.remove('active');
+        });
+    });
+
+    document.addEventListener('click', (e) => {
+        const activePopup = document.querySelector('.popup.active');
+        if (activePopup && !activePopup.contains(e.target) && !e.target.closest('.skill-card')) {
+            activePopup.classList.remove('active');
+        }
+    });
+
+    // Contact Popup
+    const contactBtn = document.getElementById('contactBtn');
+    const heroContactBtn = document.getElementById('heroContactBtn');
+    const contactPopup = document.getElementById('contactPopup');
+    const contactForm = document.getElementById('contactForm');
+
+    [contactBtn, heroContactBtn].forEach(btn => {
+        if (btn) {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                contactPopup.classList.add('active');
+            });
+        }
+    });
+
+    contactForm.addEventListener('submit', (e) => {
+        e.preventDefault();
+        const name = contactForm.name.value.trim();
+        const email = contactForm.email.value.trim();
+        const message = contactForm.message.value.trim();
+
+        if (!name || !email || !message) {
+            Toastify({
+                text: "يرجى ملء جميع الحقول",
+                duration: 3000,
+                style: { background: "#ff4040" }
+            }).showToast();
+            return;
+        }
+
+        if (!/\S+@\S+\.\S+/.test(email)) {
+            Toastify({
+                text: "البريد الإلكتروني غير صحيح",
+                duration: 3000,
+                style: { background: "#ff4040" }
+            }).showToast();
+            return;
+        }
+
+        fetch('/', {
+            method: 'POST',
+            headers: { "Content-Type": "application/x-www-form-urlencoded" },
+            body: new URLSearchParams({
+                'form-name': 'contact',
+                'name': name,
+                'email': email,
+                'message': message
+            }).toString()
+        }).then(() => {
+            Toastify({
+                text: "تم إرسال الرسالة بنجاح",
+                duration: 3000,
+                style: { background: "#ff4040" }
+            }).showToast();
+            contactForm.reset();
+            contactPopup.classList.remove('active');
+        });
+    });
+</script>
