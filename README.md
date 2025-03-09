@@ -113,6 +113,14 @@
             transition: opacity 0.3s ease;
         }
 
+        #waveCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
         .hero-content {
             flex: 2;
             text-align: center;
@@ -481,11 +489,12 @@
     <div class="hero">
         <div class="hero-image">
             <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile" id="profileImg">
-            <canvas id="clockCanvas" style="display: none;"></canvas>
+            <canvas id="waveCanvas" style="display: none;"></canvas>
+            <audio id="clockSound" src="https://ephemeral-concha-441660.netlify.app/3B365C16-A020-45CD-9461-537C5ECA5455.mp4" preload="auto"></audio>
         </div>
         <div class="hero-content">
             <h2 data-en="Hello, I'm root" data-ar="مرحباً، أنا root">مرحباً، أنا root</h2>
-            <h3 data-en="Creative Tech Developer" data-ar="مطور تقني مبدع">مطور تقني مبدع</h3>
+            <h3 data-en="Creative Tech Developer" data-ar="مطور تقني ">مطور تقني </h3>
             <p class="about-text" data-en="I'm a tech enthusiast who thrives on solving complex problems with innovative and creative coding solutions." data-ar="أنا عاشق للتكنولوجيا، أزدهر بحل المشكلات المعقدة باستخدام حلول برمجية مبتكرة وإبداعية.">أنا عاشق للتكنولوجيا، أزدهر بحل المشكلات المعقدة باستخدام حلول برمجية مبتكرة وإبداعية.</p>
             <div class="social">
                 <a href="#"><i class="fab fa-github"></i></a>
@@ -579,18 +588,18 @@
 
     <script>
         // Animated Background
-        const canvas = document.getElementById('bgCanvas');
-        const ctx = canvas.getContext('2d');
-        canvas.width = window.innerWidth * 1.5;
-        canvas.height = window.innerHeight;
+        const bgCanvas = document.getElementById('bgCanvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        bgCanvas.width = window.innerWidth * 1.5;
+        bgCanvas.height = window.innerHeight;
 
         const code = ['0', '1', 'if', 'else', 'function', 'var', 'let', '{', '}', ';', '<', '>'];
         const particles = [];
 
         class Particle {
             constructor() {
-                this.x = Math.random() * canvas.width;
-                this.y = Math.random() * canvas.height;
+                this.x = Math.random() * bgCanvas.width;
+                this.y = Math.random() * bgCanvas.height;
                 this.text = code[Math.floor(Math.random() * code.length)];
                 this.size = Math.random() * 20 + 10;
                 this.speedX = (Math.random() - 0.5) * 0.5;
@@ -598,20 +607,20 @@
             }
 
             draw() {
-                ctx.fillStyle = 'rgba(255, 64, 64, 0.4)';
-                ctx.font = `${this.size}px 'Cairo', sans-serif`;
-                ctx.fillText(this.text, this.x, this.y);
+                bgCtx.fillStyle = 'rgba(255, 64, 64, 0.4)';
+                bgCtx.font = `${this.size}px 'Cairo', sans-serif`;
+                bgCtx.fillText(this.text, this.x, this.y);
             }
 
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
-                if (this.y > canvas.height) {
+                if (this.y > bgCanvas.height) {
                     this.y = 0 - this.size;
-                    this.x = Math.random() * canvas.width;
+                    this.x = Math.random() * bgCanvas.width;
                 }
-                if (this.x < 0 || this.x > canvas.width) {
-                    this.x = Math.random() * canvas.width;
+                if (this.x < 0 || this.x > bgCanvas.width) {
+                    this.x = Math.random() * bgCanvas.width;
                 }
                 this.draw();
             }
@@ -621,104 +630,108 @@
             particles.push(new Particle());
         }
 
-        function animate() {
-            ctx.clearRect(0, 0, canvas.width, canvas.height);
+        function animateBackground() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
             particles.forEach(p => p.update());
-            requestAnimationFrame(animate);
+            requestAnimationFrame(animateBackground);
         }
-        animate();
+        animateBackground();
 
         window.addEventListener('resize', () => {
-            canvas.width = window.innerWidth * 1.5;
-            canvas.height = window.innerHeight;
+            bgCanvas.width = window.innerWidth * 1.5;
+            bgCanvas.height = window.innerHeight;
         });
 
-        // Clock Functionality
+        // Sound Wave Functionality
+        let audioContext = null;
+        let analyser = null;
+        let dataArray = null;
         const profileImg = document.getElementById('profileImg');
-        const clockCanvas = document.getElementById('clockCanvas');
-        const clockCtx = clockCanvas.getContext('2d');
-        let isClockVisible = false;
+        const waveCanvas = document.getElementById('waveCanvas');
+        const waveCtx = waveCanvas.getContext('2d');
+        const clockSound = document.getElementById('clockSound');
+        let isWaveActive = false;
 
-        clockCanvas.width = profileImg.clientWidth;
-        clockCanvas.height = profileImg.clientHeight;
-        clockCanvas.style.position = 'absolute';
-        clockCanvas.style.top = '0';
-        clockCanvas.style.left = '0';
-        clockCanvas.style.display = 'none';
+        waveCanvas.width = profileImg.clientWidth;
+        waveCanvas.height = profileImg.clientHeight;
+        waveCanvas.style.position = 'absolute';
+        waveCanvas.style.top = '0';
+        waveCanvas.style.left = '0';
 
-        function drawClock() {
-            const now = new Date();
-            const width = clockCanvas.width;
-            const height = clockCanvas.height;
-            clockCtx.clearRect(0, 0, width, height);
+        // Initialize AudioContext and Analyser
+        function initializeAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                analyser.fftSize = 256;
+                const bufferLength = analyser.frequencyBinCount;
+                dataArray = new Uint8Array(bufferLength);
 
-            // خلفية شفافة
-            clockCtx.fillStyle = 'rgba(0, 0, 0, 0.8)';
-            clockCtx.beginPath();
-            clockCtx.arc(width / 2, height / 2, width / 2, 0, Math.PI * 2);
-            clockCtx.fill();
-
-            // حدود الساعة
-            clockCtx.strokeStyle = '#ff4040';
-            clockCtx.lineWidth = 4;
-            clockCtx.beginPath();
-            clockCtx.arc(width / 2, height / 2, width / 2 - 10, 0, Math.PI * 2);
-            clockCtx.stroke();
-
-            // الأرقام
-            clockCtx.fillStyle = '#ffffff'; // لون واضح للأرقام
-            clockCtx.font = 'bold 22px Cairo';
-            clockCtx.textAlign = 'center';
-            clockCtx.fillText('12', width / 2, 25);
-            clockCtx.fillText('3', width - 25, height / 2 + 8);
-            clockCtx.fillText('6', width / 2, height - 15);
-            clockCtx.fillText('9', 25, height / 2 + 8);
-
-            // العقارب
-            const hours = now.getHours() % 12;
-            const minutes = now.getMinutes();
-            const seconds = now.getSeconds();
-
-            drawHand(clockCtx, (hours + minutes / 60) * 30, width / 2 - 50, 5, '#ff4040'); // ساعة
-            drawHand(clockCtx, minutes * 6, width / 2 - 70, 4, '#ff8080'); // دقائق
-            drawHand(clockCtx, seconds * 6, width / 2 - 130, 3, '#ffffff'); // ثواني
-
-            if (isClockVisible) {
-                requestAnimationFrame(drawClock);
+                const source = audioContext.createMediaElementSource(clockSound);
+                source.connect(analyser);
+                analyser.connect(audioContext.destination);
+            }
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
             }
         }
 
-        function drawHand(ctx, angle, length, width, color) {
-            ctx.beginPath();
-            ctx.lineWidth = width;
-            ctx.strokeStyle = color;
-            ctx.moveTo(clockCanvas.width / 2, clockCanvas.height / 2);
-            const rad = (angle - 90) * Math.PI / 180;
-            ctx.lineTo(clockCanvas.width / 2 + Math.cos(rad) * length, clockCanvas.height / 2 + Math.sin(rad) * length);
-            ctx.stroke();
+        // Draw Wave Effect
+        function drawWave() {
+            if (isWaveActive && !clockSound.paused) {
+                analyser.getByteFrequencyData(dataArray);
+                waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+                const barWidth = (waveCanvas.width / dataArray.length) * 2.5;
+                let x = 0;
+
+                for (let i = 0; i < dataArray.length; i++) {
+                    const barHeight = (dataArray[i] / 255) * (waveCanvas.height / 4);
+                    waveCtx.fillStyle = `rgba(255, 64, 64, 0.7)`;
+                    waveCtx.fillRect(waveCanvas.width / 2 - x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
+                    waveCtx.fillRect(waveCanvas.width / 2 + x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
+                    x += barWidth + 1;
+                }
+                requestAnimationFrame(drawWave);
+            } else if (!isWaveActive) {
+                waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+            }
         }
 
-        profileImg.addEventListener('click', toggleClock);
-        clockCanvas.addEventListener('click', toggleClock);
+        // Toggle Wave and Audio
+        function toggleWave() {
+            if (!isWaveActive) {
+                initializeAudio();
+                waveCanvas.style.display = 'block';
+                waveCanvas.style.opacity = '1';
+                profileImg.style.opacity = '0.2';
+                isWaveActive = true;
 
-        function toggleClock() {
-            if (!isClockVisible) {
-                profileImg.style.opacity = '0.2'; // الصورة خافتة
-                clockCanvas.style.display = 'block';
-                clockCanvas.style.zIndex = '1';
-                isClockVisible = true;
-                drawClock();
+                clockSound.currentTime = 0;
+                clockSound.play()
+                    .then(() => {
+                        drawWave();
+                    })
+                    .catch(error => {
+                        console.error('Error playing audio:', error);
+                    });
             } else {
-                profileImg.style.opacity = '1'; // الصورة تعود لوضوحها
-                clockCanvas.style.display = 'none';
-                isClockVisible = false;
+                profileImg.style.opacity = '1';
+                waveCanvas.style.opacity = '0';
+                waveCanvas.style.display = 'none';
+                clockSound.pause();
+                clockSound.currentTime = 0;
+                isWaveActive = false;
             }
         }
+
+        profileImg.addEventListener('click', toggleWave);
 
         window.addEventListener('resize', () => {
-            clockCanvas.width = profileImg.clientWidth;
-            clockCanvas.height = profileImg.clientHeight;
-            if (isClockVisible) drawClock();
+            waveCanvas.width = profileImg.clientWidth;
+            waveCanvas.height = profileImg.clientHeight;
+            if (isWaveActive) {
+                drawWave();
+            }
         });
 
         // Language Toggle
@@ -845,8 +858,7 @@
             } else {
                 document.querySelector('header').style.padding = '15px 20px';
             }
-            if (isClockVisible) drawClock();
         });
     </script>
 </body>
-</html> 
+</html>
