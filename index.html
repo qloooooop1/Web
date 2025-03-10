@@ -89,7 +89,7 @@
 
         .auth-menu {
             position: fixed;
-            top: 70px; /* Adjusted to be clearly below the header */
+            top: 70px;
             z-index: 999;
             padding: 10px;
             cursor: pointer;
@@ -675,7 +675,7 @@
             <input type="email" name="email" placeholder="البريد الإلكتروني" required>
             <input type="password" name="password" placeholder="كلمة المرور" required>
             <button type="submit" data-en="Login" data-ar="دخول">دخول</button>
-            <p style="margin-top: 10px;"><a href="#" onclick="showRegisterPopup(event)" data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</a></p>
+            <p style="margin-top: 10px;"><a href="register.html" data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</a></p>
         </form>
     </div>
 
@@ -995,7 +995,7 @@
             }
         });
 
-        // New Auth and Ticket System
+        // Auth and Ticket System
         const authMenu = document.getElementById('authMenu');
         const loginPopup = document.getElementById('loginPopup');
         const registerPopup = document.getElementById('registerPopup');
@@ -1007,12 +1007,6 @@
             popups.forEach(p => p.classList.remove('active'));
             loginPopup.classList.add('active');
         });
-
-        function showRegisterPopup(e) {
-            e.preventDefault();
-            popups.forEach(p => p.classList.remove('active'));
-            registerPopup.classList.add('active');
-        }
 
         function showLoginPopup(e) {
             e.preventDefault();
