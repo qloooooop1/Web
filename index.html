@@ -89,33 +89,31 @@
 
         .auth-menu {
             position: fixed;
-            top: 70px;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.8);
-            padding: 10px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            top: 10px;
             z-index: 999;
-            transition: transform 0.3s ease;
-            transform: translateY(-100%);
+            padding: 10px;
+            cursor: pointer;
         }
 
-        .auth-menu.active {
-            transform: translateY(0);
+        html[dir="rtl"] .auth-menu {
+            right: 20px;
+        }
+
+        html[dir="ltr"] .auth-menu {
+            left: 20px;
         }
 
         .auth-menu .menu-btn {
-            width: 40px;
+            width: 30px;
             height: 4px;
-            background: rgba(255, 64, 64, 0.7);
+            background: #ff4040;
             margin: 6px 0;
             border-radius: 2px;
             transition: background 0.3s;
         }
 
         .auth-menu .menu-btn:hover {
-            background: #ff4040;
+            background: #ff8080;
         }
 
         .hero {
@@ -416,7 +414,7 @@
             background: #ff8080;
         }
 
-        .admin-reply’.
+        .admin-reply {
             background: rgba(64, 255, 64, 0.1);
             padding: 10px;
             border-radius: 5px;
@@ -677,7 +675,7 @@
             <input type="email" name="email" placeholder="البريد الإلكتروني" required>
             <input type="password" name="password" placeholder="كلمة المرور" required>
             <button type="submit" data-en="Login" data-ar="دخول">دخول</button>
-            <p style="margin-top: 10px;"><a href="#" id="showRegister">تسجيل جديد</a></p>
+            <p style="margin-top: 10px;"><a href="#" onclick="showRegisterPopup(event)" data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</a></p>
         </form>
     </div>
 
@@ -690,7 +688,7 @@
             <input type="password" name="password" placeholder="كلمة المرور" required>
             <input type="text" name="phone" placeholder="رقم الجوال" required>
             <button type="submit" data-en="Register" data-ar="تسجيل">تسجيل</button>
-            <p style="margin-top: 10px;"><a href="#" id="showLogin">تسجيل الدخول</a></p>
+            <p style="margin-top: 10px;"><a href="#" onclick="showLoginPopup(event)" data-en="Login" data-ar="تسجيل الدخول">تسجيل الدخول</a></p>
         </form>
     </div>
 
@@ -1006,28 +1004,21 @@
         let currentUser = null;
 
         authMenu.addEventListener('click', () => {
-            authMenu.classList.toggle('active');
-            if (!currentUser) {
-                popups.forEach(p => p.classList.remove('active'));
-                loginPopup.classList.add('active');
-            } else {
-                popups.forEach(p => p.classList.remove('active'));
-                profilePopup.classList.add('active');
-                loadProfile();
-            }
+            popups.forEach(p => p.classList.remove('active'));
+            loginPopup.classList.add('active');
         });
 
-        document.getElementById('showRegister').addEventListener('click', (e) => {
+        function showRegisterPopup(e) {
             e.preventDefault();
             loginPopup.classList.remove('active');
             registerPopup.classList.add('active');
-        });
+        }
 
-        document.getElementById('showLogin').addEventListener('click', (e) => {
+        function showLoginPopup(e) {
             e.preventDefault();
             registerPopup.classList.remove('active');
             loginPopup.classList.add('active');
-        });
+        }
 
         function saveUser(user) {
             let users = JSON.parse(localStorage.getItem('users')) || [];
