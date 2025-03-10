@@ -1,0 +1,138 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>تسجيل جديد | root</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            padding: 20px;
+        }
+
+        .register-container {
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(255, 64, 64, 0.6);
+            max-width: 400px;
+            width: 100%;
+            text-align: center;
+            border: 1px solid #ff4040;
+        }
+
+        .register-container h4 {
+            color: #ff4040;
+            margin-bottom: 20px;
+            font-size: 26px;
+            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input {
+            padding: 10px;
+            border: 1px solid #ff4040;
+            border-radius: 5px;
+            background: rgba(255, 64, 64, 0.05);
+            color: #e0e0e0;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-form input:focus {
+            outline: none;
+            border-color: #ff8080;
+            box-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
+        }
+
+        .contact-form button {
+            padding: 10px;
+            background: #ff4040;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: #ff8080;
+            transform: scale(1.05);
+        }
+
+        .login-link {
+            margin-top: 20px;
+        }
+
+        .login-link a {
+            color: #ff4040;
+            text-decoration: none;
+            font-size: 16px;
+            transition: color 0.3s;
+        }
+
+        .login-link a:hover {
+            color: #ff8080;
+        }
+    </style>
+</head>
+<body>
+    <div class="register-container">
+        <h4 data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</h4>
+        <form id="registerForm" class="contact-form">
+            <input type="text" name="username" placeholder="اسم المستخدم" required>
+            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+            <input type="password" name="password" placeholder="كلمة المرور" required>
+            <input type="text" name="phone" placeholder="رقم الجوال" required>
+            <button type="submit" data-en="Register" data-ar="تسجيل">تسجيل</button>
+        </form>
+        <div class="login-link">
+            <p><a href="index.html" data-en="Back to Login" data-ar="العودة إلى تسجيل الدخول">العودة إلى تسجيل الدخول</a></p>
+        </div>
+    </div>
+
+    <script>
+        function saveUser(user) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            if (!users.find(u => u.email === user.email)) {
+                users.push(user);
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+        }
+
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = {
+                username: e.target.username.value,
+                email: e.target.email.value,
+                password: e.target.password.value,
+                phone: e.target.phone.value,
+                avatar: 'https://b.top4top.io/p_3353ggllu0.jpeg'
+            };
+            saveUser(user);
+            alert('تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.');
+            window.location.href = 'index.html'; // Redirect back to login page
+            e.target.reset();
+        });
+    </script>
+</body>
+</html>
