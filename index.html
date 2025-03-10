@@ -89,7 +89,7 @@
 
         .auth-menu {
             position: fixed;
-            top: 10px;
+            top: 70px; /* Adjusted to be clearly below the header */
             z-index: 999;
             padding: 10px;
             cursor: pointer;
@@ -1010,13 +1010,13 @@
 
         function showRegisterPopup(e) {
             e.preventDefault();
-            loginPopup.classList.remove('active');
+            popups.forEach(p => p.classList.remove('active'));
             registerPopup.classList.add('active');
         }
 
         function showLoginPopup(e) {
             e.preventDefault();
-            registerPopup.classList.remove('active');
+            popups.forEach(p => p.classList.remove('active'));
             loginPopup.classList.add('active');
         }
 
