@@ -45,27 +45,6 @@
             box-shadow: 0 4px 20px rgba(255, 64, 64, 0.3);
         }
 
-        header h1 {
-            font-size: 24px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #ff4040;
-            background: rgba(255, 64, 64, 0.1);
-            padding: 10px 20px;
-            border-radius: 50px 50px 10px 10px;
-            border: 2px solid #ff4040;
-            box-shadow: inset 0 0 10px rgba(255, 64, 64, 0.3), 0 0 15px rgba(255, 64, 64, 0.5);
-            transition: transform 0.3s, box-shadow 0.3s;
-            height: 54px;
-            display: flex;
-            align-items: center;
-        }
-
-        header h1:hover {
-            transform: scale(1.05);
-            box-shadow: inset 0 0 15px rgba(255, 64, 64, 0.5), 0 0 20px rgba(255, 64, 64, 0.7);
-        }
-
         header nav ul {
             list-style: none;
             display: flex;
@@ -524,12 +503,6 @@
             62% { transform: translate(0, 0) skew(5deg); }
         }
 
-        @keyframes codePulse {
-            0% { text-shadow: 0 0 5px #ff4040, 0 0 10px #ff4040, 0 0 20px #ff4040; }
-            50% { text-shadow: 0 0 10px #ff4040, 0 0 20px #ff4040, 0 0 40px #ff4040; }
-            100% { text-shadow: 0 0 5px #ff4040, 0 0 10px #ff4040, 0 0 20px #ff4040; }
-        }
-
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.1); }
@@ -700,12 +673,7 @@
             <input type="text" name="phone" id="phoneInput" placeholder="رقم الجوال">
             <button type="submit" data-en="Update" data-ar="تحديث">تحديث</button>
         </form>
-        <h4 data-en="Create Ticket" data-ar="إنشاء تذكرة">إنشاء تذكرة</h4>
-        <form id="ticketForm" class="contact-form">
-            <textarea name="ticket" placeholder="اكتب تذكرتك هنا" required></textarea>
-            <button type="submit" data-en="Submit Ticket" data-ar="إرسال التذكرة">إرسال التذكرة</button>
-        </form>
-        <div class="ticket-list" id="ticketList"></div>
+        <p style="margin-top: 20px;"><a href="tickets.html" data-en="Go to Tickets" data-ar="الذهاب إلى التذاكر">الذهاب إلى التذاكر</a></p>
     </div>
 
     <div class="popup profile-popup" id="adminPopup">
@@ -995,17 +963,32 @@
             }
         });
 
-        // Auth and Ticket System
+        // Auth System with Persistent Login
         const authMenu = document.getElementById('authMenu');
         const loginPopup = document.getElementById('loginPopup');
         const registerPopup = document.getElementById('registerPopup');
         const profilePopup = document.getElementById('profilePopup');
         const adminPopup = document.getElementById('adminPopup');
-        let currentUser = null;
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        // Check if user is already logged in
+        if (currentUser) {
+            profilePopup.classList.add('active');
+            loadProfile();
+            if (currentUser.email === 'admin@admin.com') {
+                adminPopup.classList.add('active');
+                loadAdminTickets();
+            }
+        }
 
         authMenu.addEventListener('click', () => {
             popups.forEach(p => p.classList.remove('active'));
-            loginPopup.classList.add('active');
+            if (currentUser) {
+                profilePopup.classList.add('active');
+                loadProfile();
+            } else {
+                loginPopup.classList.add('active');
+            }
         });
 
         function showLoginPopup(e) {
@@ -1034,6 +1017,7 @@
             const user = findUser(email, password);
             if (user) {
                 currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user)); // Save current user
                 loginPopup.classList.remove('active');
                 profilePopup.classList.add('active');
                 loadProfile();
@@ -1057,6 +1041,7 @@
             };
             saveUser(user);
             currentUser = user;
+            localStorage.setItem('currentUser', JSON.stringify(user)); // Save current user
             registerPopup.classList.remove('active');
             profilePopup.classList.add('active');
             loadProfile();
@@ -1070,9 +1055,9 @@
                 <p>البريد الإلكتروني: ${currentUser.email}</p>
                 <p>رقم الجوال: ${currentUser.phone}</p>
                 <img src="${currentUser.avatar}" alt="Avatar" style="width: 100px; border-radius: 50%;">
+                <button onclick="logout()" style="margin-top: 10px; padding: 5px 10px; background: #ff4040; color: #fff; border: none; border-radius: 5px; cursor: pointer;">تسجيل الخروج</button>
             `;
             document.getElementById('phoneInput').value = currentUser.phone;
-            loadUserTickets();
         }
 
         document.getElementById('updateProfileForm').addEventListener('submit', (e) => {
@@ -1082,67 +1067,15 @@
             users = users.map(u => u.email === currentUser.email ? { ...u, phone: newPhone } : u);
             localStorage.setItem('users', JSON.stringify(users));
             currentUser.phone = newPhone;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser)); // Update current user
             loadProfile();
         });
 
-        function saveTicket(ticket) {
-            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-            tickets.push(ticket);
-            localStorage.setItem('tickets', JSON.stringify(tickets));
-        }
-
-        function loadUserTickets() {
-            const ticketList = document.getElementById('ticketList');
-            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-            tickets = tickets.filter(t => t.userEmail === currentUser.email);
-            ticketList.innerHTML = tickets.map(t => `
-                <div class="ticket-item">
-                    <div>
-                        <img src="${currentUser.avatar}" alt="Avatar">
-                        <span>${currentUser.username}: ${t.content}</span>
-                        ${t.reply ? `<div class="admin-reply">رد الإدارة: ${t.reply}</div>` : ''}
-                    </div>
-                    <div class="ticket-actions">
-                        <button onclick="editTicket('${t.id}')">تعديل</button>
-                        <button onclick="deleteTicket('${t.id}')">حذف</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        document.getElementById('ticketForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const ticket = {
-                id: Date.now().toString(),
-                userEmail: currentUser.email,
-                content: e.target.ticket.value,
-                status: 'open'
-            };
-            saveTicket(ticket);
-            loadUserTickets();
-            e.target.reset();
-        });
-
-        function editTicket(id) {
-            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-            const ticket = tickets.find(t => t.id === id);
-            if (ticket) {
-                const newContent = prompt('عدل التذكرة:', ticket.content);
-                if (newContent) {
-                    tickets = tickets.map(t => t.id === id ? { ...t, content: newContent } : t);
-                    localStorage.setItem('tickets', JSON.stringify(tickets));
-                    loadUserTickets();
-                }
-            }
-        }
-
-        function deleteTicket(id) {
-            if (confirm('هل تريد حذف التذكرة؟')) {
-                let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-                tickets = tickets.filter(t => t.id !== id);
-                localStorage.setItem('tickets', JSON.stringify(tickets));
-                loadUserTickets();
-            }
+        function logout() {
+            localStorage.removeItem('currentUser');
+            currentUser = null;
+            profilePopup.classList.remove('active');
+            adminPopup.classList.remove('active');
         }
 
         function loadAdminTickets() {
