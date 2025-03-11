@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>التذاكر | root</title>
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+    <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #e0e0e0;
+            min-height: 100vh;
+            position: relative;
+            overflow-x: hidden;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.15;
+            width: 100%;
+            height: 100%;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(255, 64, 64, 0.3);
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav ul li a {
+            color: #ff4040;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 8px 15px;
+            transition: color 0.3s, transform 0.3s;
+            border-radius: 20px;
+        }
+
+        header nav ul li a:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .tickets-container {
+            padding: 40px;
+            max-width: 800px;
+            margin: 120px auto;
+            text-align: center;
+        }
+
+        .tickets-container h4 {
+            color: #ff4040;
+            margin-bottom: 20px;
+            font-size: 26px;
+            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+            margin-bottom: 30px;
+        }
+
+        .contact-form textarea {
+            padding: 10px;
+            border: 1px solid #ff4040;
+            border-radius: 5px;
+            background: rgba(255, 64, 64, 0.05);
+            color: #e0e0e0;
+            font-size: 16px;
+            resize: vertical;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-form textarea:focus {
+            outline: none;
+            border-color: #ff8080;
+            box-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
+        }
+
+        .contact-form button {
+            padding: 10px;
+            background: #ff4040;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: #ff8080;
+            transform: scale(1.05);
+        }
+
+        .ticket-list {
+            max-height: 400px;
+            overflow-y: auto;
+        }
+
+        .ticket-item {
+            background: rgba(255, 64, 64, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ticket-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        .ticket-actions button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            background: #ff4040;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .ticket-actions button:hover {
+            background: #ff8080;
+        }
+
+        .admin-reply {
+            background: rgba(64, 255, 64, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+    </style>
+</head>
+<body>
+    <canvas id="bgCanvas"></canvas>
+
+    <header>
+        <nav>
+            <ul>
+                <li><a href="index.html" data-en="Home" data-ar="الرئيسية">الرئيسية</a></li>
+                <li><a href="index.html#about" data-en="About" data-ar="نبذة">نبذة</a></li>
+                <li><a href="index.html#skills" data-en="Skills" data-ar="مهاراتي">مهاراتي</a></li>
+                <li><a href="index.html#contact" data-en="Contact" data-ar="تواصل">تواصل</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <div class="tickets-container">
+        <h4 data-en="Your Tickets" data-ar="تذاكرك">تذاكرك</h4>
+        <form id="ticketForm" class="contact-form">
+            <textarea name="ticket" placeholder="اكتب تذكرتك هنا" required></textarea>
+            <button type="submit" data-en="Submit Ticket" data-ar="إرسال التذكرة">إرسال التذكرة</button>
+        </form>
+        <div class="ticket-list" id="ticketList"></div>
+    </div>
+
+    <script>
+        // Animated Background
+        const bgCanvas = document.getElementById('bgCanvas');
+        const bgCtx = bgCanvas.getContext('2d');
+        bgCanvas.width = window.innerWidth * 1.5;
+        bgCanvas.height = window.innerHeight;
+
+        const code = ['0', '1', 'if', 'else', 'function', 'var', 'let', '{', '}', ';', '<', '>'];
+        const particles = [];
+
+        class Particle {
+            constructor() {
+                this.x = Math.random() * bgCanvas.width;
+                this.y = Math.random() * bgCanvas.height;
+                this.text = code[Math.floor(Math.random() * code.length)];
+                this.size = Math.random() * 20 + 10;
+                this.speedX = (Math.random() - 0.5) * 0.5;
+                this.speedY = Math.random() * 0.7 + 0.3;
+            }
+
+            draw() {
+                bgCtx.fillStyle = 'rgba(255, 64, 64, 0.4)';
+                bgCtx.font = `${this.size}px 'Cairo', sans-serif`;
+                bgCtx.fillText(this.text, this.x, this.y);
+            }
+
+            update() {
+                this.x += this.speedX;
+                this.y += this.speedY;
+                if (this.y > bgCanvas.height) {
+                    this.y = 0 - this.size;
+                    this.x = Math.random() * bgCanvas.width;
+                }
+                if (this.x < 0 || this.x > bgCanvas.width) {
+                    this.x = Math.random() * bgCanvas.width;
+                }
+                this.draw();
+            }
+        }
+
+        for (let i = 0; i < 100; i++) {
+            particles.push(new Particle());
+        }
+
+        function animateBackground() {
+            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
+            particles.forEach(p => p.update());
+            requestAnimationFrame(animateBackground);
+        }
+        animateBackground();
+
+        window.addEventListener('resize', () => {
+            bgCanvas.width = window.innerWidth * 1.5;
+            bgCanvas.height = window.innerHeight;
+        });
+
+        // Ticket System
+        const currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        if (!currentUser) {
+            alert('يرجى تسجيل الدخول أولاً!');
+            window.location.href = 'index.html';
+        }
+
+        function saveTicket(ticket) {
+            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+            tickets.push(ticket);
+            localStorage.setItem('tickets', JSON.stringify(tickets));
+        }
+
+        function loadUserTickets() {
+            const ticketList = document.getElementById('ticketList');
+            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+            tickets = tickets.filter(t => t.userEmail === currentUser.email);
+            ticketList.innerHTML = tickets.map(t => `
+                <div class="ticket-item">
+                    <div>
+                        <img src="${currentUser.avatar}" alt="Avatar">
+                        <span>${currentUser.username}: ${t.content}</span>
+                        ${t.reply ? `<div class="admin-reply">رد الإدارة: ${t.reply}</div>` : ''}
+                    </div>
+                    <div class="ticket-actions">
+                        <button onclick="editTicket('${t.id}')">تعديل</button>
+                        <button onclick="deleteTicket('${t.id}')">حذف</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        document.getElementById('ticketForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const ticket = {
+                id: Date.now().toString(),
+                userEmail: currentUser.email,
+                content: e.target.ticket.value,
+                status: 'open'
+            };
+            saveTicket(ticket);
+            loadUserTickets();
+            e.target.reset();
+        });
+
+        function editTicket(id) {
+            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+            const ticket = tickets.find(t => t.id === id);
+            if (ticket) {
+                const newContent = prompt('عدل التذكرة:', ticket.content);
+                if (newContent) {
+                    tickets = tickets.map(t => t.id === id ? { ...t, content: newContent } : t);
+                    localStorage.setItem('tickets', JSON.stringify(tickets));
+                    loadUserTickets();
+                }
+            }
+        }
+
+        function deleteTicket(id) {
+            if (confirm('هل تريد حذف التذكرة؟')) {
+                let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+                tickets = tickets.filter(t => t.id !== id);
+                localStorage.setItem('tickets', JSON.stringify(tickets));
+                loadUserTickets();
+            }
+        }
+
+        // Load tickets on page load
+        loadUserTickets();
+    </script>
+</body>
+</html>
