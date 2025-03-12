@@ -15,368 +15,597 @@
         }
 
         body {
-            background: #1a1a1a;
+            background: #0f0f0f;
             color: #e0e0e0;
             line-height: 1.7;
             overflow-x: hidden;
             position: relative;
-            font-weight: 400;
+            overflow-y: auto;
         }
 
-        canvas {
+        /* خلفية متحركة فنية */
+        #bgCanvas {
             position: fixed;
             top: 0;
             left: 0;
             z-index: -1;
-            opacity: 0.1;
             width: 100%;
             height: 100%;
+            filter: blur(2px);
+            opacity: 0.2;
         }
 
-        /* هيدر رسمي */
+        /* الهيدر بتصميم مستقبلي */
         header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(0, 0, 0, 0.97);
-            padding: 20px 60px;
+            background: linear-gradient(135deg, rgba(0, 0, 0, 0.95), rgba(255, 64, 64, 0.1));
+            padding: 25px 80px;
             display: flex;
-            justify-content: space-between;
+            justify-content: center;
             align-items: center;
             z-index: 1000;
-            box-shadow: 0 4px 15px rgba(255, 64, 64, 0.2);
-            transition: padding 0.3s ease;
+            box-shadow: 0 5px 25px rgba(255, 64, 64, 0.3);
+            border-bottom: 1px solid rgba(255, 64, 64, 0.2);
         }
 
         header nav ul {
             list-style: none;
             display: flex;
-            gap: 40px;
+            gap: 50px;
         }
 
         header nav ul li a {
             color: #ff4040;
             text-decoration: none;
-            font-weight: 600;
-            font-size: 18px;
-            padding: 10px 20px;
-            transition: all 0.3s ease;
-            border-radius: 5px;
-            letter-spacing: 1px;
+            font-weight: 700;
+            font-size: 20px;
+            padding: 12px 25px;
+            transition: all 0.5s ease;
+            border-radius: 50px;
+            position: relative;
+            overflow: hidden;
             text-transform: uppercase;
+            letter-spacing: 2px;
+        }
+
+        header nav ul li a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(120deg, transparent, rgba(255, 64, 64, 0.3), transparent);
+            transition: all 0.5s ease;
+        }
+
+        header nav ul li a:hover::before {
+            left: 100%;
         }
 
         header nav ul li a:hover {
             color: #fff;
-            background: rgba(255, 64, 64, 0.15);
+            background: rgba(255, 64, 64, 0.2);
+            box-shadow: 0 0 15px rgba(255, 64, 64, 0.5);
+            transform: scale(1.05);
         }
 
-        /* قائمة Auth رسمية */
+        /* قائمة Auth بتصميم ثلاثي الأبعاد */
         .auth-menu {
             position: fixed;
             top: 80px;
-            right: 60px;
+            right: 80px;
             z-index: 999;
-            padding: 10px;
+            padding: 15px;
             cursor: pointer;
-            transition: transform 0.3s ease;
+            perspective: 1000px;
         }
 
         .auth-menu .menu-btn {
             width: 40px;
-            height: 3px;
+            height: 4px;
             background: #ff4040;
             margin: 8px 0;
-            border-radius: 2px;
-            transition: background 0.3s ease;
+            border-radius: 5px;
+            transition: all 0.4s ease;
+            transform-style: preserve-3d;
         }
 
-        .auth-menu:hover .menu-btn {
+        .auth-menu:hover .menu-btn:nth-child(1) {
+            transform: rotateX(45deg) translateZ(20px);
             background: #ff8080;
         }
 
-        /* Hero Section بمظهر مؤسسي */
+        .auth-menu:hover .menu-btn:nth-child(2) {
+            opacity: 0;
+        }
+
+        .auth-menu:hover .menu-btn:nth-child(3) {
+            transform: rotateX(-45deg) translateZ(20px);
+            background: #ff8080;
+        }
+
+        /* Hero Section بتصميم فني */
         .hero {
+            position: relative;
             display: flex;
             align-items: center;
             justify-content: center;
-            padding: 140px 60px 60px;
-            max-width: 1400px;
+            padding: 160px 80px 80px;
+            max-width: 1600px;
             margin: 0 auto;
-            gap: 50px;
-            background: rgba(10, 10, 10, 0.4);
-            border-bottom: 1px solid rgba(255, 64, 64, 0.2);
+            gap: 60px;
+            background: radial-gradient(circle at center, rgba(255, 64, 64, 0.1), transparent);
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 64, 64, 0.05), transparent);
+            animation: pulseGlow 10s infinite ease-in-out;
+            z-index: -1;
         }
 
         .hero-image {
             flex: 1;
-            max-width: 20%;
+            max-width: 25%;
             position: relative;
+            transition: all 0.5s ease;
+        }
+
+        .hero-image::after {
+            content: '';
+            position: absolute;
+            top: -10px;
+            left: -10px;
+            width: calc(100% + 20px);
+            height: calc(100% + 20px);
+            border: 2px solid #ff4040;
+            border-radius: 50%;
+            animation: orbit 8s infinite linear;
+            opacity: 0.5;
         }
 
         .hero-image img, .hero-image canvas {
             width: 100%;
             height: auto;
             border-radius: 50%;
-            box-shadow: 0 0 20px rgba(255, 64, 64, 0.4);
-            border: 3px solid #ff4040;
+            box-shadow: 0 0 30px rgba(255, 64, 64, 0.7);
+            border: 5px solid #ff4040;
             object-fit: cover;
             aspect-ratio: 1 / 1;
-            transition: box-shadow 0.3s ease;
+            transition: transform 0.5s ease;
         }
 
         .hero-image:hover img {
-            box-shadow: 0 0 30px rgba(255, 64, 64, 0.6);
+            transform: scale(1.1) rotate(5deg);
         }
 
         .hero-content {
             flex: 2;
             text-align: center;
-            padding: 0 40px;
+            padding: 0 50px;
+            position: relative;
         }
 
         .hero-content h2 {
-            font-size: 48px;
+            font-size: 60px;
             color: #ff4040;
-            margin-bottom: 20px;
-            font-weight: 700;
-            letter-spacing: 2px;
-            text-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
+            margin-bottom: 25px;
+            font-weight: 900;
+            letter-spacing: 4px;
+            text-shadow: 0 0 20px rgba(255, 64, 64, 0.8), 0 0 40px rgba(255, 64, 64, 0.4);
+            animation: textGlow 3s infinite alternate;
         }
 
         .hero-content h3 {
-            font-size: 28px;
+            font-size: 34px;
             color: #ff8080;
-            margin-bottom: 30px;
-            font-weight: 600;
+            margin-bottom: 35px;
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
         }
 
         .hero-content p {
             font-family: 'Amiri', serif;
-            font-size: 20px;
+            font-size: 22px;
             color: #e0e0e0;
-            line-height: 1.8;
-            max-width: 800px;
-            margin: 0 auto 40px;
-            padding: 15px;
-            background: rgba(255, 64, 64, 0.05);
-            border-radius: 8px;
+            line-height: 1.9;
+            max-width: 900px;
+            margin: 0 auto 50px;
+            padding: 20px;
+            background: rgba(255, 64, 64, 0.08);
+            border-radius: 15px;
+            box-shadow: inset 0 0 15px rgba(255, 64, 64, 0.2);
         }
 
         .hero .social {
             display: flex;
             justify-content: center;
-            gap: 25px;
+            gap: 30px;
         }
 
         .hero .social a {
             color: #ff4040;
-            font-size: 28px;
-            padding: 12px;
+            font-size: 32px;
+            padding: 15px;
             border-radius: 50%;
-            transition: all 0.3s ease;
-            background: rgba(255, 64, 64, 0.1);
+            transition: all 0.4s ease;
+            background: rgba(255, 64, 64, 0.15);
+            position: relative;
+        }
+
+        .hero .social a::after {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 64, 64, 0.3);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.4s ease;
+        }
+
+        .hero .social a:hover::after {
+            width: 100%;
+            height: 100%;
         }
 
         .hero .social a:hover {
             color: #fff;
-            background: rgba(255, 64, 64, 0.3);
+            transform: scale(1.2);
         }
 
-        /* المحتوى الرئيسي بمظهر احترافي */
+        /* المحتوى الرئيسي بتصميم فني */
         .container {
             min-height: 100vh;
-            padding-top: 240px;
+            padding-top: 280px;
             width: 100%;
-            max-width: 1400px;
+            max-width: 1600px;
             margin: 0 auto;
+            position: relative;
         }
 
         .content {
-            padding: 80px 60px;
-            background: rgba(10, 10, 10, 0.8);
-            border-radius: 15px;
-            box-shadow: 0 0 30px rgba(255, 64, 64, 0.15);
-            border: 1px solid rgba(255, 64, 64, 0.1);
+            padding: 100px 80px;
+            background: rgba(10, 10, 10, 0.85);
+            border-radius: 20px;
+            box-shadow: 0 0 50px rgba(255, 64, 64, 0.25);
+            border: 2px solid rgba(255, 64, 64, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .content::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 64, 64, 0.05), transparent);
+            animation: rotateGlow 15s infinite linear;
+            z-index: -1;
         }
 
         .section {
-            margin-bottom: 120px;
+            margin-bottom: 140px;
             position: relative;
         }
 
         .section h2 {
-            font-size: 42px;
+            font-size: 48px;
             color: #ff4040;
-            margin-bottom: 40px;
-            font-weight: 700;
-            letter-spacing: 3px;
+            margin-bottom: 50px;
+            font-weight: 900;
+            letter-spacing: 5px;
             text-align: center;
-            text-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
+            text-shadow: 0 0 20px rgba(255, 64, 64, 0.7);
+            position: relative;
+        }
+
+        .section h2::after {
+            content: '';
+            position: absolute;
+            bottom: -10px;
+            left: 50%;
+            width: 50%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ff4040, transparent);
+            transform: translateX(-50%);
+            animation: expand 2s infinite ease-in-out;
         }
 
         .section p {
-            font-size: 20px;
+            font-size: 24px;
             color: #e0e0e0;
             text-align: center;
-            max-width: 1000px;
-            margin: 0 auto 40px;
-            padding: 20px;
-            background: rgba(255, 64, 64, 0.05);
-            border-radius: 10px;
-            border: 1px solid rgba(255, 64, 64, 0.08);
+            max-width: 1100px;
+            margin: 0 auto 50px;
+            padding: 25px;
+            background: rgba(255, 64, 64, 0.1);
+            border-radius: 15px;
+            box-shadow: 0 0 20px rgba(255, 64, 64, 0.2);
         }
 
         .divider {
             width: 90%;
-            height: 2px;
+            height: 3px;
             background: linear-gradient(to right, transparent, #ff4040, transparent);
-            margin: 60px auto;
-            box-shadow: 0 0 10px rgba(255, 64, 64, 0.4);
+            margin: 80px auto;
+            box-shadow: 0 0 15px rgba(255, 64, 64, 0.5);
+            position: relative;
+            overflow: hidden;
         }
 
-        /* بطاقات المهارات بمظهر مؤسسي */
+        .divider::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 64, 64, 0.5);
+            animation: sweep 4s infinite linear;
+        }
+
+        /* بطاقات المهارات بتصميم ثوري */
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
-            gap: 40px;
-            padding: 0 40px;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 50px;
+            padding: 0 50px;
+            perspective: 1000px;
         }
 
         .skill-card {
-            background: rgba(255, 64, 64, 0.12);
-            padding: 35px;
-            border-radius: 15px;
+            background: linear-gradient(135deg, rgba(255, 64, 64, 0.15), rgba(10, 10, 10, 0.9));
+            padding: 40px;
+            border-radius: 20px;
             text-align: center;
             cursor: pointer;
-            transition: all 0.3s ease;
-            border: 1px solid rgba(255, 64, 64, 0.2);
-            box-shadow: 0 5px 15px rgba(255, 64, 64, 0.15);
+            transition: all 0.5s ease;
+            border: 2px solid rgba(255, 64, 64, 0.3);
+            box-shadow: 0 10px 30px rgba(255, 64, 64, 0.2);
+            transform-style: preserve-3d;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 64, 64, 0.1), transparent);
+            transition: all 0.5s ease;
+            z-index: -1;
+        }
+
+        .skill-card:hover::before {
+            transform: scale(1.5);
         }
 
         .skill-card:hover {
-            transform: translateY(-10px);
-            box-shadow: 0 15px 30px rgba(255, 64, 64, 0.3);
+            transform: translateZ(20px) rotateX(5deg) rotateY(5deg);
+            box-shadow: 0 20px 50px rgba(255, 64, 64, 0.4);
         }
 
         .skill-card i {
-            font-size: 50px;
+            font-size: 60px;
             color: #ff4040;
-            margin-bottom: 25px;
-            transition: transform 0.3s ease;
+            margin-bottom: 30px;
+            transition: all 0.5s ease;
+            text-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
         }
 
         .skill-card:hover i {
-            transform: scale(1.1);
+            transform: scale(1.2) rotate(10deg);
+            color: #ff8080;
         }
 
         .skill-card h4 {
-            font-size: 24px;
+            font-size: 26px;
             color: #ff8080;
-            font-weight: 600;
-            text-shadow: 0 0 5px rgba(255, 64, 64, 0.4);
+            font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
         }
 
-        /* النوافذ المنبثقة بمظهر رسمي */
+        /* النوافذ المنبثقة بتصميم فني */
         .popup {
-            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
-            padding: 50px;
-            border-radius: 15px;
-            box-shadow: 0 0 40px rgba(255, 64, 64, 0.5);
-            border: 1px solid #ff4040;
-            max-width: 500px;
+            background: linear-gradient(135deg, rgba(10, 10, 10, 0.9), rgba(255, 64, 64, 0.1));
+            padding: 60px;
+            border-radius: 25px;
+            box-shadow: 0 0 60px rgba(255, 64, 64, 0.6);
+            border: 3px solid #ff4040;
+            max-width: 550px;
             text-align: center;
-            transition: all 0.3s ease;
+            transition: all 0.5s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .popup::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 64, 64, 0.1), transparent);
+            animation: pulseGlow 8s infinite ease-in-out;
+            z-index: -1;
         }
 
         .popup h4 {
             color: #ff4040;
-            margin-bottom: 25px;
-            font-size: 28px;
+            margin-bottom: 30px;
+            font-size: 30px;
             font-weight: 700;
+            text-shadow: 0 0 10px rgba(255, 64, 64, 0.6);
         }
 
         .popup p {
             color: #e0e0e0;
-            font-size: 18px;
-            padding: 15px;
-            background: rgba(255, 64, 64, 0.05);
-            border-radius: 8px;
+            font-size: 20px;
+            padding: 20px;
+            background: rgba(255, 64, 64, 0.1);
+            border-radius: 10px;
+            box-shadow: 0 0 15px rgba(255, 64, 64, 0.2);
         }
 
         .popup .close-btn {
-            font-size: 26px;
+            font-size: 30px;
             color: #ff4040;
             top: 20px;
             right: 20px;
-            transition: all 0.3s ease;
+            transition: all 0.4s ease;
+            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
         }
 
         .popup .close-btn:hover {
             color: #fff;
-            transform: rotate(90deg);
+            transform: rotate(180deg);
+            text-shadow: 0 0 10px rgba(255, 64, 64, 0.8);
         }
 
-        /* الفوتر بمظهر مؤسسي */
+        /* الفوتر بتصميم مذهل */
         footer {
-            background: #000;
-            padding: 80px 60px;
+            background: linear-gradient(to top, #000, rgba(255, 64, 64, 0.05));
+            padding: 100px 80px;
             text-align: center;
-            border-top: 4px solid #ff4040;
-            box-shadow: 0 -5px 20px rgba(255, 64, 64, 0.2);
+            border-top: 5px solid #ff4040;
+            box-shadow: 0 -10px 30px rgba(255, 64, 64, 0.3);
             position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255, 64, 64, 0.05), transparent);
+            animation: rotateGlow 12s infinite linear;
+            z-index: -1;
         }
 
         footer p {
-            font-size: 20px;
-            margin-bottom: 30px;
+            font-size: 24px;
+            margin-bottom: 40px;
             color: #e0e0e0;
-            font-weight: 500;
-            text-shadow: 0 0 5px rgba(255, 64, 64, 0.4);
+            font-weight: 600;
+            text-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
         }
 
         footer .social {
             display: flex;
             justify-content: center;
-            gap: 30px;
+            gap: 40px;
         }
 
         footer .social a, footer .social .contact-btn {
             color: #ff4040;
-            font-size: 30px;
-            padding: 12px;
+            font-size: 36px;
+            padding: 15px;
             border-radius: 50%;
-            transition: all 0.3s ease;
-            background: rgba(255, 64, 64, 0.1);
+            transition: all 0.5s ease;
+            background: rgba(255, 64, 64, 0.15);
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer .social a::before, footer .social .contact-btn::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 50%;
+            width: 0;
+            height: 0;
+            background: rgba(255, 64, 64, 0.4);
+            border-radius: 50%;
+            transform: translate(-50%, -50%);
+            transition: all 0.5s ease;
+        }
+
+        footer .social a:hover::before, footer .social .contact-btn:hover::before {
+            width: 100%;
+            height: 100%;
         }
 
         footer .social a:hover, footer .social .contact-btn:hover {
             color: #fff;
-            background: rgba(255, 64, 64, 0.3);
-            transform: scale(1.1);
+            transform: scale(1.3) rotate(360deg);
+            box-shadow: 0 0 20px rgba(255, 64, 64, 0.6);
+        }
+
+        /* الرسوم المتحركة */
+        @keyframes pulseGlow {
+            0% { transform: scale(1); opacity: 0.5; }
+            50% { transform: scale(1.2); opacity: 0.8; }
+            100% { transform: scale(1); opacity: 0.5; }
+        }
+
+        @keyframes orbit {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes textGlow {
+            0% { text-shadow: 0 0 20px rgba(255, 64, 64, 0.8); }
+            100% { text-shadow: 0 0 40px rgba(255, 64, 64, 0.4); }
+        }
+
+        @keyframes rotateGlow {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        @keyframes expand {
+            0% { width: 0; }
+            50% { width: 60%; }
+            100% { width: 0; }
+        }
+
+        @keyframes sweep {
+            0% { left: -100%; }
+            100% { left: 100%; }
         }
 
         /* التجاوب */
         @media (max-width: 768px) {
-            header { padding: 15px 30px; }
-            header nav ul { gap: 20px; }
-            .auth-menu { right: 30px; top: 70px; }
+            header { padding: 20px 40px; }
+            header nav ul { gap: 25px; }
+            .auth-menu { right: 40px; top: 70px; }
             .hero {
                 flex-direction: column;
-                padding: 120px 20px 40px;
+                padding: 140px 20px 60px;
             }
-            .hero-image { max-width: 50%; }
-            .hero-content h2 { font-size: 36px; }
-            .hero-content h3 { font-size: 24px; }
+            .hero-image { max-width: 60%; }
+            .hero-content h2 { font-size: 40px; }
+            .hero-content h3 { font-size: 26px; }
             .hero-content p { font-size: 18px; }
-            .content { padding: 50px 30px; }
+            .content { padding: 60px 30px; }
             .skills-grid { 
                 grid-template-columns: 1fr;
                 padding: 0 20px;
             }
-            .section h2 { font-size: 34px; }
-            .section p { font-size: 18px; }
-            footer { padding: 60px 30px; }
+            .section h2 { font-size: 36px; }
+            .section p { font-size: 20px; }
+            footer { padding: 80px 40px; }
         }
     </style>
 </head>
@@ -560,10 +789,11 @@
                 this.size = Math.random() * 20 + 10;
                 this.speedX = (Math.random() - 0.5) * 0.5;
                 this.speedY = Math.random() * 0.7 + 0.3;
+                this.opacity = Math.random() * 0.5 + 0.5;
             }
 
             draw() {
-                bgCtx.fillStyle = 'rgba(255, 64, 64, 0.4)';
+                bgCtx.fillStyle = `rgba(255, 64, 64, ${this.opacity})`;
                 bgCtx.font = `${this.size}px 'Cairo', sans-serif`;
                 bgCtx.fillText(this.text, this.x, this.y);
             }
@@ -571,6 +801,7 @@
             update() {
                 this.x += this.speedX;
                 this.y += this.speedY;
+                this.opacity = Math.sin(Date.now() * 0.001 + this.x) * 0.5 + 0.5;
                 if (this.y > bgCanvas.height) {
                     this.y = 0 - this.size;
                     this.x = Math.random() * bgCanvas.width;
@@ -582,7 +813,7 @@
             }
         }
 
-        for (let i = 0; i < 100; i++) {
+        for (let i = 0; i < 150; i++) {
             particles.push(new Particle());
         }
 
@@ -807,9 +1038,9 @@
         // Header Shrink on Scroll
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                document.querySelector('header').style.padding = '15px 60px';
+                document.querySelector('header').style.padding = '20px 80px';
             } else {
-                document.querySelector('header').style.padding = '20px 60px';
+                document.querySelector('header').style.padding = '25px 80px';
             }
         });
 
