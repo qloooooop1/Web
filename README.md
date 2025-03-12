@@ -45,27 +45,6 @@
             box-shadow: 0 4px 20px rgba(255, 64, 64, 0.3);
         }
 
-        header h1 {
-            font-size: 24px;
-            text-transform: uppercase;
-            letter-spacing: 2px;
-            color: #ff4040;
-            background: rgba(255, 64, 64, 0.1);
-            padding: 10px 20px;
-            border-radius: 50px 50px 10px 10px;
-            border: 2px solid #ff4040;
-            box-shadow: inset 0 0 10px rgba(255, 64, 64, 0.3), 0 0 15px rgba(255, 64, 64, 0.5);
-            transition: transform 0.3s, box-shadow 0.3s;
-            height: 54px;
-            display: flex;
-            align-items: center;
-        }
-
-        header h1:hover {
-            transform: scale(1.05);
-            box-shadow: inset 0 0 15px rgba(255, 64, 64, 0.5), 0 0 20px rgba(255, 64, 64, 0.7);
-        }
-
         header nav ul {
             list-style: none;
             display: flex;
@@ -85,6 +64,35 @@
         header nav ul li a:hover {
             color: #fff;
             transform: scale(1.1);
+        }
+
+        .auth-menu {
+            position: fixed;
+            top: 70px;
+            z-index: 999;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        html[dir="rtl"] .auth-menu {
+            right: 20px;
+        }
+
+        html[dir="ltr"] .auth-menu {
+            left: 20px;
+        }
+
+        .auth-menu .menu-btn {
+            width: 30px;
+            height: 4px;
+            background: #ff4040;
+            margin: 6px 0;
+            border-radius: 2px;
+            transition: background 0.3s;
+        }
+
+        .auth-menu .menu-btn:hover {
+            background: #ff8080;
         }
 
         .hero {
@@ -336,6 +344,62 @@
             color: #fff;
         }
 
+        .auth-popup {
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .profile-popup {
+            max-width: 600px;
+            width: 90%;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .ticket-list {
+            margin-top: 20px;
+            max-height: 300px;
+            overflow-y: auto;
+        }
+
+        .ticket-item {
+            background: rgba(255, 64, 64, 0.1);
+            padding: 15px;
+            border-radius: 10px;
+            margin-bottom: 10px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .ticket-item img {
+            width: 40px;
+            height: 40px;
+            border-radius: 50%;
+            margin-left: 10px;
+        }
+
+        .ticket-actions button {
+            padding: 5px 10px;
+            margin: 0 5px;
+            background: #ff4040;
+            border: none;
+            border-radius: 5px;
+            color: #fff;
+            cursor: pointer;
+        }
+
+        .ticket-actions button:hover {
+            background: #ff8080;
+        }
+
+        .admin-reply {
+            background: rgba(64, 255, 64, 0.1);
+            padding: 10px;
+            border-radius: 5px;
+            margin-top: 10px;
+        }
+
         .contact-form {
             display: flex;
             flex-direction: column;
@@ -439,12 +503,6 @@
             62% { transform: translate(0, 0) skew(5deg); }
         }
 
-        @keyframes codePulse {
-            0% { text-shadow: 0 0 5px #ff4040, 0 0 10px #ff4040, 0 0 20px #ff4040; }
-            50% { text-shadow: 0 0 10px #ff4040, 0 0 20px #ff4040, 0 0 40px #ff4040; }
-            100% { text-shadow: 0 0 5px #ff4040, 0 0 10px #ff4040, 0 0 20px #ff4040; }
-        }
-
         @keyframes pulse {
             0% { transform: scale(1); }
             50% { transform: scale(1.1); }
@@ -485,6 +543,12 @@
             </ul>
         </nav>
     </header>
+
+    <div class="auth-menu" id="authMenu">
+        <div class="menu-btn"></div>
+        <div class="menu-btn"></div>
+        <div class="menu-btn"></div>
+    </div>
 
     <div class="hero">
         <div class="hero-image">
@@ -576,6 +640,48 @@
         </div>
     </div>
 
+    <!-- Auth Popups -->
+    <div class="popup auth-popup" id="loginPopup">
+        <span class="close-btn">×</span>
+        <h4 data-en="Login" data-ar="تسجيل الدخول">تسجيل الدخول</h4>
+        <form id="loginForm" class="contact-form">
+            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+            <input type="password" name="password" placeholder="كلمة المرور" required>
+            <button type="submit" data-en="Login" data-ar="دخول">دخول</button>
+            <p style="margin-top: 10px;"><a href="register.html" data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</a></p>
+        </form>
+    </div>
+
+    <div class="popup auth-popup" id="registerPopup">
+        <span class="close-btn">×</span>
+        <h4 data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</h4>
+        <form id="registerForm" class="contact-form">
+            <input type="text" name="username" placeholder="اسم المستخدم" required>
+            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+            <input type="password" name="password" placeholder="كلمة المرور" required>
+            <input type="text" name="phone" placeholder="رقم الجوال" required>
+            <button type="submit" data-en="Register" data-ar="تسجيل">تسجيل</button>
+            <p style="margin-top: 10px;"><a href="#" onclick="showLoginPopup(event)" data-en="Login" data-ar="تسجيل الدخول">تسجيل الدخول</a></p>
+        </form>
+    </div>
+
+    <div class="popup profile-popup" id="profilePopup">
+        <span class="close-btn">×</span>
+        <h4 data-en="Your Profile" data-ar="ملفك الشخصي">ملفك الشخصي</h4>
+        <div id="profileInfo"></div>
+        <form id="updateProfileForm" class="contact-form">
+            <input type="text" name="phone" id="phoneInput" placeholder="رقم الجوال">
+            <button type="submit" data-en="Update" data-ar="تحديث">تحديث</button>
+        </form>
+        <p style="margin-top: 20px;"><a href="tickets.html" data-en="Go to Tickets" data-ar="الذهاب إلى التذاكر">الذهاب إلى التذاكر</a></p>
+    </div>
+
+    <div class="popup profile-popup" id="adminPopup">
+        <span class="close-btn">×</span>
+        <h4 data-en="Admin Panel" data-ar="لوحة الإدارة">لوحة الإدارة</h4>
+        <div class="ticket-list" id="adminTicketList"></div>
+    </div>
+
     <footer id="contact">
         <p data-en="All Rights Reserved © 2025 | root" data-ar="جميع الحقوق محفوظة © 2025 | root">جميع الحقوق محفوظة © 2025 | root</p>
         <div class="social">
@@ -658,7 +764,6 @@
         waveCanvas.style.top = '0';
         waveCanvas.style.left = '0';
 
-        // Initialize AudioContext and Analyser
         function initializeAudio() {
             if (!audioContext) {
                 audioContext = new (window.AudioContext || window.webkitAudioContext)();
@@ -676,7 +781,6 @@
             }
         }
 
-        // Draw Wave Effect
         function drawWave() {
             if (isWaveActive && !clockSound.paused) {
                 analyser.getByteFrequencyData(dataArray);
@@ -697,7 +801,6 @@
             }
         }
 
-        // Toggle Wave and Audio
         function toggleWave() {
             if (!isWaveActive) {
                 initializeAudio();
@@ -800,7 +903,7 @@
 
         document.addEventListener('click', (e) => {
             const activePopup = document.querySelector('.popup.active');
-            if (activePopup && !activePopup.contains(e.target) && !e.target.closest('.skill-card') && !e.target.closest('.contact-btn') && !e.target.closest('#heroContactBtn')) {
+            if (activePopup && !activePopup.contains(e.target) && !e.target.closest('.skill-card') && !e.target.closest('.contact-btn') && !e.target.closest('#heroContactBtn') && !e.target.closest('#authMenu')) {
                 activePopup.classList.remove('active');
             }
         });
@@ -859,6 +962,182 @@
                 document.querySelector('header').style.padding = '15px 20px';
             }
         });
+
+        // Auth System with Persistent Login
+        const authMenu = document.getElementById('authMenu');
+        const loginPopup = document.getElementById('loginPopup');
+        const registerPopup = document.getElementById('registerPopup');
+        const profilePopup = document.getElementById('profilePopup');
+        const adminPopup = document.getElementById('adminPopup');
+        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+
+        // Check if user is already logged in
+        if (currentUser) {
+            profilePopup.classList.add('active');
+            loadProfile();
+            if (currentUser.email === 'admin@admin.com') {
+                adminPopup.classList.add('active');
+                loadAdminTickets();
+            }
+        }
+
+        authMenu.addEventListener('click', () => {
+            popups.forEach(p => p.classList.remove('active'));
+            if (currentUser) {
+                profilePopup.classList.add('active');
+                loadProfile();
+            } else {
+                loginPopup.classList.add('active');
+            }
+        });
+
+        function showLoginPopup(e) {
+            e.preventDefault();
+            popups.forEach(p => p.classList.remove('active'));
+            loginPopup.classList.add('active');
+        }
+
+        function saveUser(user) {
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            if (!users.find(u => u.email === user.email)) {
+                users.push(user);
+                localStorage.setItem('users', JSON.stringify(users));
+            }
+        }
+
+        function findUser(email, password) {
+            const users = JSON.parse(localStorage.getItem('users')) || [];
+            return users.find(u => u.email === email && u.password === password);
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+            const user = findUser(email, password);
+            if (user) {
+                currentUser = user;
+                localStorage.setItem('currentUser', JSON.stringify(user)); // Save current user
+                loginPopup.classList.remove('active');
+                profilePopup.classList.add('active');
+                loadProfile();
+                if (user.email === 'admin@admin.com') {
+                    adminPopup.classList.add('active');
+                    loadAdminTickets();
+                }
+            } else {
+                alert('بيانات تسجيل الدخول غير صحيحة');
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const user = {
+                username: e.target.username.value,
+                email: e.target.email.value,
+                password: e.target.password.value,
+                phone: e.target.phone.value,
+                avatar: 'https://b.top4top.io/p_3353ggllu0.jpeg'
+            };
+            saveUser(user);
+            currentUser = user;
+            localStorage.setItem('currentUser', JSON.stringify(user)); // Save current user
+            registerPopup.classList.remove('active');
+            profilePopup.classList.add('active');
+            loadProfile();
+            e.target.reset();
+        });
+
+        function loadProfile() {
+            const profileInfo = document.getElementById('profileInfo');
+            profileInfo.innerHTML = `
+                <p>اسم المستخدم: ${currentUser.username}</p>
+                <p>البريد الإلكتروني: ${currentUser.email}</p>
+                <p>رقم الجوال: ${currentUser.phone}</p>
+                <img src="${currentUser.avatar}" alt="Avatar" style="width: 100px; border-radius: 50%;">
+                <button onclick="logout()" style="margin-top: 10px; padding: 5px 10px; background: #ff4040; color: #fff; border: none; border-radius: 5px; cursor: pointer;">تسجيل الخروج</button>
+            `;
+            document.getElementById('phoneInput').value = currentUser.phone;
+        }
+
+        document.getElementById('updateProfileForm').addEventListener('submit', (e) => {
+            e.preventDefault();
+            const newPhone = e.target.phone.value;
+            let users = JSON.parse(localStorage.getItem('users')) || [];
+            users = users.map(u => u.email === currentUser.email ? { ...u, phone: newPhone } : u);
+            localStorage.setItem('users', JSON.stringify(users));
+            currentUser.phone = newPhone;
+            localStorage.setItem('currentUser', JSON.stringify(currentUser)); // Update current user
+            loadProfile();
+        });
+
+        function logout() {
+            localStorage.removeItem('currentUser');
+            currentUser = null;
+            profilePopup.classList.remove('active');
+            adminPopup.classList.remove('active');
+        }
+
+        function loadAdminTickets() {
+            const adminTicketList = document.getElementById('adminTicketList');
+            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+            adminTicketList.innerHTML = tickets.map(t => `
+                <div class="ticket-item">
+                    <div>
+                        <span>${t.userEmail}: ${t.content}</span>
+                        ${t.reply ? `<div class="admin-reply">رد الإدارة: ${t.reply}</div>` : ''}
+                    </div>
+                    <div class="ticket-actions">
+                        <button onclick="replyTicket('${t.id}')">رد</button>
+                        <button onclick="editAdminTicket('${t.id}')">تعديل</button>
+                        <button onclick="deleteAdminTicket('${t.id}')">حذف</button>
+                        <button onclick="closeTicket('${t.id}')">${t.status === 'open' ? 'إغلاق' : 'فتح'}</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function replyTicket(id) {
+            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+            const ticket = tickets.find(t => t.id === id);
+            if (ticket) {
+                const reply = prompt('اكتب ردك:', ticket.reply || '');
+                if (reply) {
+                    tickets = tickets.map(t => t.id === id ? { ...t, reply } : t);
+                    localStorage.setItem('tickets', JSON.stringify(tickets));
+                    loadAdminTickets();
+                }
+            }
+        }
+
+        function editAdminTicket(id) {
+            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+            const ticket = tickets.find(t => t.id === id);
+            if (ticket) {
+                const newContent = prompt('عدل التذكرة:', ticket.content);
+                if (newContent) {
+                    tickets = tickets.map(t => t.id === id ? { ...t, content: newContent } : t);
+                    localStorage.setItem('tickets', JSON.stringify(tickets));
+                    loadAdminTickets();
+                }
+            }
+        }
+
+        function deleteAdminTicket(id) {
+            if (confirm('هل تريد حذف التذكرة؟')) {
+                let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+                tickets = tickets.filter(t => t.id !== id);
+                localStorage.setItem('tickets', JSON.stringify(tickets));
+                loadAdminTickets();
+            }
+        }
+
+        function closeTicket(id) {
+            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+            tickets = tickets.map(t => t.id === id ? { ...t, status: t.status === 'open' ? 'closed' : 'open' } : t);
+            localStorage.setItem('tickets', JSON.stringify(tickets));
+            loadAdminTickets();
+        }
     </script>
 </body>
 </html>
