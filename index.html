@@ -229,65 +229,74 @@
 
         .skills-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(220px, 1fr));
-            gap: 25px;
-            padding: 0 20px;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
         }
 
         .skill-card {
-            background: rgba(255, 64, 64, 0.15);
-            padding: 25px;
-            border-radius: 20px;
+            background: rgba(255, 64, 64, 0.05);
+            padding: 30px 20px;
+            border-radius: 15px;
             text-align: center;
             cursor: pointer;
-            transition: transform 0.4s, box-shadow 0.4s;
-            border: 1px solid rgba(255, 64, 64, 0.3);
+            transition: all 0.4s ease;
             position: relative;
             overflow: hidden;
-            box-shadow: 0 5px 15px rgba(255, 64, 64, 0.2);
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            box-shadow: 0 5px 20px rgba(255, 64, 64, 0.1);
         }
 
         .skill-card::before {
             content: '';
             position: absolute;
-            top: -50%;
-            left: -50%;
-            width: 200%;
-            height: 200%;
-            background: radial-gradient(circle, rgba(255, 64, 64, 0.05), transparent);
-            transition: transform 0.5s;
-            z-index: 0;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff4040, #ff8080, #ff4040);
+            z-index: -1;
+            border-radius: 17px;
+            transition: opacity 0.4s ease;
+            opacity: 0.3;
         }
 
         .skill-card:hover::before {
-            transform: scale(1.2);
-        }
-
-        .skill-card i, .skill-card h4 {
-            position: relative;
-            z-index: 1;
+            opacity: 1;
         }
 
         .skill-card:hover {
-            transform: translateY(-15px) rotate(2deg);
-            box-shadow: 0 15px 30px rgba(255, 64, 64, 0.4);
+            transform: translateY(-10px) scale(1.05);
+            box-shadow: 0 15px 35px rgba(255, 64, 64, 0.3);
+        }
+
+        .skill-icon {
+            margin-bottom: 15px;
         }
 
         .skill-card i {
-            font-size: 50px;
+            font-size: 60px;
             color: #ff4040;
-            margin-bottom: 20px;
-            transition: transform 0.3s;
+            transition: transform 0.3s ease, color 0.3s ease;
         }
 
         .skill-card:hover i {
-            transform: scale(1.1) rotate(10deg);
+            transform: scale(1.15) rotate(5deg);
+            color: #ff8080;
         }
 
         .skill-card h4 {
-            font-size: 22px;
+            font-size: 24px;
             color: #ff8080;
-            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
+            text-shadow: 0 0 5px rgba(255, 64, 64, 0.3);
+            transition: color 0.3s ease;
+        }
+
+        .skill-card:hover h4 {
+            color: #fff;
         }
 
         .popup {
@@ -512,9 +521,19 @@
         @media (max-width: 768px) {
             .container { width: 100%; }
             .content { padding: 30px; }
-            .skills-grid { 
+            .skills-grid {
                 grid-template-columns: 1fr;
-                padding: 0 10px;
+                gap: 20px;
+                padding: 10px;
+            }
+            .skill-card {
+                padding: 25px 15px;
+            }
+            .skill-card i {
+                font-size: 50px;
+            }
+            .skill-card h4 {
+                font-size: 20px;
             }
             .hero {
                 flex-direction: column;
@@ -581,19 +600,27 @@
                 <h2 data-en="My Skills" data-ar="مهاراتي">مهاراتي</h2>
                 <div class="skills-grid">
                     <div class="skill-card" data-popup="popup1">
-                        <i class="fas fa-code"></i>
+                        <div class="skill-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
                         <h4 data-en="Programming" data-ar="البرمجة">البرمجة</h4>
                     </div>
                     <div class="skill-card" data-popup="popup2">
-                        <i class="fas fa-paint-brush"></i>
+                        <div class="skill-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
                         <h4 data-en="Design" data-ar="التصميم">التصميم</h4>
                     </div>
                     <div class="skill-card" data-popup="popup3">
-                        <i class="fas fa-server"></i>
+                        <div class="skill-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
                         <h4 data-en="System Administration" data-ar="إدارة الأنظمة">إدارة الأنظمة</h4>
                     </div>
                     <div class="skill-card" data-popup="popup4">
-                        <i class="fas fa-terminal"></i>
+                        <div class="skill-icon">
+                            <i class="fas fa-terminal"></i>
+                        </div>
                         <h4 data-en="Automation" data-ar="الأتمتة">الأتمتة</h4>
                     </div>
                 </div>
