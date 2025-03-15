@@ -8,7 +8,435 @@
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
     <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        /* نفس الـ CSS السابق مع إضافة تنسيق لزر "تسجيل جديد" */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Cairo', sans-serif;
+        }
+
+        body {
+            background: #1a1a1a;
+            color: #e0e0e0;
+            line-height: 1.6;
+            overflow-x: hidden;
+            position: relative;
+        }
+
+        canvas {
+            position: fixed;
+            top: 0;
+            left: 0;
+            z-index: -1;
+            opacity: 0.15;
+            width: 100%;
+            height: 100%;
+        }
+
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            background: rgba(0, 0, 0, 0.9);
+            padding: 15px 20px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            z-index: 1000;
+            box-shadow: 0 4px 20px rgba(255, 64, 64, 0.3);
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 20px;
+        }
+
+        header nav ul li a {
+            color: #ff4040;
+            text-decoration: none;
+            font-weight: bold;
+            font-size: 18px;
+            padding: 8px 15px;
+            transition: color 0.3s, transform 0.3s;
+            border-radius: 20px;
+        }
+
+        header nav ul li a:hover {
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .auth-menu {
+            position: fixed;
+            top: 70px;
+            z-index: 999;
+            padding: 10px;
+            cursor: pointer;
+        }
+
+        html[dir="rtl"] .auth-menu {
+            right: 20px;
+        }
+
+        html[dir="ltr"] .auth-menu {
+            left: 20px;
+        }
+
+        .auth-menu .menu-btn {
+            width: 30px;
+            height: 4px;
+            background: #ff4040;
+            margin: 6px 0;
+            border-radius: 2px;
+            transition: background 0.3s;
+        }
+
+        .auth-menu .menu-btn:hover {
+            background: #ff8080;
+        }
+
+        .hero {
+            display: flex;
+            align-items: center;
+            justify-content: space-between;
+            padding: 100px 50px 50px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .hero-image {
+            flex: 1;
+            max-width: 30%;
+            position: relative;
+        }
+
+        .hero-image img, .hero-image canvas {
+            width: 100%;
+            height: auto;
+            border-radius: 50%;
+            box-shadow: 0 0 20px rgba(255, 64, 64, 0.5);
+            border: 3px solid #ff4040;
+            object-fit: cover;
+            aspect-ratio: 1 / 1;
+            transition: opacity 0.3s ease;
+        }
+
+        #waveCanvas {
+            position: absolute;
+            top: 0;
+            left: 0;
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .hero-content {
+            flex: 2;
+            text-align: center;
+            padding: 0 20px;
+        }
+
+        .hero-content h2 {
+            font-size: 48px;
+            color: #ff4040;
+            margin-bottom: 10px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(255, 64, 64, 0.7);
+        }
+
+        .hero-content h3 {
+            font-size: 28px;
+            color: #ff8080;
+            margin-bottom: 20px;
+        }
+
+        .hero-content p {
+            font-family: 'Amiri', serif;
+            font-size: 18px;
+            color: #e0e0e0;
+            line-height: 1.8;
+            letter-spacing: 1px;
+            margin-bottom: 30px;
+        }
+
+        .hero .social {
+            display: flex;
+            justify-content: center;
+            gap: 15px;
+        }
+
+        .hero .social a {
+            color: #ff4040;
+            font-size: 24px;
+            transition: color 0.3s, transform 0.3s;
+            text-decoration: none;
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        .hero .social a:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .container {
+            min-height: 100vh;
+            padding-top: 200px;
+            width: 100%;
+        }
+
+        .content {
+            padding: 60px;
+            background: rgba(10, 10, 10, 0.6);
+            border-radius: 20px;
+            box-shadow: 0 0 30px rgba(255, 64, 64, 0.2);
+        }
+
+        .section {
+            margin-bottom: 80px;
+            position: relative;
+        }
+
+        .section h2 {
+            font-size: 42px;
+            color: #ff4040;
+            margin-bottom: 30px;
+            text-transform: uppercase;
+            letter-spacing: 5px;
+            animation: glitch 2s linear infinite;
+            text-align: center;
+            text-shadow: 0 0 10px rgba(255, 64, 64, 0.7);
+        }
+
+        .section p {
+            font-size: 20px;
+            color: #e0e0e0;
+            text-align: center;
+            max-width: 800px;
+            margin: 0 auto 30px;
+            background: rgba(255, 64, 64, 0.05);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .divider {
+            width: 80%;
+            height: 2px;
+            background: linear-gradient(to right, transparent, #ff4040, transparent);
+            margin: 40px auto;
+            box-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
+        }
+
+        .skills-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+            gap: 30px;
+            padding: 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .skill-card {
+            background: rgba(255, 64, 64, 0.05);
+            padding: 30px 20px;
+            border-radius: 15px;
+            text-align: center;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+            border: 2px solid transparent;
+            background-clip: padding-box;
+            box-shadow: 0 5px 20px rgba(255, 64, 64, 0.1);
+        }
+
+        .skill-card::before {
+            content: '';
+            position: absolute;
+            top: -2px;
+            left: -2px;
+            right: -2px;
+            bottom: -2px;
+            background: linear-gradient(45deg, #ff4040, #ff8080, #ff4040);
+            z-index: -1;
+            border-radius: 17px;
+            transition: opacity 0.3s ease;
+            opacity: 0.3;
+        }
+
+        .skill-card:hover::before {
+            opacity: 0.8;
+        }
+
+        .skill-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 10px 25px rgba(255, 64, 64, 0.2);
+        }
+
+        .skill-icon {
+            margin-bottom: 15px;
+        }
+
+        .skill-card i {
+            font-size: 60px;
+            color: #ff4040;
+            transition: transform 0.3s ease, color 0.3s ease;
+        }
+
+        .skill-card:hover i {
+            transform: scale(1.1);
+            color: #ff8080;
+        }
+
+        .skill-card h4 {
+            font-size: 24px;
+            color: #ff8080;
+            text-shadow: 0 0 5px rgba(255, 64, 64, 0.3);
+            transition: color 0.3s ease;
+        }
+
+        .skill-card:hover h4 {
+            color: #fff;
+        }
+
+        .skill-desc {
+            font-size: 14px;
+            color: #e0e0e0;
+            margin-top: 10px;
+            display: none;
+            background: rgba(255, 64, 64, 0.05);
+            padding: 5px;
+            border-radius: 5px;
+        }
+
+        .skill-card.active .skill-desc {
+            display: block;
+        }
+
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.8);
+            background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
+            padding: 40px;
+            border-radius: 20px;
+            box-shadow: 0 0 40px rgba(255, 64, 64, 0.6);
+            z-index: 2000;
+            max-width: 450px;
+            text-align: center;
+            opacity: 0;
+            transition: transform 0.3s ease, opacity 0.3s ease;
+            border: 1px solid #ff4040;
+        }
+
+        .popup.active {
+            display: block;
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .popup h4 {
+            color: #ff4040;
+            margin-bottom: 20px;
+            font-size: 26px;
+            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
+        }
+
+        .popup p {
+            color: #e0e0e0;
+            font-size: 18px;
+            background: rgba(255, 64, 64, 0.05);
+            padding: 10px;
+            border-radius: 10px;
+        }
+
+        .popup .close-btn {
+            position: absolute;
+            top: 15px;
+            right: 15px;
+            font-size: 24px;
+            color: #ff4040;
+            cursor: pointer;
+            transition: transform 0.3s;
+        }
+
+        .popup .close-btn:hover {
+            transform: rotate(90deg);
+            color: #fff;
+        }
+
+        .auth-popup {
+            max-width: 400px;
+            width: 90%;
+        }
+
+        .profile-popup {
+            max-width: 600px;
+            width: 90%;
+            overflow-y: auto;
+            max-height: 80vh;
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 15px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 10px;
+            border: 1px solid #ff4040;
+            border-radius: 5px;
+            background: rgba(255, 64, 64, 0.05);
+            color: #e0e0e0;
+            font-size: 16px;
+            transition: border-color 0.3s, box-shadow 0.3s;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            outline: none;
+            border-color: #ff8080;
+            box-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
+        }
+
+        .contact-form button {
+            padding: 10px;
+            background: #ff4040;
+            color: #fff;
+            border: none;
+            border-radius: 5px;
+            cursor: pointer;
+            transition: background 0.3s, transform 0.3s;
+        }
+
+        .contact-form button:hover {
+            background: #ff8080;
+            transform: scale(1.05);
+        }
+
+        .success-message {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 20px;
+        }
+
+        .success-message i {
+            font-size: 60px;
+            color: #ff4040;
+            animation: pulse 1.5s infinite;
+        }
+
+        .success-message p {
+            font-size: 20px;
+            color: #e0e0e0;
+            max-width: 400px;
+            line-height: 1.8;
+        }
+
         .register-btn {
             display: inline-block;
             padding: 8px 15px;
@@ -24,6 +452,88 @@
         .register-btn:hover {
             background: #ff8080;
             transform: scale(1.05);
+        }
+
+        footer {
+            background: #000;
+            padding: 60px 20px;
+            text-align: center;
+            border-top: 4px solid #ff4040;
+            position: relative;
+            box-shadow: 0 -5px 20px rgba(255, 64, 64, 0.3);
+        }
+
+        footer p {
+            font-size: 20px;
+            margin-bottom: 20px;
+            color: #e0e0e0;
+            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
+        }
+
+        footer .social {
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            gap: 25px;
+        }
+
+        footer .social a, footer .social .contact-btn {
+            color: #ff4040;
+            font-size: 32px;
+            transition: color 0.3s, transform 0.5s;
+            cursor: pointer;
+            text-decoration: none;
+            background: rgba(255, 64, 64, 0.05);
+            padding: 8px;
+            border-radius: 50%;
+        }
+
+        footer .social a:hover, footer .social .contact-btn:hover {
+            color: #fff;
+            transform: scale(1.2) rotate(360deg);
+            box-shadow: 0 0 8px rgba(255, 64, 64, 0.3);
+        }
+
+        @keyframes glitch {
+            2%, 64% { transform: translate(2px, 0) skew(0deg); }
+            4%, 60% { transform: translate(-2px, 0) skew(0deg); }
+            62% { transform: translate(0, 0) skew(5deg); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        @media (max-width: 768px) {
+            .container { width: 100%; }
+            .content { padding: 30px; }
+            .skills-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 10px;
+            }
+            .skill-card {
+                padding: 25px 15px;
+            }
+            .skill-card i {
+                font-size: 50px;
+            }
+            .skill-card h4 {
+                font-size: 20px;
+            }
+            .hero {
+                flex-direction: column;
+                padding: 100px 20px 20px;
+            }
+            .hero-image {
+                max-width: 50%;
+                margin-bottom: 20px;
+            }
+            header nav ul { gap: 10px; }
+            header nav ul li { margin-left: 10px; }
+            footer .social { gap: 15px; }
         }
     </style>
 </head>
@@ -134,7 +644,7 @@
         </div>
     </div>
 
-    <!-- Auth Popups -->
+    <!-- Login Popup -->
     <div class="popup auth-popup" id="loginPopup">
         <span class="close-btn">×</span>
         <h4 data-en="Login" data-ar="تسجيل الدخول">تسجيل الدخول</h4>
@@ -142,23 +652,11 @@
             <input type="email" name="email" placeholder="البريد الإلكتروني" required>
             <input type="password" name="password" placeholder="كلمة المرور" required>
             <button type="submit" data-en="Login" data-ar="دخول">دخول</button>
-            <p style="margin-top: 10px;"><a href="#" onclick="showRegisterPopup(event)" class="register-btn" data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</a></p>
+            <p style="margin-top: 10px;"><a href="register.html" class="register-btn" data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</a></p>
         </form>
     </div>
 
-    <div class="popup auth-popup" id="registerPopup">
-        <span class="close-btn">×</span>
-        <h4 data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</h4>
-        <form id="registerForm" class="contact-form">
-            <input type="text" name="username" placeholder="اسم المستخدم" required>
-            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-            <input type="password" name="password" placeholder="كلمة المرور" required>
-            <input type="text" name="phone" placeholder="رقم الجوال" required>
-            <button type="submit" data-en="Register" data-ar="تسجيل">تسجيل</button>
-            <p style="margin-top: 10px;"><a href="#" onclick="showLoginPopup(event)" data-en="Login" data-ar="تسجيل الدخول">تسجيل الدخول</a></p>
-        </form>
-    </div>
-
+    <!-- Profile Popup -->
     <div class="popup profile-popup" id="profilePopup">
         <span class="close-btn">×</span>
         <h4 data-en="Your Profile" data-ar="ملفك الشخصي">ملفك الشخصي</h4>
@@ -168,12 +666,6 @@
             <button type="submit" data-en="Update" data-ar="تحديث">تحديث</button>
         </form>
         <p style="margin-top: 20px;"><a href="tickets.html" data-en="Go to Tickets" data-ar="الذهاب إلى التذاكر">الذهاب إلى التذاكر</a></p>
-    </div>
-
-    <div class="popup profile-popup" id="adminPopup">
-        <span class="close-btn">×</span>
-        <h4 data-en="Admin Panel" data-ar="لوحة الإدارة">لوحة الإدارة</h4>
-        <div class="ticket-list" id="adminTicketList"></div>
     </div>
 
     <footer id="contact">
@@ -192,7 +684,7 @@
         const supabaseKey = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15a2p0a3d5a29zeG1zamZudWl3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgzNjk4ODUsImV4cCI6MjA1Mzk0NTg4NX0.teD6Bsh9rNdamcy_ml8-MM-dWJuvMfGrKNfAuWHPz48';
         const supabase = Supabase.createClient(supabaseUrl, supabaseKey);
 
-        // Animated Background (نفس الكود السابق)
+        // Animated Background
         const bgCanvas = document.getElementById('bgCanvas');
         const bgCtx = bgCanvas.getContext('2d');
         bgCanvas.width = window.innerWidth * 1.5;
@@ -247,7 +739,7 @@
             bgCanvas.height = window.innerHeight;
         });
 
-        // Sound Wave Functionality (نفس الكود السابق)
+        // Sound Wave Functionality
         let audioContext = null;
         let analyser = null;
         let dataArray = null;
@@ -336,7 +828,7 @@
             }
         });
 
-        // Language Toggle (نفس الكود السابق)
+        // Language Toggle
         const languageToggle = document.getElementById('languageToggle');
         let currentLang = localStorage.getItem('lang') || 'ar';
         document.documentElement.lang = currentLang;
@@ -364,7 +856,7 @@
 
         updateLanguage();
 
-        // Skill Description Toggle (نفس الكود السابق)
+        // Skill Description Toggle
         const skillCards = document.querySelectorAll('.skill-card');
         skillCards.forEach(card => {
             card.addEventListener('click', (e) => {
@@ -393,7 +885,7 @@
             }
         });
 
-        // Contact Popup Functionality (نفس الكود السابق)
+        // Contact Popup Functionality
         const contactBtn = document.getElementById('contactBtn');
         const heroContactBtn = document.getElementById('heroContactBtn');
         const contactPopup = document.getElementById('contactPopup');
@@ -434,7 +926,7 @@
             });
         });
 
-        // Smooth Scroll (نفس الكود السابق)
+        // Smooth Scroll
         document.querySelectorAll('a[href^="#"]').forEach(anchor => {
             anchor.addEventListener('click', function(e) {
                 e.preventDefault();
@@ -444,7 +936,7 @@
             });
         });
 
-        // Header Shrink on Scroll (نفس الكود السابق)
+        // Header Shrink on Scroll
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
                 document.querySelector('header').style.padding = '10px 20px';
@@ -456,22 +948,15 @@
         // Auth System with Supabase
         const authMenu = document.getElementById('authMenu');
         const loginPopup = document.getElementById('loginPopup');
-        const registerPopup = document.getElementById('registerPopup');
         const profilePopup = document.getElementById('profilePopup');
-        const adminPopup = document.getElementById('adminPopup');
         let currentUser = null;
 
-        // التحقق من جلسة المستخدم عند التحميل
         async function checkSession() {
             const { data: { user } } = await supabase.auth.getUser();
             if (user) {
                 currentUser = user;
                 profilePopup.classList.add('active');
                 loadProfile();
-                if (user.email === 'admin@admin.com') {
-                    adminPopup.classList.add('active');
-                    loadAdminTickets();
-                }
             }
         }
         checkSession();
@@ -484,18 +969,6 @@
                 loginPopup.classList.add('active');
             }
         });
-
-        function showLoginPopup(e) {
-            e.preventDefault();
-            loginPopup.classList.add('active');
-            registerPopup.classList.remove('active');
-        }
-
-        function showRegisterPopup(e) {
-            e.preventDefault();
-            registerPopup.classList.add('active');
-            loginPopup.classList.remove('active');
-        }
 
         document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
@@ -514,36 +987,6 @@
                 loginPopup.classList.remove('active');
                 profilePopup.classList.add('active');
                 loadProfile();
-                if (currentUser.email === 'admin@admin.com') {
-                    adminPopup.classList.add('active');
-                    loadAdminTickets();
-                }
-            }
-        });
-
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
-            e.preventDefault();
-            const username = e.target.username.value;
-            const email = e.target.email.value;
-            const password = e.target.password.value;
-            const phone = e.target.phone.value;
-
-            const { data, error } = await supabase.auth.signUp({
-                email,
-                password,
-                options: {
-                    data: { username, phone, avatar: 'https://b.top4top.io/p_3353ggllu0.jpeg' }
-                }
-            });
-
-            if (error) {
-                alert('خطأ في التسجيل: ' + error.message);
-            } else {
-                currentUser = data.user;
-                registerPopup.classList.remove('active');
-                profilePopup.classList.add('active');
-                loadProfile();
-                e.target.reset();
             }
         });
 
@@ -579,68 +1022,6 @@
             await supabase.auth.signOut();
             currentUser = null;
             profilePopup.classList.remove('active');
-            adminPopup.classList.remove('active');
-        }
-
-        function loadAdminTickets() {
-            const adminTicketList = document.getElementById('adminTicketList');
-            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-            adminTicketList.innerHTML = tickets.map(t => `
-                <div class="ticket-item">
-                    <div>
-                        <span>${t.userEmail}: ${t.content}</span>
-                        ${t.reply ? `<div class="admin-reply">رد الإدارة: ${t.reply}</div>` : ''}
-                    </div>
-                    <div class="ticket-actions">
-                        <button onclick="replyTicket('${t.id}')">رد</button>
-                        <button onclick="editAdminTicket('${t.id}')">تعديل</button>
-                        <button onclick="deleteAdminTicket('${t.id}')">حذف</button>
-                        <button onclick="closeTicket('${t.id}')">${t.status === 'open' ? 'إغلاق' : 'فتح'}</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function replyTicket(id) {
-            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-            const ticket = tickets.find(t => t.id === id);
-            if (ticket) {
-                const reply = prompt('اكتب ردك:', ticket.reply || '');
-                if (reply) {
-                    tickets = tickets.map(t => t.id === id ? { ...t, reply } : t);
-                    localStorage.setItem('tickets', JSON.stringify(tickets));
-                    loadAdminTickets();
-                }
-            }
-        }
-
-        function editAdminTicket(id) {
-            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-            const ticket = tickets.find(t => t.id === id);
-            if (ticket) {
-                const newContent = prompt('عدل التذكرة:', ticket.content);
-                if (newContent) {
-                    tickets = tickets.map(t => t.id === id ? { ...t, content: newContent } : t);
-                    localStorage.setItem('tickets', JSON.stringify(tickets));
-                    loadAdminTickets();
-                }
-            }
-        }
-
-        function deleteAdminTicket(id) {
-            if (confirm('هل تريد حذف التذكرة؟')) {
-                let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-                tickets = tickets.filter(t => t.id !== id);
-                localStorage.setItem('tickets', JSON.stringify(tickets));
-                loadAdminTickets();
-            }
-        }
-
-        function closeTicket(id) {
-            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-            tickets = tickets.map(t => t.id === id ? { ...t, status: t.status === 'open' ? 'closed' : 'open' } : t);
-            localStorage.setItem('tickets', JSON.stringify(tickets));
-            loadAdminTickets();
         }
     </script>
 </body>
