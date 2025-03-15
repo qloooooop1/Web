@@ -6,6 +6,7 @@
     <title>موقعي الشخصي | root</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -63,7 +64,7 @@
 
         header nav ul li a:hover {
             color: #fff;
-            transform: scale(1.05); /* تأثير أقل */
+            transform: scale(1.05);
         }
 
         .auth-menu {
@@ -176,7 +177,7 @@
 
         .hero .social a:hover {
             color: #fff;
-            transform: scale(1.1); /* تأثير أقل */
+            transform: scale(1.1);
         }
 
         .container {
@@ -265,11 +266,11 @@
         }
 
         .skill-card:hover::before {
-            opacity: 0.8; /* تأثير أقل */
+            opacity: 0.8;
         }
 
         .skill-card:hover {
-            transform: translateY(-5px); /* تأثير أقل */
+            transform: translateY(-5px);
             box-shadow: 0 10px 25px rgba(255, 64, 64, 0.2);
         }
 
@@ -284,7 +285,7 @@
         }
 
         .skill-card:hover i {
-            transform: scale(1.1); /* تأثير أقل */
+            transform: scale(1.1);
             color: #ff8080;
         }
 
@@ -300,7 +301,7 @@
         }
 
         .skill-desc {
-            font-size: 14px; /* خط صغير */
+            font-size: 14px;
             color: #e0e0e0;
             margin-top: 10px;
             display: none;
@@ -379,50 +380,6 @@
             max-height: 80vh;
         }
 
-        .ticket-list {
-            margin-top: 20px;
-            max-height: 300px;
-            overflow-y: auto;
-        }
-
-        .ticket-item {
-            background: rgba(255, 64, 64, 0.1);
-            padding: 15px;
-            border-radius: 10px;
-            margin-bottom: 10px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-
-        .ticket-item img {
-            width: 40px;
-            height: 40px;
-            border-radius: 50%;
-            margin-left: 10px;
-        }
-
-        .ticket-actions button {
-            padding: 5px 10px;
-            margin: 0 5px;
-            background: #ff4040;
-            border: none;
-            border-radius: 5px;
-            color: #fff;
-            cursor: pointer;
-        }
-
-        .ticket-actions button:hover {
-            background: #ff8080;
-        }
-
-        .admin-reply {
-            background: rgba(64, 255, 64, 0.1);
-            padding: 10px;
-            border-radius: 5px;
-            margin-top: 10px;
-        }
-
         .contact-form {
             display: flex;
             flex-direction: column;
@@ -478,6 +435,32 @@
             color: #e0e0e0;
             max-width: 400px;
             line-height: 1.8;
+        }
+
+        .register-btn {
+            display: inline-block;
+            padding: 8px 15px;
+            background: linear-gradient(45deg, #ff4040, #ff6060);
+            color: #fff;
+            text-decoration: none;
+            border-radius: 25px;
+            font-size: 16px;
+            font-weight: bold;
+            transition: background 0.3s, transform 0.3s, box-shadow 0.3s;
+            box-shadow: 0 4px 15px rgba(255, 64, 64, 0.4);
+        }
+
+        .register-btn:hover {
+            background: linear-gradient(45deg, #ff6060, #ff8080);
+            transform: translateY(-2px);
+            box-shadow: 0 6px 20px rgba(255, 64, 64, 0.6);
+        }
+
+        .error-message {
+            color: #ff4040;
+            font-size: 14px;
+            margin-top: 10px;
+            display: none;
         }
 
         footer {
@@ -670,7 +653,7 @@
         </div>
     </div>
 
-    <!-- Auth Popups -->
+    <!-- Login Popup -->
     <div class="popup auth-popup" id="loginPopup">
         <span class="close-btn">×</span>
         <h4 data-en="Login" data-ar="تسجيل الدخول">تسجيل الدخول</h4>
@@ -678,23 +661,12 @@
             <input type="email" name="email" placeholder="البريد الإلكتروني" required>
             <input type="password" name="password" placeholder="كلمة المرور" required>
             <button type="submit" data-en="Login" data-ar="دخول">دخول</button>
-            <p style="margin-top: 10px;"><a href="register.html" data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</a></p>
+            <p style="margin-top: 10px;"><a href="register.html" class="register-btn" data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</a></p>
+            <div class="error-message" id="loginError"></div>
         </form>
     </div>
 
-    <div class="popup auth-popup" id="registerPopup">
-        <span class="close-btn">×</span>
-        <h4 data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</h4>
-        <form id="registerForm" class="contact-form">
-            <input type="text" name="username" placeholder="اسم المستخدم" required>
-            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-            <input type="password" name="password" placeholder="كلمة المرور" required>
-            <input type="text" name="phone" placeholder="رقم الجوال" required>
-            <button type="submit" data-en="Register" data-ar="تسجيل">تسجيل</button>
-            <p style="margin-top: 10px;"><a href="#" onclick="showLoginPopup(event)" data-en="Login" data-ar="تسجيل الدخول">تسجيل الدخول</a></p>
-        </form>
-    </div>
-
+    <!-- Profile Popup -->
     <div class="popup profile-popup" id="profilePopup">
         <span class="close-btn">×</span>
         <h4 data-en="Your Profile" data-ar="ملفك الشخصي">ملفك الشخصي</h4>
@@ -704,12 +676,6 @@
             <button type="submit" data-en="Update" data-ar="تحديث">تحديث</button>
         </form>
         <p style="margin-top: 20px;"><a href="tickets.html" data-en="Go to Tickets" data-ar="الذهاب إلى التذاكر">الذهاب إلى التذاكر</a></p>
-    </div>
-
-    <div class="popup profile-popup" id="adminPopup">
-        <span class="close-btn">×</span>
-        <h4 data-en="Admin Panel" data-ar="لوحة الإدارة">لوحة الإدارة</h4>
-        <div class="ticket-list" id="adminTicketList"></div>
     </div>
 
     <footer id="contact">
@@ -723,6 +689,11 @@
     </footer>
 
     <script>
+        // تهيئة Supabase
+        const supabaseUrl = process.env.SUPABASE_URL || 'https://myjktwykosxmsjfnuwi.supabase.co';
+        const supabaseKey = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15a2p0a3d5a29zeG1zamZudWl3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgzNjk4ODUsImV4cCI6MjA1Mzk0NTg4NX0.teD6Bsh9rNdamcy_ml8-MM-dWJuvMfGrKNfAuWHPz48';
+        const supabase = Supabase.createClient(supabaseUrl, supabaseKey);
+
         // Animated Background
         const bgCanvas = document.getElementById('bgCanvas');
         const bgCtx = bgCanvas.getContext('2d');
@@ -984,22 +955,22 @@
             }
         });
 
-        // Auth System with Persistent Login
+        // Auth System with Supabase
         const authMenu = document.getElementById('authMenu');
         const loginPopup = document.getElementById('loginPopup');
-        const registerPopup = document.getElementById('registerPopup');
         const profilePopup = document.getElementById('profilePopup');
-        const adminPopup = document.getElementById('adminPopup');
-        let currentUser = JSON.parse(localStorage.getItem('currentUser'));
+        const loginError = document.getElementById('loginError');
+        let currentUser = null;
 
-        if (currentUser) {
-            profilePopup.classList.add('active');
-            loadProfile();
-            if (currentUser.email === 'admin@admin.com') {
-                adminPopup.classList.add('active');
-                loadAdminTickets();
+        async function checkSession() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                currentUser = user;
+                profilePopup.classList.add('active');
+                loadProfile();
             }
         }
+        checkSession();
 
         authMenu.addEventListener('click', () => {
             if (currentUser) {
@@ -1010,152 +981,60 @@
             }
         });
 
-        function showLoginPopup(e) {
-            e.preventDefault();
-            loginPopup.classList.add('active');
-            registerPopup.classList.remove('active');
-        }
-
-        function saveUser(user) {
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            if (!users.find(u => u.email === user.email)) {
-                users.push(user);
-                localStorage.setItem('users', JSON.stringify(users));
-            }
-        }
-
-        function findUser(email, password) {
-            const users = JSON.parse(localStorage.getItem('users')) || [];
-            return users.find(u => u.email === email && u.password === password);
-        }
-
-        document.getElementById('loginForm').addEventListener('submit', (e) => {
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const email = e.target.email.value;
             const password = e.target.password.value;
-            const user = findUser(email, password);
-            if (user) {
-                currentUser = user;
-                localStorage.setItem('currentUser', JSON.stringify(user));
+
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+
+            if (error) {
+                loginError.style.display = 'block';
+                loginError.textContent = 'خطأ: ' + (error.message === 'Invalid login credentials' ? 'البريد الإلكتروني أو كلمة المرور غير صحيحة' : error.message);
+                setTimeout(() => { loginError.style.display = 'none'; }, 5000);
+            } else {
+                currentUser = data.user;
                 loginPopup.classList.remove('active');
                 profilePopup.classList.add('active');
                 loadProfile();
-                if (user.email === 'admin@admin.com') {
-                    adminPopup.classList.add('active');
-                    loadAdminTickets();
-                }
-            } else {
-                alert('بيانات تسجيل الدخول غير صحيحة');
             }
-        });
-
-        document.getElementById('registerForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const user = {
-                username: e.target.username.value,
-                email: e.target.email.value,
-                password: e.target.password.value,
-                phone: e.target.phone.value,
-                avatar: 'https://b.top4top.io/p_3353ggllu0.jpeg'
-            };
-            saveUser(user);
-            currentUser = user;
-            localStorage.setItem('currentUser', JSON.stringify(user));
-            registerPopup.classList.remove('active');
-            profilePopup.classList.add('active');
-            loadProfile();
-            e.target.reset();
         });
 
         function loadProfile() {
             const profileInfo = document.getElementById('profileInfo');
             profileInfo.innerHTML = `
-                <p>اسم المستخدم: ${currentUser.username}</p>
+                <p>اسم المستخدم: ${currentUser.user_metadata.username}</p>
                 <p>البريد الإلكتروني: ${currentUser.email}</p>
-                <p>رقم الجوال: ${currentUser.phone}</p>
-                <img src="${currentUser.avatar}" alt="Avatar" style="width: 100px; border-radius: 50%;">
+                <p>رقم الجوال: ${currentUser.user_metadata.phone}</p>
+                <img src="${currentUser.user_metadata.avatar}" alt="Avatar" style="width: 100px; border-radius: 50%;">
                 <button onclick="logout()" style="margin-top: 10px; padding: 5px 10px; background: #ff4040; color: #fff; border: none; border-radius: 5px; cursor: pointer;">تسجيل الخروج</button>
             `;
-            document.getElementById('phoneInput').value = currentUser.phone;
+            document.getElementById('phoneInput').value = currentUser.user_metadata.phone;
         }
 
-        document.getElementById('updateProfileForm').addEventListener('submit', (e) => {
+        document.getElementById('updateProfileForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const newPhone = e.target.phone.value;
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            users = users.map(u => u.email === currentUser.email ? { ...u, phone: newPhone } : u);
-            localStorage.setItem('users', JSON.stringify(users));
-            currentUser.phone = newPhone;
-            localStorage.setItem('currentUser', JSON.stringify(currentUser));
-            loadProfile();
+
+            const { data, error } = await supabase.auth.updateUser({
+                data: { phone: newPhone }
+            });
+
+            if (error) {
+                alert('خطأ في التحديث: ' + error.message);
+            } else {
+                currentUser = data.user;
+                loadProfile();
+            }
         });
 
-        function logout() {
-            localStorage.removeItem('currentUser');
+        async function logout() {
+            await supabase.auth.signOut();
             currentUser = null;
             profilePopup.classList.remove('active');
-            adminPopup.classList.remove('active');
-        }
-
-        function loadAdminTickets() {
-            const adminTicketList = document.getElementById('adminTicketList');
-            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-            adminTicketList.innerHTML = tickets.map(t => `
-                <div class="ticket-item">
-                    <div>
-                        <span>${t.userEmail}: ${t.content}</span>
-                        ${t.reply ? `<div class="admin-reply">رد الإدارة: ${t.reply}</div>` : ''}
-                    </div>
-                    <div class="ticket-actions">
-                        <button onclick="replyTicket('${t.id}')">رد</button>
-                        <button onclick="editAdminTicket('${t.id}')">تعديل</button>
-                        <button onclick="deleteAdminTicket('${t.id}')">حذف</button>
-                        <button onclick="closeTicket('${t.id}')">${t.status === 'open' ? 'إغلاق' : 'فتح'}</button>
-                    </div>
-                </div>
-            `).join('');
-        }
-
-        function replyTicket(id) {
-            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-            const ticket = tickets.find(t => t.id === id);
-            if (ticket) {
-                const reply = prompt('اكتب ردك:', ticket.reply || '');
-                if (reply) {
-                    tickets = tickets.map(t => t.id === id ? { ...t, reply } : t);
-                    localStorage.setItem('tickets', JSON.stringify(tickets));
-                    loadAdminTickets();
-                }
-            }
-        }
-
-        function editAdminTicket(id) {
-            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-            const ticket = tickets.find(t => t.id === id);
-            if (ticket) {
-                const newContent = prompt('عدل التذكرة:', ticket.content);
-                if (newContent) {
-                    tickets = tickets.map(t => t.id === id ? { ...t, content: newContent } : t);
-                    localStorage.setItem('tickets', JSON.stringify(tickets));
-                    loadAdminTickets();
-                }
-            }
-        }
-
-        function deleteAdminTicket(id) {
-            if (confirm('هل تريد حذف التذكرة؟')) {
-                let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-                tickets = tickets.filter(t => t.id !== id);
-                localStorage.setItem('tickets', JSON.stringify(tickets));
-                loadAdminTickets();
-            }
-        }
-
-        function closeTicket(id) {
-            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
-            tickets = tickets.map(t => t.id === id ? { ...t, status: t.status === 'open' ? 'closed' : 'open' } : t);
-            localStorage.setItem('tickets', JSON.stringify(tickets));
-            loadAdminTickets();
         }
     </script>
 </body>
