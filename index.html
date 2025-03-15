@@ -692,7 +692,7 @@
         // تهيئة Supabase
         const supabaseUrl = process.env.SUPABASE_URL || 'https://myjktwykosxmsjfnuwi.supabase.co';
         const supabaseKey = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15a2p0a3d5a29zeG1zamZudWl3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgzNjk4ODUsImV4cCI6MjA1Mzk0NTg4NX0.teD6Bsh9rNdamcy_ml8-MM-dWJuvMfGrKNfAuWHPz48';
-        const supabase = Supabase.createClient(supabaseUrl, supabaseKey);
+        const supabase = window.supabase.createClient(supabaseUrl, supabaseKey);
 
         // Animated Background
         const bgCanvas = document.getElementById('bgCanvas');
@@ -766,19 +766,23 @@
         waveCanvas.style.left = '0';
 
         function initializeAudio() {
-            if (!audioContext) {
-                audioContext = new (window.AudioContext || window.webkitAudioContext)();
-                analyser = audioContext.createAnalyser();
-                analyser.fftSize = 256;
-                const bufferLength = analyser.frequencyBinCount;
-                dataArray = new Uint8Array(bufferLength);
+            try {
+                if (!audioContext) {
+                    audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                    analyser = audioContext.createAnalyser();
+                    analyser.fftSize = 256;
+                    const bufferLength = analyser.frequencyBinCount;
+                    dataArray = new Uint8Array(bufferLength);
 
-                const source = audioContext.createMediaElementSource(clockSound);
-                source.connect(analyser);
-                analyser.connect(audioContext.destination);
-            }
-            if (audioContext.state === 'suspended') {
-                audioContext.resume();
+                    const source = audioContext.createMediaElementSource(clockSound);
+                    source.connect(analyser);
+                    analyser.connect(audioContext.destination);
+                }
+                if (audioContext.state === 'suspended') {
+                    audioContext.resume();
+                }
+            } catch (error) {
+                console.error('خطأ في تهيئة الصوت:', error);
             }
         }
 
@@ -803,28 +807,32 @@
         }
 
         function toggleWave() {
-            if (!isWaveActive) {
-                initializeAudio();
-                waveCanvas.style.display = 'block';
-                waveCanvas.style.opacity = '1';
-                profileImg.style.opacity = '0.2';
-                isWaveActive = true;
+            try {
+                if (!isWaveActive) {
+                    initializeAudio();
+                    waveCanvas.style.display = 'block';
+                    waveCanvas.style.opacity = '1';
+                    profileImg.style.opacity = '0.2';
+                    isWaveActive = true;
 
-                clockSound.currentTime = 0;
-                clockSound.play()
-                    .then(() => {
-                        drawWave();
-                    })
-                    .catch(error => {
-                        console.error('Error playing audio:', error);
-                    });
-            } else {
-                profileImg.style.opacity = '1';
-                waveCanvas.style.opacity = '0';
-                waveCanvas.style.display = 'none';
-                clockSound.pause();
-                clockSound.currentTime = 0;
-                isWaveActive = false;
+                    clockSound.currentTime = 0;
+                    clockSound.play()
+                        .then(() => {
+                            drawWave();
+                        })
+                        .catch(error => {
+                            console.error('خطأ في تشغيل الصوت:', error);
+                        });
+                } else {
+                    profileImg.style.opacity = '1';
+                    waveCanvas.style.opacity = '0';
+                    waveCanvas.style.display = 'none';
+                    clockSound.pause();
+                    clockSound.currentTime = 0;
+                    isWaveActive = false;
+                }
+            } catch (error) {
+                console.error('خطأ في تبديل الصوت:', error);
             }
         }
 
@@ -856,7 +864,8 @@
             });
         }
 
-        languageToggle.addEventListener('click', () => {
+        languageToggle.addEventListener('click', (e) => {
+            e.preventDefault();
             currentLang = currentLang === 'ar' ? 'en' : 'ar';
             localStorage.setItem('lang', currentLang);
             document.documentElement.lang = currentLang;
@@ -904,7 +913,8 @@
 
         [contactBtn, heroContactBtn].forEach(btn => {
             if (btn) {
-                btn.addEventListener('click', () => {
+                btn.addEventListener('click', (e) => {
+                    e.preventDefault();
                     contactPopup.classList.add('active');
                     contactForm.style.display = 'flex';
                     successMessage.style.display = 'none';
@@ -927,7 +937,7 @@
                     contactPopup.classList.remove('active');
                 }, 3000);
             })
-            .catch(error => console.error('Error:', error));
+            .catch(error => console.error('خطأ في إرسال النموذج:', error));
         });
 
         document.querySelectorAll('.popup .close-btn').forEach(btn => {
@@ -949,7 +959,9 @@
         // Header Shrink on Scroll
         window.addEventListener('scroll', () => {
             if (window.scrollY > 50) {
-                document.querySelector('header').style.padding = '10px 20px';
+ _
+
+            document.querySelector('header').style.padding = '10px 20px';
             } else {
                 document.querySelector('header').style.padding = '15px 20px';
             }
@@ -963,11 +975,16 @@
         let currentUser = null;
 
         async function checkSession() {
-            const { data: { user } } = await supabase.auth.getUser();
-            if (user) {
-                currentUser = user;
-                profilePopup.classList.add('active');
-                loadProfile();
+            try {
+                const { data: { user }, error } = await supabase.auth.getUser();
+                if (error) throw error;
+                if (user) {
+                    currentUser = user;
+                    profilePopup.classList.add('active');
+                    loadProfile();
+                }
+            } catch (error) {
+                console.error('خطأ في التحقق من الجلسة:', error.message);
             }
         }
         checkSession();
@@ -986,55 +1003,65 @@
             const email = e.target.email.value;
             const password = e.target.password.value;
 
-            const { data, error } = await supabase.auth.signInWithPassword({
-                email,
-                password,
-            });
+            try {
+                const { data, error } = await supabase.auth.signInWithPassword({
+                    email,
+                    password,
+                });
 
-            if (error) {
-                loginError.style.display = 'block';
-                loginError.textContent = 'خطأ: ' + (error.message === 'Invalid login credentials' ? 'البريد الإلكتروني أو كلمة المرور غير صحيحة' : error.message);
-                setTimeout(() => { loginError.style.display = 'none'; }, 5000);
-            } else {
+                if (error) throw error;
+
                 currentUser = data.user;
                 loginPopup.classList.remove('active');
                 profilePopup.classList.add('active');
                 loadProfile();
+            } catch (error) {
+                loginError.style.display = 'block';
+                loginError.textContent = 'خطأ: ' + (error.message === 'Invalid login credentials' ? 'البريد الإلكتروني أو كلمة المرور غير صحيحة' : error.message);
+                setTimeout(() => { loginError.style.display = 'none'; }, 5000);
             }
         });
 
         function loadProfile() {
             const profileInfo = document.getElementById('profileInfo');
             profileInfo.innerHTML = `
-                <p>اسم المستخدم: ${currentUser.user_metadata.username}</p>
+                <p>اسم المستخدم: ${currentUser.user_metadata.username || 'غير محدد'}</p>
                 <p>البريد الإلكتروني: ${currentUser.email}</p>
-                <p>رقم الجوال: ${currentUser.user_metadata.phone}</p>
-                <img src="${currentUser.user_metadata.avatar}" alt="Avatar" style="width: 100px; border-radius: 50%;">
+                <p>رقم الجوال: ${currentUser.user_metadata.phone || 'غير محدد'}</p>
+                <img src="${currentUser.user_metadata.avatar || 'https://b.top4top.io/p_3353ggllu0.jpeg'}" alt="Avatar" style="width: 100px; border-radius: 50%;">
                 <button onclick="logout()" style="margin-top: 10px; padding: 5px 10px; background: #ff4040; color: #fff; border: none; border-radius: 5px; cursor: pointer;">تسجيل الخروج</button>
             `;
-            document.getElementById('phoneInput').value = currentUser.user_metadata.phone;
+            document.getElementById('phoneInput').value = currentUser.user_metadata.phone || '';
         }
 
         document.getElementById('updateProfileForm').addEventListener('submit', async (e) => {
             e.preventDefault();
             const newPhone = e.target.phone.value;
 
-            const { data, error } = await supabase.auth.updateUser({
-                data: { phone: newPhone }
-            });
+            try {
+                const { data, error } = await supabase.auth.updateUser({
+                    data: { phone: newPhone }
+                });
 
-            if (error) {
-                alert('خطأ في التحديث: ' + error.message);
-            } else {
+                if (error) throw error;
+
                 currentUser = data.user;
                 loadProfile();
+            } catch (error) {
+                loginError.style.display = 'block';
+                loginError.textContent = 'خطأ في التحديث: ' + error.message;
+                setTimeout(() => { loginError.style.display = 'none'; }, 5000);
             }
         });
 
         async function logout() {
-            await supabase.auth.signOut();
-            currentUser = null;
-            profilePopup.classList.remove('active');
+            try {
+                await supabase.auth.signOut();
+                currentUser = null;
+                profilePopup.classList.remove('active');
+            } catch (error) {
+                console.error('خطأ في تسجيل الخروج:', error.message);
+            }
         }
     </script>
 </body>
