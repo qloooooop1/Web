@@ -3,135 +3,27 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>تسجيل جديد | root</title>
+    <title>موقعي الشخصي | root</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
+    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Cairo', sans-serif;
-        }
-
-        body {
-            background: #1a1a1a;
-            color: #e0e0e0;
-            min-height: 100vh;
-            position: relative;
-            overflow-x: hidden;
-        }
-
-        canvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            z-index: -1;
-            opacity: 0.15;
-            width: 100%;
-            height: 100%;
-        }
-
-        header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            background: rgba(0, 0, 0, 0.9);
-            padding: 15px 20px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            z-index: 1000;
-            box-shadow: 0 4px 20px rgba(255, 64, 64, 0.3);
-        }
-
-        header nav ul {
-            list-style: none;
-            display: flex;
-            gap: 20px;
-        }
-
-        header nav ul li a {
-            color: #ff4040;
-            text-decoration: none;
-            font-weight: bold;
-            font-size: 18px;
+        /* نفس الـ CSS السابق مع إضافة تنسيق لزر "تسجيل جديد" */
+        .register-btn {
+            display: inline-block;
             padding: 8px 15px;
-            transition: color 0.3s, transform 0.3s;
-            border-radius: 20px;
-        }
-
-        header nav ul li a:hover {
-            color: #fff;
-            transform: scale(1.1);
-        }
-
-        .register-container {
-            padding: 40px;
-            border-radius: 20px;
-            max-width: 400px;
-            width: 100%;
-            text-align: center;
-            margin: 120px auto;
-        }
-
-        .register-container h4 {
-            color: #ff4040;
-            margin-bottom: 20px;
-            font-size: 26px;
-            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
-        }
-
-        .contact-form {
-            display: flex;
-            flex-direction: column;
-            gap: 15px;
-        }
-
-        .contact-form input {
-            padding: 10px;
-            border: 1px solid #ff4040;
-            border-radius: 5px;
-            background: rgba(255, 64, 64, 0.05);
-            color: #e0e0e0;
-            font-size: 16px;
-            transition: border-color 0.3s, box-shadow 0.3s;
-        }
-
-        .contact-form input:focus {
-            outline: none;
-            border-color: #ff8080;
-            box-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
-        }
-
-        .contact-form button {
-            padding: 10px;
             background: #ff4040;
             color: #fff;
-            border: none;
+            text-decoration: none;
             border-radius: 5px;
-            cursor: pointer;
+            font-size: 16px;
             transition: background 0.3s, transform 0.3s;
+            box-shadow: 0 0 10px rgba(255, 64, 64, 0.3);
         }
 
-        .contact-form button:hover {
+        .register-btn:hover {
             background: #ff8080;
             transform: scale(1.05);
-        }
-
-        .login-link {
-            margin-top: 20px;
-        }
-
-        .login-link a {
-            color: #ff4040;
-            text-decoration: none;
-            font-size: 16px;
-            transition: color 0.3s;
-        }
-
-        .login-link a:hover {
-            color: #ff8080;
         }
     </style>
 </head>
@@ -141,15 +33,121 @@
     <header>
         <nav>
             <ul>
-                <li><a href="index.html" data-en="Home" data-ar="الرئيسية">الرئيسية</a></li>
-                <li><a href="index.html#about" data-en="About" data-ar="نبذة">نبذة</a></li>
-                <li><a href="index.html#skills" data-en="Skills" data-ar="مهاراتي">مهاراتي</a></li>
-                <li><a href="index.html#contact" data-en="Contact" data-ar="تواصل">تواصل</a></li>
+                <li><a href="#home" data-en="Home" data-ar="الرئيسية">الرئيسية</a></li>
+                <li><a href="#about" data-en="About" data-ar="نبذة">نبذة</a></li>
+                <li><a href="#skills" data-en="Skills" data-ar="مهاراتي">مهاراتي</a></li>
+                <li><a href="#contact" data-en="Contact" data-ar="تواصل">تواصل</a></li>
             </ul>
         </nav>
     </header>
 
-    <div class="register-container">
+    <div class="auth-menu" id="authMenu">
+        <div class="menu-btn"></div>
+        <div class="menu-btn"></div>
+        <div class="menu-btn"></div>
+    </div>
+
+    <div class="hero">
+        <div class="hero-image">
+            <img src="https://b.top4top.io/p_3353ggllu0.jpeg" alt="Anime-style profile" id="profileImg">
+            <canvas id="waveCanvas" style="display: none;"></canvas>
+            <audio id="clockSound" src="https://ephemeral-concha-441660.netlify.app/3B365C16-A020-45CD-9461-537C5ECA5455.mp4" preload="auto"></audio>
+        </div>
+        <div class="hero-content">
+            <h2 data-en="Hello, I'm root" data-ar="مرحباً، أنا root">مرحباً، أنا root</h2>
+            <h3 data-en="Creative Tech Developer" data-ar="مطور تقني ">مطور تقني </h3>
+            <p class="about-text" data-en="I'm a tech enthusiast who thrives on solving complex problems with innovative and creative coding solutions." data-ar="أنا عاشق للتكنولوجيا، أزدهر بحل المشكلات المعقدة باستخدام حلول برمجية مبتكرة وإبداعية.">أنا عاشق للتكنولوجيا، أزدهر بحل المشكلات المعقدة باستخدام حلول برمجية مبتكرة وإبداعية.</p>
+            <div class="social">
+                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-snapchat"></i></a>
+                <a href="#" id="languageToggle"><i class="fas fa-globe"></i></a>
+                <a href="#" id="heroContactBtn"><i class="fas fa-envelope"></i></a>
+            </div>
+        </div>
+    </div>
+
+    <div class="container">
+        <div class="content">
+            <div class="section" id="about">
+                <h2 data-en="About Me" data-ar="نبذة عني">نبذة عني</h2>
+                <p class="about-text" data-en="I'm a passionate developer and tech enthusiast dedicated to crafting innovative digital solutions that blend creativity with cutting-edge technology. I have a keen interest in developing iPhone and Android applications, bringing intuitive and delightful experiences to users across platforms." data-ar="أنا مطور شغوف وعاشق للتكنولوجيا، أكرس جهودي لصياغة حلول رقمية مبتكرة تجمع بين الإبداع والتكنولوجيا المتطورة. أمتلك اهتماماً خاصاً بتطوير تطبيقات iPhone وAndroid، لأقدم تجارب سلسة وممتعة للمستخدمين عبر المنصات المختلفة.">أنا مطور شغوف وعاشق للتكنولوجيا، أكرس جهودي لصياغة حلول رقمية مبتكرة تجمع بين الإبداع والتكنولوجيا المتطورة. أمتلك اهتماماً خاصاً بتطوير تطبيقات iPhone وAndroid، لأقدم تجارب سلسة وممتعة للمستخدمين عبر المنصات المختلفة.</p>
+            </div>
+            <div class="divider"></div>
+            <div class="section" id="skills">
+                <h2 data-en="My Skills" data-ar="مهاراتي">مهاراتي</h2>
+                <div class="skills-grid">
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-code"></i>
+                        </div>
+                        <h4 data-en="Programming" data-ar="البرمجة">البرمجة</h4>
+                        <p class="skill-desc" data-en="Developing high-performance applications using Python and JavaScript with a focus on quality and efficiency." data-ar="تطوير تطبيقات عالية الأداء باستخدام Python وJavaScript مع التركيز على الجودة والكفاءة.">تطوير تطبيقات عالية الأداء باستخدام Python وJavaScript مع التركيز على الجودة والكفاءة.</p>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-paint-brush"></i>
+                        </div>
+                        <h4 data-en="Design" data-ar="التصميم">التصميم</h4>
+                        <p class="skill-desc" data-en="Creating interactive and appealing user interfaces using CSS and modern design tools." data-ar="إنشاء واجهات مستخدم تفاعلية وجذابة باستخدام CSS وأدوات التصميم الحديثة.">إنشاء واجهات مستخدم تفاعلية وجذابة باستخدام CSS وأدوات التصميم الحديثة.</p>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-server"></i>
+                        </div>
+                        <h4 data-en="System Administration" data-ar="إدارة الأنظمة">إدارة الأنظمة</h4>
+                        <p class="skill-desc" data-en="Configuring and optimizing advanced operating systems like Linux for peak performance." data-ar="تكوين وتحسين أنظمة تشغيل متقدمة مثل Linux لتحقيق أعلى مستويات الأداء.">تكوين وتحسين أنظمة تشغيل متقدمة مثل Linux لتحقيق أعلى مستويات الأداء.</p>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-terminal"></i>
+                        </div>
+                        <h4 data-en="Automation" data-ar="الأتمتة">الأتمتة</h4>
+                        <p class="skill-desc" data-en="Writing smart scripts for process automation using Bash and Python." data-ar="كتابة سكربتات ذكية لأتمتة العمليات باستخدام Bash وPython.">كتابة سكربتات ذكية لأتمتة العمليات باستخدام Bash وPython.</p>
+                    </div>
+                    <div class="skill-card">
+                        <div class="skill-icon">
+                            <i class="fas fa-mobile-alt"></i>
+                        </div>
+                        <h4 data-en="Mobile Development" data-ar="تطوير تطبيقات الموبايل">تطوير تطبيقات الموبايل</h4>
+                        <p class="skill-desc" data-en="Crafting seamless and innovative iPhone and Android apps that enhance user experiences across devices." data-ar="صيغة تطبيقات iPhone وAndroid مبتكرة وسلسة تعزز تجربة المستخدم عبر الأجهزة المختلفة.">صيغة تطبيقات iPhone وAndroid مبتكرة وسلسة تعزز تجربة المستخدم عبر الأجهزة المختلفة.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Popup -->
+    <div class="popup" id="contactPopup">
+        <span class="close-btn">×</span>
+        <h4 data-en="Contact Us" data-ar="راسلنا">راسلنا</h4>
+        <form class="contact-form" id="contactForm" name="contact" method="POST" data-netlify="true" data-netlify-honeypot="bot-field">
+            <input type="hidden" name="form-name" value="contact">
+            <input type="text" name="name" placeholder="الاسم" data-en-placeholder="Name" data-ar-placeholder="الاسم" required>
+            <input type="email" name="email" placeholder="البريد الإلكتروني" data-en-placeholder="Email" data-ar-placeholder="البريد الإلكتروني" required>
+            <textarea name="message" placeholder="رسالتك" data-en-placeholder="Your Message" data-ar-placeholder="رسالتك" rows="5" required></textarea>
+            <button type="submit" data-en="Send" data-ar="إرسال">إرسال</button>
+        </form>
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            <p data-en="Your message has been sent successfully! Thank you for contacting us, and we’ll get back to you soon." data-ar="تم إرسال رسالتك بنجاح! نشكرك على تواصلك معنا، وسيتم الرد عليك في أقرب وقت ممكن.">تم إرسال رسالتك بنجاح! نشكرك على تواصلك معنا، وسيتم الرد عليك في أقرب وقت ممكن.</p>
+        </div>
+    </div>
+
+    <!-- Auth Popups -->
+    <div class="popup auth-popup" id="loginPopup">
+        <span class="close-btn">×</span>
+        <h4 data-en="Login" data-ar="تسجيل الدخول">تسجيل الدخول</h4>
+        <form id="loginForm" class="contact-form">
+            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+            <input type="password" name="password" placeholder="كلمة المرور" required>
+            <button type="submit" data-en="Login" data-ar="دخول">دخول</button>
+            <p style="margin-top: 10px;"><a href="#" onclick="showRegisterPopup(event)" class="register-btn" data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</a></p>
+        </form>
+    </div>
+
+    <div class="popup auth-popup" id="registerPopup">
+        <span class="close-btn">×</span>
         <h4 data-en="Register" data-ar="تسجيل جديد">تسجيل جديد</h4>
         <form id="registerForm" class="contact-form">
             <input type="text" name="username" placeholder="اسم المستخدم" required>
@@ -157,14 +155,44 @@
             <input type="password" name="password" placeholder="كلمة المرور" required>
             <input type="text" name="phone" placeholder="رقم الجوال" required>
             <button type="submit" data-en="Register" data-ar="تسجيل">تسجيل</button>
+            <p style="margin-top: 10px;"><a href="#" onclick="showLoginPopup(event)" data-en="Login" data-ar="تسجيل الدخول">تسجيل الدخول</a></p>
         </form>
-        <div class="login-link">
-            <p><a href="index.html" data-en="Back to Login" data-ar="العودة إلى تسجيل الدخول">العودة إلى تسجيل الدخول</a></p>
-        </div>
     </div>
 
+    <div class="popup profile-popup" id="profilePopup">
+        <span class="close-btn">×</span>
+        <h4 data-en="Your Profile" data-ar="ملفك الشخصي">ملفك الشخصي</h4>
+        <div id="profileInfo"></div>
+        <form id="updateProfileForm" class="contact-form">
+            <input type="text" name="phone" id="phoneInput" placeholder="رقم الجوال">
+            <button type="submit" data-en="Update" data-ar="تحديث">تحديث</button>
+        </form>
+        <p style="margin-top: 20px;"><a href="tickets.html" data-en="Go to Tickets" data-ar="الذهاب إلى التذاكر">الذهاب إلى التذاكر</a></p>
+    </div>
+
+    <div class="popup profile-popup" id="adminPopup">
+        <span class="close-btn">×</span>
+        <h4 data-en="Admin Panel" data-ar="لوحة الإدارة">لوحة الإدارة</h4>
+        <div class="ticket-list" id="adminTicketList"></div>
+    </div>
+
+    <footer id="contact">
+        <p data-en="All Rights Reserved © 2025 | root" data-ar="جميع الحقوق محفوظة © 2025 | root">جميع الحقوق محفوظة © 2025 | root</p>
+        <div class="social">
+            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="#"><i class="fab fa-linkedin"></i></a>
+            <a href="#"><i class="fab fa-snapchat"></i></a>
+            <i class="fas fa-envelope contact-btn" id="contactBtn"></i>
+        </div>
+    </footer>
+
     <script>
-        // Animated Background
+        // تهيئة Supabase
+        const supabaseUrl = process.env.SUPABASE_URL || 'https://myjktwykosxmsjfnuwi.supabase.co';
+        const supabaseKey = process.env.SUPABASE_ANON_KEY || 'eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyJpc3MiOiJzdXBhYmFzZSIsInJlZiI6Im15a2p0a3d5a29zeG1zamZudWl3Iiwicm9sZSI6ImFub24iLCJpYXQiOjE3MzgzNjk4ODUsImV4cCI6MjA1Mzk0NTg4NX0.teD6Bsh9rNdamcy_ml8-MM-dWJuvMfGrKNfAuWHPz48';
+        const supabase = Supabase.createClient(supabaseUrl, supabaseKey);
+
+        // Animated Background (نفس الكود السابق)
         const bgCanvas = document.getElementById('bgCanvas');
         const bgCtx = bgCanvas.getContext('2d');
         bgCanvas.width = window.innerWidth * 1.5;
@@ -219,30 +247,401 @@
             bgCanvas.height = window.innerHeight;
         });
 
-        // Register Functionality
-        function saveUser(user) {
-            let users = JSON.parse(localStorage.getItem('users')) || [];
-            if (!users.find(u => u.email === user.email)) {
-                users.push(user);
-                localStorage.setItem('users', JSON.stringify(users));
+        // Sound Wave Functionality (نفس الكود السابق)
+        let audioContext = null;
+        let analyser = null;
+        let dataArray = null;
+        const profileImg = document.getElementById('profileImg');
+        const waveCanvas = document.getElementById('waveCanvas');
+        const waveCtx = waveCanvas.getContext('2d');
+        const clockSound = document.getElementById('clockSound');
+        let isWaveActive = false;
+
+        waveCanvas.width = profileImg.clientWidth;
+        waveCanvas.height = profileImg.clientHeight;
+        waveCanvas.style.position = 'absolute';
+        waveCanvas.style.top = '0';
+        waveCanvas.style.left = '0';
+
+        function initializeAudio() {
+            if (!audioContext) {
+                audioContext = new (window.AudioContext || window.webkitAudioContext)();
+                analyser = audioContext.createAnalyser();
+                analyser.fftSize = 256;
+                const bufferLength = analyser.frequencyBinCount;
+                dataArray = new Uint8Array(bufferLength);
+
+                const source = audioContext.createMediaElementSource(clockSound);
+                source.connect(analyser);
+                analyser.connect(audioContext.destination);
+            }
+            if (audioContext.state === 'suspended') {
+                audioContext.resume();
             }
         }
 
-        document.getElementById('registerForm').addEventListener('submit', (e) => {
-            e.preventDefault();
-            const user = {
-                username: e.target.username.value,
-                email: e.target.email.value,
-                password: e.target.password.value,
-                phone: e.target.phone.value,
-                avatar: 'https://b.top4top.io/p_3353ggllu0.jpeg'
-            };
-            saveUser(user);
-            localStorage.setItem('currentUser', JSON.stringify(user)); // Save current user
-            alert('تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.');
-            window.location.href = 'index.html';
-            e.target.reset();
+        function drawWave() {
+            if (isWaveActive && !clockSound.paused) {
+                analyser.getByteFrequencyData(dataArray);
+                waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+                const barWidth = (waveCanvas.width / dataArray.length) * 2.5;
+                let x = 0;
+
+                for (let i = 0; i < dataArray.length; i++) {
+                    const barHeight = (dataArray[i] / 255) * (waveCanvas.height / 4);
+                    waveCtx.fillStyle = `rgba(255, 64, 64, 0.7)`;
+                    waveCtx.fillRect(waveCanvas.width / 2 - x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
+                    waveCtx.fillRect(waveCanvas.width / 2 + x, waveCanvas.height / 2 - barHeight / 2, barWidth, barHeight);
+                    x += barWidth + 1;
+                }
+                requestAnimationFrame(drawWave);
+            } else if (!isWaveActive) {
+                waveCtx.clearRect(0, 0, waveCanvas.width, waveCanvas.height);
+            }
+        }
+
+        function toggleWave() {
+            if (!isWaveActive) {
+                initializeAudio();
+                waveCanvas.style.display = 'block';
+                waveCanvas.style.opacity = '1';
+                profileImg.style.opacity = '0.2';
+                isWaveActive = true;
+
+                clockSound.currentTime = 0;
+                clockSound.play()
+                    .then(() => {
+                        drawWave();
+                    })
+                    .catch(error => {
+                        console.error('Error playing audio:', error);
+                    });
+            } else {
+                profileImg.style.opacity = '1';
+                waveCanvas.style.opacity = '0';
+                waveCanvas.style.display = 'none';
+                clockSound.pause();
+                clockSound.currentTime = 0;
+                isWaveActive = false;
+            }
+        }
+
+        profileImg.addEventListener('click', toggleWave);
+
+        window.addEventListener('resize', () => {
+            waveCanvas.width = profileImg.clientWidth;
+            waveCanvas.height = profileImg.clientHeight;
+            if (isWaveActive) {
+                drawWave();
+            }
         });
+
+        // Language Toggle (نفس الكود السابق)
+        const languageToggle = document.getElementById('languageToggle');
+        let currentLang = localStorage.getItem('lang') || 'ar';
+        document.documentElement.lang = currentLang;
+        document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+
+        function updateLanguage() {
+            document.querySelectorAll('[data-en][data-ar]').forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+            document.querySelectorAll('[data-en-placeholder][data-ar-placeholder]').forEach(el => {
+                el.placeholder = el.getAttribute(`data-${currentLang}-placeholder`);
+            });
+            document.querySelectorAll('.skill-desc').forEach(el => {
+                el.textContent = el.getAttribute(`data-${currentLang}`);
+            });
+        }
+
+        languageToggle.addEventListener('click', () => {
+            currentLang = currentLang === 'ar' ? 'en' : 'ar';
+            localStorage.setItem('lang', currentLang);
+            document.documentElement.lang = currentLang;
+            document.documentElement.dir = currentLang === 'ar' ? 'rtl' : 'ltr';
+            updateLanguage();
+        });
+
+        updateLanguage();
+
+        // Skill Description Toggle (نفس الكود السابق)
+        const skillCards = document.querySelectorAll('.skill-card');
+        skillCards.forEach(card => {
+            card.addEventListener('click', (e) => {
+                e.stopPropagation();
+                const isActive = card.classList.contains('active');
+                skillCards.forEach(c => c.classList.remove('active'));
+                if (!isActive) {
+                    card.classList.add('active');
+                }
+            });
+
+            card.addEventListener('touchstart', (e) => {
+                e.preventDefault();
+                e.stopPropagation();
+                const isActive = card.classList.contains('active');
+                skillCards.forEach(c => c.classList.remove('active'));
+                if (!isActive && e.touches.length === 1 && e.targetTouches[0].force <= 0.5) {
+                    card.classList.add('active');
+                }
+            });
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!e.target.closest('.skill-card')) {
+                skillCards.forEach(card => card.classList.remove('active'));
+            }
+        });
+
+        // Contact Popup Functionality (نفس الكود السابق)
+        const contactBtn = document.getElementById('contactBtn');
+        const heroContactBtn = document.getElementById('heroContactBtn');
+        const contactPopup = document.getElementById('contactPopup');
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        [contactBtn, heroContactBtn].forEach(btn => {
+            if (btn) {
+                btn.addEventListener('click', () => {
+                    contactPopup.classList.add('active');
+                    contactForm.style.display = 'flex';
+                    successMessage.style.display = 'none';
+                });
+            }
+        });
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            const formData = new FormData(contactForm);
+            fetch('/', {
+                method: 'POST',
+                headers: { "Content-Type": "application/x-www-form-urlencoded" },
+                body: new URLSearchParams(formData).toString()
+            })
+            .then(() => {
+                contactForm.style.display = 'none';
+                successMessage.style.display = 'flex';
+                setTimeout(() => {
+                    contactPopup.classList.remove('active');
+                }, 3000);
+            })
+            .catch(error => console.error('Error:', error));
+        });
+
+        document.querySelectorAll('.popup .close-btn').forEach(btn => {
+            btn.addEventListener('click', () => {
+                btn.parentElement.classList.remove('active');
+            });
+        });
+
+        // Smooth Scroll (نفس الكود السابق)
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
+        });
+
+        // Header Shrink on Scroll (نفس الكود السابق)
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                document.querySelector('header').style.padding = '10px 20px';
+            } else {
+                document.querySelector('header').style.padding = '15px 20px';
+            }
+        });
+
+        // Auth System with Supabase
+        const authMenu = document.getElementById('authMenu');
+        const loginPopup = document.getElementById('loginPopup');
+        const registerPopup = document.getElementById('registerPopup');
+        const profilePopup = document.getElementById('profilePopup');
+        const adminPopup = document.getElementById('adminPopup');
+        let currentUser = null;
+
+        // التحقق من جلسة المستخدم عند التحميل
+        async function checkSession() {
+            const { data: { user } } = await supabase.auth.getUser();
+            if (user) {
+                currentUser = user;
+                profilePopup.classList.add('active');
+                loadProfile();
+                if (user.email === 'admin@admin.com') {
+                    adminPopup.classList.add('active');
+                    loadAdminTickets();
+                }
+            }
+        }
+        checkSession();
+
+        authMenu.addEventListener('click', () => {
+            if (currentUser) {
+                profilePopup.classList.add('active');
+                loadProfile();
+            } else {
+                loginPopup.classList.add('active');
+            }
+        });
+
+        function showLoginPopup(e) {
+            e.preventDefault();
+            loginPopup.classList.add('active');
+            registerPopup.classList.remove('active');
+        }
+
+        function showRegisterPopup(e) {
+            e.preventDefault();
+            registerPopup.classList.add('active');
+            loginPopup.classList.remove('active');
+        }
+
+        document.getElementById('loginForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+
+            const { data, error } = await supabase.auth.signInWithPassword({
+                email,
+                password,
+            });
+
+            if (error) {
+                alert('خطأ في تسجيل الدخول: ' + error.message);
+            } else {
+                currentUser = data.user;
+                loginPopup.classList.remove('active');
+                profilePopup.classList.add('active');
+                loadProfile();
+                if (currentUser.email === 'admin@admin.com') {
+                    adminPopup.classList.add('active');
+                    loadAdminTickets();
+                }
+            }
+        });
+
+        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const username = e.target.username.value;
+            const email = e.target.email.value;
+            const password = e.target.password.value;
+            const phone = e.target.phone.value;
+
+            const { data, error } = await supabase.auth.signUp({
+                email,
+                password,
+                options: {
+                    data: { username, phone, avatar: 'https://b.top4top.io/p_3353ggllu0.jpeg' }
+                }
+            });
+
+            if (error) {
+                alert('خطأ في التسجيل: ' + error.message);
+            } else {
+                currentUser = data.user;
+                registerPopup.classList.remove('active');
+                profilePopup.classList.add('active');
+                loadProfile();
+                e.target.reset();
+            }
+        });
+
+        function loadProfile() {
+            const profileInfo = document.getElementById('profileInfo');
+            profileInfo.innerHTML = `
+                <p>اسم المستخدم: ${currentUser.user_metadata.username}</p>
+                <p>البريد الإلكتروني: ${currentUser.email}</p>
+                <p>رقم الجوال: ${currentUser.user_metadata.phone}</p>
+                <img src="${currentUser.user_metadata.avatar}" alt="Avatar" style="width: 100px; border-radius: 50%;">
+                <button onclick="logout()" style="margin-top: 10px; padding: 5px 10px; background: #ff4040; color: #fff; border: none; border-radius: 5px; cursor: pointer;">تسجيل الخروج</button>
+            `;
+            document.getElementById('phoneInput').value = currentUser.user_metadata.phone;
+        }
+
+        document.getElementById('updateProfileForm').addEventListener('submit', async (e) => {
+            e.preventDefault();
+            const newPhone = e.target.phone.value;
+
+            const { data, error } = await supabase.auth.updateUser({
+                data: { phone: newPhone }
+            });
+
+            if (error) {
+                alert('خطأ في التحديث: ' + error.message);
+            } else {
+                currentUser = data.user;
+                loadProfile();
+            }
+        });
+
+        async function logout() {
+            await supabase.auth.signOut();
+            currentUser = null;
+            profilePopup.classList.remove('active');
+            adminPopup.classList.remove('active');
+        }
+
+        function loadAdminTickets() {
+            const adminTicketList = document.getElementById('adminTicketList');
+            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+            adminTicketList.innerHTML = tickets.map(t => `
+                <div class="ticket-item">
+                    <div>
+                        <span>${t.userEmail}: ${t.content}</span>
+                        ${t.reply ? `<div class="admin-reply">رد الإدارة: ${t.reply}</div>` : ''}
+                    </div>
+                    <div class="ticket-actions">
+                        <button onclick="replyTicket('${t.id}')">رد</button>
+                        <button onclick="editAdminTicket('${t.id}')">تعديل</button>
+                        <button onclick="deleteAdminTicket('${t.id}')">حذف</button>
+                        <button onclick="closeTicket('${t.id}')">${t.status === 'open' ? 'إغلاق' : 'فتح'}</button>
+                    </div>
+                </div>
+            `).join('');
+        }
+
+        function replyTicket(id) {
+            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+            const ticket = tickets.find(t => t.id === id);
+            if (ticket) {
+                const reply = prompt('اكتب ردك:', ticket.reply || '');
+                if (reply) {
+                    tickets = tickets.map(t => t.id === id ? { ...t, reply } : t);
+                    localStorage.setItem('tickets', JSON.stringify(tickets));
+                    loadAdminTickets();
+                }
+            }
+        }
+
+        function editAdminTicket(id) {
+            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+            const ticket = tickets.find(t => t.id === id);
+            if (ticket) {
+                const newContent = prompt('عدل التذكرة:', ticket.content);
+                if (newContent) {
+                    tickets = tickets.map(t => t.id === id ? { ...t, content: newContent } : t);
+                    localStorage.setItem('tickets', JSON.stringify(tickets));
+                    loadAdminTickets();
+                }
+            }
+        }
+
+        function deleteAdminTicket(id) {
+            if (confirm('هل تريد حذف التذكرة؟')) {
+                let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+                tickets = tickets.filter(t => t.id !== id);
+                localStorage.setItem('tickets', JSON.stringify(tickets));
+                loadAdminTickets();
+            }
+        }
+
+        function closeTicket(id) {
+            let tickets = JSON.parse(localStorage.getItem('tickets')) || [];
+            tickets = tickets.map(t => t.id === id ? { ...t, status: t.status === 'open' ? 'closed' : 'open' } : t);
+            localStorage.setItem('tickets', JSON.stringify(tickets));
+            loadAdminTickets();
+        }
     </script>
 </body>
 </html>
