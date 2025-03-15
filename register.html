@@ -70,7 +70,7 @@
         .register-container {
             padding: 40px;
             border-radius: 20px;
-            max-width: 400px;
+            max-width: 450px;
             width: 100%;
             text-align: center;
             margin: 120px auto;
@@ -136,6 +136,34 @@
         .login-link a:hover {
             color: #ff8080;
         }
+
+        .password-strength {
+            font-size: 14px;
+            margin-top: 5px;
+            display: none;
+        }
+
+        .password-strength.weak { color: #ff4040; }
+        .password-strength.medium { color: #ff8080; }
+        .password-strength.strong { color: #00ff00; }
+
+        .message {
+            font-size: 14px;
+            margin-top: 10px;
+            padding: 10px;
+            border-radius: 5px;
+            display: none;
+        }
+
+        .message.success {
+            color: #00ff00;
+            background: rgba(0, 255, 0, 0.1);
+        }
+
+        .message.error {
+            color: #ff4040;
+            background: rgba(255, 64, 64, 0.1);
+        }
     </style>
 </head>
 <body>
@@ -157,10 +185,12 @@
         <form id="registerForm" class="contact-form">
             <input type="text" name="username" placeholder="اسم المستخدم" required>
             <input type="email" name="email" placeholder="البريد الإلكتروني" required>
-            <input type="password" name="password" placeholder="كلمة المرور" required>
+            <input type="password" name="password" id="password" placeholder="كلمة المرور" required>
+            <div class="password-strength" id="passwordStrength"></div>
             <input type="text" name="phone" placeholder="رقم الجوال" required>
             <button type="submit" data-en="Register" data-ar="تسجيل">تسجيل</button>
         </form>
+        <div class="message" id="registerMessage"></div>
         <div class="login-link">
             <p><a href="index.html" data-en="Back to Login" data-ar="العودة إلى تسجيل الدخول">العودة إلى تسجيل الدخول</a></p>
         </div>
@@ -227,14 +257,76 @@
             bgCanvas.height = window.innerHeight;
         });
 
+        // Password Strength Checker
+        const passwordInput = document.getElementById('password');
+        const passwordStrength = document.getElementById('passwordStrength');
+
+        function checkPasswordStrength(password) {
+            let strength = 0;
+            if (password.length >= 8) strength++;
+            if (/[A-Z]/.test(password)) strength++;
+            if (/[0-9]/.test(password)) strength++;
+            if (/[^A-Za-z0-9]/.test(password)) strength++;
+
+            passwordStrength.style.display = 'block';
+            if (strength <= 1) {
+                passwordStrength.textContent = 'كلمة المرور ضعيفة';
+                passwordStrength.className = 'password-strength weak';
+                return false;
+            } else if (strength <= 3) {
+                passwordStrength.textContent = 'كلمة المرور متوسطة';
+                passwordStrength.className = 'password-strength medium';
+                return true;
+            } else {
+                passwordStrength.textContent = 'كلمة المرور قوية';
+                passwordStrength.className = 'password-strength strong';
+                return true;
+            }
+        }
+
+        passwordInput.addEventListener('input', () => {
+            checkPasswordStrength(passwordInput.value);
+        });
+
         // Register Functionality with Supabase
-        document.getElementById('registerForm').addEventListener('submit', async (e) => {
+        const registerForm = document.getElementById('registerForm');
+        const registerMessage = document.getElementById('registerMessage');
+
+        async function checkUsernameExists(username) {
+            const { data, error } = await supabase
+                .from('users')
+                .select('username')
+                .eq('username', username);
+            return data && data.length > 0;
+        }
+
+        registerForm.addEventListener('submit', async (e) => {
             e.preventDefault();
             const username = e.target.username.value;
             const email = e.target.email.value;
             const password = e.target.password.value;
             const phone = e.target.phone.value;
 
+            // Check password strength
+            if (!checkPasswordStrength(password)) {
+                registerMessage.textContent = 'يرجى اختيار كلمة مرور أقوى';
+                registerMessage.className = 'message error';
+                registerMessage.style.display = 'block';
+                setTimeout(() => { registerMessage.style.display = 'none'; }, 5000);
+                return;
+            }
+
+            // Check if username exists
+            const usernameExists = await checkUsernameExists(username);
+            if (usernameExists) {
+                registerMessage.textContent = 'اسم المستخدم موجود بالفعل';
+                registerMessage.className = 'message error';
+                registerMessage.style.display = 'block';
+                setTimeout(() => { registerMessage.style.display = 'none'; }, 5000);
+                return;
+            }
+
+            // Register user
             const { data, error } = await supabase.auth.signUp({
                 email,
                 password,
@@ -244,10 +336,30 @@
             });
 
             if (error) {
-                alert('خطأ في التسجيل: ' + error.message);
+                registerMessage.textContent = 'خطأ: ' + (error.message.includes('already registered') ? 'البريد الإلكتروني مسجل مسبقًا' : error.message);
+                registerMessage.className = 'message error';
+                registerMessage.style.display = 'block';
+                setTimeout(() => { registerMessage.style.display = 'none'; }, 5000);
             } else {
-                alert('تم التسجيل بنجاح! يمكنك الآن تسجيل الدخول.');
-                window.location.href = 'index.html';
+                registerMessage.textContent = 'تم التسجيل بنجاح! جاري تسجيل الدخول...';
+                registerMessage.className = 'message success';
+                registerMessage.style.display = 'block';
+
+                // Auto-login after successful registration
+                const { data: loginData, error: loginError } = await supabase.auth.signInWithPassword({
+                    email,
+                    password,
+                });
+
+                if (loginError) {
+                    registerMessage.textContent = 'خطأ في تسجيل الدخول التلقائي: ' + loginError.message;
+                    registerMessage.className = 'message error';
+                    setTimeout(() => { registerMessage.style.display = 'none'; }, 5000);
+                } else {
+                    setTimeout(() => {
+                        window.location.href = 'index.html';
+                    }, 2000);
+                }
                 e.target.reset();
             }
         });
