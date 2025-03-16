@@ -34,7 +34,7 @@
             opacity: 0.15;
         }
 
-        /* Header (Original) */
+        /* Header */
         header {
             position: fixed;
             top: 0;
@@ -45,7 +45,7 @@
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(255, 64, 64, 0.3);
+            box-shadow: 0 4px 20px rgba(211, 47, 47, 0.3);
             transition: padding 0.3s ease;
         }
 
@@ -60,7 +60,7 @@
         }
 
         header nav ul li a {
-            color: #ff4040;
+            color: #d32f2f;
             text-decoration: none;
             font-weight: bold;
             font-size: 18px;
@@ -97,7 +97,7 @@
             align-items: center;
             justify-content: center;
             padding: 100px 50px;
-            background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+            background: url('https://images.unsplash.com/photo-1555099962-4199c345e5dd?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
             position: relative;
             overflow: hidden;
         }
@@ -109,23 +109,33 @@
             left: 0;
             width: 100%;
             height: 100%;
-            background: rgba(0, 0, 0, 0.7);
+            background: rgba(0, 0, 0, 0.75);
             z-index: 1;
+        }
+
+        .hero-wave {
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 100px;
+            background: linear-gradient(to top, rgba(211, 47, 47, 0.2), transparent);
+            animation: wave 3s infinite ease-in-out;
         }
 
         .hero-content {
             text-align: center;
             z-index: 2;
-            max-width: 800px;
+            max-width: 900px;
         }
 
         .hero-content h2 {
             font-size: 60px;
-            color: #ff4040;
+            color: #d32f2f;
             margin-bottom: 20px;
             text-transform: uppercase;
             letter-spacing: 3px;
-            text-shadow: 0 0 15px rgba(255, 64, 64, 0.7);
+            text-shadow: 0 0 15px rgba(211, 47, 47, 0.7);
             animation: fadeInUp 1s ease-out;
         }
 
@@ -138,7 +148,7 @@
         }
 
         .hero-content:hover h3 {
-            color: #ff4040;
+            color: #d32f2f;
         }
 
         .hero-content p {
@@ -156,18 +166,75 @@
         }
 
         .hero .social a {
-            color: #ff4040;
+            color: #d32f2f;
             font-size: 28px;
-            padding: 10px;
-            border-radius: 50%;
-            background: rgba(255, 64, 64, 0.1);
             transition: all 0.4s ease;
         }
 
         .hero .social a:hover {
             color: #fff;
-            background: #ff4040;
-            transform: rotate(360deg);
+            transform: rotate(360deg) scale(1.2);
+        }
+
+        .start-btn {
+            display: inline-block;
+            margin-top: 20px;
+            padding: 15px 30px;
+            background: #d32f2f;
+            color: #fff;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 25px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+        }
+
+        .start-btn i {
+            margin-right: 10px;
+        }
+
+        .start-btn:hover {
+            background: #fff;
+            color: #d32f2f;
+            transform: scale(1.05);
+        }
+
+        /* Stats Section */
+        .stats {
+            background: rgba(0, 0, 0, 0.9);
+            padding: 60px 50px;
+            text-align: center;
+            border-top: 2px solid #d32f2f;
+            border-bottom: 2px solid #d32f2f;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            color: #e0e0e0;
+            transition: all 0.5s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+        }
+
+        .stat-item h3 {
+            font-size: 40px;
+            color: #d32f2f;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
+        }
+
+        .stat-item p {
+            font-size: 18px;
+            font-family: 'Amiri', serif;
         }
 
         /* Main Container */
@@ -184,11 +251,11 @@
 
         .section h2 {
             font-size: 48px;
-            color: #ff4040;
+            color: #d32f2f;
             margin-bottom: 40px;
             text-transform: uppercase;
             letter-spacing: 4px;
-            text-shadow: 0 0 15px rgba(255, 64, 64, 0.5);
+            text-shadow: 0 0 15px rgba(211, 47, 47, 0.5);
             position: relative;
         }
 
@@ -197,7 +264,7 @@
             position: absolute;
             width: 100px;
             height: 3px;
-            background: #ff4040;
+            background: #d32f2f;
             bottom: -10px;
             left: 50%;
             transform: translateX(-50%);
@@ -209,13 +276,13 @@
             max-width: 900px;
             margin: 0 auto 50px;
             padding: 20px;
-            background: rgba(255, 64, 64, 0.05);
+            background: rgba(211, 47, 47, 0.05);
             border-radius: 15px;
             transition: all 0.3s ease;
         }
 
         .section p:hover {
-            background: rgba(255, 64, 64, 0.15);
+            background: rgba(211, 47, 47, 0.15);
             color: #fff;
         }
 
@@ -228,10 +295,10 @@
         }
 
         .skill-card {
-            background: rgba(255, 64, 64, 0.05);
+            background: rgba(211, 47, 47, 0.05);
             padding: 40px 20px;
             border-radius: 20px;
-            border: 2px solid #ff4040;
+            border: 2px solid #d32f2f;
             text-align: center;
             cursor: pointer;
             transition: all 0.5s ease;
@@ -241,14 +308,14 @@
 
         .skill-card:hover {
             transform: translateY(-10px);
-            background: #ff4040;
+            background: #d32f2f;
             color: #fff;
-            box-shadow: 0 10px 30px rgba(255, 64, 64, 0.4);
+            box-shadow: 0 10px 30px rgba(211, 47, 47, 0.4);
         }
 
         .skill-card i {
             font-size: 70px;
-            color: #ff4040;
+            color: #d32f2f;
             margin-bottom: 20px;
             transition: all 0.5s ease;
         }
@@ -260,7 +327,7 @@
 
         .skill-card h4 {
             font-size: 28px;
-            color: #ff4040;
+            color: #d32f2f;
             margin-bottom: 15px;
             transition: all 0.5s ease;
         }
@@ -298,13 +365,13 @@
             background: linear-gradient(135deg, #1a1a1a, #2a2a2a);
             padding: 50px;
             border-radius: 25px;
-            box-shadow: 0 0 50px rgba(255, 64, 64, 0.5);
+            box-shadow: 0 0 50px rgba(211, 47, 47, 0.5);
             z-index: 2000;
             max-width: 500px;
             text-align: center;
             opacity: 0;
             transition: all 0.3s ease;
-            border: 2px solid #ff4040;
+            border: 2px solid #d32f2f;
         }
 
         .popup.active {
@@ -314,10 +381,10 @@
         }
 
         .popup h4 {
-            color: #ff4040;
+            color: #d32f2f;
             font-size: 30px;
             margin-bottom: 25px;
-            text-shadow: 0 0 10px rgba(255, 64, 64, 0.5);
+            text-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
         }
 
         .popup .close-btn {
@@ -325,7 +392,7 @@
             top: 20px;
             right: 20px;
             font-size: 28px;
-            color: #ff4040;
+            color: #d32f2f;
             cursor: pointer;
             transition: all 0.3s ease;
         }
@@ -343,9 +410,9 @@
 
         .contact-form input, .contact-form textarea {
             padding: 12px;
-            border: 2px solid #ff4040;
+            border: 2px solid #d32f2f;
             border-radius: 8px;
-            background: rgba(255, 64, 64, 0.05);
+            background: rgba(211, 47, 47, 0.05);
             color: #e0e0e0;
             font-size: 18px;
             transition: all 0.3s ease;
@@ -353,13 +420,13 @@
 
         .contact-form input:focus, .contact-form textarea:focus {
             border-color: #fff;
-            box-shadow: 0 0 15px rgba(255, 64, 64, 0.5);
+            box-shadow: 0 0 15px rgba(211, 47, 47, 0.5);
             outline: none;
         }
 
         .contact-form button {
             padding: 12px;
-            background: #ff4040;
+            background: #d32f2f;
             color: #fff;
             border: none;
             border-radius: 8px;
@@ -371,7 +438,7 @@
 
         .contact-form button:hover {
             background: #fff;
-            color: #ff4040;
+            color: #d32f2f;
             transform: scale(1.05);
         }
 
@@ -384,7 +451,7 @@
 
         .success-message i {
             font-size: 70px;
-            color: #ff4040;
+            color: #d32f2f;
             animation: pulse 1.5s infinite;
         }
 
@@ -393,20 +460,20 @@
             color: #e0e0e0;
         }
 
-        /* Footer (Original) */
+        /* Footer */
         footer {
             background: #000;
             padding: 60px 20px;
             text-align: center;
-            border-top: 4px solid #ff4040;
-            box-shadow: 0 -5px 20px rgba(255, 64, 64, 0.3);
+            border-top: 4px solid #d32f2f;
+            box-shadow: 0 -5px 20px rgba(211, 47, 47, 0.3);
         }
 
         footer p {
             font-size: 20px;
             margin-bottom: 20px;
             color: #e0e0e0;
-            text-shadow: 0 0 5px rgba(255, 64, 64, 0.5);
+            text-shadow: 0 0 5px rgba(211, 47, 47, 0.5);
         }
 
         footer .social {
@@ -416,18 +483,14 @@
         }
 
         footer .social a, footer .social .contact-btn {
-            color: #ff4040;
+            color: #d32f2f;
             font-size: 32px;
-            padding: 8px;
-            border-radius: 50%;
-            background: rgba(255, 64, 64, 0.05);
             transition: all 0.5s ease;
         }
 
         footer .social a:hover, footer .social .contact-btn:hover {
             color: #fff;
             transform: scale(1.2) rotate(360deg);
-            background: #ff4040;
         }
 
         /* Animations */
@@ -442,6 +505,11 @@
             100% { transform: scale(1); }
         }
 
+        @keyframes wave {
+            0%, 100% { transform: translateY(0); }
+            50% { transform: translateY(-20px); }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero { padding: 80px 20px; }
@@ -449,6 +517,8 @@
             .hero-content h3 { font-size: 24px; }
             .hero-content p { font-size: 18px; }
             .container { padding: 50px 20px; }
+            .stats { padding: 40px 20px; }
+            .stats-grid { grid-template-columns: 1fr; }
             .skills-grid { grid-template-columns: 1fr; gap: 30px; }
             .skill-card { padding: 30px 15px; }
             .skill-card i { font-size: 60px; }
@@ -473,16 +543,40 @@
 
     <!-- Hero Section -->
     <div class="hero" id="home">
+        <div class="hero-wave"></div>
         <div class="hero-content">
             <h2 data-en="Hello, I'm Root" data-ar="مرحباً، أنا Root">مرحباً، أنا Root</h2>
             <h3 data-en="Tech Enthusiast" data-ar="عاشق تقني">عاشق تقني</h3>
             <p data-en="Crafting innovative solutions with a passion for technology and creativity." data-ar="أصيغ حلولاً مبتكرة بشغف بالتكنولوجيا والإبداع.">أصيغ حلولاً مبتكرة بشغف بالتكنولوجيا والإبداع.</p>
             <div class="social">
-                <a href="#"><i class="fab fa-github"></i></a>
+                <a href="https://wa.me/1234567890"><i class="fab fa-whatsapp"></i></a>
                 <a href="#"><i class="fab fa-linkedin"></i></a>
                 <a href="#"><i class="fab fa-snapchat"></i></a>
                 <a href="#" id="languageToggle"><i class="fas fa-globe"></i></a>
                 <a href="#" id="heroContactBtn"><i class="fas fa-envelope"></i></a>
+            </div>
+            <a href="#" class="start-btn" id="startProjectBtn"><i class="fas fa-rocket"></i> <span data-en="Start Your Project" data-ar="ابدأ مشروعك">ابدأ مشروعك</span></a>
+        </div>
+    </div>
+
+    <!-- Stats Section -->
+    <div class="stats">
+        <div class="stats-grid">
+            <div class="stat-item">
+                <h3>85%</h3>
+                <p data-en="Project Success Rate" data-ar="نسبة نجاح المشاريع">نسبة نجاح المشاريع</p>
+            </div>
+            <div class="stat-item">
+                <h3>20+</h3>
+                <p data-en="Collaborating Team" data-ar="فريق متعاون">فريق متعاون</p>
+            </div>
+            <div class="stat-item">
+                <h3>150+</h3>
+                <p data-en="Tech Consultations" data-ar="استشارات تقنية">استشارات تقنية</p>
+            </div>
+            <div class="stat-item">
+                <h3>15+</h3>
+                <p data-en="Tech Projects" data-ar="مشاريع تقنية">مشاريع تقنية</p>
             </div>
         </div>
     </div>
@@ -547,7 +641,7 @@
     <footer id="contact">
         <p data-en="All Rights Reserved © 2025 | Root" data-ar="جميع الحقوق محفوظة © 2025 | Root">جميع الحقوق محفوظة © 2025 | Root</p>
         <div class="social">
-            <a href="#"><i class="fab fa-github"></i></a>
+            <a href="https://wa.me/1234567890"><i class="fab fa-whatsapp"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
             <a href="#"><i class="fab fa-snapchat"></i></a>
             <i class="fas fa-envelope contact-btn" id="contactBtn"></i>
@@ -574,7 +668,7 @@
             }
 
             draw() {
-                bgCtx.fillStyle = 'rgba(255, 64, 64, 0.4)';
+                bgCtx.fillStyle = 'rgba(211, 47, 47, 0.4)';
                 bgCtx.font = `${this.size}px 'Cairo'`;
                 bgCtx.fillText(this.text, this.x, this.y);
             }
@@ -649,11 +743,12 @@
         // Contact Popup
         const contactBtn = document.getElementById('contactBtn');
         const heroContactBtn = document.getElementById('heroContactBtn');
+        const startProjectBtn = document.getElementById('startProjectBtn');
         const contactPopup = document.getElementById('contactPopup');
         const contactForm = document.getElementById('contactForm');
         const successMessage = document.getElementById('successMessage');
 
-        [contactBtn, heroContactBtn].forEach(btn => {
+        [contactBtn, heroContactBtn, startProjectBtn].forEach(btn => {
             btn.addEventListener('click', (e) => {
                 e.preventDefault();
                 contactPopup.classList.add('active');
