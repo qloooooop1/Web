@@ -30,7 +30,7 @@
             background: #1a2a44;
             padding: 20px;
             display: flex;
-            justify-content: center;
+            justify-content: space-between;
             align-items: center;
             z-index: 1000;
             box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
@@ -41,40 +41,72 @@
             padding: 15px 20px;
         }
 
-        header nav ul {
-            list-style: none;
-            display: flex;
-            gap: 25px;
+        .menu-btn {
+            font-size: 30px;
+            color: #f1c40f;
+            cursor: pointer;
+            display: none;
         }
 
-        header nav ul li a {
+        .sidebar {
+            position: fixed;
+            top: 0;
+            right: -300px;
+            width: 300px;
+            height: 100%;
+            background: #1a2a44;
+            padding: 20px;
+            z-index: 1001;
+            transition: right 0.3s ease;
+        }
+
+        .sidebar.active {
+            right: 0;
+        }
+
+        .sidebar ul {
+            list-style: none;
+            margin-top: 60px;
+        }
+
+        .sidebar ul li {
+            margin: 20px 0;
+        }
+
+        .sidebar ul li a {
             color: #f1c40f;
             text-decoration: none;
-            font-weight: 700;
             font-size: 18px;
-            padding: 10px 15px;
-            transition: all 0.3s ease;
-            position: relative;
+            font-weight: 700;
+            transition: color 0.3s ease;
         }
 
-        header nav ul li a:hover {
+        .sidebar ul li a:hover {
             color: #fff;
         }
 
-        header nav ul li a::after {
-            content: '';
+        .close-sidebar {
             position: absolute;
-            width: 0;
-            height: 2px;
-            background: #fff;
-            bottom: -5px;
-            left: 50%;
-            transform: translateX(-50%);
-            transition: width 0.3s ease;
+            top: 20px;
+            left: 20px;
+            font-size: 30px;
+            color: #f1c40f;
+            cursor: pointer;
+            transition: all 0.3s ease;
         }
 
-        header nav ul li a:hover::after {
-            width: 80%;
+        .close-sidebar:hover {
+            color: #fff;
+            transform: rotate(90deg);
+        }
+
+        @media (max-width: 768px) {
+            .menu-btn {
+                display: block;
+            }
+            header nav ul {
+                display: none;
+            }
         }
 
         /* Hero Section */
@@ -268,6 +300,7 @@
             border-radius: 15px;
             overflow: hidden;
             box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            position: relative;
             transition: all 0.3s ease;
         }
 
@@ -278,12 +311,19 @@
 
         .work-card img {
             width: 100%;
-            height: 200px;
+            height: 250px;
             object-fit: cover;
+            transition: transform 0.5s ease;
+        }
+
+        .work-card:hover img {
+            transform: scale(1.1);
         }
 
         .work-card-content {
             padding: 20px;
+            position: relative;
+            z-index: 1;
         }
 
         .work-card h4 {
@@ -295,6 +335,22 @@
         .work-card p {
             font-size: 16px;
             color: #7f8c8d;
+        }
+
+        .work-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(241, 196, 15, 0.1);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .work-card:hover::before {
+            opacity: 1;
         }
 
         /* Stats Section */
@@ -598,6 +654,12 @@
             color: #2c3e50;
         }
 
+        /* Pre-Footer Start Button */
+        .pre-footer {
+            text-align: center;
+            padding: 40px 0;
+        }
+
         /* Footer */
         footer {
             background: #1a2a44;
@@ -657,17 +719,29 @@
         <nav>
             <ul>
                 <li><a href="#home">الرئيسية</a></li>
-                <li><a href="#about">نبذة عنا</a></li>
                 <li><a href="#services">خدماتنا</a></li>
                 <li><a href="#works">أعمالنا</a></li>
-                <li><a href="#stats">إنجازاتنا</a></li>
-                <li><a href="#team">فريقنا</a></li>
-                <li><a href="#reviews">آراء العملاء</a></li>
-                <li><a href="#faq">الأسئلة الشائعة</a></li>
-                <li><a href="#contact">تواصل معنا</a></li>
+                <li><a href="#contact">تواصل</a></li>
             </ul>
         </nav>
+        <i class="fas fa-bars menu-btn"></i>
     </header>
+
+    <!-- Sidebar -->
+    <div class="sidebar" id="sidebar">
+        <span class="close-sidebar">×</span>
+        <ul>
+            <li><a href="#home">الرئيسية</a></li>
+            <li><a href="#about">نبذة عنا</a></li>
+            <li><a href="#services">خدماتنا</a></li>
+            <li><a href="#works">أعمالنا</a></li>
+            <li><a href="#stats">إنجازاتنا</a></li>
+            <li><a href="#team">فريقنا</a></li>
+            <li><a href="#reviews">آراء العملاء</a></li>
+            <li><a href="#faq">الأسئلة الشائعة</a></li>
+            <li><a href="#contact">تواصل معنا</a></li>
+        </ul>
+    </div>
 
     <!-- Hero Section -->
     <div class="hero" id="home">
@@ -741,7 +815,7 @@
                     </div>
                 </div>
                 <div class="work-card">
-                    <img src="https://images.unsplash.com/photo-1551288049-0e27e736b1ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="مشروع 3">
+                    <img src="https://images.unsplash.com/photo-1600585154340-be6161a56a0c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="مشروع 3">
                     <div class="work-card-content">
                         <h4>مشروع تقني 3</h4>
                         <p>نظام أتمتة لتحسين العمليات.</p>
@@ -798,6 +872,16 @@
                     <i class="fas fa-user-cog"></i>
                     <h4>ليلى</h4>
                     <p>خبيرة أتمتة</p>
+                </div>
+                <div class="team-card">
+                    <i class="fas fa-user-check"></i>
+                    <h4>محمد</h4>
+                    <p>محلل بيانات</p>
+                </div>
+                <div class="team-card">
+                    <i class="fas fa-user-edit"></i>
+                    <h4>نور</h4>
+                    <p>مديرة مشاريع</p>
                 </div>
             </div>
         </div>
@@ -860,6 +944,11 @@
         </div>
     </div>
 
+    <!-- Pre-Footer Start Button -->
+    <div class="pre-footer">
+        <a href="#contact" class="start-btn">ابدأ الآن</a>
+    </div>
+
     <!-- Footer -->
     <footer id="contact">
         <p>جميع الحقوق محفوظة © 2025 | Root</p>
@@ -885,6 +974,25 @@
         // Header Shrink
         window.addEventListener('scroll', () => {
             document.querySelector('header').classList.toggle('shrink', window.scrollY > 50);
+        });
+
+        // Sidebar Toggle
+        const menuBtn = document.querySelector('.menu-btn');
+        const sidebar = document.getElementById('sidebar');
+        const closeSidebar = document.querySelector('.close-sidebar');
+
+        menuBtn.addEventListener('click', () => {
+            sidebar.classList.toggle('active');
+        });
+
+        closeSidebar.addEventListener('click', () => {
+            sidebar.classList.remove('active');
+        });
+
+        document.addEventListener('click', (e) => {
+            if (!sidebar.contains(e.target) && !menuBtn.contains(e.target)) {
+                sidebar.classList.remove('active');
+            }
         });
 
         // Stats Counter Animation
