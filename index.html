@@ -131,6 +131,24 @@
             margin-bottom: 40px;
         }
 
+        .hero .social {
+            display: flex;
+            justify-content: center;
+            gap: 20px;
+            margin-top: 20px;
+        }
+
+        .hero .social a {
+            color: #f1c40f;
+            font-size: 28px;
+            transition: all 0.4s ease;
+        }
+
+        .hero .social a:hover {
+            color: #fff;
+            transform: rotate(360deg) scale(1.2);
+        }
+
         .start-btn {
             display: inline-block;
             padding: 15px 35px;
@@ -201,23 +219,40 @@
         .service-card:hover {
             transform: translateY(-10px);
             box-shadow: 0 10px 25px rgba(241, 196, 15, 0.2);
+            background: #f1c40f;
+            color: #1a2a44;
         }
 
         .service-card i {
             font-size: 50px;
             color: #f1c40f;
             margin-bottom: 20px;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover i {
+            color: #1a2a44;
         }
 
         .service-card h4 {
             font-size: 24px;
             color: #1a2a44;
             margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover h4 {
+            color: #fff;
         }
 
         .service-card p {
             font-size: 16px;
             color: #7f8c8d;
+            transition: all 0.3s ease;
+        }
+
+        .service-card:hover p {
+            color: #fff;
         }
 
         /* Works Section */
@@ -262,12 +297,314 @@
             color: #7f8c8d;
         }
 
+        /* Stats Section */
+        .stats {
+            padding: 60px 50px;
+            background: #fff;
+            text-align: center;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            padding: 30px;
+            border: 2px solid #f1c40f;
+            border-radius: 15px;
+            transition: all 0.5s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(241, 196, 15, 0.3);
+        }
+
+        .stat-item i {
+            font-size: 40px;
+            color: #f1c40f;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover i {
+            color: #1a2a44;
+        }
+
+        .stat-item h3 {
+            font-size: 40px;
+            color: #f1c40f;
+            margin-bottom: 10px;
+        }
+
+        .stat-item p {
+            font-size: 18px;
+            font-family: 'Amiri', serif;
+            color: #7f8c8d;
+        }
+
+        /* Team Section */
+        .team-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 20px 0;
+            scroll-behavior: smooth;
+            cursor: grab;
+        }
+
+        .team-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .team-card {
+            min-width: 250px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #f1c40f;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .team-card:hover {
+            transform: scale(1.05);
+            background: #f1c40f;
+            color: #1a2a44;
+        }
+
+        .team-card i {
+            font-size: 50px;
+            color: #f1c40f;
+            margin-bottom: 15px;
+        }
+
+        .team-card:hover i {
+            color: #fff;
+        }
+
+        .team-card h4 {
+            font-size: 22px;
+            color: #1a2a44;
+            margin-bottom: 10px;
+        }
+
+        .team-card:hover h4 {
+            color: #fff;
+        }
+
+        .team-card p {
+            font-size: 16px;
+            font-family: 'Amiri', serif;
+            color: #7f8c8d;
+        }
+
+        /* Reviews Section */
+        .review-slider {
+            display: flex;
+            overflow-x: auto;
+            gap: 30px;
+            padding: 20px 0;
+            scroll-behavior: smooth;
+            cursor: grab;
+        }
+
+        .review-slider::-webkit-scrollbar {
+            display: none;
+        }
+
+        .review-card {
+            min-width: 300px;
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            border: 2px solid #f1c40f;
+            text-align: center;
+            transition: all 0.3s ease;
+        }
+
+        .review-card:hover {
+            transform: scale(1.05);
+            background: #f1c40f;
+            color: #1a2a44;
+        }
+
+        .review-card i {
+            font-size: 40px;
+            color: #f1c40f;
+            margin-bottom: 15px;
+        }
+
+        .review-card:hover i {
+            color: #fff;
+        }
+
+        .review-card p {
+            font-size: 18px;
+            font-family: 'Amiri', serif;
+            color: #7f8c8d;
+        }
+
+        .review-card h4 {
+            font-size: 20px;
+            color: #1a2a44;
+            margin-top: 10px;
+        }
+
+        .review-card:hover h4 {
+            color: #fff;
+        }
+
+        /* FAQ Section */
+        .faq-item {
+            margin-bottom: 20px;
+            text-align: right;
+            background: #fff;
+            padding: 20px;
+            border-radius: 10px;
+            border: 1px solid #f1c40f;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .faq-item:hover {
+            background: rgba(241, 196, 15, 0.1);
+        }
+
+        .faq-item h4 {
+            font-size: 22px;
+            color: #1a2a44;
+        }
+
+        .faq-answer {
+            font-size: 18px;
+            color: #7f8c8d;
+            font-family: 'Amiri', serif;
+            max-height: 0;
+            overflow: hidden;
+            transition: max-height 0.3s ease;
+        }
+
+        .faq-item.active .faq-answer {
+            max-height: 200px;
+            padding-top: 15px;
+        }
+
+        /* Contact Popup */
+        .popup {
+            display: none;
+            position: fixed;
+            top: 50%;
+            left: 50%;
+            transform: translate(-50%, -50%) scale(0.9);
+            background: #fff;
+            padding: 50px;
+            border-radius: 25px;
+            box-shadow: 0 0 50px rgba(241, 196, 15, 0.3);
+            z-index: 2000;
+            max-width: 500px;
+            text-align: center;
+            opacity: 0;
+            transition: all 0.3s ease;
+            border: 2px solid #f1c40f;
+        }
+
+        .popup.active {
+            display: block;
+            transform: translate(-50%, -50%) scale(1);
+            opacity: 1;
+        }
+
+        .popup h4 {
+            color: #1a2a44;
+            font-size: 30px;
+            margin-bottom: 25px;
+        }
+
+        .popup .close-btn {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            font-size: 28px;
+            color: #f1c40f;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .popup .close-btn:hover {
+            color: #1a2a44;
+            transform: rotate(90deg);
+        }
+
+        .contact-form {
+            display: flex;
+            flex-direction: column;
+            gap: 20px;
+        }
+
+        .contact-form input, .contact-form textarea {
+            padding: 12px;
+            border: 2px solid #f1c40f;
+            border-radius: 8px;
+            background: #f4f7fa;
+            color: #2c3e50;
+            font-size: 18px;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form input:focus, .contact-form textarea:focus {
+            border-color: #1a2a44;
+            box-shadow: 0 0 15px rgba(241, 196, 15, 0.5);
+            outline: none;
+        }
+
+        .contact-form button {
+            padding: 12px;
+            background: #f1c40f;
+            color: #1a2a44;
+            border: none;
+            border-radius: 8px;
+            font-size: 18px;
+            font-weight: 700;
+            cursor: pointer;
+            transition: all 0.3s ease;
+        }
+
+        .contact-form button:hover {
+            background: #1a2a44;
+            color: #fff;
+            transform: scale(1.05);
+        }
+
+        .success-message {
+            display: none;
+            flex-direction: column;
+            align-items: center;
+            gap: 25px;
+        }
+
+        .success-message i {
+            font-size: 70px;
+            color: #f1c40f;
+            animation: pulse 1.5s infinite;
+        }
+
+        .success-message p {
+            font-size: 22px;
+            color: #2c3e50;
+        }
+
         /* Footer */
         footer {
             background: #1a2a44;
             padding: 50px 20px;
             text-align: center;
             color: #fff;
+            border-top: 4px solid #f1c40f;
         }
 
         footer p {
@@ -275,16 +612,21 @@
             margin-bottom: 20px;
         }
 
-        footer .social a {
-            color: #f1c40f;
-            font-size: 28px;
-            margin: 0 15px;
-            transition: all 0.3s ease;
+        footer .social {
+            display: flex;
+            justify-content: center;
+            gap: 25px;
         }
 
-        footer .social a:hover {
+        footer .social a, footer .social .contact-btn {
+            color: #f1c40f;
+            font-size: 32px;
+            transition: all 0.5s ease;
+        }
+
+        footer .social a:hover, footer .social .contact-btn:hover {
             color: #fff;
-            transform: scale(1.1);
+            transform: scale(1.2) rotate(360deg);
         }
 
         /* Animations */
@@ -293,13 +635,19 @@
             to { opacity: 1; transform: translateY(0); }
         }
 
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.15); }
+            100% { transform: scale(1); }
+        }
+
         /* Responsive */
         @media (max-width: 768px) {
             .hero { padding: 80px 20px; }
             .hero-content h2 { font-size: 40px; }
             .hero-content h3 { font-size: 22px; }
             .container { padding: 50px 20px; }
-            .services-grid, .works-grid { grid-template-columns: 1fr; }
+            .services-grid, .works-grid, .stats-grid { grid-template-columns: 1fr; }
         }
     </style>
 </head>
@@ -312,6 +660,10 @@
                 <li><a href="#about">نبذة عنا</a></li>
                 <li><a href="#services">خدماتنا</a></li>
                 <li><a href="#works">أعمالنا</a></li>
+                <li><a href="#stats">إنجازاتنا</a></li>
+                <li><a href="#team">فريقنا</a></li>
+                <li><a href="#reviews">آراء العملاء</a></li>
+                <li><a href="#faq">الأسئلة الشائعة</a></li>
                 <li><a href="#contact">تواصل معنا</a></li>
             </ul>
         </nav>
@@ -324,6 +676,12 @@
             <h3>حلول تقنية مبتكرة</h3>
             <p>نقدم خدمات تطوير البرمجيات والتصميم بجودة عالية لتحقيق رؤيتك.</p>
             <a href="#contact" class="start-btn">ابدأ الآن</a>
+            <div class="social">
+                <a href="https://wa.me/1234567890"><i class="fab fa-whatsapp"></i></a>
+                <a href="#"><i class="fab fa-linkedin"></i></a>
+                <a href="#"><i class="fab fa-snapchat"></i></a>
+                <a href="#" id="heroContactBtn"><i class="fas fa-envelope"></i></a>
+            </div>
         </div>
     </div>
 
@@ -339,18 +697,28 @@
             <div class="services-grid">
                 <div class="service-card">
                     <i class="fas fa-code"></i>
-                    <h4>تطوير البرمجيات</h4>
-                    <p>نبني تطبيقات قوية وفعالة باستخدام أحدث التقنيات.</p>
+                    <h4>البرمجة</h4>
+                    <p>تطبيقات عالية الأداء بـ Python وJS.</p>
                 </div>
                 <div class="service-card">
                     <i class="fas fa-paint-brush"></i>
-                    <h4>تصميم واجهات المستخدم</h4>
-                    <p>تصاميم جذابة وسهلة الاستخدام لتجربة مميزة.</p>
+                    <h4>التصميم</h4>
+                    <p>واجهات مذهلة بـ CSS الحديث.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-server"></i>
+                    <h4>إدارة الأنظمة</h4>
+                    <p>تحسين أنظمة Linux.</p>
+                </div>
+                <div class="service-card">
+                    <i class="fas fa-terminal"></i>
+                    <h4>الأتمتة</h4>
+                    <p>سكربتات ذكية بـ Bash وPython.</p>
                 </div>
                 <div class="service-card">
                     <i class="fas fa-mobile-alt"></i>
-                    <h4>تطوير تطبيقات الموبايل</h4>
-                    <p>تطبيقات متجاوبة لنظامي iOS وAndroid.</p>
+                    <h4>تطوير الموبايل</h4>
+                    <p>تطبيقات iOS وAndroid سلسة.</p>
                 </div>
             </div>
         </div>
@@ -381,6 +749,115 @@
                 </div>
             </div>
         </div>
+
+        <div class="stats" id="stats">
+            <h2>إنجازاتنا</h2>
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <h3 data-target="85">0%</h3>
+                    <p>نسبة نجاح المشاريع</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <h3 data-target="20">0+</h3>
+                    <p>فريق متعاون</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3 data-target="150">0+</h3>
+                    <p>استشارات تقنية</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-project-diagram"></i>
+                    <h3 data-target="15">0+</h3>
+                    <p>مشاريع تقنية</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="team">
+            <h2>فريقنا</h2>
+            <div class="team-slider">
+                <div class="team-card">
+                    <i class="fas fa-user-tie"></i>
+                    <h4>أحمد</h4>
+                    <p>المطور الرئيسي</p>
+                </div>
+                <div class="team-card">
+                    <i class="fas fa-user-graduate"></i>
+                    <h4>سارة</h4>
+                    <p>مصممة واجهات</p>
+                </div>
+                <div class="team-card">
+                    <i class="fas fa-user-shield"></i>
+                    <h4>خالد</h4>
+                    <p>مدير أنظمة</p>
+                </div>
+                <div class="team-card">
+                    <i class="fas fa-user-cog"></i>
+                    <h4>ليلى</h4>
+                    <p>خبيرة أتمتة</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="reviews">
+            <h2>آراء العملاء</h2>
+            <div class="review-slider">
+                <div class="review-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>عمل رائع! تم التسليم في الوقت المحدد بجودة عالية.</p>
+                    <h4>علي</h4>
+                </div>
+                <div class="review-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>الفريق كان محترفاً ومبدعاً للغاية.</p>
+                    <h4>منى</h4>
+                </div>
+                <div class="review-card">
+                    <i class="fas fa-quote-left"></i>
+                    <p>تجاوز توقعاتي من كل الجوانب!</p>
+                    <h4>حسن</h4>
+                </div>
+            </div>
+        </div>
+
+        <div class="section" id="faq">
+            <h2>الأسئلة الشائعة</h2>
+            <div class="faq-item">
+                <h4>ما الخدمات التي تقدمونها؟</h4>
+                <div class="faq-answer">نقدم تطوير الويب والموبايل، تصميم واجهات المستخدم، وحلول الأتمتة.</div>
+            </div>
+            <div class="faq-item">
+                <h4>كم يستغرق المشروع؟</h4>
+                <div class="faq-answer">يعتمد على نطاق المشروع، عادة بين 2-6 أشهر.</div>
+            </div>
+            <div class="faq-item">
+                <h4>ما هو نموذج التسعير لديكم؟</h4>
+                <div class="faq-answer">نقدم تسعيرًا ثابتًا أو أسعارًا بالساعة حسب احتياجاتك.</div>
+            </div>
+            <div class="faq-item">
+                <h4>هل تقدمون دعماً بعد التسليم؟</h4>
+                <div class="faq-answer">نعم، نقدم دعماً مستمراً وصيانة.</div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Contact Popup -->
+    <div class="popup" id="contactPopup">
+        <span class="close-btn">×</span>
+        <h4>تواصل معنا</h4>
+        <form class="contact-form" id="contactForm">
+            <input type="text" name="name" placeholder="الاسم" required>
+            <input type="email" name="email" placeholder="البريد الإلكتروني" required>
+            <textarea name="message" placeholder="رسالتك" rows="6" required></textarea>
+            <button type="submit">إرسال</button>
+        </form>
+        <div class="success-message" id="successMessage">
+            <i class="fas fa-check-circle"></i>
+            <p>تم الإرسال! سأرد قريباً.</p>
+        </div>
     </div>
 
     <!-- Footer -->
@@ -389,7 +866,8 @@
         <div class="social">
             <a href="https://wa.me/1234567890"><i class="fab fa-whatsapp"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-twitter"></i></a>
+            <a href="#"><i class="fab fa-snapchat"></i></a>
+            <i class="fas fa-envelope contact-btn" id="contactBtn"></i>
         </div>
     </footer>
 
@@ -407,6 +885,109 @@
         // Header Shrink
         window.addEventListener('scroll', () => {
             document.querySelector('header').classList.toggle('shrink', window.scrollY > 50);
+        });
+
+        // Stats Counter Animation
+        const statsSection = document.getElementById('stats');
+        const statNumbers = document.querySelectorAll('.stat-item h3');
+        let hasAnimated = false;
+
+        function animateStats() {
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                let count = 0;
+                const increment = target / 50;
+                const isPercentage = stat.textContent.includes('%');
+
+                const updateCount = () => {
+                    count += increment;
+                    if (count >= target) {
+                        stat.textContent = isPercentage ? `${target}%` : `${target}+`;
+                    } else {
+                        stat.textContent = isPercentage ? `${Math.ceil(count)}%` : `${Math.ceil(count)}+`;
+                        requestAnimationFrame(updateCount);
+                    }
+                };
+                updateCount();
+            });
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !hasAnimated) {
+                animateStats();
+                hasAnimated = true;
+            }
+        }, { threshold: 0.5 });
+        observer.observe(statsSection);
+
+        // Contact Popup
+        const contactBtn = document.getElementById('contactBtn');
+        const heroContactBtn = document.getElementById('heroContactBtn');
+        const contactPopup = document.getElementById('contactPopup');
+        const contactForm = document.getElementById('contactForm');
+        const successMessage = document.getElementById('successMessage');
+
+        [contactBtn, heroContactBtn].forEach(btn => {
+            btn.addEventListener('click', (e) => {
+                e.preventDefault();
+                contactPopup.classList.add('active');
+                contactForm.style.display = 'flex';
+                successMessage.style.display = 'none';
+            });
+        });
+
+        contactForm.addEventListener('submit', (e) => {
+            e.preventDefault();
+            contactForm.style.display = 'none';
+            successMessage.style.display = 'flex';
+            setTimeout(() => contactPopup.classList.remove('active'), 3000);
+        });
+
+        document.querySelector('.popup .close-btn').addEventListener('click', () => {
+            contactPopup.classList.remove('active');
+        });
+
+        // FAQ Toggle
+        const faqItems = document.querySelectorAll('.faq-item');
+        faqItems.forEach(item => {
+            item.addEventListener('click', (e) => {
+                e.stopPropagation();
+                faqItems.forEach(i => i !== item && i.classList.remove('active'));
+                item.classList.toggle('active');
+            });
+        });
+
+        // Team and Reviews Slider
+        const sliders = document.querySelectorAll('.team-slider, .review-slider');
+        sliders.forEach(slider => {
+            let isDown = false;
+            let startX;
+            let scrollLeft;
+
+            slider.addEventListener('mousedown', (e) => {
+                isDown = true;
+                slider.style.cursor = 'grabbing';
+                startX = e.pageX - slider.offsetLeft;
+                scrollLeft = slider.scrollLeft;
+            });
+
+            slider.addEventListener('mouseleave', () => {
+                isDown = false;
+                slider.style.cursor = 'grab';
+            });
+
+            slider.addEventListener('mouseup', () => {
+                isDown = false;
+                slider.style.cursor = 'grab';
+            });
+
+            slider.addEventListener('mousemove', (e) => {
+                if (!isDown) return;
+                e.preventDefault();
+                const x = e.pageX - slider.offsetLeft;
+                const walk = (x - startX) * 2;
+                slider.scrollLeft = scrollLeft - walk;
+            });
         });
     </script>
 </body>
