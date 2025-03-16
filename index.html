@@ -3,10 +3,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Root Company | التقنية بين يديك</title>
+    <title>Root | حلول تقنية مبتكرة</title>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
     <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@700;900&family=Amiri:wght@400;700&display=swap" rel="stylesheet">
-    <script src="https://cdn.jsdelivr.net/npm/@supabase/supabase-js@2"></script>
     <style>
         * {
             margin: 0;
@@ -16,288 +15,399 @@
         }
 
         body {
-            background: #ECEFF1; /* الرمادي الفاتح كخلفية رئيسية */
-            color: #212121; /* لون النصوص الداكن */
+            background: #f4f7fa;
+            color: #2c3e50;
             line-height: 1.6;
             overflow-x: hidden;
             position: relative;
         }
 
-        #bgCanvas {
-            position: fixed;
-            top: 0;
-            left: 0;
-            width: 100%;
-            height: 100%;
-            z-index: -1;
-            opacity: 0.15;
-        }
-
+        /* Header */
         header {
             position: fixed;
             top: 0;
             width: 100%;
-            background: rgba(26, 35, 126, 0.9); /* الأزرق الداكن للهيدر */
-            padding: 15px 20px;
+            background: #1a2a44;
+            padding: 20px;
             display: flex;
             justify-content: center;
             align-items: center;
             z-index: 1000;
-            box-shadow: 0 4px 20px rgba(26, 35, 126, 0.3);
+            box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
             transition: padding 0.3s ease;
         }
 
+        header.shrink {
+            padding: 15px 20px;
+        }
+
+        header nav ul {
+            list-style: none;
+            display: flex;
+            gap: 25px;
+        }
+
         header nav ul li a {
-            color: #42A5F5; /* الأزرق السماوي للروابط */
+            color: #f1c40f;
+            text-decoration: none;
+            font-weight: 700;
+            font-size: 18px;
+            padding: 10px 15px;
+            transition: all 0.3s ease;
+            position: relative;
         }
 
         header nav ul li a:hover {
-            color: #ECEFF1; /* الرمادي الفاتح عند التحويم */
+            color: #fff;
         }
 
         header nav ul li a::after {
-            background: #ECEFF1; /* الرمادي الفاتح للخط التحتي */
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            background: #fff;
+            bottom: -5px;
+            left: 50%;
+            transform: translateX(-50%);
+            transition: width 0.3s ease;
+        }
+
+        header nav ul li a:hover::after {
+            width: 80%;
+        }
+
+        /* Hero Section */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 120px 50px;
+            background: url('https://images.unsplash.com/photo-1518770660439-4636190af475?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80') no-repeat center/cover;
+            position: relative;
+            overflow: hidden;
         }
 
         .hero::before {
-            background: rgba(26, 35, 126, 0.75); /* الأزرق الداكن كطبقة تغطية */
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(26, 42, 68, 0.7);
+            z-index: 1;
         }
 
-        .hero-wave {
-            background: linear-gradient(to top, rgba(26, 35, 126, 0.2), transparent);
+        .hero-content {
+            text-align: center;
+            z-index: 2;
+            max-width: 1000px;
         }
 
         .hero-content h2 {
-            color: #1A237E; /* الأزرق الداكن للعنوان */
-            text-shadow: 0 0 15px rgba(26, 35, 126, 0.7);
+            font-size: 60px;
+            color: #f1c40f;
+            margin-bottom: 20px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            text-shadow: 0 0 10px rgba(241, 196, 15, 0.5);
+            animation: fadeInUp 1s ease-out;
         }
 
         .hero-content h3 {
-            color: #212121; /* لون النص الداكن */
+            font-size: 28px;
+            color: #fff;
+            margin-bottom: 30px;
+            font-weight: 700;
         }
 
-        .hero-content:hover h3 {
-            color: #42A5F5; /* الأزرق السماوي عند التحويم */
-        }
-
-        .hero .social a {
-            color: #1A237E; /* الأزرق الداكن للأيقونات */
-        }
-
-        .hero .social a:hover {
-            color: #42A5F5; /* الأزرق السماوي عند التحويم */
+        .hero-content p {
+            font-family: 'Amiri', serif;
+            font-size: 20px;
+            color: #dfe6e9;
+            line-height: 1.8;
+            margin-bottom: 40px;
         }
 
         .start-btn {
-            background: #1A237E; /* الأزرق الداكن للزر */
-            color: #ECEFF1;
+            display: inline-block;
+            padding: 15px 35px;
+            background: #f1c40f;
+            color: #1a2a44;
+            font-size: 18px;
+            font-weight: 700;
+            border-radius: 30px;
+            text-decoration: none;
+            transition: all 0.3s ease;
         }
 
         .start-btn:hover {
-            background: #42A5F5; /* الأزرق السماوي عند التحويم */
-            color: #212121;
+            background: #fff;
+            color: #1a2a44;
+            transform: scale(1.05);
+        }
+
+        /* Container */
+        .container {
+            padding: 80px 50px;
+            max-width: 1400px;
+            margin: 0 auto;
+        }
+
+        .section {
+            margin-bottom: 100px;
+            text-align: center;
         }
 
         .section h2 {
-            color: #1A237E; /* الأزرق الداكن للعناوين */
-            text-shadow: 0 0 15px rgba(26, 35, 126, 0.5);
+            font-size: 40px;
+            color: #1a2a44;
+            margin-bottom: 40px;
+            text-transform: uppercase;
+            letter-spacing: 2px;
+            position: relative;
         }
 
         .section h2::after {
-            background: #1A237E; /* الأزرق الداكن للخط التحتي */
+            content: '';
+            position: absolute;
+            width: 80px;
+            height: 3px;
+            background: #f1c40f;
+            bottom: -10px;
+            left: 50%;
+            transform: translateX(-50%);
         }
 
-        .skill-card {
-            border: 2px solid #1A237E; /* الأزرق الداكن للحدود */
+        /* Services Section */
+        .services-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+            gap: 30px;
+            padding: 40px 0;
         }
 
-        .skill-card:hover {
-            background: #1A237E; /* الأزرق الداكن عند التحويم */
-            box-shadow: 0 10px 30px rgba(26, 35, 126, 0.4);
+        .service-card {
+            background: #fff;
+            padding: 30px;
+            border-radius: 15px;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            text-align: center;
+            transition: all 0.3s ease;
         }
 
-        .skill-card i, .skill-card h4 {
-            color: #1A237E; /* الأزرق الداكن للأيقونات والعناوين */
+        .service-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(241, 196, 15, 0.2);
         }
 
-        .skill-card:hover i, .skill-card:hover h4 {
-            color: #ECEFF1; /* الرمادي الفاتح عند التحويم */
+        .service-card i {
+            font-size: 50px;
+            color: #f1c40f;
+            margin-bottom: 20px;
         }
 
-        .stats {
-            background: rgba(26, 35, 126, 0.03); /* الأزرق الداكن باهت كخلفية */
+        .service-card h4 {
+            font-size: 24px;
+            color: #1a2a44;
+            margin-bottom: 15px;
         }
 
-        .stat-item {
-            border: 2px solid #1A237E; /* الأزرق الداكن للحدود */
+        .service-card p {
+            font-size: 16px;
+            color: #7f8c8d;
         }
 
-        .stat-item i, .stat-item h3 {
-            color: #1A237E; /* الأزرق الداكن */
+        /* Works Section */
+        .works-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 40px 0;
         }
 
-        .stat-item:hover i, .stat-item:hover h3 {
-            color: #42A5F5; /* الأزرق السماوي عند التحويم */
+        .work-card {
+            background: #fff;
+            border-radius: 15px;
+            overflow: hidden;
+            box-shadow: 0 5px 15px rgba(0, 0, 0, 0.1);
+            transition: all 0.3s ease;
         }
 
+        .work-card:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 25px rgba(241, 196, 15, 0.2);
+        }
+
+        .work-card img {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        .work-card-content {
+            padding: 20px;
+        }
+
+        .work-card h4 {
+            font-size: 22px;
+            color: #1a2a44;
+            margin-bottom: 10px;
+        }
+
+        .work-card p {
+            font-size: 16px;
+            color: #7f8c8d;
+        }
+
+        /* Footer */
         footer {
-            background: #1A237E; /* الأزرق الداكن للفوتر */
-            border-top: 4px solid #42A5F5; /* الأزرق السماوي للحد العلوي */
-            box-shadow: 0 -5px 20px rgba(26, 35, 126, 0.3);
+            background: #1a2a44;
+            padding: 50px 20px;
+            text-align: center;
+            color: #fff;
         }
 
-        footer .social a, footer .social .contact-btn {
-            color: #42A5F5; /* الأزرق السماوي للأيقونات */
+        footer p {
+            font-size: 18px;
+            margin-bottom: 20px;
         }
 
-        footer .social a:hover, footer .social .contact-btn:hover {
-            color: #ECEFF1; /* الرمادي الفاتح عند التحويم */
+        footer .social a {
+            color: #f1c40f;
+            font-size: 28px;
+            margin: 0 15px;
+            transition: all 0.3s ease;
         }
 
-        /* بقية الأنماط كما هي */
+        footer .social a:hover {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        /* Animations */
+        @keyframes fadeInUp {
+            from { opacity: 0; transform: translateY(30px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            .hero { padding: 80px 20px; }
+            .hero-content h2 { font-size: 40px; }
+            .hero-content h3 { font-size: 22px; }
+            .container { padding: 50px 20px; }
+            .services-grid, .works-grid { grid-template-columns: 1fr; }
+        }
     </style>
 </head>
 <body>
-    <canvas id="bgCanvas"></canvas>
-
     <!-- Header -->
     <header>
         <nav>
             <ul>
-                <li><a href="#home" data-en="Home" data-ar="الرئيسية">الرئيسية</a></li>
-                <li><a href="#about" data-en="About" data-ar="نبذة">نبذة</a></li>
-                <li><a href="#skills" data-en="Services" data-ar="خدماتنا">خدماتنا</a></li>
-                <li><a href="#contact" data-en="Contact" data-ar="تواصل">تواصل</a></li>
+                <li><a href="#home">الرئيسية</a></li>
+                <li><a href="#about">نبذة عنا</a></li>
+                <li><a href="#services">خدماتنا</a></li>
+                <li><a href="#works">أعمالنا</a></li>
+                <li><a href="#contact">تواصل معنا</a></li>
             </ul>
         </nav>
     </header>
 
     <!-- Hero Section -->
     <div class="hero" id="home">
-        <div class="hero-wave"></div>
         <div class="hero-content">
-            <h2 data-en="Welcome to Root Company" data-ar="مرحباً بكم في Root Company">مرحباً بكم في Root Company</h2>
-            <h3 data-en="Leading Tech Company" data-ar="شركة تقنية رائدة">شركة تقنية رائدة</h3>
-            <p data-en="We deliver innovative tech solutions with high quality and professionalism." data-ar="نقدم حلولاً تقنية مبتكرة بجودة عالية واحترافية">نقدم حلولاً تقنية مبتكرة بجودة عالية واحترافية</p>
-            <div class="social">
-                <a href="https://wa.me/1234567890"><i class="fab fa-whatsapp"></i></a>
-                <a href="#"><i class="fab fa-linkedin"></i></a>
-                <a href="#"><i class="fab fa-snapchat"></i></a>
-                <a href="#" id="languageToggle"><i class="fas fa-globe"></i></a>
-                <a href="#" id="heroContactBtn"><i class="fas fa-envelope"></i></a>
-            </div>
-            <a href="#" class="start-btn" id="startProjectBtn"><i class="fas fa-rocket"></i> <span data-en="Start Your Project" data-ar="ابدأ مشروعك">ابدأ مشروعك</span></a>
+            <h2>Root</h2>
+            <h3>حلول تقنية مبتكرة</h3>
+            <p>نقدم خدمات تطوير البرمجيات والتصميم بجودة عالية لتحقيق رؤيتك.</p>
+            <a href="#contact" class="start-btn">ابدأ الآن</a>
         </div>
     </div>
 
     <!-- Main Content -->
     <div class="container">
         <div class="section" id="about">
-            <h2 data-en="About the Company" data-ar="نبذة عن الشركة">نبذة عن الشركة</h2>
-            <p data-en="We are a company specializing in delivering web and mobile solutions, blending creativity with cutting-edge technology." data-ar="نحن شركة متخصصة في تقديم حلول الويب والموبايل، نجمع بين الإبداع والتكنولوجيا المتطورة.">نحن شركة متخصصة في تقديم حلول الويب والموبايل، نجمع بين الإبداع والتكنولوجيا المتطورة.</p>
+            <h2>نبذة عنا</h2>
+            <p>نحن شركة Root، متخصصون في تقديم حلول تقنية متكاملة تشمل تطوير الويب والموبايل، التصميم، والأتمتة.</p>
         </div>
 
-        <div class="section" id="skills">
-            <h2 data-en="Our Services" data-ar="خدماتنا">خدماتنا</h2>
-            <div class="skills-grid">
-                <div class="skill-card">
+        <div class="section" id="services">
+            <h2>خدماتنا</h2>
+            <div class="services-grid">
+                <div class="service-card">
                     <i class="fas fa-code"></i>
-                    <h4 data-en="Programming" data-ar="البرمجة">البرمجة</h4>
-                    <p class="skill-desc" data-en="High-performance apps with Python & JS." data-ar="تطبيقات عالية الأداء بـ Python وJS.">تطبيقات عالية الأداء بـ Python وJS.</p>
+                    <h4>تطوير البرمجيات</h4>
+                    <p>نبني تطبيقات قوية وفعالة باستخدام أحدث التقنيات.</p>
                 </div>
-                <div class="skill-card">
+                <div class="service-card">
                     <i class="fas fa-paint-brush"></i>
-                    <h4 data-en="Design" data-ar="التصميم">التصميم</h4>
-                    <p class="skill-desc" data-en="Stunning UI with modern CSS." data-ar="واجهات مذهلة بـ CSS الحديث.">واجهات مذهلة بـ CSS الحديث.</p>
+                    <h4>تصميم واجهات المستخدم</h4>
+                    <p>تصاميم جذابة وسهلة الاستخدام لتجربة مميزة.</p>
                 </div>
-                <div class="skill-card">
-                    <i class="fas fa-server"></i>
-                    <h4 data-en="Sys Admin" data-ar="إدارة الأنظمة">إدارة الأنظمة</h4>
-                    <p class="skill-desc" data-en="Optimizing Linux systems." data-ar="تحسين أنظمة Linux.">تحسين أنظمة Linux.</p>
-                </div>
-                <div class="skill-card">
-                    <i class="fas fa-terminal"></i>
-                    <h4 data-en="Automation" data-ar="الأتمتة">الأتمتة</h4>
-                    <p class="skill-desc" data-en="Smart scripts with Bash & Python." data-ar="سكربتات ذكية بـ Bash وPython.">سكربتات ذكية بـ Bash وPython.</p>
-                </div>
-                <div class="skill-card">
+                <div class="service-card">
                     <i class="fas fa-mobile-alt"></i>
-                    <h4 data-en="Mobile Dev" data-ar="تطوير الموبايل">تطوير الموبايل</h4>
-                    <p class="skill-desc" data-en="Seamless iOS & Android apps." data-ar="تطبيقات iOS وAndroid سلسة.">تطبيقات iOS وAndroid سلسة.</p>
+                    <h4>تطوير تطبيقات الموبايل</h4>
+                    <p>تطبيقات متجاوبة لنظامي iOS وAndroid.</p>
                 </div>
             </div>
         </div>
 
-        <!-- بقية الأقسام كما هي -->
+        <div class="section" id="works">
+            <h2>أعمالنا</h2>
+            <div class="works-grid">
+                <div class="work-card">
+                    <img src="https://images.unsplash.com/photo-1498050108023-c5249f4df085?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="مشروع 1">
+                    <div class="work-card-content">
+                        <h4>مشروع تقني 1</h4>
+                        <p>تطبيق ويب متكامل لإدارة الأعمال.</p>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <img src="https://images.unsplash.com/photo-1519389950473-47ba0277781c?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="مشروع 2">
+                    <div class="work-card-content">
+                        <h4>مشروع تقني 2</h4>
+                        <p>تطبيق موبايل للتجارة الإلكترونية.</p>
+                    </div>
+                </div>
+                <div class="work-card">
+                    <img src="https://images.unsplash.com/photo-1551288049-0e27e736b1ba?ixlib=rb-4.0.3&auto=format&fit=crop&w=1350&q=80" alt="مشروع 3">
+                    <div class="work-card-content">
+                        <h4>مشروع تقني 3</h4>
+                        <p>نظام أتمتة لتحسين العمليات.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Footer -->
     <footer id="contact">
-        <p data-en="All Rights Reserved © 2025 | Root Company" data-ar="جميع الحقوق محفوظة © 2025 | Root Company">جميع الحقوق محفوظة © 2025 | Root Company</p>
+        <p>جميع الحقوق محفوظة © 2025 | Root</p>
         <div class="social">
             <a href="https://wa.me/1234567890"><i class="fab fa-whatsapp"></i></a>
             <a href="#"><i class="fab fa-linkedin"></i></a>
-            <a href="#"><i class="fab fa-snapchat"></i></a>
-            <i class="fas fa-envelope contact-btn" id="contactBtn"></i>
-        </div>
-        <div class="footer-links">
-            <span class="footer-links-btn" id="footerLinksBtn" data-en="More" data-ar="المزيد">المزيد</span>
-            <div class="footer-links-menu" id="footerLinksMenu">
-                <a href="#privacy" data-en="Privacy Policy" data-ar="سياسة الخصوصية">سياسة الخصوصية</a>
-                <a href="#terms" data-en="Terms & Conditions" data-ar="الشروط والأحكام">الشروط والأحكام</a>
-            </div>
+            <a href="#"><i class="fab fa-twitter"></i></a>
         </div>
     </footer>
 
-    <!-- السكربت كما هو -->
     <script>
-        const bgCanvas = document.getElementById('bgCanvas');
-        const bgCtx = bgCanvas.getContext('2d');
-        bgCanvas.width = window.innerWidth * 1.5;
-        bgCanvas.height = window.innerHeight;
-
-        const code = ['0', '1', 'if', 'else', 'function', 'var', '{', '}', ';', '<', '>'];
-        const particles = [];
-
-        class Particle {
-            constructor() {
-                this.x = Math.random() * bgCanvas.width;
-                this.y = Math.random() * bgCanvas.height;
-                this.text = code[Math.floor(Math.random() * code.length)];
-                this.size = Math.random() * 25 + 15;
-                this.speedY = Math.random() * 0.8 + 0.4;
-            }
-
-            draw() {
-                bgCtx.fillStyle = 'rgba(26, 35, 126, 0.4)'; /* الأزرق الداكن للجزيئات */
-                bgCtx.font = `${this.size}px 'Cairo'`;
-                bgCtx.fillText(this.text, this.x, this.y);
-            }
-
-            update() {
-                this.y += this.speedY;
-                if (this.y > bgCanvas.height) {
-                    this.y = -this.size;
-                    this.x = Math.random() * bgCanvas.width;
-                }
-                this.draw();
-            }
-        }
-
-        for (let i = 0; i < 80; i++) particles.push(new Particle());
-        function animateBackground() {
-            bgCtx.clearRect(0, 0, bgCanvas.width, bgCanvas.height);
-            particles.forEach(p => p.update());
-            requestAnimationFrame(animateBackground);
-        }
-        animateBackground();
-
-        window.addEventListener('resize', () => {
-            bgCanvas.width = window.innerWidth * 1.5;
-            bgCanvas.height = window.innerHeight;
+        // Smooth Scroll
+        document.querySelectorAll('a[href^="#"]').forEach(anchor => {
+            anchor.addEventListener('click', function(e) {
+                e.preventDefault();
+                document.querySelector(this.getAttribute('href')).scrollIntoView({
+                    behavior: 'smooth'
+                });
+            });
         });
 
-        // بقية السكربت كما هو
+        // Header Shrink
+        window.addEventListener('scroll', () => {
+            document.querySelector('header').classList.toggle('shrink', window.scrollY > 50);
+        });
     </script>
 </body>
 </html>
