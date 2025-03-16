@@ -199,44 +199,6 @@
             transform: scale(1.05);
         }
 
-        /* Stats Section */
-        .stats {
-            background: rgba(0, 0, 0, 0.9);
-            padding: 60px 50px;
-            text-align: center;
-            border-top: 2px solid #d32f2f;
-            border-bottom: 2px solid #d32f2f;
-        }
-
-        .stats-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 40px;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .stat-item {
-            color: #e0e0e0;
-            transition: all 0.5s ease;
-        }
-
-        .stat-item:hover {
-            transform: translateY(-10px);
-        }
-
-        .stat-item h3 {
-            font-size: 40px;
-            color: #d32f2f;
-            margin-bottom: 10px;
-            text-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
-        }
-
-        .stat-item p {
-            font-size: 18px;
-            font-family: 'Amiri', serif;
-        }
-
         /* Main Container */
         .container {
             padding: 80px 50px;
@@ -353,6 +315,63 @@
         .skill-card:hover .skill-desc {
             color: #fff;
             background: rgba(255, 255, 255, 0.1);
+        }
+
+        /* Stats Section */
+        .stats {
+            padding: 60px 50px;
+            text-align: center;
+            background: transparent;
+        }
+
+        .stats-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
+            gap: 40px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        .stat-item {
+            padding: 30px;
+            border: 2px solid #d32f2f;
+            border-radius: 15px;
+            background: rgba(0, 0, 0, 0.8);
+            transition: all 0.5s ease;
+        }
+
+        .stat-item:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 10px 20px rgba(211, 47, 47, 0.3);
+        }
+
+        .stat-item i {
+            font-size: 40px;
+            color: #d32f2f;
+            margin-bottom: 15px;
+            transition: all 0.3s ease;
+        }
+
+        .stat-item:hover i {
+            color: #fff;
+            transform: scale(1.1);
+        }
+
+        .stat-item h3 {
+            font-size: 40px;
+            color: #d32f2f;
+            margin-bottom: 10px;
+            text-shadow: 0 0 10px rgba(211, 47, 47, 0.5);
+        }
+
+        .stat-item:hover h3 {
+            color: #fff;
+        }
+
+        .stat-item p {
+            font-size: 18px;
+            font-family: 'Amiri', serif;
+            color: #e0e0e0;
         }
 
         /* Contact Popup */
@@ -559,28 +578,6 @@
         </div>
     </div>
 
-    <!-- Stats Section -->
-    <div class="stats">
-        <div class="stats-grid">
-            <div class="stat-item">
-                <h3>85%</h3>
-                <p data-en="Project Success Rate" data-ar="نسبة نجاح المشاريع">نسبة نجاح المشاريع</p>
-            </div>
-            <div class="stat-item">
-                <h3>20+</h3>
-                <p data-en="Collaborating Team" data-ar="فريق متعاون">فريق متعاون</p>
-            </div>
-            <div class="stat-item">
-                <h3>150+</h3>
-                <p data-en="Tech Consultations" data-ar="استشارات تقنية">استشارات تقنية</p>
-            </div>
-            <div class="stat-item">
-                <h3>15+</h3>
-                <p data-en="Tech Projects" data-ar="مشاريع تقنية">مشاريع تقنية</p>
-            </div>
-        </div>
-    </div>
-
     <!-- Main Content -->
     <div class="container">
         <div class="section" id="about">
@@ -615,6 +612,32 @@
                     <i class="fas fa-mobile-alt"></i>
                     <h4 data-en="Mobile Dev" data-ar="تطوير الموبايل">تطوير الموبايل</h4>
                     <p class="skill-desc" data-en="Seamless iOS & Android apps." data-ar="تطبيقات iOS وAndroid سلسة.">تطبيقات iOS وAndroid سلسة.</p>
+                </div>
+            </div>
+        </div>
+
+        <!-- Stats Section -->
+        <div class="stats" id="stats">
+            <div class="stats-grid">
+                <div class="stat-item">
+                    <i class="fas fa-star"></i>
+                    <h3 data-target="85">0%</h3>
+                    <p data-en="Project Success Rate" data-ar="نسبة نجاح المشاريع">نسبة نجاح المشاريع</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-users"></i>
+                    <h3 data-target="20">0+</h3>
+                    <p data-en="Collaborating Team" data-ar="فريق متعاون">فريق متعاون</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-lightbulb"></i>
+                    <h3 data-target="150">0+</h3>
+                    <p data-en="Tech Consultations" data-ar="استشارات تقنية">استشارات تقنية</p>
+                </div>
+                <div class="stat-item">
+                    <i class="fas fa-project-diagram"></i>
+                    <h3 data-target="15">0+</h3>
+                    <p data-en="Tech Projects" data-ar="مشاريع تقنية">مشاريع تقنية</p>
                 </div>
             </div>
         </div>
@@ -793,6 +816,41 @@
         window.addEventListener('scroll', () => {
             document.querySelector('header').classList.toggle('shrink', window.scrollY > 50);
         });
+
+        // Stats Counter Animation
+        const statsSection = document.getElementById('stats');
+        const statNumbers = document.querySelectorAll('.stat-item h3');
+        let hasAnimated = false;
+
+        function animateStats() {
+            statNumbers.forEach(stat => {
+                const target = parseInt(stat.getAttribute('data-target'));
+                let count = 0;
+                const increment = target / 50; // Speed of animation
+                const isPercentage = stat.textContent.includes('%');
+
+                const updateCount = () => {
+                    count += increment;
+                    if (count >= target) {
+                        stat.textContent = isPercentage ? `${target}%` : `${target}+`;
+                    } else {
+                        stat.textContent = isPercentage ? `${Math.ceil(count)}%` : `${Math.ceil(count)}+`;
+                        requestAnimationFrame(updateCount);
+                    }
+                };
+
+                updateCount();
+            });
+        }
+
+        const observer = new IntersectionObserver((entries) => {
+            if (entries[0].isIntersecting && !hasAnimated) {
+                animateStats();
+                hasAnimated = true;
+            }
+        }, { threshold: 0.5 });
+
+        observer.observe(statsSection);
     </script>
 </body>
 </html>
